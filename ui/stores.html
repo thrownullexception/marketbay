@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Stores — MarketBay</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#eef4ff',
+              100: '#dae6ff',
+              200: '#bdd4ff',
+              300: '#90b8ff',
+              400: '#5b90ff',
+              500: '#3568fc',
+              600: '#1d44f2',
+              700: '#1633de',
+              800: '#182cb4',
+              900: '#1a2b8e',
+              950: '#141c56',
+            },
+            accent: {
+              50:  '#fffbeb',
+              100: '#fff3c6',
+              200: '#ffe588',
+              300: '#ffd24a',
+              400: '#ffbf20',
+              500: '#f99b07',
+              600: '#dd7302',
+              700: '#b75006',
+              800: '#943d0c',
+              900: '#7a330d',
+              950: '#461902',
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    html { scroll-behavior: smooth; }
+    .store-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,.08); }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-white text-gray-800 font-sans antialiased">
+
+  <!-- ========== TOP BAR ========== -->
+  <div class="bg-brand-950 text-brand-200 text-xs py-1.5">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+      <p>Free shipping on orders over $50</p>
+      <div class="hidden sm:flex items-center gap-4">
+        <a href="#" class="hover:text-white transition">Sell on MarketBay</a>
+        <a href="#" class="hover:text-white transition">Order Tracking</a>
+        <a href="#" class="hover:text-white transition">Help</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
+      <a href="home.html" class="flex-shrink-0 flex items-center gap-2">
+        <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <span class="text-xl font-extrabold text-brand-950 tracking-tight">Market<span class="text-brand-600">Bay</span></span>
+      </a>
+      <div class="flex-1 max-w-2xl mx-auto">
+        <div class="relative">
+          <input type="text" placeholder="Search stores by name, category..." class="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="relative p-2 rounded-full hover:bg-gray-100 transition" aria-label="Messages">
+          <svg class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        </button>
+        <button class="relative p-2 rounded-full hover:bg-gray-100 transition" aria-label="Cart">
+          <svg class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+          <span class="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">3</span>
+        </button>
+        <a href="#" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-brand-600 transition">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          Sign In
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== BREADCRUMB ========== -->
+  <div class="bg-gray-50 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 py-2.5">
+      <nav class="flex items-center gap-1.5 text-xs text-gray-400">
+        <a href="home.html" class="hover:text-brand-600 transition whitespace-nowrap">Home</a>
+        <svg class="w-3 h-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        <span class="text-gray-600 font-medium whitespace-nowrap">Browse Stores</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ========== PAGE HEADER ========== -->
+  <section class="bg-gradient-to-br from-brand-50 via-white to-accent-50 border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 py-8 lg:py-10">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div>
+          <h1 class="text-2xl lg:text-3xl font-extrabold text-gray-900">Browse Stores</h1>
+          <p class="text-gray-500 text-sm mt-1.5 max-w-lg">Discover independent sellers from around the world. Follow your favorites to stay updated on new products and exclusive deals.</p>
+        </div>
+        <div class="flex items-center gap-2 text-sm">
+          <span class="text-gray-500">1,240 stores</span>
+          <span class="text-gray-300">|</span>
+          <span class="text-gray-500">87,000+ products</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURED STORES ========== -->
+  <section class="py-8 bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="text-lg font-bold text-gray-900">Featured Stores</h2>
+        <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">Staff Picks</span>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+        <!-- Featured 1 -->
+        <a href="store.html" class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-800 min-h-[180px] flex flex-col justify-end p-6 group cursor-pointer">
+          <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
+          <div class="absolute top-5 right-5">
+            <div class="w-14 h-14 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center text-white text-lg font-bold border border-white/20">TV</div>
+          </div>
+          <div class="relative">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-lg font-bold text-white">TechVault</h3>
+              <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-white/20 text-white text-[10px] font-semibold rounded-full">
+                <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Verified
+              </span>
+            </div>
+            <p class="text-blue-200 text-sm">Electronics &bull; Gadgets &bull; 342 products</p>
+            <div class="flex items-center gap-3 mt-2">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="text-white text-sm font-semibold">4.9</span>
+                <span class="text-blue-300 text-xs">(2.1k)</span>
+              </div>
+              <span class="text-blue-300 text-xs">8.4k followers</span>
+            </div>
+          </div>
+          <svg class="absolute right-5 bottom-5 w-5 h-5 text-white/30 group-hover:text-white/60 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+
+        <!-- Featured 2 -->
+        <a href="#" class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-rose-500 to-pink-700 min-h-[180px] flex flex-col justify-end p-6 group cursor-pointer">
+          <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
+          <div class="absolute top-5 right-5">
+            <div class="w-14 h-14 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center text-white text-lg font-bold border border-white/20">SH</div>
+          </div>
+          <div class="relative">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-lg font-bold text-white">StyleHouse</h3>
+              <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-white/20 text-white text-[10px] font-semibold rounded-full">
+                <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Verified
+              </span>
+            </div>
+            <p class="text-rose-200 text-sm">Fashion &bull; Accessories &bull; 518 products</p>
+            <div class="flex items-center gap-3 mt-2">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="text-white text-sm font-semibold">4.8</span>
+                <span class="text-rose-300 text-xs">(1.8k)</span>
+              </div>
+              <span class="text-rose-300 text-xs">12.1k followers</span>
+            </div>
+          </div>
+          <svg class="absolute right-5 bottom-5 w-5 h-5 text-white/30 group-hover:text-white/60 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+
+        <!-- Featured 3 -->
+        <a href="#" class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-emerald-500 to-teal-700 min-h-[180px] flex flex-col justify-end p-6 group cursor-pointer">
+          <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
+          <div class="absolute top-5 right-5">
+            <div class="w-14 h-14 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center text-white text-lg font-bold border border-white/20">GN</div>
+          </div>
+          <div class="relative">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-lg font-bold text-white">GreenNest</h3>
+              <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-white/20 text-white text-[10px] font-semibold rounded-full">
+                <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Verified
+              </span>
+            </div>
+            <p class="text-emerald-200 text-sm">Beauty &bull; Wellness &bull; 215 products</p>
+            <div class="flex items-center gap-3 mt-2">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="text-white text-sm font-semibold">4.9</span>
+                <span class="text-emerald-300 text-xs">(956)</span>
+              </div>
+              <span class="text-emerald-300 text-xs">6.2k followers</span>
+            </div>
+          </div>
+          <svg class="absolute right-5 bottom-5 w-5 h-5 text-white/30 group-hover:text-white/60 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FILTERS + STORE GRID ========== -->
+  <section class="py-8 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+
+      <!-- Filter bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <div class="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-1">
+          <button class="px-4 py-2 text-xs font-semibold rounded-full bg-brand-600 text-white whitespace-nowrap">All Stores</button>
+          <button class="px-4 py-2 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:border-brand-300 hover:text-brand-600 transition whitespace-nowrap">Electronics</button>
+          <button class="px-4 py-2 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:border-brand-300 hover:text-brand-600 transition whitespace-nowrap">Fashion</button>
+          <button class="px-4 py-2 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:border-brand-300 hover:text-brand-600 transition whitespace-nowrap">Beauty</button>
+          <button class="px-4 py-2 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:border-brand-300 hover:text-brand-600 transition whitespace-nowrap">Home</button>
+          <button class="px-4 py-2 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:border-brand-300 hover:text-brand-600 transition whitespace-nowrap">Sports</button>
+          <button class="px-4 py-2 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:border-brand-300 hover:text-brand-600 transition whitespace-nowrap">Books</button>
+          <button class="px-4 py-2 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:border-brand-300 hover:text-brand-600 transition whitespace-nowrap">Groceries</button>
+        </div>
+        <select class="text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent cursor-pointer flex-shrink-0">
+          <option>Sort: Most Popular</option>
+          <option>Top Rated</option>
+          <option>Most Products</option>
+          <option>Most Followers</option>
+          <option>Newest</option>
+        </select>
+      </div>
+
+      <!-- Results count -->
+      <p class="text-sm text-gray-500 mb-5">Showing <span class="font-semibold text-gray-700">1–12</span> of <span class="font-semibold text-gray-700">1,240</span> stores</p>
+
+      <!-- Store grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <!-- Store 1: TechVault -->
+        <a href="store.html" class="store-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300">
+          <div class="h-20 bg-gradient-to-r from-blue-500 to-indigo-600 relative">
+            <div class="absolute -bottom-5 left-5">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-lg font-bold border-3 border-white shadow-md">TV</div>
+            </div>
+          </div>
+          <div class="pt-8 px-5 pb-5">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-gray-900">TechVault</h3>
+              <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
+                <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              </span>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Electronics &bull; Gadgets &bull; Accessories</p>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">Premium electronics and gadgets. Curated selection of top-quality tech products with fast shipping.</p>
+            <div class="flex items-center gap-4 mt-3 text-xs text-gray-500">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="font-semibold text-gray-700">4.9</span>
+                <span>(2.1k)</span>
+              </div>
+              <span>342 products</span>
+              <span>8.4k followers</span>
+            </div>
+            <div class="flex gap-2 mt-4">
+              <span class="flex-1 px-3 py-2 bg-brand-50 text-brand-600 text-xs font-semibold rounded-lg text-center">Follow</span>
+              <span class="px-3 py-2 bg-gray-50 text-gray-500 text-xs font-semibold rounded-lg">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Store 2: StyleHouse -->
+        <a href="#" class="store-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300">
+          <div class="h-20 bg-gradient-to-r from-rose-400 to-pink-600 relative">
+            <div class="absolute -bottom-5 left-5">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center text-white text-lg font-bold border-3 border-white shadow-md">SH</div>
+            </div>
+          </div>
+          <div class="pt-8 px-5 pb-5">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-gray-900">StyleHouse</h3>
+              <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
+                <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              </span>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Fashion &bull; Shoes &bull; Accessories</p>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">Trendy fashion pieces for every season. From casual basics to statement looks at affordable prices.</p>
+            <div class="flex items-center gap-4 mt-3 text-xs text-gray-500">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="font-semibold text-gray-700">4.8</span>
+                <span>(1.8k)</span>
+              </div>
+              <span>518 products</span>
+              <span>12.1k followers</span>
+            </div>
+            <div class="flex gap-2 mt-4">
+              <span class="flex-1 px-3 py-2 bg-brand-50 text-brand-600 text-xs font-semibold rounded-lg text-center">Follow</span>
+              <span class="px-3 py-2 bg-gray-50 text-gray-500 text-xs font-semibold rounded-lg">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Store 3: GreenNest -->
+        <a href="#" class="store-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300">
+          <div class="h-20 bg-gradient-to-r from-emerald-400 to-teal-600 relative">
+            <div class="absolute -bottom-5 left-5">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-lg font-bold border-3 border-white shadow-md">GN</div>
+            </div>
+          </div>
+          <div class="pt-8 px-5 pb-5">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-gray-900">GreenNest</h3>
+              <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
+                <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              </span>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Beauty &bull; Skincare &bull; Wellness</p>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">Organic, cruelty-free beauty and wellness products. Natural ingredients for radiant skin and self-care.</p>
+            <div class="flex items-center gap-4 mt-3 text-xs text-gray-500">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="font-semibold text-gray-700">4.9</span>
+                <span>(956)</span>
+              </div>
+              <span>215 products</span>
+              <span>6.2k followers</span>
+            </div>
+            <div class="flex gap-2 mt-4">
+              <span class="flex-1 px-3 py-2 bg-brand-600 text-white text-xs font-semibold rounded-lg text-center">Following</span>
+              <span class="px-3 py-2 bg-gray-50 text-gray-500 text-xs font-semibold rounded-lg">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Store 4: FitGear Pro -->
+        <a href="#" class="store-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300">
+          <div class="h-20 bg-gradient-to-r from-orange-400 to-amber-600 relative">
+            <div class="absolute -bottom-5 left-5">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white text-lg font-bold border-3 border-white shadow-md">FG</div>
+            </div>
+          </div>
+          <div class="pt-8 px-5 pb-5">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-gray-900">FitGear Pro</h3>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Sports &bull; Fitness &bull; Equipment</p>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">Professional fitness equipment and sportswear. From resistance bands to dumbbells for every workout.</p>
+            <div class="flex items-center gap-4 mt-3 text-xs text-gray-500">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="font-semibold text-gray-700">4.7</span>
+                <span>(743)</span>
+              </div>
+              <span>189 products</span>
+              <span>3.8k followers</span>
+            </div>
+            <div class="flex gap-2 mt-4">
+              <span class="flex-1 px-3 py-2 bg-brand-50 text-brand-600 text-xs font-semibold rounded-lg text-center">Follow</span>
+              <span class="px-3 py-2 bg-gray-50 text-gray-500 text-xs font-semibold rounded-lg">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Store 5: BookNook -->
+        <a href="#" class="store-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300">
+          <div class="h-20 bg-gradient-to-r from-violet-500 to-purple-700 relative">
+            <div class="absolute -bottom-5 left-5">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-lg font-bold border-3 border-white shadow-md">BN</div>
+            </div>
+          </div>
+          <div class="pt-8 px-5 pb-5">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-gray-900">BookNook</h3>
+              <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
+                <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              </span>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Books &bull; Bestsellers &bull; E-books</p>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">Curated book collections from fiction to business. Bestsellers, hidden gems, and exclusive editions.</p>
+            <div class="flex items-center gap-4 mt-3 text-xs text-gray-500">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="font-semibold text-gray-700">4.8</span>
+                <span>(1.1k)</span>
+              </div>
+              <span>1,240 products</span>
+              <span>5.6k followers</span>
+            </div>
+            <div class="flex gap-2 mt-4">
+              <span class="flex-1 px-3 py-2 bg-brand-50 text-brand-600 text-xs font-semibold rounded-lg text-center">Follow</span>
+              <span class="px-3 py-2 bg-gray-50 text-gray-500 text-xs font-semibold rounded-lg">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Store 6: HomeHaven -->
+        <a href="#" class="store-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300">
+          <div class="h-20 bg-gradient-to-r from-amber-400 to-yellow-600 relative">
+            <div class="absolute -bottom-5 left-5">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center text-white text-lg font-bold border-3 border-white shadow-md">HH</div>
+            </div>
+          </div>
+          <div class="pt-8 px-5 pb-5">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-gray-900">HomeHaven</h3>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Home &bull; Furniture &bull; Decor</p>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">Modern home furnishings and decor. Smart lighting, cozy bedding, and stylish storage solutions.</p>
+            <div class="flex items-center gap-4 mt-3 text-xs text-gray-500">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="font-semibold text-gray-700">4.9</span>
+                <span>(1.2k)</span>
+              </div>
+              <span>298 products</span>
+              <span>4.5k followers</span>
+            </div>
+            <div class="flex gap-2 mt-4">
+              <span class="flex-1 px-3 py-2 bg-brand-50 text-brand-600 text-xs font-semibold rounded-lg text-center">Follow</span>
+              <span class="px-3 py-2 bg-gray-50 text-gray-500 text-xs font-semibold rounded-lg">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Store 7: UrbanVogue -->
+        <a href="#" class="store-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300">
+          <div class="h-20 bg-gradient-to-r from-purple-500 to-violet-700 relative">
+            <div class="absolute -bottom-5 left-5">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center text-white text-lg font-bold border-3 border-white shadow-md">UV</div>
+            </div>
+          </div>
+          <div class="pt-8 px-5 pb-5">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-gray-900">UrbanVogue</h3>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Fashion &bull; Streetwear &bull; Sneakers</p>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">Urban streetwear and sneaker culture. Limited drops, exclusive collabs, and trending styles.</p>
+            <div class="flex items-center gap-4 mt-3 text-xs text-gray-500">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="font-semibold text-gray-700">4.7</span>
+                <span>(1.2k)</span>
+              </div>
+              <span>410 products</span>
+              <span>9.3k followers</span>
+            </div>
+            <div class="flex gap-2 mt-4">
+              <span class="flex-1 px-3 py-2 bg-brand-50 text-brand-600 text-xs font-semibold rounded-lg text-center">Follow</span>
+              <span class="px-3 py-2 bg-gray-50 text-gray-500 text-xs font-semibold rounded-lg">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Store 8: GadgetZone -->
+        <a href="#" class="store-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300">
+          <div class="h-20 bg-gradient-to-r from-gray-700 to-gray-900 relative">
+            <div class="absolute -bottom-5 left-5">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-white text-lg font-bold border-3 border-white shadow-md">GZ</div>
+            </div>
+          </div>
+          <div class="pt-8 px-5 pb-5">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-gray-900">GadgetZone</h3>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Electronics &bull; Smart Home &bull; Drones</p>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">Cutting-edge gadgets and smart home devices. Drones, action cameras, and innovative tech accessories.</p>
+            <div class="flex items-center gap-4 mt-3 text-xs text-gray-500">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="font-semibold text-gray-700">4.7</span>
+                <span>(1.4k)</span>
+              </div>
+              <span>276 products</span>
+              <span>5.1k followers</span>
+            </div>
+            <div class="flex gap-2 mt-4">
+              <span class="flex-1 px-3 py-2 bg-brand-50 text-brand-600 text-xs font-semibold rounded-lg text-center">Follow</span>
+              <span class="px-3 py-2 bg-gray-50 text-gray-500 text-xs font-semibold rounded-lg">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Store 9: ThreadCraft -->
+        <a href="#" class="store-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300">
+          <div class="h-20 bg-gradient-to-r from-amber-500 to-orange-600 relative">
+            <div class="absolute -bottom-5 left-5">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-lg font-bold border-3 border-white shadow-md">TC</div>
+            </div>
+          </div>
+          <div class="pt-8 px-5 pb-5">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-gray-900">ThreadCraft</h3>
+              <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
+                <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              </span>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Fashion &bull; Handmade &bull; Knitwear</p>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">Handcrafted knitwear and artisanal fashion. Each piece is made with care using sustainable materials.</p>
+            <div class="flex items-center gap-4 mt-3 text-xs text-gray-500">
+              <div class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <span class="font-semibold text-gray-700">4.9</span>
+                <span>(860)</span>
+              </div>
+              <span>145 products</span>
+              <span>7.8k followers</span>
+            </div>
+            <div class="flex gap-2 mt-4">
+              <span class="flex-1 px-3 py-2 bg-brand-50 text-brand-600 text-xs font-semibold rounded-lg text-center">Follow</span>
+              <span class="px-3 py-2 bg-gray-50 text-gray-500 text-xs font-semibold rounded-lg">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Pagination -->
+      <div class="flex items-center justify-center gap-1 mt-10">
+        <button class="w-9 h-9 rounded-lg text-sm text-gray-400 hover:bg-gray-100 transition flex items-center justify-center" disabled>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="w-9 h-9 rounded-lg text-sm font-semibold bg-brand-600 text-white">1</button>
+        <button class="w-9 h-9 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition">2</button>
+        <button class="w-9 h-9 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition">3</button>
+        <span class="w-9 h-9 flex items-center justify-center text-gray-400 text-sm">...</span>
+        <button class="w-9 h-9 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition">104</button>
+        <button class="w-9 h-9 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition flex items-center justify-center">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== BECOME A SELLER CTA ========== -->
+  <section class="py-12 bg-white border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="rounded-2xl bg-gradient-to-r from-brand-700 to-brand-900 p-8 sm:p-10 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
+        <div class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+          <div>
+            <h2 class="text-2xl font-bold text-white">Start selling on MarketBay</h2>
+            <p class="text-brand-200 text-sm mt-2 max-w-md">Join thousands of independent sellers. Set up your store in minutes, reach millions of buyers, and grow your business with powerful tools.</p>
+            <div class="flex flex-wrap items-center gap-4 mt-4 text-sm text-brand-300">
+              <span class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                No monthly fees
+              </span>
+              <span class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Built-in analytics
+              </span>
+              <span class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Seller chat support
+              </span>
+            </div>
+          </div>
+          <a href="create-store.html" class="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-brand-700 font-semibold rounded-xl text-sm hover:bg-brand-50 transition shadow-sm self-start sm:self-center flex-shrink-0">
+            Open Your Store <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TRUST BAR ========== -->
+  <section class="py-5 bg-gray-50 border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-wrap items-center justify-center gap-8 lg:gap-12 text-sm text-gray-500">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          <span>Free shipping over $50</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          <span>Secure checkout</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          <span>Buyer protection</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          <span>Easy returns</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-brand-950 text-brand-200">
+    <div class="max-w-7xl mx-auto px-4 py-12">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <span class="text-lg font-extrabold text-white tracking-tight">Market<span class="text-brand-400">Bay</span></span>
+          </div>
+          <p class="text-sm leading-relaxed max-w-xs">Shop thousands of products from independent sellers worldwide. Find unique items, great deals, and stores you'll love.</p>
+          <div class="flex gap-3 mt-5">
+            <a href="#" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition" aria-label="Twitter">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition" aria-label="Instagram">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition" aria-label="Facebook">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-3">Shop</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="categories.html" class="hover:text-white transition">All Categories</a></li>
+            <li><a href="#" class="hover:text-white transition">Today's Deals</a></li>
+            <li><a href="#" class="hover:text-white transition">New Arrivals</a></li>
+            <li><a href="#" class="hover:text-white transition">Best Sellers</a></li>
+            <li><a href="stores.html" class="hover:text-white transition">Browse Stores</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-3">My Account</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white transition">Order History</a></li>
+            <li><a href="#" class="hover:text-white transition">Saved Items</a></li>
+            <li><a href="#" class="hover:text-white transition">Following</a></li>
+            <li><a href="#" class="hover:text-white transition">Messages</a></li>
+            <li><a href="#" class="hover:text-white transition">Settings</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-3">Help</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white transition">Customer Support</a></li>
+            <li><a href="#" class="hover:text-white transition">Shipping Info</a></li>
+            <li><a href="#" class="hover:text-white transition">Returns &amp; Refunds</a></li>
+            <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-xs text-brand-300">&copy; 2026 MarketBay. All rights reserved.</p>
+        <div class="flex items-center gap-4 text-xs text-brand-300">
+          <span class="flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Secure Payments
+          </span>
+          <span class="flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            Buyer Protection
+          </span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
