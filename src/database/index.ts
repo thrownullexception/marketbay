@@ -2,13 +2,13 @@ import { SQL } from "bun";
 
 import { drizzle } from "drizzle-orm/bun-sql";
 
-import { env } from "@/env";
+import { serverEnv } from "@/env/server";
 import * as schema from "./schemas";
 
 export type Database = typeof db;
 
 const pool = new SQL({
-	url: env.DATABASE_URL,
+	url: serverEnv.DATABASE_URL,
 	tls: false,
 	idleTimeout: 0,
 });

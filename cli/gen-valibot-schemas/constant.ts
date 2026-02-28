@@ -1,4 +1,4 @@
-export const ZOD_TYPE_MAP: Record<string, string> = {
+export const TYPE_MAP: Record<string, string> = {
     text: "string",
     tinytext: "string",
     mediumtext: "string",

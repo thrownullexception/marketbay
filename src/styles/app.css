@@ -1,5 +1,33 @@
 @import 'tailwindcss' source('../');
 
+@theme {
+  --color-brand-50:  #eef4ff;
+  --color-brand-100: #dae6ff;
+  --color-brand-200: #bdd4ff;
+  --color-brand-300: #90b8ff;
+  --color-brand-400: #5b90ff;
+  --color-brand-500: #3568fc;
+  --color-brand-600: #1d44f2;
+  --color-brand-700: #1633de;
+  --color-brand-800: #182cb4;
+  --color-brand-900: #1a2b8e;
+  --color-brand-950: #141c56;
+
+  --color-accent-50:  #fffbeb;
+  --color-accent-100: #fff3c6;
+  --color-accent-200: #ffe588;
+  --color-accent-300: #ffd24a;
+  --color-accent-400: #ffbf20;
+  --color-accent-500: #f99b07;
+  --color-accent-600: #dd7302;
+  --color-accent-700: #b75006;
+  --color-accent-800: #943d0c;
+  --color-accent-900: #7a330d;
+  --color-accent-950: #461902;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
 @layer base {
   *,
   ::after,

@@ -12,11 +12,20 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as DeferredRouteImport } from './routes/deferred'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as authRouteRouteImport } from './routes/(auth)/route'
+import { Route as appRouteRouteImport } from './routes/(app)/route'
+import { Route as appIndexRouteImport } from './routes/(app)/index'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
 import { Route as ApiUsersRouteImport } from './routes/api/users'
+import { Route as authRegisterRouteImport } from './routes/(auth)/register'
+import { Route as authLoginRouteImport } from './routes/(auth)/login'
+import { Route as authForgotpasswordRouteImport } from './routes/(auth)/forgotpassword'
+import { Route as appSearchRouteImport } from './routes/(app)/search'
+import { Route as appHelpRouteImport } from './routes/(app)/help'
+import { Route as appCartRouteImport } from './routes/(app)/cart'
 import { Route as PostsPostIdDeepRouteImport } from './routes/posts_.$postId.deep'
 import { Route as ApiUsersUserIdRouteImport } from './routes/api/users.$userId'
+import { Route as appStoreStoreSlugRouteImport } from './routes/(app)/store.$storeSlug'
 
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   id: '/terms-of-service',
@@ -33,20 +42,58 @@ const DeferredRoute = DeferredRouteImport.update({
   path: '/deferred',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const authRouteRoute = authRouteRouteImport.update({
+  id: '/(auth)',
   getParentRoute: () => rootRouteImport,
 } as any)
+const appRouteRoute = appRouteRouteImport.update({
+  id: '/(app)',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const appIndexRoute = appIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appRouteRoute,
+} as any)
 const PostsPostIdRoute = PostsPostIdRouteImport.update({
-  id: '/$postId',
-  path: '/$postId',
-  getParentRoute: () => PostsRoute,
+  id: '/posts/$postId',
+  path: '/posts/$postId',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiUsersRoute = ApiUsersRouteImport.update({
   id: '/api/users',
   path: '/api/users',
   getParentRoute: () => rootRouteImport,
+} as any)
+const authRegisterRoute = authRegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => authRouteRoute,
+} as any)
+const authLoginRoute = authLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => authRouteRoute,
+} as any)
+const authForgotpasswordRoute = authForgotpasswordRouteImport.update({
+  id: '/forgotpassword',
+  path: '/forgotpassword',
+  getParentRoute: () => authRouteRoute,
+} as any)
+const appSearchRoute = appSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appHelpRoute = appHelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appCartRoute = appCartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
+  getParentRoute: () => appRouteRoute,
 } as any)
 const PostsPostIdDeepRoute = PostsPostIdDeepRouteImport.update({
   id: '/posts_/$postId/deep',
@@ -58,77 +105,130 @@ const ApiUsersUserIdRoute = ApiUsersUserIdRouteImport.update({
   path: '/$userId',
   getParentRoute: () => ApiUsersRoute,
 } as any)
+const appStoreStoreSlugRoute = appStoreStoreSlugRouteImport.update({
+  id: '/store/$storeSlug',
+  path: '/store/$storeSlug',
+  getParentRoute: () => appRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/deferred': typeof DeferredRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/cart': typeof appCartRoute
+  '/help': typeof appHelpRoute
+  '/search': typeof appSearchRoute
+  '/forgotpassword': typeof authForgotpasswordRoute
+  '/login': typeof authLoginRoute
+  '/register': typeof authRegisterRoute
   '/api/users': typeof ApiUsersRouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
+  '/': typeof appIndexRoute
+  '/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/api/users/$userId': typeof ApiUsersUserIdRoute
   '/posts/$postId/deep': typeof PostsPostIdDeepRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/deferred': typeof DeferredRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/cart': typeof appCartRoute
+  '/help': typeof appHelpRoute
+  '/search': typeof appSearchRoute
+  '/forgotpassword': typeof authForgotpasswordRoute
+  '/login': typeof authLoginRoute
+  '/register': typeof authRegisterRoute
   '/api/users': typeof ApiUsersRouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
+  '/': typeof appIndexRoute
+  '/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/api/users/$userId': typeof ApiUsersUserIdRoute
   '/posts/$postId/deep': typeof PostsPostIdDeepRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/(app)': typeof appRouteRouteWithChildren
+  '/(auth)': typeof authRouteRouteWithChildren
   '/deferred': typeof DeferredRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/(app)/cart': typeof appCartRoute
+  '/(app)/help': typeof appHelpRoute
+  '/(app)/search': typeof appSearchRoute
+  '/(auth)/forgotpassword': typeof authForgotpasswordRoute
+  '/(auth)/login': typeof authLoginRoute
+  '/(auth)/register': typeof authRegisterRoute
   '/api/users': typeof ApiUsersRouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
+  '/(app)/': typeof appIndexRoute
+  '/(app)/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/api/users/$userId': typeof ApiUsersUserIdRoute
   '/posts_/$postId/deep': typeof PostsPostIdDeepRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/deferred'
     | '/privacy-policy'
     | '/terms-of-service'
+    | '/cart'
+    | '/help'
+    | '/search'
+    | '/forgotpassword'
+    | '/login'
+    | '/register'
     | '/api/users'
     | '/posts/$postId'
+    | '/'
+    | '/store/$storeSlug'
     | '/api/users/$userId'
     | '/posts/$postId/deep'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/deferred'
     | '/privacy-policy'
     | '/terms-of-service'
+    | '/cart'
+    | '/help'
+    | '/search'
+    | '/forgotpassword'
+    | '/login'
+    | '/register'
     | '/api/users'
     | '/posts/$postId'
+    | '/'
+    | '/store/$storeSlug'
     | '/api/users/$userId'
     | '/posts/$postId/deep'
   id:
     | '__root__'
-    | '/'
+    | '/(app)'
+    | '/(auth)'
     | '/deferred'
     | '/privacy-policy'
     | '/terms-of-service'
+    | '/(app)/cart'
+    | '/(app)/help'
+    | '/(app)/search'
+    | '/(auth)/forgotpassword'
+    | '/(auth)/login'
+    | '/(auth)/register'
     | '/api/users'
     | '/posts/$postId'
+    | '/(app)/'
+    | '/(app)/store/$storeSlug'
     | '/api/users/$userId'
     | '/posts_/$postId/deep'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  appRouteRoute: typeof appRouteRouteWithChildren
+  authRouteRoute: typeof authRouteRouteWithChildren
   DeferredRoute: typeof DeferredRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   ApiUsersRoute: typeof ApiUsersRouteWithChildren
+  PostsPostIdRoute: typeof PostsPostIdRoute
   PostsPostIdDeepRoute: typeof PostsPostIdDeepRoute
 }
 
@@ -155,19 +255,33 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof DeferredRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/(auth)': {
+      id: '/(auth)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof authRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(app)': {
+      id: '/(app)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof appRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(app)/': {
+      id: '/(app)/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof appIndexRouteImport
+      parentRoute: typeof appRouteRoute
     }
     '/posts/$postId': {
       id: '/posts/$postId'
-      path: '/$postId'
+      path: '/posts/$postId'
       fullPath: '/posts/$postId'
       preLoaderRoute: typeof PostsPostIdRouteImport
-      parentRoute: typeof PostsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/api/users': {
       id: '/api/users'
@@ -175,6 +289,48 @@ declare module '@tanstack/solid-router' {
       fullPath: '/api/users'
       preLoaderRoute: typeof ApiUsersRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/register': {
+      id: '/(auth)/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof authRegisterRouteImport
+      parentRoute: typeof authRouteRoute
+    }
+    '/(auth)/login': {
+      id: '/(auth)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof authLoginRouteImport
+      parentRoute: typeof authRouteRoute
+    }
+    '/(auth)/forgotpassword': {
+      id: '/(auth)/forgotpassword'
+      path: '/forgotpassword'
+      fullPath: '/forgotpassword'
+      preLoaderRoute: typeof authForgotpasswordRouteImport
+      parentRoute: typeof authRouteRoute
+    }
+    '/(app)/search': {
+      id: '/(app)/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof appSearchRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/help': {
+      id: '/(app)/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof appHelpRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/cart': {
+      id: '/(app)/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof appCartRouteImport
+      parentRoute: typeof appRouteRoute
     }
     '/posts_/$postId/deep': {
       id: '/posts_/$postId/deep'
@@ -190,8 +346,51 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof ApiUsersUserIdRouteImport
       parentRoute: typeof ApiUsersRoute
     }
+    '/(app)/store/$storeSlug': {
+      id: '/(app)/store/$storeSlug'
+      path: '/store/$storeSlug'
+      fullPath: '/store/$storeSlug'
+      preLoaderRoute: typeof appStoreStoreSlugRouteImport
+      parentRoute: typeof appRouteRoute
+    }
   }
 }
+
+interface appRouteRouteChildren {
+  appCartRoute: typeof appCartRoute
+  appHelpRoute: typeof appHelpRoute
+  appSearchRoute: typeof appSearchRoute
+  appIndexRoute: typeof appIndexRoute
+  appStoreStoreSlugRoute: typeof appStoreStoreSlugRoute
+}
+
+const appRouteRouteChildren: appRouteRouteChildren = {
+  appCartRoute: appCartRoute,
+  appHelpRoute: appHelpRoute,
+  appSearchRoute: appSearchRoute,
+  appIndexRoute: appIndexRoute,
+  appStoreStoreSlugRoute: appStoreStoreSlugRoute,
+}
+
+const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
+  appRouteRouteChildren,
+)
+
+interface authRouteRouteChildren {
+  authForgotpasswordRoute: typeof authForgotpasswordRoute
+  authLoginRoute: typeof authLoginRoute
+  authRegisterRoute: typeof authRegisterRoute
+}
+
+const authRouteRouteChildren: authRouteRouteChildren = {
+  authForgotpasswordRoute: authForgotpasswordRoute,
+  authLoginRoute: authLoginRoute,
+  authRegisterRoute: authRegisterRoute,
+}
+
+const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
+  authRouteRouteChildren,
+)
 
 interface ApiUsersRouteChildren {
   ApiUsersUserIdRoute: typeof ApiUsersUserIdRoute
@@ -206,11 +405,13 @@ const ApiUsersRouteWithChildren = ApiUsersRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  appRouteRoute: appRouteRouteWithChildren,
+  authRouteRoute: authRouteRouteWithChildren,
   DeferredRoute: DeferredRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
   ApiUsersRoute: ApiUsersRouteWithChildren,
+  PostsPostIdRoute: PostsPostIdRoute,
   PostsPostIdDeepRoute: PostsPostIdDeepRoute,
 }
 export const routeTree = rootRouteImport
