@@ -1,6 +1,6 @@
 export const DealsTicker = () => {
 	return (
-		<section class="bg-gradient-to-r from-accent-50 via-white to-accent-50 border-b border-accent-100">
+		<section class="bg-linear-to-r from-accent-50 via-white to-accent-50 border-b border-accent-100">
 			<div class="max-w-7xl mx-auto px-4 py-3">
 				<div class="flex items-center gap-3">
 					<span class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1 bg-accent-500 text-white text-xs font-bold rounded-full uppercase tracking-wide">
@@ -25,8 +25,8 @@ export const DealsTicker = () => {
 									Get 1 Free on winter collection
 								</span>
 								<span class="whitespace-nowrap text-sm text-gray-600">
-									<strong class="text-accent-700">GreenNest:</strong> Flash
-									sale — organic skincare from $9.99
+									<strong class="text-accent-700">GreenNest:</strong> Flash sale
+									— organic skincare from $9.99
 								</span>
 								<span class="whitespace-nowrap text-sm text-gray-600">
 									<strong class="text-accent-700">FitGear Pro:</strong> New
@@ -47,8 +47,8 @@ export const DealsTicker = () => {
 									Get 1 Free on winter collection
 								</span>
 								<span class="whitespace-nowrap text-sm text-gray-600">
-									<strong class="text-accent-700">GreenNest:</strong> Flash
-									sale — organic skincare from $9.99
+									<strong class="text-accent-700">GreenNest:</strong> Flash sale
+									— organic skincare from $9.99
 								</span>
 								<span class="whitespace-nowrap text-sm text-gray-600">
 									<strong class="text-accent-700">FitGear Pro:</strong> New

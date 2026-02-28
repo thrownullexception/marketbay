@@ -20,6 +20,7 @@ import { Route as ApiUsersRouteImport } from './routes/api/users'
 import { Route as authRegisterRouteImport } from './routes/(auth)/register'
 import { Route as authLoginRouteImport } from './routes/(auth)/login'
 import { Route as authForgotpasswordRouteImport } from './routes/(auth)/forgotpassword'
+import { Route as appStoresRouteImport } from './routes/(app)/stores'
 import { Route as appSearchRouteImport } from './routes/(app)/search'
 import { Route as appHelpRouteImport } from './routes/(app)/help'
 import { Route as appCartRouteImport } from './routes/(app)/cart'
@@ -80,6 +81,11 @@ const authForgotpasswordRoute = authForgotpasswordRouteImport.update({
   path: '/forgotpassword',
   getParentRoute: () => authRouteRoute,
 } as any)
+const appStoresRoute = appStoresRouteImport.update({
+  id: '/stores',
+  path: '/stores',
+  getParentRoute: () => appRouteRoute,
+} as any)
 const appSearchRoute = appSearchRouteImport.update({
   id: '/search',
   path: '/search',
@@ -118,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/cart': typeof appCartRoute
   '/help': typeof appHelpRoute
   '/search': typeof appSearchRoute
+  '/stores': typeof appStoresRoute
   '/forgotpassword': typeof authForgotpasswordRoute
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
@@ -135,6 +142,7 @@ export interface FileRoutesByTo {
   '/cart': typeof appCartRoute
   '/help': typeof appHelpRoute
   '/search': typeof appSearchRoute
+  '/stores': typeof appStoresRoute
   '/forgotpassword': typeof authForgotpasswordRoute
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
@@ -155,6 +163,7 @@ export interface FileRoutesById {
   '/(app)/cart': typeof appCartRoute
   '/(app)/help': typeof appHelpRoute
   '/(app)/search': typeof appSearchRoute
+  '/(app)/stores': typeof appStoresRoute
   '/(auth)/forgotpassword': typeof authForgotpasswordRoute
   '/(auth)/login': typeof authLoginRoute
   '/(auth)/register': typeof authRegisterRoute
@@ -174,6 +183,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/help'
     | '/search'
+    | '/stores'
     | '/forgotpassword'
     | '/login'
     | '/register'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/help'
     | '/search'
+    | '/stores'
     | '/forgotpassword'
     | '/login'
     | '/register'
@@ -210,6 +221,7 @@ export interface FileRouteTypes {
     | '/(app)/cart'
     | '/(app)/help'
     | '/(app)/search'
+    | '/(app)/stores'
     | '/(auth)/forgotpassword'
     | '/(auth)/login'
     | '/(auth)/register'
@@ -311,6 +323,13 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof authForgotpasswordRouteImport
       parentRoute: typeof authRouteRoute
     }
+    '/(app)/stores': {
+      id: '/(app)/stores'
+      path: '/stores'
+      fullPath: '/stores'
+      preLoaderRoute: typeof appStoresRouteImport
+      parentRoute: typeof appRouteRoute
+    }
     '/(app)/search': {
       id: '/(app)/search'
       path: '/search'
@@ -360,6 +379,7 @@ interface appRouteRouteChildren {
   appCartRoute: typeof appCartRoute
   appHelpRoute: typeof appHelpRoute
   appSearchRoute: typeof appSearchRoute
+  appStoresRoute: typeof appStoresRoute
   appIndexRoute: typeof appIndexRoute
   appStoreStoreSlugRoute: typeof appStoreStoreSlugRoute
 }
@@ -368,6 +388,7 @@ const appRouteRouteChildren: appRouteRouteChildren = {
   appCartRoute: appCartRoute,
   appHelpRoute: appHelpRoute,
   appSearchRoute: appSearchRoute,
+  appStoresRoute: appStoresRoute,
   appIndexRoute: appIndexRoute,
   appStoreStoreSlugRoute: appStoreStoreSlugRoute,
 }

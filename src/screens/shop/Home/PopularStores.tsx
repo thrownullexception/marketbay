@@ -19,7 +19,7 @@ export const PopularStores = () => {
 				<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
 					<div class="store-card bg-white rounded-2xl border border-gray-100 p-5 transition-all duration-300">
 						<div class="flex items-center gap-3">
-							<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-md shadow-blue-500/20">
+							<div class="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-md shadow-blue-500/20">
 								TV
 							</div>
 							<div class="min-w-0">
@@ -88,7 +88,7 @@ export const PopularStores = () => {
 					</div>
 					<div class="store-card bg-white rounded-2xl border border-gray-100 p-5 transition-all duration-300">
 						<div class="flex items-center gap-3">
-							<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-md shadow-rose-500/20">
+							<div class="w-12 h-12 rounded-xl bg-linear-to-br from-rose-500 to-pink-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-md shadow-rose-500/20">
 								SH
 							</div>
 							<div class="min-w-0">
@@ -157,7 +157,7 @@ export const PopularStores = () => {
 					</div>
 					<div class="store-card bg-white rounded-2xl border border-gray-100 p-5 transition-all duration-300">
 						<div class="flex items-center gap-3">
-							<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-md shadow-emerald-500/20">
+							<div class="w-12 h-12 rounded-xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-md shadow-emerald-500/20">
 								GN
 							</div>
 							<div class="min-w-0">
@@ -226,7 +226,7 @@ export const PopularStores = () => {
 					</div>
 					<div class="store-card bg-white rounded-2xl border border-gray-100 p-5 transition-all duration-300">
 						<div class="flex items-center gap-3">
-							<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-md shadow-orange-500/20">
+							<div class="w-12 h-12 rounded-xl bg-linear-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-md shadow-orange-500/20">
 								FG
 							</div>
 							<div class="min-w-0">

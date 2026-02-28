@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketBay - Your Trusted Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1E3A8A', // Deep Blue for trust and professionalism
+                        secondary: '#F59E0B', // Amber for actions/promotions
+                        accent: '#10B981', // Emerald for positive indications
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- Header / Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-store text-primary text-3xl"></i>
+                    <span class="font-bold text-2xl tracking-tight text-primary">MarketBay</span>
+                </div>
+
+                <!-- Global Search (Search across all stores) -->
+                <div class="flex-1 max-w-2xl mx-8 relative hidden md:block">
+                    <div
+                        class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-md bg-gray-100 overflow-hidden border border-transparent focus-within:border-primary transition-all">
+                        <div class="grid place-items-center h-full w-12 text-gray-400">
+                            <i class="fa-solid fa-search"></i>
+                        </div>
+                        <input class="peer h-full w-full outline-none text-sm text-gray-700 bg-gray-100 pr-2"
+                            type="text" id="search" placeholder="Search for products across all stores..." />
+                        <!-- Filter within store / category dropdown placeholder -->
+                        <div class="border-l border-gray-300 h-6 mx-2"></div>
+                        <select
+                            class="bg-gray-100 text-sm text-gray-600 outline-none pr-4 pl-2 cursor-pointer border-none h-full focus:ring-0 appearance-none hidden lg:block">
+                            <option>All Categories</option>
+                            <option>In This Store</option>
+                        </select>
+                        <button
+                            class="bg-primary hover:bg-blue-800 text-white px-6 h-full font-medium transition-colors">Search</button>
+                    </div>
+                </div>
+
+                <!-- Icons -->
+                <div class="flex items-center gap-6">
+                    <button class="text-gray-500 hover:text-primary relative transition-colors"
+                        title="Chat with Sellers / Buyers">
+                        <i class="fa-regular fa-comment-dots text-xl"></i>
+                        <span
+                            class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">3</span>
+                    </button>
+                    <button class="text-gray-500 hover:text-primary relative transition-colors" title="Notifications">
+                        <i class="fa-regular fa-bell text-xl"></i>
+                        <span
+                            class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">1</span>
+                    </button>
+                    <button class="text-gray-500 hover:text-primary relative transition-colors flex items-center gap-2"
+                        title="Cart">
+                        <div class="relative">
+                            <i class="fa-solid fa-cart-shopping text-xl"></i>
+                            <span
+                                class="absolute -top-1.5 -right-2 bg-secondary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">2</span>
+                        </div>
+                        <span class="hidden lg:block font-medium text-sm">$124.99</span>
+                    </button>
+                    <div class="h-8 w-px bg-gray-200"></div>
+                    <button class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                        <img class="h-9 w-9 rounded-full object-cover border border-gray-200"
+                            src="https://ui-avatars.com/api/?name=John+Doe&background=1E3A8A&color=fff"
+                            alt="User Avatar">
+                        <div class="hidden lg:flex flex-col text-left">
+                            <span class="text-xs text-gray-500 font-medium">Hello, John</span>
+                            <span class="text-sm font-semibold text-gray-800">Account & Lists</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Seller Promotions Section (Boost Sales) -->
+        <section>
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Featured Promotions <span
+                        class="text-sm font-normal text-gray-500 ml-2 hidden sm:inline">Sponsored by Top Sellers</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Promo 1 (Large) -->
+                <div class="md:col-span-2 relative rounded-2xl overflow-hidden shadow-sm group cursor-pointer h-72">
+                    <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=1200"
+                        alt="Tech Promo"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div
+                        class="absolute inset-0 bg-linear-to-r from-gray-900/80 to-gray-900/40 flex flex-col justify-center p-8">
+                        <span
+                            class="bg-secondary text-white text-xs font-bold uppercase tracking-wider py-1 px-3 rounded-full w-max mb-4 shadow-sm">ElectroStore
+                            Promo</span>
+                        <h3 class="text-white text-3xl md:text-4xl font-bold mb-2 md:w-2/3 leading-tight">Tech Week Mega
+                            Sale</h3>
+                        <p class="text-gray-200 mb-6 md:w-2/3">Up to 40% off on latest laptops and smart home devices.
+                            Boost your productivity today.</p>
+                        <button
+                            class="bg-white text-gray-900 hover:bg-gray-100 font-semibold py-2.5 px-6 rounded-lg w-max transition-colors">Shop
+                            the Sale</button>
+                    </div>
+                </div>
+
+                <!-- Promo 2 & 3 (Stacked) -->
+                <div class="flex flex-col gap-6 h-72">
+                    <div class="relative rounded-2xl overflow-hidden shadow-sm group cursor-pointer flex-1">
+                        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e07?auto=format&fit=crop&q=80&w=600"
+                            alt="Fashion Promo"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div
+                            class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent flex flex-col justify-end p-5">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span
+                                    class="bg-white text-gray-900 text-[10px] font-bold py-1 px-2 rounded uppercase">StyleHub</span>
+                                <span class="text-white text-[10px] bg-red-500 px-2 py-1 rounded font-bold">SALE</span>
+                            </div>
+                            <h3 class="text-white text-lg font-bold">Summer Collection</h3>
+                        </div>
+                    </div>
+                    <div class="relative rounded-2xl overflow-hidden shadow-sm group cursor-pointer flex-1">
+                        <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&q=80&w=600"
+                            alt="Home Promo"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div
+                            class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent flex flex-col justify-end p-5">
+                            <span
+                                class="bg-white text-gray-900 text-[10px] font-bold py-1 px-2 rounded w-max mb-2 uppercase">CozyLiving</span>
+                            <h3 class="text-white text-lg font-bold">20% Off Furniture</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top Rated Sellers (Rate, Subscribe/Bookmark) -->
+        <section>
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">Top Rated Sellers</h2>
+                    <p class="text-sm text-gray-500 mt-1 hidden sm:block">Subscribe to get notified of their new
+                        products and discounts.</p>
+                </div>
+                <a href="#" class="text-primary hover:text-blue-800 font-medium text-sm flex items-center">View All
+                    Stores <i class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Store Card 1 -->
+                <div
+                    class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center group hover:shadow-md transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=150&h=150"
+                        class="w-20 h-20 rounded-full object-cover mb-4 border-4 border-gray-50 group-hover:border-blue-50 transition-colors"
+                        alt="Store Logo">
+                    <h3 class="font-bold text-lg text-gray-900 cursor-pointer hover:text-primary transition-colors">
+                        SneakerHeadz</h3>
+                    <div class="flex items-center gap-1 text-secondary my-2" title="Rated 4.8 by Buyers">
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star-half-stroke text-sm"></i>
+                        <span class="text-gray-600 text-sm ml-1 font-medium">(4.8)</span>
+                    </div>
+                    <div class="flex gap-2 w-full mt-4">
+                        <button
+                            class="flex-1 border border-primary text-primary hover:bg-primary hover:text-white py-2 rounded-lg font-medium text-sm transition-colors flex justify-center items-center gap-2">
+                            <i class="fa-regular fa-bell"></i> Subscribe
+                        </button>
+                        <button
+                            class="w-10 border border-gray-200 text-gray-500 hover:bg-gray-50 hover:text-primary rounded-lg flex justify-center items-center transition-colors"
+                            title="Bookmark Store">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Store Card 2 -->
+                <div
+                    class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center group hover:shadow-md transition-shadow relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 bg-accent text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg z-10">
+                        NEW ITEMS</div>
+                    <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&q=80&w=150&h=150"
+                        class="w-20 h-20 rounded-full object-cover mb-4 border-4 border-gray-50 group-hover:border-blue-50 transition-colors"
+                        alt="Store Logo">
+                    <h3 class="font-bold text-lg text-gray-900 cursor-pointer hover:text-primary transition-colors">
+                        ElectroStore</h3>
+                    <div class="flex items-center gap-1 text-secondary my-2" title="Rated 5.0 by Buyers">
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <span class="text-gray-600 text-sm ml-1 font-medium">(5.0)</span>
+                    </div>
+                    <div class="flex gap-2 w-full mt-4">
+                        <button
+                            class="flex-1 bg-primary text-white hover:bg-blue-800 py-2 rounded-lg font-medium text-sm transition-colors flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-check"></i> Subscribed
+                        </button>
+                        <button
+                            class="w-10 border border-gray-200 text-gray-500 hover:bg-gray-50 hover:text-primary rounded-lg flex justify-center items-center transition-colors"
+                            title="Bookmark Store">
+                            <i class="fa-solid fa-bookmark text-primary"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Store Card 3 -->
+                <div
+                    class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center group hover:shadow-md transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=150&h=150"
+                        class="w-20 h-20 rounded-full object-cover mb-4 border-4 border-gray-50 group-hover:border-blue-50 transition-colors"
+                        alt="Store Logo">
+                    <h3 class="font-bold text-lg text-gray-900 cursor-pointer hover:text-primary transition-colors">
+                        StyleHub</h3>
+                    <div class="flex items-center gap-1 text-secondary my-2" title="Rated 4.1 by Buyers">
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-regular fa-star text-sm text-gray-300"></i>
+                        <span class="text-gray-600 text-sm ml-1 font-medium">(4.1)</span>
+                    </div>
+                    <div class="flex gap-2 w-full mt-4">
+                        <button
+                            class="flex-1 border border-primary text-primary hover:bg-primary hover:text-white py-2 rounded-lg font-medium text-sm transition-colors flex justify-center items-center gap-2">
+                            <i class="fa-regular fa-bell"></i> Subscribe
+                        </button>
+                        <button
+                            class="w-10 border border-gray-200 text-gray-500 hover:bg-gray-50 hover:text-primary rounded-lg flex justify-center items-center transition-colors"
+                            title="Bookmark Store">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Store Card 4 -->
+                <div
+                    class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center group hover:shadow-md transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=150&h=150"
+                        class="w-20 h-20 rounded-full object-cover mb-4 border-4 border-gray-50 group-hover:border-blue-50 transition-colors"
+                        alt="Store Logo">
+                    <h3 class="font-bold text-lg text-gray-900 cursor-pointer hover:text-primary transition-colors">
+                        CozyLiving</h3>
+                    <div class="flex items-center gap-1 text-secondary my-2" title="Rated 4.6 by Buyers">
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star text-sm"></i>
+                        <i class="fa-solid fa-star-half-stroke text-sm"></i>
+                        <span class="text-gray-600 text-sm ml-1 font-medium">(4.6)</span>
+                    </div>
+                    <div class="flex gap-2 w-full mt-4">
+                        <button
+                            class="flex-1 border border-primary text-primary hover:bg-primary hover:text-white py-2 rounded-lg font-medium text-sm transition-colors flex justify-center items-center gap-2">
+                            <i class="fa-regular fa-bell"></i> Subscribe
+                        </button>
+                        <button
+                            class="w-10 border border-gray-200 text-gray-500 hover:bg-gray-50 hover:text-primary rounded-lg flex justify-center items-center transition-colors"
+                            title="Bookmark Store">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Products (Add to cart, Chat with Seller) -->
+        <section>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Trending Now</h2>
+
+                <!-- Filters within categories -->
+                <div class="flex gap-2 overflow-x-auto hide-scroll pb-1">
+                    <button
+                        class="bg-gray-200 text-gray-800 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-gray-300 transition-colors whitespace-nowrap">All
+                        Items</button>
+                    <button
+                        class="bg-primary text-white px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap shadow-sm">Electronics</button>
+                    <button
+                        class="bg-white border border-gray-200 text-gray-700 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-gray-50 transition-colors whitespace-nowrap">Fashion</button>
+                    <button
+                        class="bg-white border border-gray-200 text-gray-700 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-gray-50 transition-colors whitespace-nowrap">Home</button>
+                    <button
+                        class="bg-white border border-gray-200 text-gray-700 px-4 py-1.5 rounded-full text-sm font-medium hover:bg-gray-50 transition-colors whitespace-nowrap hidden md:block">More
+                        <i class="fa-solid fa-chevron-down text-xs ml-1"></i></button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div
+                    class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group flex flex-col hover:shadow-md transition-shadow">
+                    <div class="relative h-56 bg-gray-50 p-6 flex justify-center items-center overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400"
+                            alt="Headphones"
+                            class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
+                        <button
+                            class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 shadow-sm transition-colors z-10">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <span
+                            class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm z-10">-15%</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-2">
+                            <a href="#"
+                                class="text-xs text-primary font-medium hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-store text-gray-400"></i> ElectroStore
+                            </a>
+                            <div class="flex items-center gap-1 text-gray-500 text-xs font-medium">
+                                <i class="fa-solid fa-star text-secondary"></i> 4.9
+                            </div>
+                        </div>
+                        <h3
+                            class="font-medium text-gray-900 mb-2 line-clamp-2 hover:text-primary cursor-pointer leading-tight">
+                            Premium Wireless Noise-Cancelling Headphones</h3>
+                        <div class="flex items-end gap-2 mb-4 mt-auto">
+                            <span class="text-xl font-bold text-gray-900">$299.00</span>
+                            <span class="text-sm text-gray-400 line-through mb-0.5">$350.00</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button
+                                class="flex-1 bg-primary hover:bg-blue-800 text-white py-2.5 rounded-lg font-medium text-sm transition-colors flex justify-center items-center gap-2 shadow-sm">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
+                            <button
+                                class="w-11 border border-gray-200 text-gray-500 hover:text-primary hover:bg-blue-50 rounded-lg flex justify-center items-center transition-colors"
+                                title="Chat with Seller">
+                                <i class="fa-regular fa-comment-dots text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div
+                    class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group flex flex-col hover:shadow-md transition-shadow">
+                    <div class="relative h-56 bg-gray-50 p-6 flex justify-center items-center overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=400"
+                            alt="Watch"
+                            class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
+                        <button
+                            class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 shadow-sm transition-colors z-10">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-2">
+                            <a href="#"
+                                class="text-xs text-primary font-medium hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-store text-gray-400"></i> StyleHub
+                            </a>
+                            <div class="flex items-center gap-1 text-gray-500 text-xs font-medium">
+                                <i class="fa-solid fa-star text-secondary"></i> 4.5
+                            </div>
+                        </div>
+                        <h3
+                            class="font-medium text-gray-900 mb-2 line-clamp-2 hover:text-primary cursor-pointer leading-tight">
+                            Minimalist Smart Watch with Leather Band</h3>
+                        <div class="flex items-end gap-2 mb-4 mt-auto">
+                            <span class="text-xl font-bold text-gray-900">$145.99</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button
+                                class="flex-1 bg-primary hover:bg-blue-800 text-white py-2.5 rounded-lg font-medium text-sm transition-colors flex justify-center items-center gap-2 shadow-sm">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
+                            <button
+                                class="w-11 border border-gray-200 text-gray-500 hover:text-primary hover:bg-blue-50 rounded-lg flex justify-center items-center transition-colors"
+                                title="Chat with Seller">
+                                <i class="fa-regular fa-comment-dots text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div
+                    class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group flex flex-col hover:shadow-md transition-shadow">
+                    <div class="relative h-56 bg-gray-50 p-6 flex justify-center items-center overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&q=80&w=400"
+                            alt="Earbuds"
+                            class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
+                        <button
+                            class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-red-500 shadow-sm transition-colors z-10">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-2">
+                            <a href="#"
+                                class="text-xs text-primary font-medium hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-store text-gray-400"></i> ElectroStore
+                            </a>
+                            <div class="flex items-center gap-1 text-gray-500 text-xs font-medium">
+                                <i class="fa-solid fa-star text-secondary"></i> 4.7
+                            </div>
+                        </div>
+                        <h3
+                            class="font-medium text-gray-900 mb-2 line-clamp-2 hover:text-primary cursor-pointer leading-tight">
+                            True Wireless Earbuds Pro</h3>
+                        <div class="flex items-end gap-2 mb-4 mt-auto">
+                            <span class="text-xl font-bold text-gray-900">$89.00</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button
+                                class="flex-1 bg-primary hover:bg-blue-800 text-white py-2.5 rounded-lg font-medium text-sm transition-colors flex justify-center items-center gap-2 shadow-sm">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
+                            <button
+                                class="w-11 border border-gray-200 text-gray-500 hover:text-primary hover:bg-blue-50 rounded-lg flex justify-center items-center transition-colors"
+                                title="Chat with Seller">
+                                <i class="fa-regular fa-comment-dots text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div
+                    class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group flex flex-col hover:shadow-md transition-shadow">
+                    <div class="relative h-56 bg-gray-50 p-6 flex justify-center items-center overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=400"
+                            alt="Watch"
+                            class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
+                        <button
+                            class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 shadow-sm transition-colors z-10">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-2">
+                            <a href="#"
+                                class="text-xs text-primary font-medium hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-store text-gray-400"></i> SneakerHeadz
+                            </a>
+                            <div class="flex items-center gap-1 text-gray-500 text-xs font-medium">
+                                <i class="fa-solid fa-star text-secondary"></i> 4.8
+                            </div>
+                        </div>
+                        <h3
+                            class="font-medium text-gray-900 mb-2 line-clamp-2 hover:text-primary cursor-pointer leading-tight">
+                            Classic Smartwatch Series 5</h3>
+                        <div class="flex items-end gap-2 mb-4 mt-auto">
+                            <span class="text-xl font-bold text-gray-900">$210.00</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button
+                                class="flex-1 bg-primary hover:bg-blue-800 text-white py-2.5 rounded-lg font-medium text-sm transition-colors flex justify-center items-center gap-2 shadow-sm">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
+                            <button
+                                class="w-11 border border-gray-200 text-gray-500 hover:text-primary hover:bg-blue-50 rounded-lg flex justify-center items-center transition-colors"
+                                title="Chat with Seller">
+                                <i class="fa-regular fa-comment-dots text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action (Sellers can create stores) -->
+        <section class="bg-primary rounded-2xl overflow-hidden shadow-lg relative my-12 group">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-10 transition-opacity group-hover:opacity-20 duration-700"
+                style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;">
+            </div>
+
+            <div
+                class="relative px-6 py-16 md:py-20 md:px-16 flex flex-col lg:flex-row items-center justify-between z-10">
+                <div class="mb-8 lg:mb-0 lg:mr-8 max-w-2xl text-center lg:text-left">
+                    <span
+                        class="bg-blue-900 text-blue-200 text-xs font-bold uppercase tracking-widest py-1.5 px-4 rounded-full inline-block mb-6 shadow-sm">Grow
+                        Your Business</span>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">Start Selling
+                        on MarketBay Today</h2>
+                    <p class="text-blue-100 text-lg md:text-xl font-light leading-relaxed max-w-xl mx-auto lg:mx-0">
+                        Create a store for your business in minutes. Reach millions of buyers worldwide, chat with your
+                        customers directly, and run promotions to boost your sales.</p>
+
+                    <ul class="hidden md:flex flex-wrap justify-center lg:justify-start gap-6 mt-8">
+                        <li class="flex items-center text-blue-100 gap-2"><i
+                                class="fa-solid fa-check-circle text-accent"></i> 0% Setup Fee</li>
+                        <li class="flex items-center text-blue-100 gap-2"><i
+                                class="fa-solid fa-check-circle text-accent"></i> Global Reach</li>
+                        <li class="flex items-center text-blue-100 gap-2"><i
+                                class="fa-solid fa-check-circle text-accent"></i> Instant Payouts</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4 lg:mt-0">
+                    <button
+                        class="bg-secondary hover:bg-orange-500 text-white text-lg font-bold py-3.5 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 whitespace-nowrap flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-shop"></i> Create a Store
+                    </button>
+                    <button
+                        class="bg-white/10 hover:bg-white/20 text-white border border-white/30 text-lg font-medium py-3.5 px-8 rounded-lg transition-colors whitespace-nowrap">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12 border-t border-gray-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-12">
+                <div class="col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-store text-white text-3xl"></i>
+                        <span class="font-bold text-2xl tracking-tight text-white">MarketBay</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">Your trusted platform to discover great
+                        products from amazing sellers worldwide. Quality guaranteed.</p>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors"><i
+                                class="fa-brands fa-twitter text-lg"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors"><i
+                                class="fa-brands fa-facebook-f text-lg"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors"><i
+                                class="fa-brands fa-instagram text-lg"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-white mb-6 uppercase text-sm tracking-wider">For Buyers</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">How to Buy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Track Your Order</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Buyer Protection</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Returns & Refunds</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-white mb-6 uppercase text-sm tracking-wider">For Sellers</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors flex items-center gap-2">Create a
+                                Store <span
+                                    class="bg-blue-600 text-white text-[9px] px-1.5 py-0.5 rounded uppercase font-bold">Free</span></a>
+                        </li>
+                        <li><a href="#" class="hover:text-white transition-colors">Seller Dashboard</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Run Promotions</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Seller Policies</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-white mb-6 uppercase text-sm tracking-wider">Customer Service</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Report Abuse</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="pt-8 border-t border-gray-800 text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p>&copy; 2026 MarketBay Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookie Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

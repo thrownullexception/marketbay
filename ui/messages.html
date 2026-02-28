@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +12,7 @@
         extend: {
           colors: {
             brand: {
-              50:  '#eef4ff',
+              50: '#eef4ff',
               100: '#dae6ff',
               200: '#bdd4ff',
               300: '#90b8ff',
@@ -24,7 +25,7 @@
               950: '#141c56',
             },
             accent: {
-              50:  '#fffbeb',
+              50: '#fffbeb',
               100: '#fff3c6',
               200: '#ffe588',
               300: '#ffd24a',
@@ -46,19 +47,50 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
   <style>
-    html { scroll-behavior: smooth; }
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-    .conversation-item:hover { background-color: #f9fafb; }
-    .conversation-item.active { background-color: #eef4ff; border-right: 3px solid #1d44f2; }
-    .chat-scrollbar::-webkit-scrollbar { width: 6px; }
-    .chat-scrollbar::-webkit-scrollbar-track { background: transparent; }
-    .chat-scrollbar::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 3px; }
-    .chat-scrollbar::-webkit-scrollbar-thumb:hover { background: #d1d5db; }
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .conversation-item:hover {
+      background-color: #f9fafb;
+    }
+
+    .conversation-item.active {
+      background-color: #eef4ff;
+      border-right: 3px solid #1d44f2;
+    }
+
+    .chat-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .chat-scrollbar::-webkit-scrollbar-thumb {
+      background: #e5e7eb;
+      border-radius: 3px;
+    }
+
+    .chat-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #d1d5db;
+    }
   </style>
 </head>
+
 <body class="bg-white text-gray-800 font-sans antialiased">
 
   <!-- ========== TOP BAR ========== -->
@@ -78,27 +110,45 @@
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
       <a href="home.html" class="flex-shrink-0 flex items-center gap-2">
         <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center">
-          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
         </div>
-        <span class="text-xl font-extrabold text-brand-950 tracking-tight">Market<span class="text-brand-600">Bay</span></span>
+        <span class="text-xl font-extrabold text-brand-950 tracking-tight">Market<span
+            class="text-brand-600">Bay</span></span>
       </a>
       <div class="flex-1 max-w-2xl mx-auto">
         <div class="relative">
-          <input type="text" placeholder="Search products, stores, brands..." class="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
-          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" placeholder="Search products, stores, brands..."
+            class="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
         </div>
       </div>
       <div class="flex items-center gap-3">
         <button class="relative p-2 rounded-full bg-brand-50 transition" aria-label="Messages">
-          <svg class="w-5 h-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-          <span class="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">2</span>
+          <svg class="w-5 h-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          <span
+            class="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">2</span>
         </button>
         <button class="relative p-2 rounded-full hover:bg-gray-100 transition" aria-label="Cart">
-          <svg class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
-          <span class="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">3</span>
+          <svg class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
+          </svg>
+          <span
+            class="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">3</span>
         </button>
-        <a href="#" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-brand-600 transition">
-          <div class="w-7 h-7 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs font-bold">AW</div>
+        <a href="#"
+          class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-brand-600 transition">
+          <div
+            class="w-7 h-7 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs font-bold">
+            AW</div>
           Alex
         </a>
       </div>
@@ -110,7 +160,9 @@
     <div class="max-w-7xl mx-auto px-4 py-2.5">
       <nav class="flex items-center gap-1.5 text-xs text-gray-400">
         <a href="home.html" class="hover:text-brand-600 transition">Home</a>
-        <svg class="w-3 h-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        <svg class="w-3 h-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
         <span class="text-gray-600 font-medium">Messages</span>
       </nav>
     </div>
@@ -124,14 +176,18 @@
         <p class="text-sm text-gray-500 mt-0.5">Chat with sellers and buyers</p>
       </div>
       <div class="flex items-center gap-2">
-        <button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>
+        <button
+          class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+          </svg>
           Mark All Read
         </button>
       </div>
     </div>
 
-    <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm" style="height: calc(100vh - 240px); min-height: 500px;">
+    <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm"
+      style="height: calc(100vh - 240px); min-height: 500px;">
       <div class="flex h-full">
 
         <!-- ===== LEFT: CONVERSATION LIST ===== -->
@@ -139,24 +195,36 @@
           <!-- Search & Filters -->
           <div class="p-3 border-b border-gray-100">
             <div class="relative">
-              <input type="text" placeholder="Search messages..." class="w-full pl-9 pr-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
-              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input type="text" placeholder="Search messages..."
+                class="w-full pl-9 pr-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
             </div>
             <div class="flex gap-1.5 mt-2">
               <button class="px-2.5 py-1 text-xs font-semibold rounded-full bg-brand-600 text-white">All</button>
-              <button class="px-2.5 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition">Unread</button>
-              <button class="px-2.5 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition">Buying</button>
-              <button class="px-2.5 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition">Selling</button>
+              <button
+                class="px-2.5 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition">Unread</button>
+              <button
+                class="px-2.5 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition">Buying</button>
+              <button
+                class="px-2.5 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition">Selling</button>
             </div>
           </div>
 
           <!-- Conversations -->
           <div class="flex-1 overflow-y-auto scrollbar-hide">
             <!-- Conversation 1 — Active -->
-            <div class="conversation-item active flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50" onclick="showChat(this)">
+            <div
+              class="conversation-item active flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50"
+              onclick="showChat(this)">
               <div class="relative flex-shrink-0">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">TV</div>
-                <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-white rounded-full"></span>
+                <div
+                  class="w-11 h-11 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                  TV</div>
+                <span
+                  class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-white rounded-full"></span>
               </div>
               <div class="flex-1 min-w-0">
                 <div class="flex items-center justify-between">
@@ -164,16 +232,23 @@
                   <span class="text-[11px] text-brand-600 font-medium flex-shrink-0">2m ago</span>
                 </div>
                 <p class="text-xs text-gray-500 mt-0.5 truncate">Re: Pro Studio Wireless Headphones</p>
-                <p class="text-xs text-gray-600 mt-0.5 truncate"><span class="font-medium text-brand-600">TechVault:</span> Yes, we can offer free express shipping on that order! Let me...</p>
+                <p class="text-xs text-gray-600 mt-0.5 truncate"><span
+                    class="font-medium text-brand-600">TechVault:</span> Yes, we can offer free express shipping on that
+                  order! Let me...</p>
               </div>
-              <span class="w-5 h-5 bg-brand-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center flex-shrink-0 mt-1">2</span>
+              <span
+                class="w-5 h-5 bg-brand-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center flex-shrink-0 mt-1">2</span>
             </div>
 
             <!-- Conversation 2 — Unread -->
-            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50" onclick="showChat(this)">
+            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50"
+              onclick="showChat(this)">
               <div class="relative flex-shrink-0">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">GN</div>
-                <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-white rounded-full"></span>
+                <div
+                  class="w-11 h-11 rounded-xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                  GN</div>
+                <span
+                  class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-white rounded-full"></span>
               </div>
               <div class="flex-1 min-w-0">
                 <div class="flex items-center justify-between">
@@ -181,15 +256,21 @@
                   <span class="text-[11px] text-brand-600 font-medium flex-shrink-0">15m ago</span>
                 </div>
                 <p class="text-xs text-gray-500 mt-0.5 truncate">Re: Vitamin C Serum — Natural Glow</p>
-                <p class="text-xs text-gray-600 mt-0.5 truncate"><span class="font-medium text-brand-600">GreenNest:</span> Great question! The serum is suitable for all skin types...</p>
+                <p class="text-xs text-gray-600 mt-0.5 truncate"><span
+                    class="font-medium text-brand-600">GreenNest:</span> Great question! The serum is suitable for all
+                  skin types...</p>
               </div>
-              <span class="w-5 h-5 bg-brand-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center flex-shrink-0 mt-1">1</span>
+              <span
+                class="w-5 h-5 bg-brand-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center flex-shrink-0 mt-1">1</span>
             </div>
 
             <!-- Conversation 3 — Read -->
-            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50" onclick="showChat(this)">
+            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50"
+              onclick="showChat(this)">
               <div class="relative flex-shrink-0">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">SH</div>
+                <div
+                  class="w-11 h-11 rounded-xl bg-linear-to-br from-rose-500 to-pink-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                  SH</div>
               </div>
               <div class="flex-1 min-w-0">
                 <div class="flex items-center justify-between">
@@ -197,14 +278,18 @@
                   <span class="text-[11px] text-gray-400 flex-shrink-0">Yesterday</span>
                 </div>
                 <p class="text-xs text-gray-500 mt-0.5 truncate">Re: Cashmere Blend Oversize Sweater</p>
-                <p class="text-xs text-gray-500 mt-0.5 truncate"><span class="font-medium">You:</span> Thanks for the quick reply! I'll place the order now.</p>
+                <p class="text-xs text-gray-500 mt-0.5 truncate"><span class="font-medium">You:</span> Thanks for the
+                  quick reply! I'll place the order now.</p>
               </div>
             </div>
 
             <!-- Conversation 4 — Read -->
-            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50" onclick="showChat(this)">
+            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50"
+              onclick="showChat(this)">
               <div class="relative flex-shrink-0">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">FG</div>
+                <div
+                  class="w-11 h-11 rounded-xl bg-linear-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                  FG</div>
               </div>
               <div class="flex-1 min-w-0">
                 <div class="flex items-center justify-between">
@@ -212,14 +297,18 @@
                   <span class="text-[11px] text-gray-400 flex-shrink-0">Feb 24</span>
                 </div>
                 <p class="text-xs text-gray-500 mt-0.5 truncate">Re: Resistance Band Set — Pro Series</p>
-                <p class="text-xs text-gray-500 mt-0.5 truncate"><span class="font-medium">FitGear Pro:</span> Your order #MB-29481 has been shipped! Tracking link: ...</p>
+                <p class="text-xs text-gray-500 mt-0.5 truncate"><span class="font-medium">FitGear Pro:</span> Your
+                  order #MB-29481 has been shipped! Tracking link: ...</p>
               </div>
             </div>
 
             <!-- Conversation 5 — Read -->
-            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50" onclick="showChat(this)">
+            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50"
+              onclick="showChat(this)">
               <div class="relative flex-shrink-0">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-xs font-bold shadow-sm">HH</div>
+                <div
+                  class="w-11 h-11 rounded-xl bg-linear-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                  HH</div>
               </div>
               <div class="flex-1 min-w-0">
                 <div class="flex items-center justify-between">
@@ -227,14 +316,18 @@
                   <span class="text-[11px] text-gray-400 flex-shrink-0">Feb 22</span>
                 </div>
                 <p class="text-xs text-gray-500 mt-0.5 truncate">Re: Smart LED Floor Lamp</p>
-                <p class="text-xs text-gray-500 mt-0.5 truncate"><span class="font-medium">You:</span> Got it, thank you! The lamp is amazing.</p>
+                <p class="text-xs text-gray-500 mt-0.5 truncate"><span class="font-medium">You:</span> Got it, thank
+                  you! The lamp is amazing.</p>
               </div>
             </div>
 
             <!-- Conversation 6 — Read -->
-            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50" onclick="showChat(this)">
+            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50"
+              onclick="showChat(this)">
               <div class="relative flex-shrink-0">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">BN</div>
+                <div
+                  class="w-11 h-11 rounded-xl bg-linear-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                  BN</div>
               </div>
               <div class="flex-1 min-w-0">
                 <div class="flex items-center justify-between">
@@ -242,15 +335,20 @@
                   <span class="text-[11px] text-gray-400 flex-shrink-0">Feb 19</span>
                 </div>
                 <p class="text-xs text-gray-500 mt-0.5 truncate">Re: The Art of Focus — 2026 Bestseller</p>
-                <p class="text-xs text-gray-500 mt-0.5 truncate"><span class="font-medium">BookNook:</span> We appreciate your support! Use code READER15 for 15% off...</p>
+                <p class="text-xs text-gray-500 mt-0.5 truncate"><span class="font-medium">BookNook:</span> We
+                  appreciate your support! Use code READER15 for 15% off...</p>
               </div>
             </div>
 
             <!-- Conversation 7 — System -->
-            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50" onclick="showChat(this)">
+            <div class="conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50"
+              onclick="showChat(this)">
               <div class="relative flex-shrink-0">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white flex-shrink-0 shadow-sm">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <div
+                  class="w-11 h-11 rounded-xl bg-linear-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white flex-shrink-0 shadow-sm">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
                 </div>
               </div>
               <div class="flex-1 min-w-0">
@@ -259,7 +357,8 @@
                   <span class="text-[11px] text-gray-400 flex-shrink-0">Feb 15</span>
                 </div>
                 <p class="text-xs text-gray-500 mt-0.5 truncate">Account & Orders</p>
-                <p class="text-xs text-gray-500 mt-0.5 truncate"><span class="font-medium">Support:</span> Your refund for order #MB-28103 has been processed...</p>
+                <p class="text-xs text-gray-500 mt-0.5 truncate"><span class="font-medium">Support:</span> Your refund
+                  for order #MB-28103 has been processed...</p>
               </div>
             </div>
           </div>
@@ -271,14 +370,22 @@
           <div class="flex items-center justify-between px-5 py-3 border-b border-gray-100 bg-white">
             <div class="flex items-center gap-3">
               <div class="relative">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">TV</div>
-                <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-white rounded-full"></span>
+                <div
+                  class="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                  TV</div>
+                <span
+                  class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-white rounded-full"></span>
               </div>
               <div>
                 <div class="flex items-center gap-2">
                   <h2 class="text-sm font-semibold text-gray-900">TechVault</h2>
-                  <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
-                    <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                  <span
+                    class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
+                    <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd"
+                        d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd" />
+                    </svg>
                     Verified
                   </span>
                 </div>
@@ -286,11 +393,19 @@
               </div>
             </div>
             <div class="flex items-center gap-1.5">
-              <a href="store.html" class="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition" title="Visit Store">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+              <a href="store.html" class="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition"
+                title="Visit Store">
+                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
               </a>
-              <button class="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition" title="More options">
-                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"/></svg>
+              <button class="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition"
+                title="More options">
+                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                </svg>
               </button>
             </div>
           </div>
@@ -298,18 +413,27 @@
           <!-- Product Reference Banner -->
           <div class="px-5 py-2.5 bg-gray-50 border-b border-gray-100">
             <a href="product.html" class="flex items-center gap-3 group">
-              <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-brand-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"/></svg>
+              <div
+                class="w-10 h-10 rounded-lg bg-linear-to-br from-blue-50 to-indigo-100 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-brand-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                  stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+                </svg>
               </div>
               <div class="flex-1 min-w-0">
                 <p class="text-xs text-gray-400">Discussing</p>
-                <p class="text-sm font-medium text-gray-700 group-hover:text-brand-600 transition truncate">Pro Studio Wireless Headphones — Active Noise Cancelling</p>
+                <p class="text-sm font-medium text-gray-700 group-hover:text-brand-600 transition truncate">Pro Studio
+                  Wireless Headphones — Active Noise Cancelling</p>
               </div>
               <div class="flex-shrink-0">
                 <span class="text-sm font-bold text-gray-900">$59.99</span>
                 <span class="text-xs text-gray-400 line-through ml-1">$99.99</span>
               </div>
-              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              <svg class="w-4 h-4 text-gray-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
             </a>
           </div>
 
@@ -326,21 +450,29 @@
             <div class="flex justify-end gap-2.5">
               <div class="max-w-[70%]">
                 <div class="bg-brand-600 text-white px-4 py-2.5 rounded-2xl rounded-br-md">
-                  <p class="text-sm leading-relaxed">Hi! I'm interested in the Pro Studio Wireless Headphones. Do you offer express shipping? I need them before Friday.</p>
+                  <p class="text-sm leading-relaxed">Hi! I'm interested in the Pro Studio Wireless Headphones. Do you
+                    offer express shipping? I need them before Friday.</p>
                 </div>
                 <div class="flex items-center justify-end gap-1 mt-1">
                   <span class="text-[10px] text-gray-400">10:23 AM</span>
-                  <svg class="w-3.5 h-3.5 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <svg class="w-3.5 h-3.5 text-brand-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd" />
+                  </svg>
                 </div>
               </div>
             </div>
 
             <!-- Seller message (left) -->
             <div class="flex gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0 mt-1">TV</div>
+              <div
+                class="w-7 h-7 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0 mt-1">
+                TV</div>
               <div class="max-w-[70%]">
                 <div class="bg-gray-100 text-gray-800 px-4 py-2.5 rounded-2xl rounded-bl-md">
-                  <p class="text-sm leading-relaxed">Hey Alex! Thanks for your interest in the Pro Studios. We do offer express shipping — it's normally $9.99 but I can check if we can waive that for you.</p>
+                  <p class="text-sm leading-relaxed">Hey Alex! Thanks for your interest in the Pro Studios. We do offer
+                    express shipping — it's normally $9.99 but I can check if we can waive that for you.</p>
                 </div>
                 <span class="text-[10px] text-gray-400 mt-1 block">10:25 AM</span>
               </div>
@@ -350,21 +482,30 @@
             <div class="flex justify-end gap-2.5">
               <div class="max-w-[70%]">
                 <div class="bg-brand-600 text-white px-4 py-2.5 rounded-2xl rounded-br-md">
-                  <p class="text-sm leading-relaxed">That would be amazing! I'm also choosing between the Matte Black and Navy Blue. Which one is more popular?</p>
+                  <p class="text-sm leading-relaxed">That would be amazing! I'm also choosing between the Matte Black
+                    and Navy Blue. Which one is more popular?</p>
                 </div>
                 <div class="flex items-center justify-end gap-1 mt-1">
                   <span class="text-[10px] text-gray-400">10:28 AM</span>
-                  <svg class="w-3.5 h-3.5 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <svg class="w-3.5 h-3.5 text-brand-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd" />
+                  </svg>
                 </div>
               </div>
             </div>
 
             <!-- Seller message (left) -->
             <div class="flex gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0 mt-1">TV</div>
+              <div
+                class="w-7 h-7 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0 mt-1">
+                TV</div>
               <div class="max-w-[70%]">
                 <div class="bg-gray-100 text-gray-800 px-4 py-2.5 rounded-2xl rounded-bl-md">
-                  <p class="text-sm leading-relaxed">Great choices! Matte Black is our bestseller — about 60% of orders. But the Navy Blue has been picking up lately, it looks really premium in person. Both have the same features and build quality.</p>
+                  <p class="text-sm leading-relaxed">Great choices! Matte Black is our bestseller — about 60% of orders.
+                    But the Navy Blue has been picking up lately, it looks really premium in person. Both have the same
+                    features and build quality.</p>
                 </div>
                 <span class="text-[10px] text-gray-400 mt-1 block">10:31 AM</span>
               </div>
@@ -375,7 +516,9 @@
               <div class="w-7 h-7 flex-shrink-0 mt-1"></div>
               <div class="max-w-[70%]">
                 <div class="bg-gray-100 text-gray-800 px-4 py-2.5 rounded-2xl rounded-bl-md">
-                  <p class="text-sm leading-relaxed">And good news — I checked with our warehouse and we can do free express shipping for you since you're a first-time buyer! Order before 2 PM and they'll arrive Thursday.</p>
+                  <p class="text-sm leading-relaxed">And good news — I checked with our warehouse and we can do free
+                    express shipping for you since you're a first-time buyer! Order before 2 PM and they'll arrive
+                    Thursday.</p>
                 </div>
                 <span class="text-[10px] text-gray-400 mt-1 block">10:32 AM</span>
               </div>
@@ -385,21 +528,30 @@
             <div class="flex justify-end gap-2.5">
               <div class="max-w-[70%]">
                 <div class="bg-brand-600 text-white px-4 py-2.5 rounded-2xl rounded-br-md">
-                  <p class="text-sm leading-relaxed">That's perfect, thank you! One more question — does the -40% discount end soon?</p>
+                  <p class="text-sm leading-relaxed">That's perfect, thank you! One more question — does the -40%
+                    discount end soon?</p>
                 </div>
                 <div class="flex items-center justify-end gap-1 mt-1">
                   <span class="text-[10px] text-gray-400">10:35 AM</span>
-                  <svg class="w-3.5 h-3.5 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <svg class="w-3.5 h-3.5 text-brand-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd" />
+                  </svg>
                 </div>
               </div>
             </div>
 
             <!-- Seller message (left) — latest -->
             <div class="flex gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0 mt-1">TV</div>
+              <div
+                class="w-7 h-7 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0 mt-1">
+                TV</div>
               <div class="max-w-[70%]">
                 <div class="bg-gray-100 text-gray-800 px-4 py-2.5 rounded-2xl rounded-bl-md">
-                  <p class="text-sm leading-relaxed">Yes, we can offer free express shipping on that order! Let me also mention — the 40% discount is part of our flash sale ending tonight at midnight. After that it goes back to $99.99. So I'd recommend ordering soon if you want to lock in the $59.99 price.</p>
+                  <p class="text-sm leading-relaxed">Yes, we can offer free express shipping on that order! Let me also
+                    mention — the 40% discount is part of our flash sale ending tonight at midnight. After that it goes
+                    back to $99.99. So I'd recommend ordering soon if you want to lock in the $59.99 price.</p>
                 </div>
                 <span class="text-[10px] text-gray-400 mt-1 block">10:37 AM</span>
               </div>
@@ -407,7 +559,9 @@
 
             <!-- Typing indicator -->
             <div class="flex gap-2.5 items-end opacity-0" id="typingIndicator">
-              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">TV</div>
+              <div
+                class="w-7 h-7 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">
+                TV</div>
               <div class="bg-gray-100 px-4 py-3 rounded-2xl rounded-bl-md">
                 <div class="flex gap-1">
                   <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0ms"></span>
@@ -421,30 +575,56 @@
           <!-- Quick Actions -->
           <div class="px-5 py-2 border-t border-gray-50 bg-gray-50/50">
             <div class="flex gap-2 overflow-x-auto scrollbar-hide">
-              <button class="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-700 transition">Is this still available?</button>
-              <button class="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-700 transition">Can you offer a discount?</button>
-              <button class="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-700 transition">What's the shipping time?</button>
-              <button class="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-700 transition">Do you accept returns?</button>
+              <button
+                class="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-700 transition">Is
+                this still available?</button>
+              <button
+                class="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-700 transition">Can
+                you offer a discount?</button>
+              <button
+                class="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-700 transition">What's
+                the shipping time?</button>
+              <button
+                class="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-700 transition">Do
+                you accept returns?</button>
             </div>
           </div>
 
           <!-- Message Input -->
           <div class="px-4 py-3 border-t border-gray-200 bg-white">
             <div class="flex items-end gap-2">
-              <button class="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition flex-shrink-0" title="Attach file">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"/></svg>
+              <button
+                class="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition flex-shrink-0"
+                title="Attach file">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
+                </svg>
               </button>
-              <button class="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition flex-shrink-0" title="Send image">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M2.25 18V6a2.25 2.25 0 012.25-2.25h15A2.25 2.25 0 0121.75 6v12A2.25 2.25 0 0119.5 18.25H4.5A2.25 2.25 0 012.25 18z"/></svg>
+              <button
+                class="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition flex-shrink-0"
+                title="Send image">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M2.25 18V6a2.25 2.25 0 012.25-2.25h15A2.25 2.25 0 0121.75 6v12A2.25 2.25 0 0119.5 18.25H4.5A2.25 2.25 0 012.25 18z" />
+                </svg>
               </button>
               <div class="flex-1 relative">
-                <textarea rows="1" placeholder="Type a message..." class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition resize-none" style="min-height: 42px; max-height: 120px;"></textarea>
+                <textarea rows="1" placeholder="Type a message..."
+                  class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition resize-none"
+                  style="min-height: 42px; max-height: 120px;"></textarea>
               </div>
-              <button class="p-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl transition flex-shrink-0 shadow-sm" title="Send message">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
+              <button
+                class="p-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl transition flex-shrink-0 shadow-sm"
+                title="Send message">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                </svg>
               </button>
             </div>
-            <p class="text-[10px] text-gray-400 mt-1.5 text-center">Avg. reply time: <span class="font-medium text-emerald-500">&lt; 5 minutes</span></p>
+            <p class="text-[10px] text-gray-400 mt-1.5 text-center">Avg. reply time: <span
+                class="font-medium text-emerald-500">&lt; 5 minutes</span></p>
           </div>
         </div>
 
@@ -452,10 +632,15 @@
         <div class="hidden flex-col items-center justify-center flex-1 bg-gray-50/50" id="emptyState">
           <div class="text-center max-w-xs">
             <div class="w-16 h-16 rounded-2xl bg-brand-50 flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-brand-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              <svg class="w-8 h-8 text-brand-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
             </div>
             <h3 class="text-base font-semibold text-gray-900 mb-1">Your Messages</h3>
-            <p class="text-sm text-gray-500">Select a conversation to start chatting with sellers and buyers on MarketBay.</p>
+            <p class="text-sm text-gray-500">Select a conversation to start chatting with sellers and buyers on
+              MarketBay.</p>
           </div>
         </div>
 
@@ -470,20 +655,39 @@
         <div class="lg:col-span-2">
           <div class="flex items-center gap-2 mb-3">
             <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
-              <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
             </div>
-            <span class="text-lg font-extrabold text-white tracking-tight">Market<span class="text-brand-400">Bay</span></span>
+            <span class="text-lg font-extrabold text-white tracking-tight">Market<span
+                class="text-brand-400">Bay</span></span>
           </div>
-          <p class="text-sm leading-relaxed max-w-xs">Shop thousands of products from independent sellers worldwide. Find unique items, great deals, and stores you'll love.</p>
+          <p class="text-sm leading-relaxed max-w-xs">Shop thousands of products from independent sellers worldwide.
+            Find unique items, great deals, and stores you'll love.</p>
           <div class="flex gap-3 mt-5">
-            <a href="#" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition" aria-label="Twitter">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <a href="#"
+              class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
+              aria-label="Twitter">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
             </a>
-            <a href="#" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition" aria-label="Instagram">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            <a href="#"
+              class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
+              aria-label="Instagram">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg>
             </a>
-            <a href="#" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition" aria-label="Facebook">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <a href="#"
+              class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
+              aria-label="Facebook">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
             </a>
           </div>
         </div>
@@ -522,11 +726,17 @@
         <p class="text-xs text-brand-300">&copy; 2026 MarketBay. All rights reserved.</p>
         <div class="flex items-center gap-4 text-xs text-brand-300">
           <span class="flex items-center gap-1">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
             Secure Payments
           </span>
           <span class="flex items-center gap-1">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
             Buyer Protection
           </span>
         </div>
@@ -542,7 +752,7 @@
 
     const textarea = document.querySelector('textarea');
     if (textarea) {
-      textarea.addEventListener('input', function() {
+      textarea.addEventListener('input', function () {
         this.style.height = 'auto';
         this.style.height = Math.min(this.scrollHeight, 120) + 'px';
       });
@@ -550,4 +760,5 @@
   </script>
 
 </body>
+
 </html>

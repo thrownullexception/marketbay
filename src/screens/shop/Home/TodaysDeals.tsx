@@ -21,7 +21,7 @@ export const TodaysDeals = () => {
 					<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
 						<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 							<div class="relative aspect-square bg-gray-50 overflow-hidden">
-								<div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+								<div class="absolute inset-0 bg-linear-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
 									<svg
 										class="w-16 h-16 text-brand-300"
 										fill="none"
@@ -110,7 +110,7 @@ export const TodaysDeals = () => {
 						</div>
 						<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 							<div class="relative aspect-square bg-gray-50 overflow-hidden">
-								<div class="absolute inset-0 bg-gradient-to-br from-pink-50 to-rose-100 flex items-center justify-center">
+								<div class="absolute inset-0 bg-linear-to-br from-pink-50 to-rose-100 flex items-center justify-center">
 									<svg
 										class="w-16 h-16 text-rose-300"
 										fill="none"
@@ -199,7 +199,7 @@ export const TodaysDeals = () => {
 						</div>
 						<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 							<div class="relative aspect-square bg-gray-50 overflow-hidden">
-								<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-green-100 flex items-center justify-center">
+								<div class="absolute inset-0 bg-linear-to-br from-emerald-50 to-green-100 flex items-center justify-center">
 									<svg
 										class="w-16 h-16 text-emerald-300"
 										fill="none"
@@ -282,7 +282,7 @@ export const TodaysDeals = () => {
 						</div>
 						<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 							<div class="relative aspect-square bg-gray-50 overflow-hidden">
-								<div class="absolute inset-0 bg-gradient-to-br from-cyan-50 to-sky-100 flex items-center justify-center">
+								<div class="absolute inset-0 bg-linear-to-br from-cyan-50 to-sky-100 flex items-center justify-center">
 									<svg
 										class="w-16 h-16 text-cyan-300"
 										fill="none"

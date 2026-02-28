@@ -27,7 +27,7 @@ export const ShopLayout = () => {
 
 			<nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100 shadow-sm">
 				<div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
-					<Link to="/" class="flex-shrink-0 flex items-center gap-2">
+					<Link to="/" class="shrink-0 flex items-center gap-2">
 						<div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center">
 							<svg
 								class="w-5 h-5 text-white"

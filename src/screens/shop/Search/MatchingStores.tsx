@@ -11,7 +11,7 @@ export const MatchingStores = () => {
 						class="store-card flex-shrink-0 w-64 bg-gray-50 rounded-xl border border-gray-100 p-4 transition-all duration-300"
 					>
 						<div class="flex items-center gap-3">
-							<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-md shadow-blue-500/20">
+							<div class="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-md shadow-blue-500/20">
 								TV
 							</div>
 							<div class="min-w-0">
@@ -51,7 +51,7 @@ export const MatchingStores = () => {
 						class="store-card flex-shrink-0 w-64 bg-gray-50 rounded-xl border border-gray-100 p-4 transition-all duration-300"
 					>
 						<div class="flex items-center gap-3">
-							<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-md shadow-violet-500/20">
+							<div class="w-10 h-10 rounded-xl bg-linear-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-md shadow-violet-500/20">
 								SA
 							</div>
 							<div class="min-w-0">
@@ -80,7 +80,7 @@ export const MatchingStores = () => {
 						class="store-card flex-shrink-0 w-64 bg-gray-50 rounded-xl border border-gray-100 p-4 transition-all duration-300"
 					>
 						<div class="flex items-center gap-3">
-							<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-md shadow-orange-500/20">
+							<div class="w-10 h-10 rounded-xl bg-linear-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-md shadow-orange-500/20">
 								FG
 							</div>
 							<div class="min-w-0">

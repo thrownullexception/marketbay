@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MarketBay - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: "#eff6ff",
+              100: "#dbeafe",
+              200: "#bfdbfe",
+              500: "#3b82f6",
+              600: "#2563eb",
+              700: "#1d4ed8"
+            },
+            accent: {
+              500: "#10b981",
+              600: "#059669"
+            }
+          },
+          boxShadow: {
+            soft: "0 10px 40px rgba(15, 23, 42, 0.08)"
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased">
+  <div class="bg-slate-900 text-slate-100">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-2 text-xs sm:px-6 lg:px-8">
+      <p>Free shipping on orders over $50</p>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hover:text-white">Seller Center</a>
+        <a href="#" class="hover:text-white">Buyer Support</a>
+        <a href="#" class="hover:text-white">Track Order</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center gap-4 px-4 py-4 sm:px-6 lg:px-8">
+      <a href="#" class="flex items-center gap-2">
+        <span
+          class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-600 text-lg font-bold text-white">M</span>
+        <div>
+          <p class="text-xl font-bold tracking-tight text-slate-900">MarketBay</p>
+          <p class="text-xs text-slate-500">Your multi-store marketplace</p>
+        </div>
+      </a>
+
+      <div class="order-3 w-full lg:order-none lg:ml-6 lg:flex-1">
+        <label for="global-search" class="sr-only">Search products</label>
+        <div class="flex items-stretch">
+          <select
+            class="w-32 rounded-l-xl border border-r-0 border-slate-300 bg-slate-50 px-3 text-sm text-slate-700 outline-none">
+            <option>All</option>
+            <option>Electronics</option>
+            <option>Fashion</option>
+            <option>Home</option>
+          </select>
+          <input id="global-search" type="text" placeholder="Search products, stores, and promotions..."
+            class="w-full border border-slate-300 px-4 py-3 text-sm outline-none ring-brand-500 placeholder:text-slate-400 focus:ring-2" />
+          <button
+            class="rounded-r-xl bg-brand-600 px-6 text-sm font-semibold text-white hover:bg-brand-700">Search</button>
+        </div>
+      </div>
+
+      <div class="ml-auto flex items-center gap-2 sm:gap-3">
+        <button
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100">Sign
+          In</button>
+        <button
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100">Orders</button>
+        <button class="rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-slate-800">Cart
+          (2)</button>
+      </div>
+    </div>
+    <div class="border-t border-slate-200 bg-white">
+      <nav
+        class="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3 text-sm font-medium text-slate-600 sm:px-6 lg:px-8">
+        <a href="#" class="rounded-full bg-brand-100 px-3 py-1 text-brand-700">All Categories</a>
+        <a href="#" class="hover:text-brand-600">Electronics</a>
+        <a href="#" class="hover:text-brand-600">Fashion</a>
+        <a href="#" class="hover:text-brand-600">Home & Living</a>
+        <a href="#" class="hover:text-brand-600">Health & Beauty</a>
+        <a href="#" class="hover:text-brand-600">Sports</a>
+        <a href="#" class="hover:text-brand-600">Store Promotions</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pb-16">
+    <section class="mx-auto grid max-w-7xl gap-5 px-4 py-8 sm:px-6 lg:grid-cols-12 lg:px-8">
+      <aside class="rounded-2xl border border-slate-200 bg-white p-4 lg:col-span-3">
+        <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Shop by Category</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="#" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-slate-100"><span>Phones
+                & Gadgets</span><span class="text-slate-400">1240</span></a></li>
+          <li><a href="#"
+              class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-slate-100"><span>Fashion</span><span
+                class="text-slate-400">938</span></a></li>
+          <li><a href="#" class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-slate-100"><span>Home
+                Appliances</span><span class="text-slate-400">502</span></a></li>
+          <li><a href="#"
+              class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-slate-100"><span>Beauty</span><span
+                class="text-slate-400">336</span></a></li>
+          <li><a href="#"
+              class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-slate-100"><span>Groceries</span><span
+                class="text-slate-400">284</span></a></li>
+          <li><a href="#"
+              class="flex items-center justify-between rounded-lg px-3 py-2 hover:bg-slate-100"><span>Fitness</span><span
+                class="text-slate-400">167</span></a></li>
+        </ul>
+        <button
+          class="mt-4 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100">Browse
+          all</button>
+      </aside>
+
+      <div class="space-y-5 lg:col-span-9">
+        <div class="grid gap-5 md:grid-cols-3">
+          <article class="rounded-2xl bg-linear-to-r from-brand-600 to-brand-700 p-6 text-white md:col-span-2">
+            <p class="text-xs font-semibold uppercase tracking-wide text-brand-100">Mega Sale</p>
+            <h1 class="mt-2 text-3xl font-bold leading-tight">Up to 60% off selected products</h1>
+            <p class="mt-2 text-sm text-brand-100">Explore deals from top sellers and add to cart before midnight.</p>
+            <button
+              class="mt-5 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-brand-700 hover:bg-slate-100">Shop
+              now</button>
+          </article>
+          <article class="rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
+            <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700">For Sellers</p>
+            <h2 class="mt-2 text-xl font-bold text-slate-900">Create your store</h2>
+            <p class="mt-2 text-sm text-slate-600">Launch your business storefront and feature promotions on the
+              homepage.</p>
+            <button
+              class="mt-5 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">Start
+              selling</button>
+          </article>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <article class="rounded-2xl border border-slate-200 bg-white p-4">
+            <div class="h-36 rounded-xl bg-slate-100"></div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-brand-700">Top Rated</p>
+            <h3 class="mt-1 text-sm font-semibold text-slate-900">Noise-Cancel Headphones</h3>
+            <p class="mt-1 text-sm text-slate-500">by SoundHub Store</p>
+            <div class="mt-3 flex items-center justify-between">
+              <p class="font-bold text-slate-900">$129.00</p>
+              <button
+                class="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-800">Add to
+                Cart</button>
+            </div>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-4">
+            <div class="h-36 rounded-xl bg-slate-100"></div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-brand-700">Best Seller</p>
+            <h3 class="mt-1 text-sm font-semibold text-slate-900">Minimal Desk Lamp</h3>
+            <p class="mt-1 text-sm text-slate-500">by Urban Craft Studio</p>
+            <div class="mt-3 flex items-center justify-between">
+              <p class="font-bold text-slate-900">$44.00</p>
+              <button
+                class="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-800">Add to
+                Cart</button>
+            </div>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-4">
+            <div class="h-36 rounded-xl bg-slate-100"></div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-brand-700">Trending</p>
+            <h3 class="mt-1 text-sm font-semibold text-slate-900">Smart Watch Pro</h3>
+            <p class="mt-1 text-sm text-slate-500">by Gadget Loft</p>
+            <div class="mt-3 flex items-center justify-between">
+              <p class="font-bold text-slate-900">$219.00</p>
+              <button
+                class="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-800">Add to
+                Cart</button>
+            </div>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-4">
+            <div class="h-36 rounded-xl bg-slate-100"></div>
+            <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-brand-700">Limited Deal</p>
+            <h3 class="mt-1 text-sm font-semibold text-slate-900">Skincare Essentials Kit</h3>
+            <p class="mt-1 text-sm text-slate-500">by Bloom Beauty</p>
+            <div class="mt-3 flex items-center justify-between">
+              <p class="font-bold text-slate-900">$32.00</p>
+              <button
+                class="rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-800">Add to
+                Cart</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <div class="mb-4 flex items-center justify-between">
+        <h2 class="text-2xl font-bold tracking-tight text-slate-900">Today&apos;s Promotions</h2>
+        <a href="#" class="text-sm font-semibold text-brand-600 hover:text-brand-700">See all</a>
+      </div>
+      <div class="grid gap-5 md:grid-cols-3">
+        <article class="rounded-2xl border border-slate-200 bg-white p-5">
+          <p class="text-xs font-semibold uppercase tracking-wide text-accent-600">Sponsored by MobileNest</p>
+          <h3 class="mt-2 text-lg font-semibold text-slate-900">Smartphone Weekend Promo</h3>
+          <p class="mt-2 text-sm text-slate-600">Save up to $120 and chat with sellers for bundle offers.</p>
+          <button
+            class="mt-4 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100">View
+            promo</button>
+        </article>
+        <article class="rounded-2xl border border-slate-200 bg-white p-5">
+          <p class="text-xs font-semibold uppercase tracking-wide text-accent-600">Sponsored by Kitchen Co.</p>
+          <h3 class="mt-2 text-lg font-semibold text-slate-900">Home Kitchen Bundle Deals</h3>
+          <p class="mt-2 text-sm text-slate-600">Buy more, save more. Featured in this week&apos;s home section.</p>
+          <button
+            class="mt-4 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100">View
+            promo</button>
+        </article>
+        <article class="rounded-2xl border border-slate-200 bg-white p-5">
+          <p class="text-xs font-semibold uppercase tracking-wide text-accent-600">Sponsored by FitPath</p>
+          <h3 class="mt-2 text-lg font-semibold text-slate-900">Sports Flash Discounts</h3>
+          <p class="mt-2 text-sm text-slate-600">Limited time savings on fitness products from top stores.</p>
+          <button
+            class="mt-4 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100">View
+            promo</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="grid gap-5 lg:grid-cols-3">
+        <article class="rounded-2xl border border-slate-200 bg-white p-6">
+          <p class="text-xs font-semibold uppercase tracking-wide text-brand-700">Buyer Feature</p>
+          <h3 class="mt-2 text-lg font-semibold text-slate-900">Filter products inside stores</h3>
+          <p class="mt-2 text-sm text-slate-600">Sort by price, rating, and latest arrivals in each seller storefront.
+          </p>
+          <button class="mt-4 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">Try
+            store filters</button>
+        </article>
+        <article class="rounded-2xl border border-slate-200 bg-white p-6">
+          <p class="text-xs font-semibold uppercase tracking-wide text-brand-700">Seller Feature</p>
+          <h3 class="mt-2 text-lg font-semibold text-slate-900">Chat with buyers instantly</h3>
+          <p class="mt-2 text-sm text-slate-600">Answer pre-purchase questions quickly and improve conversion rates.</p>
+          <button
+            class="mt-4 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">Open
+            seller inbox</button>
+        </article>
+        <article class="rounded-2xl border border-slate-200 bg-white p-6">
+          <p class="text-xs font-semibold uppercase tracking-wide text-brand-700">Trust Feature</p>
+          <h3 class="mt-2 text-lg font-semibold text-slate-900">Rate and bookmark sellers</h3>
+          <p class="mt-2 text-sm text-slate-600">Follow trusted stores to get new product and discount notifications.
+          </p>
+          <button
+            class="mt-4 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">Follow
+            stores</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+      <div class="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
+        <div class="grid gap-6 lg:grid-cols-2 lg:items-center">
+          <div>
+            <p class="text-sm font-semibold text-brand-700">Favorite Stores</p>
+            <h2 class="mt-2 text-2xl font-bold tracking-tight text-slate-900">Subscribe for new products and flash
+              discounts</h2>
+            <p class="mt-2 text-sm text-slate-600">Buyers can bookmark stores and receive personalized alerts when
+              sellers launch new products or promotions.</p>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+              <div>
+                <p class="text-sm font-semibold text-slate-900">Urban Craft Studio</p>
+                <p class="text-xs text-slate-500">2 new arrivals posted today</p>
+              </div>
+              <button
+                class="rounded-lg bg-brand-600 px-3 py-2 text-xs font-semibold text-white hover:bg-brand-700">Subscribed</button>
+            </div>
+            <div class="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+              <div>
+                <p class="text-sm font-semibold text-slate-900">Gadget Loft</p>
+                <p class="text-xs text-slate-500">Flash sale starts in 1 hour</p>
+              </div>
+              <button
+                class="rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100">Bookmark</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="mx-auto grid max-w-7xl gap-6 px-4 py-10 text-sm text-slate-500 sm:px-6 md:grid-cols-4 lg:px-8">
+      <div>
+        <p class="text-base font-semibold text-slate-900">MarketBay</p>
+        <p class="mt-2">A professional marketplace for every product category.</p>
+      </div>
+      <div>
+        <p class="font-semibold text-slate-900">Buyers</p>
+        <ul class="mt-2 space-y-2">
+          <li><a href="#" class="hover:text-slate-700">Product Search</a></li>
+          <li><a href="#" class="hover:text-slate-700">Cart</a></li>
+          <li><a href="#" class="hover:text-slate-700">Seller Ratings</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-slate-900">Sellers</p>
+        <ul class="mt-2 space-y-2">
+          <li><a href="#" class="hover:text-slate-700">Create Store</a></li>
+          <li><a href="#" class="hover:text-slate-700">Seller Chat</a></li>
+          <li><a href="#" class="hover:text-slate-700">Run Promotions</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-slate-900">Company</p>
+        <ul class="mt-2 space-y-2">
+          <li><a href="#" class="hover:text-slate-700">Privacy</a></li>
+          <li><a href="#" class="hover:text-slate-700">Terms</a></li>
+          <li><a href="#" class="hover:text-slate-700">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+      &copy; 2026 MarketBay. All rights reserved.
+    </div>
+  </footer>
+</body>
+
+</html>

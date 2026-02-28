@@ -32,7 +32,7 @@ export const NewArrivals = () => {
 					<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
 						<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 							<div class="relative aspect-square bg-gray-50">
-								<div class="absolute inset-0 bg-gradient-to-br from-violet-50 to-purple-100 flex items-center justify-center">
+								<div class="absolute inset-0 bg-linear-to-br from-violet-50 to-purple-100 flex items-center justify-center">
 									<svg
 										class="w-12 h-12 text-violet-300"
 										fill="none"
@@ -87,7 +87,7 @@ export const NewArrivals = () => {
 						</div>
 						<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 							<div class="relative aspect-square bg-gray-50">
-								<div class="absolute inset-0 bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center">
+								<div class="absolute inset-0 bg-linear-to-br from-amber-50 to-orange-100 flex items-center justify-center">
 									<svg
 										class="w-12 h-12 text-amber-300"
 										fill="none"
@@ -141,7 +141,7 @@ export const NewArrivals = () => {
 						</div>
 						<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 							<div class="relative aspect-square bg-gray-50">
-								<div class="absolute inset-0 bg-gradient-to-br from-teal-50 to-emerald-100 flex items-center justify-center">
+								<div class="absolute inset-0 bg-linear-to-br from-teal-50 to-emerald-100 flex items-center justify-center">
 									<svg
 										class="w-12 h-12 text-teal-300"
 										fill="none"
@@ -196,7 +196,7 @@ export const NewArrivals = () => {
 						</div>
 						<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 							<div class="relative aspect-square bg-gray-50">
-								<div class="absolute inset-0 bg-gradient-to-br from-pink-50 to-fuchsia-100 flex items-center justify-center">
+								<div class="absolute inset-0 bg-linear-to-br from-pink-50 to-fuchsia-100 flex items-center justify-center">
 									<svg
 										class="w-12 h-12 text-pink-300"
 										fill="none"
@@ -250,7 +250,7 @@ export const NewArrivals = () => {
 						</div>
 						<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 							<div class="relative aspect-square bg-gray-50">
-								<div class="absolute inset-0 bg-gradient-to-br from-sky-50 to-blue-100 flex items-center justify-center">
+								<div class="absolute inset-0 bg-linear-to-br from-sky-50 to-blue-100 flex items-center justify-center">
 									<svg
 										class="w-12 h-12 text-sky-300"
 										fill="none"

@@ -65,7 +65,7 @@ export const SearchResults = () => {
 					class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300"
 				>
 					<div class="relative aspect-square bg-gray-50">
-						<div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+						<div class="absolute inset-0 bg-linear-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
 							<svg
 								class="w-14 h-14 text-brand-200"
 								fill="none"
@@ -146,7 +146,7 @@ export const SearchResults = () => {
 				{/* <!-- Result 2 --> */}
 				<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 					<div class="relative aspect-square bg-gray-50">
-						<div class="absolute inset-0 bg-gradient-to-br from-violet-50 to-purple-100 flex items-center justify-center">
+						<div class="absolute inset-0 bg-linear-to-br from-violet-50 to-purple-100 flex items-center justify-center">
 							<svg
 								class="w-14 h-14 text-violet-200"
 								fill="none"
@@ -216,7 +216,7 @@ export const SearchResults = () => {
 				{/* <!-- Result 3 --> */}
 				<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 					<div class="relative aspect-square bg-gray-50">
-						<div class="absolute inset-0 bg-gradient-to-br from-rose-50 to-pink-100 flex items-center justify-center">
+						<div class="absolute inset-0 bg-linear-to-br from-rose-50 to-pink-100 flex items-center justify-center">
 							<svg
 								class="w-14 h-14 text-rose-200"
 								fill="none"
@@ -297,7 +297,7 @@ export const SearchResults = () => {
 				{/* <!-- Result 4 --> */}
 				<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 					<div class="relative aspect-square bg-gray-50">
-						<div class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-100 flex items-center justify-center">
+						<div class="absolute inset-0 bg-linear-to-br from-emerald-50 to-teal-100 flex items-center justify-center">
 							<svg
 								class="w-14 h-14 text-emerald-200"
 								fill="none"
@@ -370,7 +370,7 @@ export const SearchResults = () => {
 				{/* <!-- Result 5 --> */}
 				<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 					<div class="relative aspect-square bg-gray-50">
-						<div class="absolute inset-0 bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center">
+						<div class="absolute inset-0 bg-linear-to-br from-amber-50 to-orange-100 flex items-center justify-center">
 							<svg
 								class="w-14 h-14 text-amber-200"
 								fill="none"
@@ -451,7 +451,7 @@ export const SearchResults = () => {
 				{/* <!-- Result 6 --> */}
 				<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 					<div class="relative aspect-square bg-gray-50">
-						<div class="absolute inset-0 bg-gradient-to-br from-sky-50 to-blue-100 flex items-center justify-center">
+						<div class="absolute inset-0 bg-linear-to-br from-sky-50 to-blue-100 flex items-center justify-center">
 							<svg
 								class="w-14 h-14 text-sky-200"
 								fill="none"

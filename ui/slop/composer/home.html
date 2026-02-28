@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarketBay – Your Marketplace for Every Product</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              200: '#bae0fd',
+              300: '#7cc8fb',
+              400: '#36aaf5',
+              500: '#0c8ee6',
+              600: '#0070c4',
+              700: '#01599f',
+              800: '#064c83',
+              900: '#0b406d',
+              950: '#072849',
+            },
+            accent: {
+              50: '#fdf8f3',
+              100: '#f9ede3',
+              200: '#f2d9c4',
+              300: '#e9bf9a',
+              400: '#de9d6b',
+              500: '#d4824a',
+              600: '#c66b3e',
+              700: '#a55434',
+              800: '#854530',
+              900: '#6d3b2a',
+              950: '#3b1d14',
+            },
+          },
+          fontFamily: {
+            sans: ['DM Sans', 'system-ui', 'sans-serif'],
+            display: ['Outfit', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans text-slate-700 antialiased bg-slate-50">
+  <!-- Navigation -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 lg:h-18">
+        <a href="#" class="flex items-center gap-2">
+          <span class="text-2xl font-display font-bold text-primary-600">MarketBay</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#features" class="text-slate-600 hover:text-primary-600 transition-colors font-medium">Features</a>
+          <a href="#sellers" class="text-slate-600 hover:text-primary-600 transition-colors font-medium">For Sellers</a>
+          <a href="#buyers" class="text-slate-600 hover:text-primary-600 transition-colors font-medium">For Buyers</a>
+          <a href="#promotions" class="text-slate-600 hover:text-primary-600 transition-colors font-medium">Promotions</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="#" class="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium text-slate-600 hover:text-primary-600 transition-colors">Sign in</a>
+          <a href="#" class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-700 transition-colors shadow-sm">Get Started</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-accent-50"></div>
+      <div class="absolute top-20 right-10 w-72 h-72 bg-primary-200/40 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 left-10 w-96 h-96 bg-accent-200/30 rounded-full blur-3xl"></div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div class="text-center max-w-4xl mx-auto">
+          <span class="inline-block px-4 py-1.5 text-sm font-medium text-primary-700 bg-primary-100 rounded-full mb-6">The marketplace that connects sellers & buyers</span>
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
+            Discover products.
+            <span class="text-primary-600">Grow your business.</span>
+          </h1>
+          <p class="text-lg sm:text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
+            Whether you're selling or buying, MarketBay brings together the best stores, products, and deals in one place.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-all shadow-lg shadow-primary-600/25 hover:shadow-xl hover:shadow-primary-600/30">
+              Start Selling
+            </a>
+            <a href="#" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-primary-600 bg-white border-2 border-primary-200 rounded-xl hover:border-primary-300 hover:bg-primary-50 transition-all">
+              Explore Stores
+            </a>
+          </div>
+          <!-- Search bar -->
+          <div class="mt-12 max-w-2xl mx-auto">
+            <div class="relative">
+              <input type="search" placeholder="Search products across all stores..." class="w-full pl-5 pr-12 py-4 rounded-xl border border-slate-200 bg-white shadow-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 outline-none transition-all text-slate-900 placeholder-slate-400">
+              <button class="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust badges -->
+    <section class="border-y border-slate-200 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-wrap items-center justify-center gap-8 lg:gap-16 text-slate-500">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <span class="font-medium">Secure checkout</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+            <span class="font-medium">Verified sellers</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            </div>
+            <span class="font-medium">Easy payments</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section id="features" class="py-20 lg:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-slate-900 mb-4">One platform for everyone</h2>
+          <p class="text-lg text-slate-600 max-w-2xl mx-auto">MarketBay empowers sellers to grow and buyers to discover — all in one place.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <!-- For Sellers -->
+          <div id="sellers" class="rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100/50 p-8 lg:p-10 border border-primary-100">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-primary-600 flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              </div>
+              <h3 class="font-display text-2xl font-bold text-slate-900">For Sellers</h3>
+            </div>
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-bold">1</span>
+                <div>
+                  <span class="font-semibold text-slate-900">Create your store</span>
+                  <p class="text-slate-600 text-sm mt-0.5">Set up a professional storefront for your business in minutes.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-bold">2</span>
+                <div>
+                  <span class="font-semibold text-slate-900">Chat with buyers</span>
+                  <p class="text-slate-600 text-sm mt-0.5">Connect directly with customers to answer questions and close sales.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-bold">3</span>
+                <div>
+                  <span class="font-semibold text-slate-900">Run promotions</span>
+                  <p class="text-slate-600 text-sm mt-0.5">Feature your deals on the home page and boost your visibility.</p>
+                </div>
+              </li>
+            </ul>
+            <a href="#" class="inline-flex items-center gap-2 mt-6 text-primary-600 font-semibold hover:text-primary-700 transition-colors">
+              Start your store
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+
+          <!-- For Buyers -->
+          <div id="buyers" class="rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100/50 p-8 lg:p-10 border border-slate-200">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-slate-700 flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              </div>
+              <h3 class="font-display text-2xl font-bold text-slate-900">For Buyers</h3>
+            </div>
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-slate-700 text-white flex items-center justify-center text-sm font-bold">1</span>
+                <div>
+                  <span class="font-semibold text-slate-900">Search & filter</span>
+                  <p class="text-slate-600 text-sm mt-0.5">Find products across all stores or narrow down within a store.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-slate-700 text-white flex items-center justify-center text-sm font-bold">2</span>
+                <div>
+                  <span class="font-semibold text-slate-900">Cart & checkout</span>
+                  <p class="text-slate-600 text-sm mt-0.5">Add items to cart and checkout seamlessly.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-slate-700 text-white flex items-center justify-center text-sm font-bold">3</span>
+                <div>
+                  <span class="font-semibold text-slate-900">Rate & follow sellers</span>
+                  <p class="text-slate-600 text-sm mt-0.5">Rate your experience and bookmark sellers for new products and deals.</p>
+                </div>
+              </li>
+            </ul>
+            <a href="#" class="inline-flex items-center gap-2 mt-6 text-slate-700 font-semibold hover:text-slate-900 transition-colors">
+              Browse products
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Promotions Section -->
+    <section id="promotions" class="py-20 lg:py-28 bg-slate-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          <div class="flex-1 text-center lg:text-left">
+            <span class="inline-block px-4 py-1.5 text-sm font-medium text-accent-400 bg-accent-500/20 rounded-full mb-6">Featured promotions</span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mb-4">Sellers get the spotlight</h2>
+            <p class="text-lg text-slate-300 mb-8">
+              Run home page promotions to reach thousands of buyers. Boost your sales with featured placements and special offers.
+            </p>
+            <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-accent-500 text-white font-semibold rounded-xl hover:bg-accent-600 transition-colors">
+              Learn about promotions
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
+          <div class="flex-1 w-full">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="rounded-xl bg-white/10 backdrop-blur p-6 border border-white/10">
+                <div class="w-10 h-10 rounded-lg bg-accent-500/30 flex items-center justify-center mb-4">
+                  <svg class="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                </div>
+                <h4 class="font-semibold text-white mb-1">Boost visibility</h4>
+                <p class="text-sm text-slate-400">Get featured on the home page</p>
+              </div>
+              <div class="rounded-xl bg-white/10 backdrop-blur p-6 border border-white/10">
+                <div class="w-10 h-10 rounded-lg bg-accent-500/30 flex items-center justify-center mb-4">
+                  <svg class="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h4 class="font-semibold text-white mb-1">Drive sales</h4>
+                <p class="text-sm text-slate-400">Reach ready-to-buy customers</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 lg:py-28 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Ready to get started?</h2>
+        <p class="text-lg text-slate-600 mb-10">
+          Join MarketBay today — whether you're here to sell or to shop, we've got you covered.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="#" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors shadow-lg shadow-primary-600/20">
+            Create your store
+          </a>
+          <a href="#" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-slate-700 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors">
+            Explore marketplace
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+        <div class="col-span-2 md:col-span-1">
+          <span class="text-xl font-display font-bold text-white">MarketBay</span>
+          <p class="mt-3 text-sm">Your marketplace for every product.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Platform</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">For Sellers</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">For Buyers</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Promotions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Company</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Legal</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Privacy</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 border-t border-slate-800 text-sm text-center">
+        © 2025 MarketBay. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

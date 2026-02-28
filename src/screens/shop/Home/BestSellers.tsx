@@ -19,7 +19,7 @@ export const BestSellers = () => {
 				<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
 					<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 						<div class="relative aspect-square bg-gray-50">
-							<div class="absolute inset-0 bg-gradient-to-br from-amber-50 to-yellow-100 flex items-center justify-center">
+							<div class="absolute inset-0 bg-linear-to-br from-amber-50 to-yellow-100 flex items-center justify-center">
 								<svg
 									class="w-16 h-16 text-amber-200"
 									fill="none"
@@ -101,7 +101,7 @@ export const BestSellers = () => {
 					</div>
 					<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 						<div class="relative aspect-square bg-gray-50">
-							<div class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-blue-100 flex items-center justify-center">
+							<div class="absolute inset-0 bg-linear-to-br from-indigo-50 to-blue-100 flex items-center justify-center">
 								<svg
 									class="w-16 h-16 text-indigo-200"
 									fill="none"
@@ -183,7 +183,7 @@ export const BestSellers = () => {
 					</div>
 					<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 						<div class="relative aspect-square bg-gray-50">
-							<div class="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
+							<div class="absolute inset-0 bg-linear-to-br from-green-50 to-emerald-100 flex items-center justify-center">
 								<svg
 									class="w-16 h-16 text-emerald-200"
 									fill="none"
@@ -265,7 +265,7 @@ export const BestSellers = () => {
 					</div>
 					<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 						<div class="relative aspect-square bg-gray-50">
-							<div class="absolute inset-0 bg-gradient-to-br from-rose-50 to-pink-100 flex items-center justify-center">
+							<div class="absolute inset-0 bg-linear-to-br from-rose-50 to-pink-100 flex items-center justify-center">
 								<svg
 									class="w-16 h-16 text-rose-200"
 									fill="none"
