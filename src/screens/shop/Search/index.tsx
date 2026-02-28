@@ -1,4 +1,3 @@
-import "./styles.css";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { MatchingStores } from "./MatchingStores";
 import { SearchFilters } from "./SearchFilters";

@@ -23,10 +23,21 @@ import { Route as authForgotpasswordRouteImport } from './routes/(auth)/forgotpa
 import { Route as appStoresRouteImport } from './routes/(app)/stores'
 import { Route as appSearchRouteImport } from './routes/(app)/search'
 import { Route as appHelpRouteImport } from './routes/(app)/help'
+import { Route as appCategoriesRouteImport } from './routes/(app)/categories'
 import { Route as appCartRouteImport } from './routes/(app)/cart'
+import { Route as appStAdminIndexRouteImport } from './routes/(app)/st-admin/index'
 import { Route as PostsPostIdDeepRouteImport } from './routes/posts_.$postId.deep'
 import { Route as ApiUsersUserIdRouteImport } from './routes/api/users.$userId'
 import { Route as appStoreStoreSlugRouteImport } from './routes/(app)/store.$storeSlug'
+import { Route as appProductProductSlugRouteImport } from './routes/(app)/product.$productSlug'
+import { Route as appCategoryCategorySlugRouteImport } from './routes/(app)/category.$categorySlug'
+import { Route as appaccountAccountRouteImport } from './routes/(app)/(account)/account'
+import { Route as appStAdminStoreIdSettingsRouteImport } from './routes/(app)/st-admin/$storeId/settings'
+import { Route as appStAdminStoreIdProductsRouteImport } from './routes/(app)/st-admin/$storeId/products'
+import { Route as appStAdminStoreIdProductNewRouteImport } from './routes/(app)/st-admin/$storeId/product-new'
+import { Route as appStAdminStoreIdOrdersRouteImport } from './routes/(app)/st-admin/$storeId/orders'
+import { Route as appStAdminStoreIdDashboardRouteImport } from './routes/(app)/st-admin/$storeId/dashboard'
+import { Route as appStAdminStoreIdAnalyticsRouteImport } from './routes/(app)/st-admin/$storeId/analytics'
 
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   id: '/terms-of-service',
@@ -96,9 +107,19 @@ const appHelpRoute = appHelpRouteImport.update({
   path: '/help',
   getParentRoute: () => appRouteRoute,
 } as any)
+const appCategoriesRoute = appCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => appRouteRoute,
+} as any)
 const appCartRoute = appCartRouteImport.update({
   id: '/cart',
   path: '/cart',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appStAdminIndexRoute = appStAdminIndexRouteImport.update({
+  id: '/st-admin/',
+  path: '/st-admin/',
   getParentRoute: () => appRouteRoute,
 } as any)
 const PostsPostIdDeepRoute = PostsPostIdDeepRouteImport.update({
@@ -116,12 +137,63 @@ const appStoreStoreSlugRoute = appStoreStoreSlugRouteImport.update({
   path: '/store/$storeSlug',
   getParentRoute: () => appRouteRoute,
 } as any)
+const appProductProductSlugRoute = appProductProductSlugRouteImport.update({
+  id: '/product/$productSlug',
+  path: '/product/$productSlug',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appCategoryCategorySlugRoute = appCategoryCategorySlugRouteImport.update({
+  id: '/category/$categorySlug',
+  path: '/category/$categorySlug',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appaccountAccountRoute = appaccountAccountRouteImport.update({
+  id: '/(account)/account',
+  path: '/account',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appStAdminStoreIdSettingsRoute =
+  appStAdminStoreIdSettingsRouteImport.update({
+    id: '/st-admin/$storeId/settings',
+    path: '/st-admin/$storeId/settings',
+    getParentRoute: () => appRouteRoute,
+  } as any)
+const appStAdminStoreIdProductsRoute =
+  appStAdminStoreIdProductsRouteImport.update({
+    id: '/st-admin/$storeId/products',
+    path: '/st-admin/$storeId/products',
+    getParentRoute: () => appRouteRoute,
+  } as any)
+const appStAdminStoreIdProductNewRoute =
+  appStAdminStoreIdProductNewRouteImport.update({
+    id: '/st-admin/$storeId/product-new',
+    path: '/st-admin/$storeId/product-new',
+    getParentRoute: () => appRouteRoute,
+  } as any)
+const appStAdminStoreIdOrdersRoute = appStAdminStoreIdOrdersRouteImport.update({
+  id: '/st-admin/$storeId/orders',
+  path: '/st-admin/$storeId/orders',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appStAdminStoreIdDashboardRoute =
+  appStAdminStoreIdDashboardRouteImport.update({
+    id: '/st-admin/$storeId/dashboard',
+    path: '/st-admin/$storeId/dashboard',
+    getParentRoute: () => appRouteRoute,
+  } as any)
+const appStAdminStoreIdAnalyticsRoute =
+  appStAdminStoreIdAnalyticsRouteImport.update({
+    id: '/st-admin/$storeId/analytics',
+    path: '/st-admin/$storeId/analytics',
+    getParentRoute: () => appRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/deferred': typeof DeferredRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/cart': typeof appCartRoute
+  '/categories': typeof appCategoriesRoute
   '/help': typeof appHelpRoute
   '/search': typeof appSearchRoute
   '/stores': typeof appStoresRoute
@@ -131,15 +203,26 @@ export interface FileRoutesByFullPath {
   '/api/users': typeof ApiUsersRouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
   '/': typeof appIndexRoute
+  '/account': typeof appaccountAccountRoute
+  '/category/$categorySlug': typeof appCategoryCategorySlugRoute
+  '/product/$productSlug': typeof appProductProductSlugRoute
   '/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/api/users/$userId': typeof ApiUsersUserIdRoute
   '/posts/$postId/deep': typeof PostsPostIdDeepRoute
+  '/st-admin/': typeof appStAdminIndexRoute
+  '/st-admin/$storeId/analytics': typeof appStAdminStoreIdAnalyticsRoute
+  '/st-admin/$storeId/dashboard': typeof appStAdminStoreIdDashboardRoute
+  '/st-admin/$storeId/orders': typeof appStAdminStoreIdOrdersRoute
+  '/st-admin/$storeId/product-new': typeof appStAdminStoreIdProductNewRoute
+  '/st-admin/$storeId/products': typeof appStAdminStoreIdProductsRoute
+  '/st-admin/$storeId/settings': typeof appStAdminStoreIdSettingsRoute
 }
 export interface FileRoutesByTo {
   '/deferred': typeof DeferredRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/cart': typeof appCartRoute
+  '/categories': typeof appCategoriesRoute
   '/help': typeof appHelpRoute
   '/search': typeof appSearchRoute
   '/stores': typeof appStoresRoute
@@ -149,9 +232,19 @@ export interface FileRoutesByTo {
   '/api/users': typeof ApiUsersRouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
   '/': typeof appIndexRoute
+  '/account': typeof appaccountAccountRoute
+  '/category/$categorySlug': typeof appCategoryCategorySlugRoute
+  '/product/$productSlug': typeof appProductProductSlugRoute
   '/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/api/users/$userId': typeof ApiUsersUserIdRoute
   '/posts/$postId/deep': typeof PostsPostIdDeepRoute
+  '/st-admin': typeof appStAdminIndexRoute
+  '/st-admin/$storeId/analytics': typeof appStAdminStoreIdAnalyticsRoute
+  '/st-admin/$storeId/dashboard': typeof appStAdminStoreIdDashboardRoute
+  '/st-admin/$storeId/orders': typeof appStAdminStoreIdOrdersRoute
+  '/st-admin/$storeId/product-new': typeof appStAdminStoreIdProductNewRoute
+  '/st-admin/$storeId/products': typeof appStAdminStoreIdProductsRoute
+  '/st-admin/$storeId/settings': typeof appStAdminStoreIdSettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -161,6 +254,7 @@ export interface FileRoutesById {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/(app)/cart': typeof appCartRoute
+  '/(app)/categories': typeof appCategoriesRoute
   '/(app)/help': typeof appHelpRoute
   '/(app)/search': typeof appSearchRoute
   '/(app)/stores': typeof appStoresRoute
@@ -170,9 +264,19 @@ export interface FileRoutesById {
   '/api/users': typeof ApiUsersRouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
   '/(app)/': typeof appIndexRoute
+  '/(app)/(account)/account': typeof appaccountAccountRoute
+  '/(app)/category/$categorySlug': typeof appCategoryCategorySlugRoute
+  '/(app)/product/$productSlug': typeof appProductProductSlugRoute
   '/(app)/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/api/users/$userId': typeof ApiUsersUserIdRoute
   '/posts_/$postId/deep': typeof PostsPostIdDeepRoute
+  '/(app)/st-admin/': typeof appStAdminIndexRoute
+  '/(app)/st-admin/$storeId/analytics': typeof appStAdminStoreIdAnalyticsRoute
+  '/(app)/st-admin/$storeId/dashboard': typeof appStAdminStoreIdDashboardRoute
+  '/(app)/st-admin/$storeId/orders': typeof appStAdminStoreIdOrdersRoute
+  '/(app)/st-admin/$storeId/product-new': typeof appStAdminStoreIdProductNewRoute
+  '/(app)/st-admin/$storeId/products': typeof appStAdminStoreIdProductsRoute
+  '/(app)/st-admin/$storeId/settings': typeof appStAdminStoreIdSettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -181,6 +285,7 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/terms-of-service'
     | '/cart'
+    | '/categories'
     | '/help'
     | '/search'
     | '/stores'
@@ -190,15 +295,26 @@ export interface FileRouteTypes {
     | '/api/users'
     | '/posts/$postId'
     | '/'
+    | '/account'
+    | '/category/$categorySlug'
+    | '/product/$productSlug'
     | '/store/$storeSlug'
     | '/api/users/$userId'
     | '/posts/$postId/deep'
+    | '/st-admin/'
+    | '/st-admin/$storeId/analytics'
+    | '/st-admin/$storeId/dashboard'
+    | '/st-admin/$storeId/orders'
+    | '/st-admin/$storeId/product-new'
+    | '/st-admin/$storeId/products'
+    | '/st-admin/$storeId/settings'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/deferred'
     | '/privacy-policy'
     | '/terms-of-service'
     | '/cart'
+    | '/categories'
     | '/help'
     | '/search'
     | '/stores'
@@ -208,9 +324,19 @@ export interface FileRouteTypes {
     | '/api/users'
     | '/posts/$postId'
     | '/'
+    | '/account'
+    | '/category/$categorySlug'
+    | '/product/$productSlug'
     | '/store/$storeSlug'
     | '/api/users/$userId'
     | '/posts/$postId/deep'
+    | '/st-admin'
+    | '/st-admin/$storeId/analytics'
+    | '/st-admin/$storeId/dashboard'
+    | '/st-admin/$storeId/orders'
+    | '/st-admin/$storeId/product-new'
+    | '/st-admin/$storeId/products'
+    | '/st-admin/$storeId/settings'
   id:
     | '__root__'
     | '/(app)'
@@ -219,6 +345,7 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/terms-of-service'
     | '/(app)/cart'
+    | '/(app)/categories'
     | '/(app)/help'
     | '/(app)/search'
     | '/(app)/stores'
@@ -228,9 +355,19 @@ export interface FileRouteTypes {
     | '/api/users'
     | '/posts/$postId'
     | '/(app)/'
+    | '/(app)/(account)/account'
+    | '/(app)/category/$categorySlug'
+    | '/(app)/product/$productSlug'
     | '/(app)/store/$storeSlug'
     | '/api/users/$userId'
     | '/posts_/$postId/deep'
+    | '/(app)/st-admin/'
+    | '/(app)/st-admin/$storeId/analytics'
+    | '/(app)/st-admin/$storeId/dashboard'
+    | '/(app)/st-admin/$storeId/orders'
+    | '/(app)/st-admin/$storeId/product-new'
+    | '/(app)/st-admin/$storeId/products'
+    | '/(app)/st-admin/$storeId/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -344,11 +481,25 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appHelpRouteImport
       parentRoute: typeof appRouteRoute
     }
+    '/(app)/categories': {
+      id: '/(app)/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof appCategoriesRouteImport
+      parentRoute: typeof appRouteRoute
+    }
     '/(app)/cart': {
       id: '/(app)/cart'
       path: '/cart'
       fullPath: '/cart'
       preLoaderRoute: typeof appCartRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/st-admin/': {
+      id: '/(app)/st-admin/'
+      path: '/st-admin'
+      fullPath: '/st-admin/'
+      preLoaderRoute: typeof appStAdminIndexRouteImport
       parentRoute: typeof appRouteRoute
     }
     '/posts_/$postId/deep': {
@@ -372,25 +523,110 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appStoreStoreSlugRouteImport
       parentRoute: typeof appRouteRoute
     }
+    '/(app)/product/$productSlug': {
+      id: '/(app)/product/$productSlug'
+      path: '/product/$productSlug'
+      fullPath: '/product/$productSlug'
+      preLoaderRoute: typeof appProductProductSlugRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/category/$categorySlug': {
+      id: '/(app)/category/$categorySlug'
+      path: '/category/$categorySlug'
+      fullPath: '/category/$categorySlug'
+      preLoaderRoute: typeof appCategoryCategorySlugRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/(account)/account': {
+      id: '/(app)/(account)/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof appaccountAccountRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/st-admin/$storeId/settings': {
+      id: '/(app)/st-admin/$storeId/settings'
+      path: '/st-admin/$storeId/settings'
+      fullPath: '/st-admin/$storeId/settings'
+      preLoaderRoute: typeof appStAdminStoreIdSettingsRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/st-admin/$storeId/products': {
+      id: '/(app)/st-admin/$storeId/products'
+      path: '/st-admin/$storeId/products'
+      fullPath: '/st-admin/$storeId/products'
+      preLoaderRoute: typeof appStAdminStoreIdProductsRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/st-admin/$storeId/product-new': {
+      id: '/(app)/st-admin/$storeId/product-new'
+      path: '/st-admin/$storeId/product-new'
+      fullPath: '/st-admin/$storeId/product-new'
+      preLoaderRoute: typeof appStAdminStoreIdProductNewRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/st-admin/$storeId/orders': {
+      id: '/(app)/st-admin/$storeId/orders'
+      path: '/st-admin/$storeId/orders'
+      fullPath: '/st-admin/$storeId/orders'
+      preLoaderRoute: typeof appStAdminStoreIdOrdersRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/st-admin/$storeId/dashboard': {
+      id: '/(app)/st-admin/$storeId/dashboard'
+      path: '/st-admin/$storeId/dashboard'
+      fullPath: '/st-admin/$storeId/dashboard'
+      preLoaderRoute: typeof appStAdminStoreIdDashboardRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/st-admin/$storeId/analytics': {
+      id: '/(app)/st-admin/$storeId/analytics'
+      path: '/st-admin/$storeId/analytics'
+      fullPath: '/st-admin/$storeId/analytics'
+      preLoaderRoute: typeof appStAdminStoreIdAnalyticsRouteImport
+      parentRoute: typeof appRouteRoute
+    }
   }
 }
 
 interface appRouteRouteChildren {
   appCartRoute: typeof appCartRoute
+  appCategoriesRoute: typeof appCategoriesRoute
   appHelpRoute: typeof appHelpRoute
   appSearchRoute: typeof appSearchRoute
   appStoresRoute: typeof appStoresRoute
   appIndexRoute: typeof appIndexRoute
+  appaccountAccountRoute: typeof appaccountAccountRoute
+  appCategoryCategorySlugRoute: typeof appCategoryCategorySlugRoute
+  appProductProductSlugRoute: typeof appProductProductSlugRoute
   appStoreStoreSlugRoute: typeof appStoreStoreSlugRoute
+  appStAdminIndexRoute: typeof appStAdminIndexRoute
+  appStAdminStoreIdAnalyticsRoute: typeof appStAdminStoreIdAnalyticsRoute
+  appStAdminStoreIdDashboardRoute: typeof appStAdminStoreIdDashboardRoute
+  appStAdminStoreIdOrdersRoute: typeof appStAdminStoreIdOrdersRoute
+  appStAdminStoreIdProductNewRoute: typeof appStAdminStoreIdProductNewRoute
+  appStAdminStoreIdProductsRoute: typeof appStAdminStoreIdProductsRoute
+  appStAdminStoreIdSettingsRoute: typeof appStAdminStoreIdSettingsRoute
 }
 
 const appRouteRouteChildren: appRouteRouteChildren = {
   appCartRoute: appCartRoute,
+  appCategoriesRoute: appCategoriesRoute,
   appHelpRoute: appHelpRoute,
   appSearchRoute: appSearchRoute,
   appStoresRoute: appStoresRoute,
   appIndexRoute: appIndexRoute,
+  appaccountAccountRoute: appaccountAccountRoute,
+  appCategoryCategorySlugRoute: appCategoryCategorySlugRoute,
+  appProductProductSlugRoute: appProductProductSlugRoute,
   appStoreStoreSlugRoute: appStoreStoreSlugRoute,
+  appStAdminIndexRoute: appStAdminIndexRoute,
+  appStAdminStoreIdAnalyticsRoute: appStAdminStoreIdAnalyticsRoute,
+  appStAdminStoreIdDashboardRoute: appStAdminStoreIdDashboardRoute,
+  appStAdminStoreIdOrdersRoute: appStAdminStoreIdOrdersRoute,
+  appStAdminStoreIdProductNewRoute: appStAdminStoreIdProductNewRoute,
+  appStAdminStoreIdProductsRoute: appStAdminStoreIdProductsRoute,
+  appStAdminStoreIdSettingsRoute: appStAdminStoreIdSettingsRoute,
 }
 
 const appRouteRouteWithChildren = appRouteRoute._addFileChildren(

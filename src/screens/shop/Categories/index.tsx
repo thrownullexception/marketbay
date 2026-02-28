@@ -1,0 +1,1596 @@
+import { Breadcrumb } from "@/ui/breadcrumb";
+
+export const CategoriesScreen = () => {
+	return (
+		<>
+			<Breadcrumb
+				items={[
+					{ label: "Home", to: "/" },
+					{ label: "Categories", to: "/categories" },
+				]}
+			/>
+
+			<section class="bg-linear-to-br from-brand-50 via-white to-accent-50 border-b border-gray-100">
+				<div class="max-w-7xl mx-auto px-4 py-8 lg:py-10">
+					<h1 class="text-2xl lg:text-3xl font-extrabold text-gray-900">
+						All Categories
+					</h1>
+					<p class="text-gray-500 text-sm mt-1.5 max-w-lg">
+						Browse thousands of products across every category. Find exactly
+						what you're looking for from independent sellers worldwide.
+					</p>
+				</div>
+			</section>
+
+			<section class="py-8 bg-white">
+				<div class="max-w-7xl mx-auto px-4">
+					<h2 class="text-lg font-bold text-gray-900 mb-5">
+						Featured Categories
+					</h2>
+					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+						<a
+							href="#"
+							class="relative rounded-2xl overflow-hidden bg-linear-to-br from-blue-600 to-indigo-800 min-h-[160px] flex items-end p-6 group cursor-pointer"
+						>
+							<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
+							<div class="absolute top-5 right-5 opacity-20 group-hover:opacity-30 transition">
+								<svg
+									class="w-24 h-24 text-white"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="0.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+									/>
+								</svg>
+							</div>
+							<div class="relative">
+								<h3 class="text-xl font-bold text-white">Electronics</h3>
+								<p class="text-blue-200 text-sm mt-0.5">12,400+ products</p>
+							</div>
+							<svg
+								class="absolute right-5 bottom-5 w-5 h-5 text-white/40 group-hover:text-white/70 group-hover:translate-x-1 transition-all"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M17 8l4 4m0 0l-4 4m4-4H3"
+								/>
+							</svg>
+						</a>
+						<a
+							href="#"
+							class="relative rounded-2xl overflow-hidden bg-linear-to-br from-rose-500 to-pink-700 min-h-[160px] flex items-end p-6 group cursor-pointer"
+						>
+							<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
+							<div class="absolute top-5 right-5 opacity-20 group-hover:opacity-30 transition">
+								<svg
+									class="w-24 h-24 text-white"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="0.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+									/>
+								</svg>
+							</div>
+							<div class="relative">
+								<h3 class="text-xl font-bold text-white">Fashion</h3>
+								<p class="text-rose-200 text-sm mt-0.5">18,600+ products</p>
+							</div>
+							<svg
+								class="absolute right-5 bottom-5 w-5 h-5 text-white/40 group-hover:text-white/70 group-hover:translate-x-1 transition-all"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M17 8l4 4m0 0l-4 4m4-4H3"
+								/>
+							</svg>
+						</a>
+						<a
+							href="#"
+							class="relative rounded-2xl overflow-hidden bg-linear-to-br from-emerald-500 to-teal-700 min-h-[160px] flex items-end p-6 group cursor-pointer"
+						>
+							<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
+							<div class="absolute top-5 right-5 opacity-20 group-hover:opacity-30 transition">
+								<svg
+									class="w-24 h-24 text-white"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="0.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+									/>
+								</svg>
+							</div>
+							<div class="relative">
+								<h3 class="text-xl font-bold text-white">Home &amp; Garden</h3>
+								<p class="text-emerald-200 text-sm mt-0.5">9,300+ products</p>
+							</div>
+							<svg
+								class="absolute right-5 bottom-5 w-5 h-5 text-white/40 group-hover:text-white/70 group-hover:translate-x-1 transition-all"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M17 8l4 4m0 0l-4 4m4-4H3"
+								/>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<section class="py-10 bg-gray-50">
+				<div class="max-w-7xl mx-auto px-4">
+					<h2 class="text-lg font-bold text-gray-900 mb-6">
+						Browse All Categories
+					</h2>
+					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+						<div class="cat-card bg-white rounded-2xl border border-gray-100 p-6 transition-all duration-300">
+							<div class="flex items-center gap-4 mb-5">
+								<div class="cat-icon w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center transition-transform duration-300">
+									<svg
+										class="w-7 h-7 text-blue-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+										/>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-bold text-gray-900">Electronics</h3>
+									<p class="text-xs text-gray-500 mt-0.5">
+										12,400+ products &bull; 340 stores
+									</p>
+								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Smartphones
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Laptops
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Headphones
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Monitors
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Cameras
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Tablets
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Speakers
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Wearables
+								</a>
+							</div>
+							<a
+								href="#"
+								class="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700 mt-4 transition"
+							>
+								View all Electronics{" "}
+								<svg
+									class="w-3.5 h-3.5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</a>
+						</div>
+
+						<div class="cat-card bg-white rounded-2xl border border-gray-100 p-6 transition-all duration-300">
+							<div class="flex items-center gap-4 mb-5">
+								<div class="cat-icon w-14 h-14 rounded-2xl bg-rose-100 flex items-center justify-center transition-transform duration-300">
+									<svg
+										class="w-7 h-7 text-rose-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+										/>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-bold text-gray-900">Fashion</h3>
+									<p class="text-xs text-gray-500 mt-0.5">
+										18,600+ products &bull; 520 stores
+									</p>
+								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Women's Clothing
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Men's Clothing
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Shoes
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Bags &amp; Wallets
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Jewelry
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Watches
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Activewear
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Accessories
+								</a>
+							</div>
+							<a
+								href="#"
+								class="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700 mt-4 transition"
+							>
+								View all Fashion{" "}
+								<svg
+									class="w-3.5 h-3.5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</a>
+						</div>
+
+						<div class="cat-card bg-white rounded-2xl border border-gray-100 p-6 transition-all duration-300">
+							<div class="flex items-center gap-4 mb-5">
+								<div class="cat-icon w-14 h-14 rounded-2xl bg-emerald-100 flex items-center justify-center transition-transform duration-300">
+									<svg
+										class="w-7 h-7 text-emerald-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+										/>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-bold text-gray-900">Home &amp; Garden</h3>
+									<p class="text-xs text-gray-500 mt-0.5">
+										9,300+ products &bull; 280 stores
+									</p>
+								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Furniture
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Lighting
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Kitchen
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Bedding
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Decor
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Garden Tools
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Storage
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Outdoor
+								</a>
+							</div>
+							<a
+								href="#"
+								class="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700 mt-4 transition"
+							>
+								View all Home &amp; Garden{" "}
+								<svg
+									class="w-3.5 h-3.5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</a>
+						</div>
+
+						<div class="cat-card bg-white rounded-2xl border border-gray-100 p-6 transition-all duration-300">
+							<div class="flex items-center gap-4 mb-5">
+								<div class="cat-icon w-14 h-14 rounded-2xl bg-amber-100 flex items-center justify-center transition-transform duration-300">
+									<svg
+										class="w-7 h-7 text-amber-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
+										/>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-bold text-gray-900">Beauty</h3>
+									<p class="text-xs text-gray-500 mt-0.5">
+										7,800+ products &bull; 190 stores
+									</p>
+								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Skincare
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Makeup
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Haircare
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Fragrances
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Nail Care
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Bath &amp; Body
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Tools &amp; Brushes
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Organic
+								</a>
+							</div>
+							<a
+								href="#"
+								class="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700 mt-4 transition"
+							>
+								View all Beauty{" "}
+								<svg
+									class="w-3.5 h-3.5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</a>
+						</div>
+
+						<div class="cat-card bg-white rounded-2xl border border-gray-100 p-6 transition-all duration-300">
+							<div class="flex items-center gap-4 mb-5">
+								<div class="cat-icon w-14 h-14 rounded-2xl bg-cyan-100 flex items-center justify-center transition-transform duration-300">
+									<svg
+										class="w-7 h-7 text-cyan-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3l2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75l2.25-1.313M12 21.75V19.5m0 2.25l-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25"
+										/>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-bold text-gray-900">Sports &amp; Fitness</h3>
+									<p class="text-xs text-gray-500 mt-0.5">
+										6,500+ products &bull; 210 stores
+									</p>
+								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Exercise Equipment
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Running
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Cycling
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Yoga &amp; Pilates
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Team Sports
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Swimming
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Supplements
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Outdoor Sports
+								</a>
+							</div>
+							<a
+								href="#"
+								class="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700 mt-4 transition"
+							>
+								View all Sports{" "}
+								<svg
+									class="w-3.5 h-3.5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</a>
+						</div>
+
+						<div class="cat-card bg-white rounded-2xl border border-gray-100 p-6 transition-all duration-300">
+							<div class="flex items-center gap-4 mb-5">
+								<div class="cat-icon w-14 h-14 rounded-2xl bg-violet-100 flex items-center justify-center transition-transform duration-300">
+									<svg
+										class="w-7 h-7 text-violet-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+										/>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-bold text-gray-900">Books</h3>
+									<p class="text-xs text-gray-500 mt-0.5">
+										14,200+ products &bull; 85 stores
+									</p>
+								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Fiction
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Non-Fiction
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Self-Help
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Business
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Science &amp; Tech
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Children's
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Comics &amp; Manga
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Textbooks
+								</a>
+							</div>
+							<a
+								href="#"
+								class="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700 mt-4 transition"
+							>
+								View all Books{" "}
+								<svg
+									class="w-3.5 h-3.5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</a>
+						</div>
+
+						<div class="cat-card bg-white rounded-2xl border border-gray-100 p-6 transition-all duration-300">
+							<div class="flex items-center gap-4 mb-5">
+								<div class="cat-icon w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center transition-transform duration-300">
+									<svg
+										class="w-7 h-7 text-orange-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+										/>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-bold text-gray-900">Toys &amp; Games</h3>
+									<p class="text-xs text-gray-500 mt-0.5">
+										5,100+ products &bull; 150 stores
+									</p>
+								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Action Figures
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Board Games
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Building Sets
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Dolls
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Puzzles
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Remote Control
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Educational
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Outdoor Play
+								</a>
+							</div>
+							<a
+								href="#"
+								class="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700 mt-4 transition"
+							>
+								View all Toys &amp; Games{" "}
+								<svg
+									class="w-3.5 h-3.5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</a>
+						</div>
+
+						<div class="cat-card bg-white rounded-2xl border border-gray-100 p-6 transition-all duration-300">
+							<div class="flex items-center gap-4 mb-5">
+								<div class="cat-icon w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center transition-transform duration-300">
+									<svg
+										class="w-7 h-7 text-slate-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
+										/>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-bold text-gray-900">Automotive</h3>
+									<p class="text-xs text-gray-500 mt-0.5">
+										4,200+ products &bull; 120 stores
+									</p>
+								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Car Accessories
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Interior
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Exterior
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Car Electronics
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Tools
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Cleaning
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Tires &amp; Wheels
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Motorcycle
+								</a>
+							</div>
+							<a
+								href="#"
+								class="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700 mt-4 transition"
+							>
+								View all Automotive{" "}
+								<svg
+									class="w-3.5 h-3.5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</a>
+						</div>
+
+						<div class="cat-card bg-white rounded-2xl border border-gray-100 p-6 transition-all duration-300">
+							<div class="flex items-center gap-4 mb-5">
+								<div class="cat-icon w-14 h-14 rounded-2xl bg-lime-100 flex items-center justify-center transition-transform duration-300">
+									<svg
+										class="w-7 h-7 text-lime-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"
+										/>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-bold text-gray-900">Groceries</h3>
+									<p class="text-xs text-gray-500 mt-0.5">
+										3,900+ products &bull; 95 stores
+									</p>
+								</div>
+							</div>
+							<div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Snacks
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Beverages
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Organic Foods
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Coffee &amp; Tea
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Condiments
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Pantry Staples
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									Health Foods
+								</a>
+								<a
+									href="#"
+									class="subcat-link text-sm text-gray-600 hover:text-brand-600 py-1 px-2 -mx-2 rounded-lg transition"
+								>
+									International
+								</a>
+							</div>
+							<a
+								href="#"
+								class="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700 mt-4 transition"
+							>
+								View all Groceries{" "}
+								<svg
+									class="w-3.5 h-3.5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="py-10 bg-white">
+				<div class="max-w-7xl mx-auto px-4">
+					<h2 class="text-lg font-bold text-gray-900 mb-6">More to Explore</h2>
+					<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-pink-100 group-hover:bg-pink-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-pink-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Health &amp; Wellness
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">2,800+ items</p>
+						</a>
+
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-indigo-100 group-hover:bg-indigo-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-indigo-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Education
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">1,600+ items</p>
+						</a>
+
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-yellow-100 group-hover:bg-yellow-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-yellow-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Baby &amp; Kids
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">3,400+ items</p>
+						</a>
+
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-teal-100 group-hover:bg-teal-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-teal-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"
+									/>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Photography
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">1,900+ items</p>
+						</a>
+
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-red-100 group-hover:bg-red-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-red-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Arts &amp; Crafts
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">2,200+ items</p>
+						</a>
+
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-sky-100 group-hover:bg-sky-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-sky-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Office &amp; Business
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">1,500+ items</p>
+						</a>
+
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-fuchsia-100 group-hover:bg-fuchsia-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-fuchsia-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Music
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">1,800+ items</p>
+						</a>
+
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-stone-100 group-hover:bg-stone-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-stone-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Event Supplies
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">900+ items</p>
+						</a>
+
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-emerald-100 group-hover:bg-emerald-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-emerald-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M12 12.75c1.148 0 2.278.08 3.383.237 1.037.146 1.866.966 1.866 2.013 0 3.728-2.35 6.75-5.25 6.75S6.75 18.728 6.75 15c0-1.046.83-1.867 1.866-2.013A24.204 24.204 0 0112 12.75zm0 0c2.883 0 5.647.508 8.207 1.44a23.91 23.91 0 01-1.152 6.06M12 12.75c-2.883 0-5.647.508-8.208 1.44.125 2.104.52 4.136 1.153 6.06M12 12.75a2.25 2.25 0 002.248-2.354M12 12.75a2.25 2.25 0 01-2.248-2.354M12 8.25c.995 0 1.971-.08 2.922-.236.403-.066.74-.358.795-.762a3.778 3.778 0 00-.399-2.25M12 8.25c-.995 0-1.97-.08-2.922-.236-.402-.066-.74-.358-.795-.762a3.734 3.734 0 01.4-2.253M12 8.25a2.25 2.25 0 00-2.248 2.146M12 8.25a2.25 2.25 0 012.248 2.146M8.683 5a6.032 6.032 0 01-1.155-1.002c.07-.63.27-1.222.574-1.747m.581 2.749A3.75 3.75 0 0112 3.75a3.75 3.75 0 013.317 1.25m-6.634 0V5zm6.634 0V5m0 0a6.03 6.03 0 011.155-1.002 4.494 4.494 0 00-.574-1.748"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Pet Supplies
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">2,100+ items</p>
+						</a>
+
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-amber-100 group-hover:bg-amber-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-amber-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M11.42 15.17l-5.648 3.01a.75.75 0 01-1.088-.791l1.078-6.289L1.81 7.287a.75.75 0 01.416-1.279l6.31-.917L11.35.734a.75.75 0 011.302 0l2.812 5.357 6.31.917a.75.75 0 01.416 1.28l-4.563 4.453 1.078 6.29a.75.75 0 01-1.088.79L12 15.17l-5.648 3.01a.75.75 0 01-1.088-.79l1.078-6.29L1.81 7.29a.75.75 0 01.416-1.28l6.31-.916L11.35.734a.75.75 0 011.302 0l2.812 5.358z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Collectibles
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">1,300+ items</p>
+						</a>
+
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-blue-100 group-hover:bg-blue-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-blue-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Handmade
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">4,700+ items</p>
+						</a>
+
+						<a
+							href="#"
+							class="cat-card group flex flex-col items-center p-5 rounded-2xl border border-gray-100 bg-white transition-all duration-300 text-center"
+						>
+							<div class="cat-icon w-14 h-14 rounded-2xl bg-violet-100 group-hover:bg-violet-200 flex items-center justify-center mb-3 transition-all duration-300">
+								<svg
+									class="w-7 h-7 text-violet-600"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="1.5"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.491 48.491 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-sm font-semibold text-gray-900 group-hover:text-brand-600 transition">
+								Gaming
+							</h3>
+							<p class="text-[11px] text-gray-400 mt-0.5">3,600+ items</p>
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<section class="py-10 bg-gray-50 border-t border-gray-100">
+				<div class="max-w-7xl mx-auto px-4">
+					<div class="flex items-end justify-between mb-6">
+						<div>
+							<h2 class="text-lg font-bold text-gray-900">
+								Top Stores by Category
+							</h2>
+							<p class="text-gray-500 text-sm mt-0.5">
+								Discover the best sellers in each category
+							</p>
+						</div>
+						<a
+							href="store.html"
+							class="text-sm font-semibold text-brand-600 hover:text-brand-700 transition hidden sm:inline-flex items-center gap-1"
+						>
+							All Stores <span>&rarr;</span>
+						</a>
+					</div>
+					<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+						<div class="bg-white rounded-2xl border border-gray-100 p-5">
+							<div class="flex items-center gap-2 mb-4">
+								<div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+									<svg
+										class="w-4 h-4 text-blue-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+										/>
+									</svg>
+								</div>
+								<h3 class="text-sm font-semibold text-gray-900">Electronics</h3>
+							</div>
+							<div class="space-y-3">
+								<a href="store.html" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										TV
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											TechVault
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.9 &bull; 2.1k reviews
+										</p>
+									</div>
+								</a>
+								<a href="#" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-gray-700 to-gray-900 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										GZ
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											GadgetZone
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.7 &bull; 1.4k reviews
+										</p>
+									</div>
+								</a>
+								<a href="#" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										DH
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											DigiHub
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.8 &bull; 980 reviews
+										</p>
+									</div>
+								</a>
+							</div>
+						</div>
+
+						<div class="bg-white rounded-2xl border border-gray-100 p-5">
+							<div class="flex items-center gap-2 mb-4">
+								<div class="w-8 h-8 rounded-lg bg-rose-100 flex items-center justify-center">
+									<svg
+										class="w-4 h-4 text-rose-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"
+										/>
+									</svg>
+								</div>
+								<h3 class="text-sm font-semibold text-gray-900">Fashion</h3>
+							</div>
+							<div class="space-y-3">
+								<a href="#" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-rose-500 to-pink-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										SH
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											StyleHouse
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.8 &bull; 1.8k reviews
+										</p>
+									</div>
+								</a>
+								<a href="#" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-purple-500 to-violet-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										UV
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											UrbanVogue
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.7 &bull; 1.2k reviews
+										</p>
+									</div>
+								</a>
+								<a href="#" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										TC
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											ThreadCraft
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.9 &bull; 860 reviews
+										</p>
+									</div>
+								</a>
+							</div>
+						</div>
+
+						<div class="bg-white rounded-2xl border border-gray-100 p-5">
+							<div class="flex items-center gap-2 mb-4">
+								<div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+									<svg
+										class="w-4 h-4 text-emerald-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128z"
+										/>
+									</svg>
+								</div>
+								<h3 class="text-sm font-semibold text-gray-900">Beauty</h3>
+							</div>
+							<div class="space-y-3">
+								<a href="#" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										GN
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											GreenNest
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.9 &bull; 956 reviews
+										</p>
+									</div>
+								</a>
+								<a href="#" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										BG
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											BeautyGlow
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.8 &bull; 720 reviews
+										</p>
+									</div>
+								</a>
+								<a href="#" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-lime-500 to-green-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										PB
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											PureBloom
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.9 &bull; 540 reviews
+										</p>
+									</div>
+								</a>
+							</div>
+						</div>
+
+						<div class="bg-white rounded-2xl border border-gray-100 p-5">
+							<div class="flex items-center gap-2 mb-4">
+								<div class="w-8 h-8 rounded-lg bg-cyan-100 flex items-center justify-center">
+									<svg
+										class="w-4 h-4 text-cyan-600"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="1.5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25"
+										/>
+									</svg>
+								</div>
+								<h3 class="text-sm font-semibold text-gray-900">Sports</h3>
+							</div>
+							<div class="space-y-3">
+								<a href="#" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										FG
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											FitGear Pro
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.7 &bull; 743 reviews
+										</p>
+									</div>
+								</a>
+								<a href="#" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-sky-500 to-blue-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										AX
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											ActiveX
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.8 &bull; 610 reviews
+										</p>
+									</div>
+								</a>
+								<a href="#" class="flex items-center gap-3 group">
+									<div class="w-9 h-9 rounded-lg bg-linear-to-br from-teal-500 to-cyan-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+										PS
+									</div>
+									<div class="min-w-0 flex-1">
+										<p class="text-sm font-medium text-gray-900 truncate group-hover:text-brand-600 transition">
+											ProSport
+										</p>
+										<p class="text-[11px] text-gray-400">
+											4.6 &bull; 480 reviews
+										</p>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</>
+	);
+};

@@ -1,4 +1,3 @@
-import "./styles.css";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { Pagination } from "@/ui/pagination";
 import { FeaturedStoreCard } from "./FeaturedStoreCard";

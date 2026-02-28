@@ -1,6 +1,6 @@
 export const StoresHeader = () => {
 	return (
-		<section class="bg-gradient-to-br from-brand-50 via-white to-accent-50 border-b border-gray-100">
+		<section class="bg-linear-to-br from-brand-50 via-white to-accent-50 border-b border-gray-100">
 			<div class="max-w-7xl mx-auto px-4 py-8 lg:py-10">
 				<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
 					<div>
