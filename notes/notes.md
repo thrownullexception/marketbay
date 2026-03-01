@@ -9,3 +9,7 @@ Links
 // shop messages stores
 
 https://react-table-craft.vercel.app/docs/installation
+
+Secure checkout
+Verified sellers
+Easy payments

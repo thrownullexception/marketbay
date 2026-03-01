@@ -24,15 +24,16 @@ import { Route as authLoginRouteImport } from './routes/(auth)/login'
 import { Route as authForgotpasswordRouteImport } from './routes/(auth)/forgotpassword'
 import { Route as appStoresRouteImport } from './routes/(app)/stores'
 import { Route as appSearchRouteImport } from './routes/(app)/search'
-import { Route as appMessagesRouteImport } from './routes/(app)/messages'
 import { Route as appHelpRouteImport } from './routes/(app)/help'
 import { Route as appCategoriesRouteImport } from './routes/(app)/categories'
 import { Route as appCartRouteImport } from './routes/(app)/cart'
+import { Route as appMessagesRouteRouteImport } from './routes/(app)/messages.route'
 import { Route as appSellerIndexRouteImport } from './routes/(app)/seller/index'
+import { Route as appMessagesIndexRouteImport } from './routes/(app)/messages.index'
 import { Route as PostsPostIdDeepRouteImport } from './routes/posts_.$postId.deep'
 import { Route as appStoreStoreSlugRouteImport } from './routes/(app)/store.$storeSlug'
 import { Route as appProductProductSlugRouteImport } from './routes/(app)/product.$productSlug'
-import { Route as appMessageStoreSlugRouteImport } from './routes/(app)/message.$storeSlug'
+import { Route as appMessagesStoreSlugRouteImport } from './routes/(app)/messages.$storeSlug'
 import { Route as appCategoryCategorySlugRouteImport } from './routes/(app)/category.$categorySlug'
 import { Route as appaccountAccountRouteImport } from './routes/(app)/(account)/account'
 import { Route as appSellerStoreIdSettingsRouteImport } from './routes/(app)/seller/$storeId/settings'
@@ -114,11 +115,6 @@ const appSearchRoute = appSearchRouteImport.update({
   path: '/search',
   getParentRoute: () => appRouteRoute,
 } as any)
-const appMessagesRoute = appMessagesRouteImport.update({
-  id: '/messages',
-  path: '/messages',
-  getParentRoute: () => appRouteRoute,
-} as any)
 const appHelpRoute = appHelpRouteImport.update({
   id: '/help',
   path: '/help',
@@ -134,10 +130,20 @@ const appCartRoute = appCartRouteImport.update({
   path: '/cart',
   getParentRoute: () => appRouteRoute,
 } as any)
+const appMessagesRouteRoute = appMessagesRouteRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => appRouteRoute,
+} as any)
 const appSellerIndexRoute = appSellerIndexRouteImport.update({
   id: '/seller/',
   path: '/seller/',
   getParentRoute: () => appRouteRoute,
+} as any)
+const appMessagesIndexRoute = appMessagesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appMessagesRouteRoute,
 } as any)
 const PostsPostIdDeepRoute = PostsPostIdDeepRouteImport.update({
   id: '/posts_/$postId/deep',
@@ -154,10 +160,10 @@ const appProductProductSlugRoute = appProductProductSlugRouteImport.update({
   path: '/product/$productSlug',
   getParentRoute: () => appRouteRoute,
 } as any)
-const appMessageStoreSlugRoute = appMessageStoreSlugRouteImport.update({
-  id: '/message/$storeSlug',
-  path: '/message/$storeSlug',
-  getParentRoute: () => appRouteRoute,
+const appMessagesStoreSlugRoute = appMessagesStoreSlugRouteImport.update({
+  id: '/$storeSlug',
+  path: '/$storeSlug',
+  getParentRoute: () => appMessagesRouteRoute,
 } as any)
 const appCategoryCategorySlugRoute = appCategoryCategorySlugRouteImport.update({
   id: '/category/$categorySlug',
@@ -209,10 +215,10 @@ export interface FileRoutesByFullPath {
   '/deferred': typeof DeferredRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/messages': typeof appMessagesRouteRouteWithChildren
   '/cart': typeof appCartRoute
   '/categories': typeof appCategoriesRoute
   '/help': typeof appHelpRoute
-  '/messages': typeof appMessagesRoute
   '/search': typeof appSearchRoute
   '/stores': typeof appStoresRoute
   '/forgotpassword': typeof authForgotpasswordRoute
@@ -224,10 +230,11 @@ export interface FileRoutesByFullPath {
   '/': typeof appIndexRoute
   '/account': typeof appaccountAccountRoute
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
-  '/message/$storeSlug': typeof appMessageStoreSlugRoute
+  '/messages/$storeSlug': typeof appMessagesStoreSlugRoute
   '/product/$productSlug': typeof appProductProductSlugRoute
   '/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/posts/$postId/deep': typeof PostsPostIdDeepRoute
+  '/messages/': typeof appMessagesIndexRoute
   '/seller/': typeof appSellerIndexRoute
   '/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
   '/seller/$storeId/dashboard': typeof appSellerStoreIdDashboardRoute
@@ -243,7 +250,6 @@ export interface FileRoutesByTo {
   '/cart': typeof appCartRoute
   '/categories': typeof appCategoriesRoute
   '/help': typeof appHelpRoute
-  '/messages': typeof appMessagesRoute
   '/search': typeof appSearchRoute
   '/stores': typeof appStoresRoute
   '/forgotpassword': typeof authForgotpasswordRoute
@@ -255,10 +261,11 @@ export interface FileRoutesByTo {
   '/': typeof appIndexRoute
   '/account': typeof appaccountAccountRoute
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
-  '/message/$storeSlug': typeof appMessageStoreSlugRoute
+  '/messages/$storeSlug': typeof appMessagesStoreSlugRoute
   '/product/$productSlug': typeof appProductProductSlugRoute
   '/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/posts/$postId/deep': typeof PostsPostIdDeepRoute
+  '/messages': typeof appMessagesIndexRoute
   '/seller': typeof appSellerIndexRoute
   '/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
   '/seller/$storeId/dashboard': typeof appSellerStoreIdDashboardRoute
@@ -275,10 +282,10 @@ export interface FileRoutesById {
   '/deferred': typeof DeferredRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/(app)/messages': typeof appMessagesRouteRouteWithChildren
   '/(app)/cart': typeof appCartRoute
   '/(app)/categories': typeof appCategoriesRoute
   '/(app)/help': typeof appHelpRoute
-  '/(app)/messages': typeof appMessagesRoute
   '/(app)/search': typeof appSearchRoute
   '/(app)/stores': typeof appStoresRoute
   '/(auth)/forgotpassword': typeof authForgotpasswordRoute
@@ -290,10 +297,11 @@ export interface FileRoutesById {
   '/(app)/': typeof appIndexRoute
   '/(app)/(account)/account': typeof appaccountAccountRoute
   '/(app)/category/$categorySlug': typeof appCategoryCategorySlugRoute
-  '/(app)/message/$storeSlug': typeof appMessageStoreSlugRoute
+  '/(app)/messages/$storeSlug': typeof appMessagesStoreSlugRoute
   '/(app)/product/$productSlug': typeof appProductProductSlugRoute
   '/(app)/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/posts_/$postId/deep': typeof PostsPostIdDeepRoute
+  '/(app)/messages/': typeof appMessagesIndexRoute
   '/(app)/seller/': typeof appSellerIndexRoute
   '/(app)/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
   '/(app)/seller/$storeId/dashboard': typeof appSellerStoreIdDashboardRoute
@@ -308,10 +316,10 @@ export interface FileRouteTypes {
     | '/deferred'
     | '/privacy-policy'
     | '/terms-of-service'
+    | '/messages'
     | '/cart'
     | '/categories'
     | '/help'
-    | '/messages'
     | '/search'
     | '/stores'
     | '/forgotpassword'
@@ -323,10 +331,11 @@ export interface FileRouteTypes {
     | '/'
     | '/account'
     | '/category/$categorySlug'
-    | '/message/$storeSlug'
+    | '/messages/$storeSlug'
     | '/product/$productSlug'
     | '/store/$storeSlug'
     | '/posts/$postId/deep'
+    | '/messages/'
     | '/seller/'
     | '/seller/$storeId/analytics'
     | '/seller/$storeId/dashboard'
@@ -342,7 +351,6 @@ export interface FileRouteTypes {
     | '/cart'
     | '/categories'
     | '/help'
-    | '/messages'
     | '/search'
     | '/stores'
     | '/forgotpassword'
@@ -354,10 +362,11 @@ export interface FileRouteTypes {
     | '/'
     | '/account'
     | '/category/$categorySlug'
-    | '/message/$storeSlug'
+    | '/messages/$storeSlug'
     | '/product/$productSlug'
     | '/store/$storeSlug'
     | '/posts/$postId/deep'
+    | '/messages'
     | '/seller'
     | '/seller/$storeId/analytics'
     | '/seller/$storeId/dashboard'
@@ -373,10 +382,10 @@ export interface FileRouteTypes {
     | '/deferred'
     | '/privacy-policy'
     | '/terms-of-service'
+    | '/(app)/messages'
     | '/(app)/cart'
     | '/(app)/categories'
     | '/(app)/help'
-    | '/(app)/messages'
     | '/(app)/search'
     | '/(app)/stores'
     | '/(auth)/forgotpassword'
@@ -388,10 +397,11 @@ export interface FileRouteTypes {
     | '/(app)/'
     | '/(app)/(account)/account'
     | '/(app)/category/$categorySlug'
-    | '/(app)/message/$storeSlug'
+    | '/(app)/messages/$storeSlug'
     | '/(app)/product/$productSlug'
     | '/(app)/store/$storeSlug'
     | '/posts_/$postId/deep'
+    | '/(app)/messages/'
     | '/(app)/seller/'
     | '/(app)/seller/$storeId/analytics'
     | '/(app)/seller/$storeId/dashboard'
@@ -520,13 +530,6 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appSearchRouteImport
       parentRoute: typeof appRouteRoute
     }
-    '/(app)/messages': {
-      id: '/(app)/messages'
-      path: '/messages'
-      fullPath: '/messages'
-      preLoaderRoute: typeof appMessagesRouteImport
-      parentRoute: typeof appRouteRoute
-    }
     '/(app)/help': {
       id: '/(app)/help'
       path: '/help'
@@ -548,12 +551,26 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appCartRouteImport
       parentRoute: typeof appRouteRoute
     }
+    '/(app)/messages': {
+      id: '/(app)/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof appMessagesRouteRouteImport
+      parentRoute: typeof appRouteRoute
+    }
     '/(app)/seller/': {
       id: '/(app)/seller/'
       path: '/seller'
       fullPath: '/seller/'
       preLoaderRoute: typeof appSellerIndexRouteImport
       parentRoute: typeof appRouteRoute
+    }
+    '/(app)/messages/': {
+      id: '/(app)/messages/'
+      path: '/'
+      fullPath: '/messages/'
+      preLoaderRoute: typeof appMessagesIndexRouteImport
+      parentRoute: typeof appMessagesRouteRoute
     }
     '/posts_/$postId/deep': {
       id: '/posts_/$postId/deep'
@@ -576,12 +593,12 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appProductProductSlugRouteImport
       parentRoute: typeof appRouteRoute
     }
-    '/(app)/message/$storeSlug': {
-      id: '/(app)/message/$storeSlug'
-      path: '/message/$storeSlug'
-      fullPath: '/message/$storeSlug'
-      preLoaderRoute: typeof appMessageStoreSlugRouteImport
-      parentRoute: typeof appRouteRoute
+    '/(app)/messages/$storeSlug': {
+      id: '/(app)/messages/$storeSlug'
+      path: '/$storeSlug'
+      fullPath: '/messages/$storeSlug'
+      preLoaderRoute: typeof appMessagesStoreSlugRouteImport
+      parentRoute: typeof appMessagesRouteRoute
     }
     '/(app)/category/$categorySlug': {
       id: '/(app)/category/$categorySlug'
@@ -642,17 +659,29 @@ declare module '@tanstack/solid-router' {
   }
 }
 
+interface appMessagesRouteRouteChildren {
+  appMessagesStoreSlugRoute: typeof appMessagesStoreSlugRoute
+  appMessagesIndexRoute: typeof appMessagesIndexRoute
+}
+
+const appMessagesRouteRouteChildren: appMessagesRouteRouteChildren = {
+  appMessagesStoreSlugRoute: appMessagesStoreSlugRoute,
+  appMessagesIndexRoute: appMessagesIndexRoute,
+}
+
+const appMessagesRouteRouteWithChildren =
+  appMessagesRouteRoute._addFileChildren(appMessagesRouteRouteChildren)
+
 interface appRouteRouteChildren {
+  appMessagesRouteRoute: typeof appMessagesRouteRouteWithChildren
   appCartRoute: typeof appCartRoute
   appCategoriesRoute: typeof appCategoriesRoute
   appHelpRoute: typeof appHelpRoute
-  appMessagesRoute: typeof appMessagesRoute
   appSearchRoute: typeof appSearchRoute
   appStoresRoute: typeof appStoresRoute
   appIndexRoute: typeof appIndexRoute
   appaccountAccountRoute: typeof appaccountAccountRoute
   appCategoryCategorySlugRoute: typeof appCategoryCategorySlugRoute
-  appMessageStoreSlugRoute: typeof appMessageStoreSlugRoute
   appProductProductSlugRoute: typeof appProductProductSlugRoute
   appStoreStoreSlugRoute: typeof appStoreStoreSlugRoute
   appSellerIndexRoute: typeof appSellerIndexRoute
@@ -665,16 +694,15 @@ interface appRouteRouteChildren {
 }
 
 const appRouteRouteChildren: appRouteRouteChildren = {
+  appMessagesRouteRoute: appMessagesRouteRouteWithChildren,
   appCartRoute: appCartRoute,
   appCategoriesRoute: appCategoriesRoute,
   appHelpRoute: appHelpRoute,
-  appMessagesRoute: appMessagesRoute,
   appSearchRoute: appSearchRoute,
   appStoresRoute: appStoresRoute,
   appIndexRoute: appIndexRoute,
   appaccountAccountRoute: appaccountAccountRoute,
   appCategoryCategorySlugRoute: appCategoryCategorySlugRoute,
-  appMessageStoreSlugRoute: appMessageStoreSlugRoute,
   appProductProductSlugRoute: appProductProductSlugRoute,
   appStoreStoreSlugRoute: appStoreStoreSlugRoute,
   appSellerIndexRoute: appSellerIndexRoute,

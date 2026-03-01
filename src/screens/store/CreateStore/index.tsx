@@ -2,11 +2,18 @@ import {
 	ArrowLeftIcon,
 	ArrowRightIcon,
 	CheckIcon,
+	GlobeIcon,
+	InstagramIcon,
 	MailIcon,
 	PhoneIcon,
+	TwitterIcon,
 } from "lucide-solid";
 import "./styles.css";
 import { useRouter } from "@tanstack/solid-router";
+import { DefaultButton, PrimaryButton } from "@/ui/button";
+import { InputSelect } from "@/ui/input-select";
+import { InputText } from "@/ui/input-text";
+import { InputTextarea } from "@/ui/input-textarea";
 
 export const CreateStoreScreen = () => {
 	const router = useRouter();
@@ -73,23 +80,12 @@ export const CreateStoreScreen = () => {
 								Store Information
 							</h2>
 							<div class="space-y-5">
-								<div>
-									<label
-										for="store-name"
-										class="block text-sm font-medium text-gray-700 mb-1.5"
-									>
-										Store Name <span class="text-red-400">*</span>
-									</label>
-									<input
-										id="store-name"
-										type="text"
-										placeholder="e.g. TechVault, StyleHouse, GreenNest"
-										class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-									/>
-									<p class="text-xs text-gray-400 mt-1.5">
-										This is how buyers will find and recognize your store.
-									</p>
-								</div>
+								<InputText
+									label="Store Name"
+									placeholder="e.g. TechVault, StyleHouse, GreenNest"
+									description="This is how buyers will find and recognize your store."
+									required
+								/>
 
 								<div>
 									<label
@@ -111,26 +107,12 @@ export const CreateStoreScreen = () => {
 									</div>
 								</div>
 
-								<div>
-									<label
-										for="store-desc"
-										class="block text-sm font-medium text-gray-700 mb-1.5"
-									>
-										Description <span class="text-red-400">*</span>
-									</label>
-									<textarea
-										id="store-desc"
-										rows="3"
-										placeholder="Tell buyers what you sell, what makes your products unique, and why they should shop with you..."
-										class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition resize-none"
-									></textarea>
-									<div class="flex justify-between mt-1.5">
-										<p class="text-xs text-gray-400">
-											This appears on your store profile page.
-										</p>
-										<span class="text-xs text-gray-400">0 / 500</span>
-									</div>
-								</div>
+								<InputTextarea
+									label="Description"
+									placeholder="Tell buyers what you sell, what makes your products unique, and why they should shop with you..."
+									description="This appears on your store profile page."
+									required
+								/>
 							</div>
 						</div>
 
@@ -139,73 +121,56 @@ export const CreateStoreScreen = () => {
 								Category &amp; Location
 							</h2>
 							<div class="space-y-5">
-								<div>
-									<label
-										for="store-cat"
-										class="block text-sm font-medium text-gray-700 mb-1.5"
-									>
-										Primary Category <span class="text-red-400">*</span>
-									</label>
-									<select
-										id="store-cat"
-										class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition cursor-pointer bg-white appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNiA4bDQgNCA0LTQiIHN0cm9rZT0iIzlDQTNCNSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==')] bg-no-repeat bg-[right_12px_center]"
-									>
-										<option value="" disabled selected>
-											Select a category
-										</option>
-										<option>Electronics &amp; Gadgets</option>
-										<option>Fashion &amp; Accessories</option>
-										<option>Home &amp; Garden</option>
-										<option>Beauty &amp; Wellness</option>
-										<option>Sports &amp; Fitness</option>
-										<option>Books &amp; Media</option>
-										<option>Toys &amp; Games</option>
-										<option>Automotive</option>
-										<option>Groceries &amp; Food</option>
-										<option>Art &amp; Crafts</option>
-										<option>Other</option>
-									</select>
-								</div>
+								<InputSelect
+									label="Primary Category"
+									placeholder="Select a category"
+									description="This is the category that will be displayed on your store profile page."
+									required
+									options={[
+										{
+											label: "Electronics &amp; Gadgets",
+											value: "electronics-and-gadgets",
+										},
+										{
+											label: "Fashion &amp; Accessories",
+											value: "fashion-and-accessories",
+										},
+										{ label: "Home &amp; Garden", value: "home-and-garden" },
+										{
+											label: "Beauty &amp; Wellness",
+											value: "beauty-and-wellness",
+										},
+										{
+											label: "Sports &amp; Fitness",
+											value: "sports-and-fitness",
+										},
+										{ label: "Books &amp; Media", value: "books-and-media" },
+										{ label: "Toys &amp; Games", value: "toys-and-games" },
+										{ label: "Automotive", value: "automotive" },
+										{
+											label: "Groceries &amp; Food",
+											value: "groceries-and-food",
+										},
+										{ label: "Art &amp; Crafts", value: "art-and-crafts" },
+										{ label: "Other", value: "other" },
+									]}
+								/>
 
 								<div class="grid sm:grid-cols-2 gap-5">
-									<div>
-										<label
-											for="store-country"
-											class="block text-sm font-medium text-gray-700 mb-1.5"
-										>
-											Country <span class="text-red-400">*</span>
-										</label>
-										<select
-											id="store-country"
-											class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition cursor-pointer bg-white appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNiA4bDQgNCA0LTQiIHN0cm9rZT0iIzlDQTNCNSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==')] bg-no-repeat bg-[right_12px_center]"
-										>
-											<option value="" disabled selected>
-												Select country
-											</option>
-											<option>United States</option>
-											<option>United Kingdom</option>
-											<option>Canada</option>
-											<option>Australia</option>
-											<option>Germany</option>
-											<option>France</option>
-											<option>Japan</option>
-											<option>Other</option>
-										</select>
-									</div>
-									<div>
-										<label
-											for="store-city"
-											class="block text-sm font-medium text-gray-700 mb-1.5"
-										>
-											City
-										</label>
-										<input
-											id="store-city"
-											type="text"
-											placeholder="e.g. San Francisco"
-											class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-										/>
-									</div>
+									<InputSelect
+										label="State"
+										placeholder="Select a state"
+										required
+										options={[
+											{ label: "California", value: "california" },
+											{ label: "New York", value: "new-york" },
+											{ label: "Texas", value: "texas" },
+											{ label: "Florida", value: "florida" },
+											{ label: "Illinois", value: "illinois" },
+											{ label: "Other", value: "other" },
+										]}
+									/>
+									<InputText label="City" placeholder="e.g. San Francisco" />
 								</div>
 							</div>
 						</div>
@@ -308,94 +273,35 @@ export const CreateStoreScreen = () => {
 							</p>
 
 							<div class="space-y-5">
-								<div>
-									<label
-										for="store-email"
-										class="block text-sm font-medium text-gray-700 mb-1.5"
-									>
-										Business Email
-									</label>
-									<div class="relative">
-										<MailIcon class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-										<input
-											id="store-email"
-											type="email"
-											placeholder="hello@yourbusiness.com"
-											class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-										/>
-									</div>
-								</div>
+								<InputText
+									label="Business Email"
+									placeholder="hello@yourbusiness.com"
+									Icon={MailIcon}
+								/>
 
-								<div>
-									<label
-										for="store-phone"
-										class="block text-sm font-medium text-gray-700 mb-1.5"
-									>
-										Phone Number
-									</label>
-									<div class="relative">
-										<PhoneIcon class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-										<input
-											id="store-phone"
-											type="tel"
-											placeholder="+1 (555) 000-0000"
-											class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-										/>
-									</div>
-								</div>
+								<InputText
+									label="Phone Number"
+									placeholder="+234 (000) 000-0000"
+									Icon={PhoneIcon}
+								/>
 
-								<div>
-									<label class="block text-sm font-medium text-gray-700 mb-3">
-										Social Links
-									</label>
-									<div class="space-y-3">
-										<div class="relative">
-											<div class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400">
-												<svg fill="currentColor" viewBox="0 0 24 24">
-													<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-												</svg>
-											</div>
-											<input
-												type="url"
-												placeholder="Instagram URL"
-												class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-											/>
-										</div>
-										<div class="relative">
-											<div class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400">
-												<svg fill="currentColor" viewBox="0 0 24 24">
-													<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-												</svg>
-											</div>
-											<input
-												type="url"
-												placeholder="X (Twitter) URL"
-												class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-											/>
-										</div>
-										<div class="relative">
-											<div class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400">
-												<svg
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-													stroke-width="2"
-												>
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"
-													/>
-												</svg>
-											</div>
-											<input
-												type="url"
-												placeholder="Website URL"
-												class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-											/>
-										</div>
-									</div>
-								</div>
+								<InputText
+									label="Website URL"
+									placeholder="https://yourwebsite.com"
+									Icon={GlobeIcon}
+								/>
+
+								<InputText
+									label="Instagram URL"
+									placeholder="https://www.instagram.com/yourbusiness"
+									Icon={InstagramIcon}
+								/>
+
+								<InputText
+									label="X (Twitter) URL"
+									placeholder="https://x.com/yourbusiness"
+									Icon={TwitterIcon}
+								/>
 							</div>
 						</div>
 
@@ -459,23 +365,17 @@ export const CreateStoreScreen = () => {
 									</div>
 								</div>
 
-								<div>
-									<label
-										for="return-policy"
-										class="block text-sm font-medium text-gray-700 mb-1.5"
-									>
-										Return Policy
-									</label>
-									<select
-										id="return-policy"
-										class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition cursor-pointer bg-white appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNiA4bDQgNCA0LTQiIHN0cm9rZT0iIzlDQTNCNSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==')] bg-no-repeat bg-[right_12px_center]"
-									>
-										<option>30-day returns</option>
-										<option>14-day returns</option>
-										<option>60-day returns</option>
-										<option>No returns</option>
-									</select>
-								</div>
+								<InputSelect
+									label="Return Policy"
+									placeholder="Select a return policy"
+									required
+									options={[
+										{ label: "30-day returns", value: "30-day-returns" },
+										{ label: "14-day returns", value: "14-day-returns" },
+										{ label: "60-day returns", value: "60-day-returns" },
+										{ label: "No returns", value: "no-returns" },
+									]}
+								/>
 							</div>
 						</div>
 
@@ -507,22 +407,16 @@ export const CreateStoreScreen = () => {
 						</div>
 
 						<div class="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-2 pb-8">
-							<button
-								type="button"
+							<DefaultButton
+								label="Back"
 								onClick={() => router.history.back()}
-								class="cursor-pointer flex-1 sm:flex-initial px-8 py-3 border border-gray-200 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 transition flex items-center justify-center gap-2"
-							>
-								<ArrowLeftIcon class="w-4 h-4" />
-								Back
-							</button>
-
-							<button
+								Icon={ArrowLeftIcon}
+							/>
+							<PrimaryButton
+								label="Create Store"
 								type="submit"
-								class="cursor-pointer flex-1 sm:flex-initial px-8 py-3 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-xl transition shadow-sm flex items-center justify-center gap-2"
-							>
-								Create Store
-								<ArrowRightIcon class="w-4 h-4" />
-							</button>
+								Icon={ArrowRightIcon}
+							/>
 						</div>
 					</form>
 				</div>

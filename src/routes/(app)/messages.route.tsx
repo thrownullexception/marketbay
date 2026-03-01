@@ -1,9 +1,6 @@
 import { createFileRoute } from "@tanstack/solid-router";
+import { MessagesLayout } from "@/screens/shop/Messages";
 
 export const Route = createFileRoute("/(app)/messages")({
-	component: RouteComponent,
+	component: MessagesLayout,
 });
-
-function RouteComponent() {
-	return <div>Hello "/(app)/messages"!</div>;
-}

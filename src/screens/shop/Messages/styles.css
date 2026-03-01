@@ -1,0 +1,25 @@
+.conversation-item:hover {
+	background-color: #f9fafb;
+}
+
+.conversation-item.active {
+	background-color: #eef4ff;
+	border-right: 3px solid #1d44f2;
+}
+
+.chat-scrollbar::-webkit-scrollbar {
+	width: 6px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb {
+	background: #e5e7eb;
+	border-radius: 3px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: #d1d5db;
+}
