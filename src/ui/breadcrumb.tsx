@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/solid-router";
+import { Link, type LinkOptions } from "@tanstack/solid-router";
 import { ChevronRight } from "lucide-solid";
 
 export function Breadcrumb({
@@ -6,7 +6,7 @@ export function Breadcrumb({
 }: {
 	items: {
 		label: string;
-		to: string;
+		link: LinkOptions;
 	}[];
 }) {
 	return (
@@ -15,7 +15,7 @@ export function Breadcrumb({
 				<nav class="flex items-center gap-1.5 text-xs text-gray-400">
 					{items.slice(0, -1).map((item) => (
 						<>
-							<Link to={item.to} class="hover:text-brand-600 transition">
+							<Link class="hover:text-brand-600 transition" {...item.link}>
 								{item.label}
 							</Link>
 							<ChevronRight class="w-3 h-3 shrink-0" />

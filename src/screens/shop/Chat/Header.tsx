@@ -1,13 +1,14 @@
+import { linkOptions } from "@tanstack/solid-router";
 import { CheckCheckIcon } from "lucide-solid";
 import { Breadcrumb } from "@/ui/breadcrumb";
 
-export const MessagesHeader = () => {
+export const ChatHeader = () => {
 	return (
 		<>
 			<Breadcrumb
 				items={[
-					{ label: "Home", to: "/" },
-					{ label: "Messages", to: "/messages" },
+					{ label: "Home", link: linkOptions({ to: "/" }) },
+					{ label: "Messages", link: linkOptions({ to: "/chat" }) },
 				]}
 			/>
 

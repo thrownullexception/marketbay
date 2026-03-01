@@ -1,3 +1,4 @@
+import { linkOptions } from "@tanstack/solid-router";
 import {
 	FlaskConicalIcon,
 	MonitorIcon,
@@ -10,7 +11,7 @@ import {
 	type ProductCardData,
 } from "@/screens/_components/product-card";
 import { ScreenHeader } from "@/screens/_components/screen-header";
-import { SectionCard } from "@/screens/_components/section-card";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { CartBenefits } from "./CartBenefits";
 import { CartItem } from "./CartItem";
@@ -50,8 +51,8 @@ export const CartScreen = () => {
 		<>
 			<Breadcrumb
 				items={[
-					{ label: "Home", to: "/" },
-					{ label: "Shopping Cart", to: "/cart" },
+					{ label: "Home", link: linkOptions({ to: "/" }) },
+					{ label: "Shopping Cart", link: linkOptions({ to: "/cart" }) },
 				]}
 			/>
 
@@ -139,13 +140,13 @@ export const CartScreen = () => {
 							/>
 						</div>
 
-						<SectionCard title="Saved for Later">
+						<ScreenSectionCard title="Saved for Later">
 							<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
 								<For each={SAVED_ITEMS}>
 									{(product) => <ProductCard product={product} />}
 								</For>
 							</div>
-						</SectionCard>
+						</ScreenSectionCard>
 					</div>
 
 					<div class="lg:col-span-1">

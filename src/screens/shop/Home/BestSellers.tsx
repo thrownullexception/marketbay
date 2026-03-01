@@ -4,7 +4,7 @@ import {
 	ProductCard,
 	type ProductCardData,
 } from "@/screens/_components/product-card";
-import { SectionCard } from "@/screens/_components/section-card";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 
 const BEST_SELLERS: ProductCardData[] = [
 	{
@@ -47,7 +47,7 @@ const BEST_SELLERS: ProductCardData[] = [
 
 export const BestSellers = () => {
 	return (
-		<SectionCard
+		<ScreenSectionCard
 			title="Best Sellers"
 			description="Top-rated products this month"
 			action={linkOptions({
@@ -61,6 +61,6 @@ export const BestSellers = () => {
 					{(product) => <ProductCard product={product} />}
 				</For>
 			</div>
-		</SectionCard>
+		</ScreenSectionCard>
 	);
 };

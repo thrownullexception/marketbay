@@ -10,14 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
+import { Route as StoreTermsOfServiceRouteImport } from './routes/store-terms-of-service'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as MarketplaceGuidelinesRouteImport } from './routes/marketplace-guidelines'
 import { Route as DeferredRouteImport } from './routes/deferred'
 import { Route as formsRouteRouteImport } from './routes/(forms)/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as appRouteRouteImport } from './routes/(app)/route'
 import { Route as appIndexRouteImport } from './routes/(app)/index'
-import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
-import { Route as ApiUsersRouteImport } from './routes/api/users'
 import { Route as formsCreateStoreRouteImport } from './routes/(forms)/create-store'
 import { Route as authRegisterRouteImport } from './routes/(auth)/register'
 import { Route as authLoginRouteImport } from './routes/(auth)/login'
@@ -27,13 +27,12 @@ import { Route as appSearchRouteImport } from './routes/(app)/search'
 import { Route as appHelpRouteImport } from './routes/(app)/help'
 import { Route as appCategoriesRouteImport } from './routes/(app)/categories'
 import { Route as appCartRouteImport } from './routes/(app)/cart'
-import { Route as appMessagesRouteRouteImport } from './routes/(app)/messages.route'
+import { Route as appChatRouteRouteImport } from './routes/(app)/chat/route'
 import { Route as appSellerIndexRouteImport } from './routes/(app)/seller/index'
-import { Route as appMessagesIndexRouteImport } from './routes/(app)/messages.index'
-import { Route as PostsPostIdDeepRouteImport } from './routes/posts_.$postId.deep'
+import { Route as appChatIndexRouteImport } from './routes/(app)/chat/index'
 import { Route as appStoreStoreSlugRouteImport } from './routes/(app)/store.$storeSlug'
 import { Route as appProductProductSlugRouteImport } from './routes/(app)/product.$productSlug'
-import { Route as appMessagesStoreSlugRouteImport } from './routes/(app)/messages.$storeSlug'
+import { Route as appChatStoreSlugRouteImport } from './routes/(app)/chat/$storeSlug'
 import { Route as appCategoryCategorySlugRouteImport } from './routes/(app)/category.$categorySlug'
 import { Route as appaccountAccountRouteImport } from './routes/(app)/(account)/account'
 import { Route as appSellerStoreIdSettingsRouteImport } from './routes/(app)/seller/$storeId/settings'
@@ -48,9 +47,19 @@ const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StoreTermsOfServiceRoute = StoreTermsOfServiceRouteImport.update({
+  id: '/store-terms-of-service',
+  path: '/store-terms-of-service',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketplaceGuidelinesRoute = MarketplaceGuidelinesRouteImport.update({
+  id: '/marketplace-guidelines',
+  path: '/marketplace-guidelines',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DeferredRoute = DeferredRouteImport.update({
@@ -74,16 +83,6 @@ const appIndexRoute = appIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => appRouteRoute,
-} as any)
-const PostsPostIdRoute = PostsPostIdRouteImport.update({
-  id: '/posts/$postId',
-  path: '/posts/$postId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiUsersRoute = ApiUsersRouteImport.update({
-  id: '/api/users',
-  path: '/api/users',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const formsCreateStoreRoute = formsCreateStoreRouteImport.update({
   id: '/create-store',
@@ -130,9 +129,9 @@ const appCartRoute = appCartRouteImport.update({
   path: '/cart',
   getParentRoute: () => appRouteRoute,
 } as any)
-const appMessagesRouteRoute = appMessagesRouteRouteImport.update({
-  id: '/messages',
-  path: '/messages',
+const appChatRouteRoute = appChatRouteRouteImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => appRouteRoute,
 } as any)
 const appSellerIndexRoute = appSellerIndexRouteImport.update({
@@ -140,15 +139,10 @@ const appSellerIndexRoute = appSellerIndexRouteImport.update({
   path: '/seller/',
   getParentRoute: () => appRouteRoute,
 } as any)
-const appMessagesIndexRoute = appMessagesIndexRouteImport.update({
+const appChatIndexRoute = appChatIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => appMessagesRouteRoute,
-} as any)
-const PostsPostIdDeepRoute = PostsPostIdDeepRouteImport.update({
-  id: '/posts_/$postId/deep',
-  path: '/posts/$postId/deep',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => appChatRouteRoute,
 } as any)
 const appStoreStoreSlugRoute = appStoreStoreSlugRouteImport.update({
   id: '/store/$storeSlug',
@@ -160,10 +154,10 @@ const appProductProductSlugRoute = appProductProductSlugRouteImport.update({
   path: '/product/$productSlug',
   getParentRoute: () => appRouteRoute,
 } as any)
-const appMessagesStoreSlugRoute = appMessagesStoreSlugRouteImport.update({
+const appChatStoreSlugRoute = appChatStoreSlugRouteImport.update({
   id: '/$storeSlug',
   path: '/$storeSlug',
-  getParentRoute: () => appMessagesRouteRoute,
+  getParentRoute: () => appChatRouteRoute,
 } as any)
 const appCategoryCategorySlugRoute = appCategoryCategorySlugRouteImport.update({
   id: '/category/$categorySlug',
@@ -213,9 +207,11 @@ const appSellerStoreIdAnalyticsRoute =
 
 export interface FileRoutesByFullPath {
   '/deferred': typeof DeferredRoute
+  '/marketplace-guidelines': typeof MarketplaceGuidelinesRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/store-terms-of-service': typeof StoreTermsOfServiceRoute
   '/terms-of-service': typeof TermsOfServiceRoute
-  '/messages': typeof appMessagesRouteRouteWithChildren
+  '/chat': typeof appChatRouteRouteWithChildren
   '/cart': typeof appCartRoute
   '/categories': typeof appCategoriesRoute
   '/help': typeof appHelpRoute
@@ -225,16 +221,13 @@ export interface FileRoutesByFullPath {
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
   '/create-store': typeof formsCreateStoreRoute
-  '/api/users': typeof ApiUsersRoute
-  '/posts/$postId': typeof PostsPostIdRoute
   '/': typeof appIndexRoute
   '/account': typeof appaccountAccountRoute
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
-  '/messages/$storeSlug': typeof appMessagesStoreSlugRoute
+  '/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/product/$productSlug': typeof appProductProductSlugRoute
   '/store/$storeSlug': typeof appStoreStoreSlugRoute
-  '/posts/$postId/deep': typeof PostsPostIdDeepRoute
-  '/messages/': typeof appMessagesIndexRoute
+  '/chat/': typeof appChatIndexRoute
   '/seller/': typeof appSellerIndexRoute
   '/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
   '/seller/$storeId/dashboard': typeof appSellerStoreIdDashboardRoute
@@ -245,7 +238,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/deferred': typeof DeferredRoute
+  '/marketplace-guidelines': typeof MarketplaceGuidelinesRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/store-terms-of-service': typeof StoreTermsOfServiceRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/cart': typeof appCartRoute
   '/categories': typeof appCategoriesRoute
@@ -256,16 +251,13 @@ export interface FileRoutesByTo {
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
   '/create-store': typeof formsCreateStoreRoute
-  '/api/users': typeof ApiUsersRoute
-  '/posts/$postId': typeof PostsPostIdRoute
   '/': typeof appIndexRoute
   '/account': typeof appaccountAccountRoute
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
-  '/messages/$storeSlug': typeof appMessagesStoreSlugRoute
+  '/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/product/$productSlug': typeof appProductProductSlugRoute
   '/store/$storeSlug': typeof appStoreStoreSlugRoute
-  '/posts/$postId/deep': typeof PostsPostIdDeepRoute
-  '/messages': typeof appMessagesIndexRoute
+  '/chat': typeof appChatIndexRoute
   '/seller': typeof appSellerIndexRoute
   '/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
   '/seller/$storeId/dashboard': typeof appSellerStoreIdDashboardRoute
@@ -280,9 +272,11 @@ export interface FileRoutesById {
   '/(auth)': typeof authRouteRouteWithChildren
   '/(forms)': typeof formsRouteRouteWithChildren
   '/deferred': typeof DeferredRoute
+  '/marketplace-guidelines': typeof MarketplaceGuidelinesRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/store-terms-of-service': typeof StoreTermsOfServiceRoute
   '/terms-of-service': typeof TermsOfServiceRoute
-  '/(app)/messages': typeof appMessagesRouteRouteWithChildren
+  '/(app)/chat': typeof appChatRouteRouteWithChildren
   '/(app)/cart': typeof appCartRoute
   '/(app)/categories': typeof appCategoriesRoute
   '/(app)/help': typeof appHelpRoute
@@ -292,16 +286,13 @@ export interface FileRoutesById {
   '/(auth)/login': typeof authLoginRoute
   '/(auth)/register': typeof authRegisterRoute
   '/(forms)/create-store': typeof formsCreateStoreRoute
-  '/api/users': typeof ApiUsersRoute
-  '/posts/$postId': typeof PostsPostIdRoute
   '/(app)/': typeof appIndexRoute
   '/(app)/(account)/account': typeof appaccountAccountRoute
   '/(app)/category/$categorySlug': typeof appCategoryCategorySlugRoute
-  '/(app)/messages/$storeSlug': typeof appMessagesStoreSlugRoute
+  '/(app)/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/(app)/product/$productSlug': typeof appProductProductSlugRoute
   '/(app)/store/$storeSlug': typeof appStoreStoreSlugRoute
-  '/posts_/$postId/deep': typeof PostsPostIdDeepRoute
-  '/(app)/messages/': typeof appMessagesIndexRoute
+  '/(app)/chat/': typeof appChatIndexRoute
   '/(app)/seller/': typeof appSellerIndexRoute
   '/(app)/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
   '/(app)/seller/$storeId/dashboard': typeof appSellerStoreIdDashboardRoute
@@ -314,9 +305,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/deferred'
+    | '/marketplace-guidelines'
     | '/privacy-policy'
+    | '/store-terms-of-service'
     | '/terms-of-service'
-    | '/messages'
+    | '/chat'
     | '/cart'
     | '/categories'
     | '/help'
@@ -326,16 +319,13 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/create-store'
-    | '/api/users'
-    | '/posts/$postId'
     | '/'
     | '/account'
     | '/category/$categorySlug'
-    | '/messages/$storeSlug'
+    | '/chat/$storeSlug'
     | '/product/$productSlug'
     | '/store/$storeSlug'
-    | '/posts/$postId/deep'
-    | '/messages/'
+    | '/chat/'
     | '/seller/'
     | '/seller/$storeId/analytics'
     | '/seller/$storeId/dashboard'
@@ -346,7 +336,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/deferred'
+    | '/marketplace-guidelines'
     | '/privacy-policy'
+    | '/store-terms-of-service'
     | '/terms-of-service'
     | '/cart'
     | '/categories'
@@ -357,16 +349,13 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/create-store'
-    | '/api/users'
-    | '/posts/$postId'
     | '/'
     | '/account'
     | '/category/$categorySlug'
-    | '/messages/$storeSlug'
+    | '/chat/$storeSlug'
     | '/product/$productSlug'
     | '/store/$storeSlug'
-    | '/posts/$postId/deep'
-    | '/messages'
+    | '/chat'
     | '/seller'
     | '/seller/$storeId/analytics'
     | '/seller/$storeId/dashboard'
@@ -380,9 +369,11 @@ export interface FileRouteTypes {
     | '/(auth)'
     | '/(forms)'
     | '/deferred'
+    | '/marketplace-guidelines'
     | '/privacy-policy'
+    | '/store-terms-of-service'
     | '/terms-of-service'
-    | '/(app)/messages'
+    | '/(app)/chat'
     | '/(app)/cart'
     | '/(app)/categories'
     | '/(app)/help'
@@ -392,16 +383,13 @@ export interface FileRouteTypes {
     | '/(auth)/login'
     | '/(auth)/register'
     | '/(forms)/create-store'
-    | '/api/users'
-    | '/posts/$postId'
     | '/(app)/'
     | '/(app)/(account)/account'
     | '/(app)/category/$categorySlug'
-    | '/(app)/messages/$storeSlug'
+    | '/(app)/chat/$storeSlug'
     | '/(app)/product/$productSlug'
     | '/(app)/store/$storeSlug'
-    | '/posts_/$postId/deep'
-    | '/(app)/messages/'
+    | '/(app)/chat/'
     | '/(app)/seller/'
     | '/(app)/seller/$storeId/analytics'
     | '/(app)/seller/$storeId/dashboard'
@@ -416,11 +404,10 @@ export interface RootRouteChildren {
   authRouteRoute: typeof authRouteRouteWithChildren
   formsRouteRoute: typeof formsRouteRouteWithChildren
   DeferredRoute: typeof DeferredRoute
+  MarketplaceGuidelinesRoute: typeof MarketplaceGuidelinesRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  StoreTermsOfServiceRoute: typeof StoreTermsOfServiceRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
-  ApiUsersRoute: typeof ApiUsersRoute
-  PostsPostIdRoute: typeof PostsPostIdRoute
-  PostsPostIdDeepRoute: typeof PostsPostIdDeepRoute
 }
 
 declare module '@tanstack/solid-router' {
@@ -432,11 +419,25 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof TermsOfServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/store-terms-of-service': {
+      id: '/store-terms-of-service'
+      path: '/store-terms-of-service'
+      fullPath: '/store-terms-of-service'
+      preLoaderRoute: typeof StoreTermsOfServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy-policy': {
       id: '/privacy-policy'
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace-guidelines': {
+      id: '/marketplace-guidelines'
+      path: '/marketplace-guidelines'
+      fullPath: '/marketplace-guidelines'
+      preLoaderRoute: typeof MarketplaceGuidelinesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/deferred': {
@@ -473,20 +474,6 @@ declare module '@tanstack/solid-router' {
       fullPath: '/'
       preLoaderRoute: typeof appIndexRouteImport
       parentRoute: typeof appRouteRoute
-    }
-    '/posts/$postId': {
-      id: '/posts/$postId'
-      path: '/posts/$postId'
-      fullPath: '/posts/$postId'
-      preLoaderRoute: typeof PostsPostIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/users': {
-      id: '/api/users'
-      path: '/api/users'
-      fullPath: '/api/users'
-      preLoaderRoute: typeof ApiUsersRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/(forms)/create-store': {
       id: '/(forms)/create-store'
@@ -551,11 +538,11 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appCartRouteImport
       parentRoute: typeof appRouteRoute
     }
-    '/(app)/messages': {
-      id: '/(app)/messages'
-      path: '/messages'
-      fullPath: '/messages'
-      preLoaderRoute: typeof appMessagesRouteRouteImport
+    '/(app)/chat': {
+      id: '/(app)/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof appChatRouteRouteImport
       parentRoute: typeof appRouteRoute
     }
     '/(app)/seller/': {
@@ -565,19 +552,12 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appSellerIndexRouteImport
       parentRoute: typeof appRouteRoute
     }
-    '/(app)/messages/': {
-      id: '/(app)/messages/'
+    '/(app)/chat/': {
+      id: '/(app)/chat/'
       path: '/'
-      fullPath: '/messages/'
-      preLoaderRoute: typeof appMessagesIndexRouteImport
-      parentRoute: typeof appMessagesRouteRoute
-    }
-    '/posts_/$postId/deep': {
-      id: '/posts_/$postId/deep'
-      path: '/posts/$postId/deep'
-      fullPath: '/posts/$postId/deep'
-      preLoaderRoute: typeof PostsPostIdDeepRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/chat/'
+      preLoaderRoute: typeof appChatIndexRouteImport
+      parentRoute: typeof appChatRouteRoute
     }
     '/(app)/store/$storeSlug': {
       id: '/(app)/store/$storeSlug'
@@ -593,12 +573,12 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appProductProductSlugRouteImport
       parentRoute: typeof appRouteRoute
     }
-    '/(app)/messages/$storeSlug': {
-      id: '/(app)/messages/$storeSlug'
+    '/(app)/chat/$storeSlug': {
+      id: '/(app)/chat/$storeSlug'
       path: '/$storeSlug'
-      fullPath: '/messages/$storeSlug'
-      preLoaderRoute: typeof appMessagesStoreSlugRouteImport
-      parentRoute: typeof appMessagesRouteRoute
+      fullPath: '/chat/$storeSlug'
+      preLoaderRoute: typeof appChatStoreSlugRouteImport
+      parentRoute: typeof appChatRouteRoute
     }
     '/(app)/category/$categorySlug': {
       id: '/(app)/category/$categorySlug'
@@ -659,21 +639,22 @@ declare module '@tanstack/solid-router' {
   }
 }
 
-interface appMessagesRouteRouteChildren {
-  appMessagesStoreSlugRoute: typeof appMessagesStoreSlugRoute
-  appMessagesIndexRoute: typeof appMessagesIndexRoute
+interface appChatRouteRouteChildren {
+  appChatStoreSlugRoute: typeof appChatStoreSlugRoute
+  appChatIndexRoute: typeof appChatIndexRoute
 }
 
-const appMessagesRouteRouteChildren: appMessagesRouteRouteChildren = {
-  appMessagesStoreSlugRoute: appMessagesStoreSlugRoute,
-  appMessagesIndexRoute: appMessagesIndexRoute,
+const appChatRouteRouteChildren: appChatRouteRouteChildren = {
+  appChatStoreSlugRoute: appChatStoreSlugRoute,
+  appChatIndexRoute: appChatIndexRoute,
 }
 
-const appMessagesRouteRouteWithChildren =
-  appMessagesRouteRoute._addFileChildren(appMessagesRouteRouteChildren)
+const appChatRouteRouteWithChildren = appChatRouteRoute._addFileChildren(
+  appChatRouteRouteChildren,
+)
 
 interface appRouteRouteChildren {
-  appMessagesRouteRoute: typeof appMessagesRouteRouteWithChildren
+  appChatRouteRoute: typeof appChatRouteRouteWithChildren
   appCartRoute: typeof appCartRoute
   appCategoriesRoute: typeof appCategoriesRoute
   appHelpRoute: typeof appHelpRoute
@@ -694,7 +675,7 @@ interface appRouteRouteChildren {
 }
 
 const appRouteRouteChildren: appRouteRouteChildren = {
-  appMessagesRouteRoute: appMessagesRouteRouteWithChildren,
+  appChatRouteRoute: appChatRouteRouteWithChildren,
   appCartRoute: appCartRoute,
   appCategoriesRoute: appCategoriesRoute,
   appHelpRoute: appHelpRoute,
@@ -751,11 +732,10 @@ const rootRouteChildren: RootRouteChildren = {
   authRouteRoute: authRouteRouteWithChildren,
   formsRouteRoute: formsRouteRouteWithChildren,
   DeferredRoute: DeferredRoute,
+  MarketplaceGuidelinesRoute: MarketplaceGuidelinesRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  StoreTermsOfServiceRoute: StoreTermsOfServiceRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
-  ApiUsersRoute: ApiUsersRoute,
-  PostsPostIdRoute: PostsPostIdRoute,
-  PostsPostIdDeepRoute: PostsPostIdDeepRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

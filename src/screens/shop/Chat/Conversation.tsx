@@ -103,7 +103,7 @@ const StoreBubble = (props: { message: ChatMessage; showAvatar: boolean }) => (
 	</div>
 );
 
-export const ChatView = () => {
+export const ChatConversation = () => {
 	return (
 		<div class="hidden sm:flex flex-col flex-1" id="chatView">
 			<div class="flex items-center justify-between px-5 py-3 border-b border-gray-100 bg-white">

@@ -109,14 +109,16 @@ export const CategoryScreen = () => {
 	return (
 		<>
 			<Breadcrumb
-				items={linkOptions([
-					{ label: "Home", to: "/" },
+				items={[
+					{ label: "Home", link: linkOptions({ to: "/" }) },
 					{
 						label: "Electronics",
-						to: "/category/$categorySlug",
-						params: { categorySlug: "electronics" },
+						link: linkOptions({
+							to: "/category/$categorySlug",
+							params: { categorySlug: "todo" },
+						}),
 					},
-				])}
+				]}
 			/>
 
 			<section class="bg-linear-to-r from-brand-700 to-brand-900 relative overflow-hidden">

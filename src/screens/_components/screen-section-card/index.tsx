@@ -1,11 +1,14 @@
 import { Link, type LinkOptions } from "@tanstack/solid-router";
+import clsx from "clsx";
 import type { JSX } from "solid-js";
 
-export const SectionCard = (props: {
+export const ScreenSectionCard = (props: {
 	title: string;
 	description?: string;
 	children: JSX.Element;
 	alternate?: boolean;
+	border?: boolean;
+	isLast?: boolean;
 	action?: {
 		label: string;
 		to: LinkOptions["to"];
@@ -14,7 +17,13 @@ export const SectionCard = (props: {
 	};
 }) => {
 	return (
-		<section class={`py-10 ${props.alternate ? "bg-gray-50" : "bg-white"}`}>
+		<section
+			class={clsx(`py-10`, {
+				"bg-gray-50": props.alternate,
+				"border-t border-gray-100 mt-14": props.border,
+				"pb-0": props.isLast,
+			})}
+		>
 			<div class="max-w-7xl mx-auto px-4">
 				<div class="flex items-end justify-between mb-6">
 					<div>

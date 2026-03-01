@@ -1,9 +1,10 @@
-import { Link } from "@tanstack/solid-router";
+import { linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
 import {
 	ProductCard,
 	type ProductCardData,
 } from "@/screens/_components/product-card";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 
 const MORE_PRODUCTS: ProductCardData[] = [
 	{
@@ -42,27 +43,22 @@ const MORE_PRODUCTS: ProductCardData[] = [
 
 export const MoreFromStore = () => {
 	return (
-		<section class="mt-14 border-t border-gray-100 pt-10">
-			<div class="flex items-end justify-between mb-6">
-				<div>
-					<h2 class="text-xl font-bold text-gray-900">More from TechVault</h2>
-					<p class="text-sm text-gray-500 mt-0.5">
-						Other products from this seller
-					</p>
-				</div>
-				<Link
-					to="/store/$storeSlug"
-					params={{ storeSlug: "techvault" }}
-					class="text-sm font-semibold text-brand-600 hover:text-brand-700 transition hidden sm:inline-flex items-center gap-1"
-				>
-					Visit Store <span>&rarr;</span>
-				</Link>
-			</div>
+		<ScreenSectionCard
+			title="More from TechVault"
+			description="Other products from this seller"
+			action={linkOptions({
+				label: "Visit Store",
+				to: "/store/$storeSlug",
+				params: { storeSlug: "techvault" },
+			})}
+			border
+			isLast
+		>
 			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
 				<For each={MORE_PRODUCTS}>
 					{(product) => <ProductCard product={product} />}
 				</For>
 			</div>
-		</section>
+		</ScreenSectionCard>
 	);
 };

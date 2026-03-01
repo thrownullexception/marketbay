@@ -1,5 +1,14 @@
-import { Link } from "@tanstack/solid-router";
-import { LockIcon, LockKeyhole, MailIcon, UserIcon } from "lucide-solid";
+import {
+	LockIcon,
+	LockKeyhole,
+	MailIcon,
+	UserIcon,
+	UserPlusIcon,
+} from "lucide-solid";
+import { Button } from "@/ui/button";
+import { InputCheckbox } from "@/ui/input-checkbox";
+import { InputText } from "@/ui/input-text";
+import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../SocialAuth";
 
 export function RegisterScreen() {
@@ -30,146 +39,53 @@ export function RegisterScreen() {
 
 				<form class="space-y-5">
 					<div class="grid grid-cols-2 gap-4">
-						<div>
-							<label
-								for="first-name"
-								class="block text-sm font-medium text-gray-700 mb-1.5"
-							>
-								First name
-							</label>
-							<div class="relative">
-								<input
-									type="text"
-									id="first-name"
-									placeholder="John"
-									class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-								/>
-								<UserIcon class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-							</div>
-						</div>
-						<div>
-							<label
-								for="last-name"
-								class="block text-sm font-medium text-gray-700 mb-1.5"
-							>
-								Last name
-							</label>
-							<div class="relative">
-								<input
-									type="text"
-									id="last-name"
-									placeholder="Doe"
-									class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-								/>
-								<UserIcon class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-							</div>
-						</div>
+						<InputText label="First name" placeholder="John" Icon={UserIcon} />
+						<InputText label="Last name" placeholder="Doe" Icon={UserIcon} />
 					</div>
-
-					<div>
-						<label
-							for="email"
-							class="block text-sm font-medium text-gray-700 mb-1.5"
-						>
-							Email address
-						</label>
-						<div class="relative">
-							<input
-								type="email"
-								id="email"
-								placeholder="you@example.com"
-								class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-							/>
-							<MailIcon class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-						</div>
+					<InputText
+						label="Email address"
+						placeholder="you@example.com"
+						Icon={MailIcon}
+					/>
+					<InputText
+						label="Password"
+						placeholder="Create a strong password"
+						Icon={LockIcon}
+						description="Use 8+ characters with a mix of letters, numbers &amp; symbols"
+					/>
+					<div class="flex gap-1.5 mt-2">
+						<div class="h-1 flex-1 rounded-full bg-gray-200"></div>
+						<div class="h-1 flex-1 rounded-full bg-gray-200"></div>
+						<div class="h-1 flex-1 rounded-full bg-gray-200"></div>
+						<div class="h-1 flex-1 rounded-full bg-gray-200"></div>
 					</div>
-
-					<div>
-						<label
-							for="password"
-							class="block text-sm font-medium text-gray-700 mb-1.5"
-						>
-							Password
-						</label>
-						<div class="relative">
-							<input
-								type="password"
-								id="password"
-								placeholder="Create a strong password"
-								class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-							/>
-							<LockIcon class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-						</div>
-						<div class="flex gap-1.5 mt-2">
-							<div class="h-1 flex-1 rounded-full bg-gray-200"></div>
-							<div class="h-1 flex-1 rounded-full bg-gray-200"></div>
-							<div class="h-1 flex-1 rounded-full bg-gray-200"></div>
-							<div class="h-1 flex-1 rounded-full bg-gray-200"></div>
-						</div>
-						<p class="text-xs text-gray-400 mt-1.5">
-							Use 8+ characters with a mix of letters, numbers &amp; symbols
-						</p>
-					</div>
-
-					<div>
-						<label
-							for="confirm-password"
-							class="block text-sm font-medium text-gray-700 mb-1.5"
-						>
-							Confirm password
-						</label>
-						<div class="relative">
-							<input
-								type="password"
-								id="confirm-password"
-								placeholder="Re-enter your password"
-								class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-							/>
-							<LockKeyhole class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-						</div>
-					</div>
-
-					<div class="flex items-start gap-2">
-						<input
-							type="checkbox"
-							id="terms"
-							class="w-4 h-4 mt-0.5 rounded border-gray-300 text-brand-600 focus:ring-brand-500 transition"
-						/>
-						<label for="terms" class="text-sm text-gray-600">
-							I agree to the{" "}
-							<Link
-								to="/terms-of-service"
-								class="font-medium text-brand-600 hover:text-brand-700 transition"
-							>
-								Terms of Service
-							</Link>{" "}
-							and{" "}
-							<Link
-								to="/privacy-policy"
-								class="font-medium text-brand-600 hover:text-brand-700 transition"
-							>
-								Privacy Policy
-							</Link>
-						</label>
-					</div>
-
-					<button
+					<InputText
+						label="Confirm password"
+						placeholder="Re-enter your password"
+						Icon={LockKeyhole}
+					/>
+					<InputCheckbox
+						label={
+							<>
+								I agree to the{" "}
+								<TextLink to="/terms-of-service" label="Terms of Service" /> and{" "}
+								<TextLink to="/privacy-policy" label="Privacy Policy" />
+							</>
+						}
+						id="terms"
+					/>
+					<Button
+						label="Create Account"
 						type="submit"
-						class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition shadow-sm text-sm"
-					>
-						Create Account
-					</button>
+						Icon={UserPlusIcon}
+						variant="primary"
+						fullWidth
+					/>
 				</form>
 			</div>
 
 			<p class="text-center text-sm text-gray-500 mt-6">
-				Already have an account?{" "}
-				<Link
-					to="/login"
-					class="font-semibold text-brand-600 hover:text-brand-700 transition"
-				>
-					Sign in
-				</Link>
+				Already have an account? <TextLink to="/login" label="Sign in" />
 			</p>
 		</>
 	);

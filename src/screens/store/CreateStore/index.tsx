@@ -1,3 +1,4 @@
+import { useRouter } from "@tanstack/solid-router";
 import {
 	ArrowLeftIcon,
 	ArrowRightIcon,
@@ -8,12 +9,14 @@ import {
 	PhoneIcon,
 	TwitterIcon,
 } from "lucide-solid";
-import "./styles.css";
-import { useRouter } from "@tanstack/solid-router";
-import { DefaultButton, PrimaryButton } from "@/ui/button";
+import { Button } from "@/ui/button";
+import { InputCheckbox, InputCheckboxGroup } from "@/ui/input-checkbox";
+import { InputFile } from "@/ui/input-file";
 import { InputSelect } from "@/ui/input-select";
 import { InputText } from "@/ui/input-text";
 import { InputTextarea } from "@/ui/input-textarea";
+import { TextLink } from "@/ui/link";
+import "./styles.css";
 
 export const CreateStoreScreen = () => {
 	const router = useRouter();
@@ -184,83 +187,19 @@ export const CreateStoreScreen = () => {
 							</p>
 
 							<div class="grid sm:grid-cols-2 gap-6">
-								<div>
-									<label class="block text-sm font-medium text-gray-700 mb-2">
-										Store Logo
-									</label>
-									<div class="relative group">
-										<div class="w-full aspect-square max-w-[180px] rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center cursor-pointer hover:border-brand-300 hover:bg-brand-50/30 transition-colors">
-											<div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center mb-3">
-												<svg
-													class="w-6 h-6 text-gray-400"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-													stroke-width="1.5"
-												>
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"
-													/>
-												</svg>
-											</div>
-											<p class="text-xs font-medium text-gray-500">
-												Click to upload
-											</p>
-											<p class="text-[11px] text-gray-400 mt-0.5">
-												PNG, JPG up to 2MB
-											</p>
-										</div>
-										<input
-											type="file"
-											accept="image/*"
-											class="absolute inset-0 opacity-0 cursor-pointer"
-										/>
-									</div>
-									<p class="text-xs text-gray-400 mt-2">
-										Recommended: 400 &times; 400px, square
-									</p>
-								</div>
-
-								<div>
-									<label class="block text-sm font-medium text-gray-700 mb-2">
-										Cover Image
-									</label>
-									<div class="relative group">
-										<div class="w-full aspect-[16/9] rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center cursor-pointer hover:border-brand-300 hover:bg-brand-50/30 transition-colors">
-											<div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center mb-3">
-												<svg
-													class="w-6 h-6 text-gray-400"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-													stroke-width="1.5"
-												>
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"
-													/>
-												</svg>
-											</div>
-											<p class="text-xs font-medium text-gray-500">
-												Click to upload
-											</p>
-											<p class="text-[11px] text-gray-400 mt-0.5">
-												PNG, JPG up to 5MB
-											</p>
-										</div>
-										<input
-											type="file"
-											accept="image/*"
-											class="absolute inset-0 opacity-0 cursor-pointer"
-										/>
-									</div>
-									<p class="text-xs text-gray-400 mt-2">
-										Recommended: 1200 &times; 400px, landscape
-									</p>
-								</div>
+								<InputFile
+									label="Store Logo"
+									hint="PNG, JPG up to 2MB"
+									description="Recommended: 400 × 400px, square"
+									aspectRatio="square"
+									maxWidth="180px"
+								/>
+								<InputFile
+									label="Cover Image"
+									hint="PNG, JPG up to 5MB"
+									description="Recommended: 1200 × 400px, landscape"
+									aspectRatio="video"
+								/>
 							</div>
 						</div>
 
@@ -314,57 +253,27 @@ export const CreateStoreScreen = () => {
 							</p>
 
 							<div class="space-y-5">
-								<div>
-									<label class="block text-sm font-medium text-gray-700 mb-3">
-										Shipping Options
-									</label>
-									<div class="space-y-3">
-										<label class="flex items-start gap-3 p-3.5 rounded-xl border border-gray-200 cursor-pointer hover:border-brand-200 hover:bg-brand-50/30 transition-colors has-[:checked]:border-brand-400 has-[:checked]:bg-brand-50/50">
-											<input
-												type="checkbox"
-												checked
-												class="mt-0.5 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-											/>
-											<div>
-												<p class="text-sm font-medium text-gray-900">
-													Standard Shipping
-												</p>
-												<p class="text-xs text-gray-500 mt-0.5">
-													5–8 business days
-												</p>
-											</div>
-										</label>
-										<label class="flex items-start gap-3 p-3.5 rounded-xl border border-gray-200 cursor-pointer hover:border-brand-200 hover:bg-brand-50/30 transition-colors has-[:checked]:border-brand-400 has-[:checked]:bg-brand-50/50">
-											<input
-												type="checkbox"
-												class="mt-0.5 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-											/>
-											<div>
-												<p class="text-sm font-medium text-gray-900">
-													Express Shipping
-												</p>
-												<p class="text-xs text-gray-500 mt-0.5">
-													1–3 business days
-												</p>
-											</div>
-										</label>
-										<label class="flex items-start gap-3 p-3.5 rounded-xl border border-gray-200 cursor-pointer hover:border-brand-200 hover:bg-brand-50/30 transition-colors has-[:checked]:border-brand-400 has-[:checked]:bg-brand-50/50">
-											<input
-												type="checkbox"
-												class="mt-0.5 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-											/>
-											<div>
-												<p class="text-sm font-medium text-gray-900">
-													Free Shipping
-												</p>
-												<p class="text-xs text-gray-500 mt-0.5">
-													On orders over a minimum amount you set
-												</p>
-											</div>
-										</label>
-									</div>
-								</div>
-
+								<InputCheckboxGroup
+									label="Shipping options"
+									value="standard"
+									options={[
+										{
+											label: "Standard Shipping",
+											value: "standard",
+											description: "5–8 business days",
+										},
+										{
+											label: "Express Shipping",
+											value: "express",
+											description: "1–3 business days",
+										},
+										{
+											label: "Free Shipping",
+											value: "free",
+											description: "On orders over a minimum amount you set",
+										},
+									]}
+								/>
 								<InputSelect
 									label="Return Policy"
 									placeholder="Select a return policy"
@@ -380,42 +289,41 @@ export const CreateStoreScreen = () => {
 						</div>
 
 						<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-							<label class="flex items-start gap-3 cursor-pointer">
-								<input
-									type="checkbox"
-									class="mt-0.5 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-								/>
-								<p class="text-sm text-gray-600">
-									I agree to the MarketBay{" "}
-									<a
-										href="#"
-										class="text-brand-600 hover:underline font-medium"
-									>
-										Seller Terms of Service
-									</a>{" "}
-									and{" "}
-									<a
-										href="#"
-										class="text-brand-600 hover:underline font-medium"
-									>
-										Marketplace Guidelines
-									</a>
-									. I understand that MarketBay charges a commission on each
-									sale.
-								</p>
-							</label>
+							<InputCheckbox
+								id="terms-of-service"
+								label={
+									<>
+										I agree to the MarketBay{" "}
+										<TextLink
+											to="/store-terms-of-service"
+											label="Store Terms of Service"
+										/>{" "}
+										and{" "}
+										<TextLink
+											to="/marketplace-guidelines"
+											label="Marketplace Guidelines"
+										/>
+										. I understand that MarketBay charges a commission on each
+										sale.{" "}
+									</>
+								}
+							/>
 						</div>
 
 						<div class="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-2 pb-8">
-							<DefaultButton
+							<Button
 								label="Back"
+								type="button"
 								onClick={() => router.history.back()}
 								Icon={ArrowLeftIcon}
+								variant="default"
 							/>
-							<PrimaryButton
+							<Button
 								label="Create Store"
 								type="submit"
 								Icon={ArrowRightIcon}
+								variant="primary"
+								iconPosition="right"
 							/>
 						</div>
 					</form>

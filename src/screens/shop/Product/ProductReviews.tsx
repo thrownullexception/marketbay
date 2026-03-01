@@ -1,5 +1,6 @@
-import { Link } from "@tanstack/solid-router";
+import { ArrowRightIcon } from "lucide-solid";
 import { For } from "solid-js";
+import { TextLink } from "@/ui/link";
 
 interface Review {
 	initials: string;
@@ -162,28 +163,13 @@ export const ProductReviews = () => {
 				<div class="flex-1 space-y-6">
 					<For each={REVIEWS}>{(review) => <ReviewCard review={review} />}</For>
 
-					<Link
+					<TextLink
 						to="/product/$productSlug"
-						params={{ productSlug: "pro-studio-wireless-headphones" }}
+						params={{ productSlug: "todo" }}
 						hash="reviews"
-						class="inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:text-brand-700 transition"
-					>
-						View all 243 reviews{" "}
-						<svg
-							class="w-4 h-4"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							stroke-width="2"
-						>
-							<title>Arrow right</title>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M17 8l4 4m0 0l-4 4m4-4H3"
-							/>
-						</svg>
-					</Link>
+						label="View all 243 reviews"
+						Icon={ArrowRightIcon}
+					/>
 				</div>
 			</div>
 		</section>

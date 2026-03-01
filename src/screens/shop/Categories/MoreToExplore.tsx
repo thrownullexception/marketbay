@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/solid-router";
 import { For } from "solid-js";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 
 interface ExploreCategoryData {
 	label: string;
@@ -180,15 +181,12 @@ const ExploreCategoryCard = (props: { category: ExploreCategoryData }) => (
 
 export const MoreToExplore = () => {
 	return (
-		<section class="py-10 bg-white">
-			<div class="max-w-7xl mx-auto px-4">
-				<h2 class="text-lg font-bold text-gray-900 mb-6">More to Explore</h2>
-				<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-					<For each={EXPLORE_CATEGORIES}>
-						{(category) => <ExploreCategoryCard category={category} />}
-					</For>
-				</div>
+		<ScreenSectionCard title="More to Explore">
+			<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+				<For each={EXPLORE_CATEGORIES}>
+					{(category) => <ExploreCategoryCard category={category} />}
+				</For>
 			</div>
-		</section>
+		</ScreenSectionCard>
 	);
 };

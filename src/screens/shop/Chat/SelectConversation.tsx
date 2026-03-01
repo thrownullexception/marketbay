@@ -1,6 +1,6 @@
 import { MessageCircleIcon } from "lucide-solid";
 
-export const ChatEmptyState = () => {
+export const SelectConversation = () => {
 	return (
 		<div class="flex flex-col items-center justify-center flex-1 bg-gray-50/50">
 			<div class="text-center max-w-xs">
@@ -8,11 +8,10 @@ export const ChatEmptyState = () => {
 					<MessageCircleIcon class="w-8 h-8 text-brand-300" />
 				</div>
 				<h3 class="text-base font-semibold text-gray-900 mb-1">
-					Your Messages
+					Select Conversation
 				</h3>
 				<p class="text-sm text-gray-500">
-					Select a conversation to start chatting with sellers and buyers on
-					MarketBay.
+					Select a conversation to start chatting with a seller on MarketBay.
 				</p>
 			</div>
 		</div>

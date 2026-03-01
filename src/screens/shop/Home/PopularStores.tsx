@@ -1,6 +1,6 @@
 import { linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { SectionCard } from "@/screens/_components/section-card";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import {
 	StoreCard,
 	type StoreCardData,
@@ -48,7 +48,7 @@ const POPULAR_STORES: StoreCardData[] = [
 
 export const PopularStores = () => {
 	return (
-		<SectionCard
+		<ScreenSectionCard
 			title="Popular Stores"
 			alternate
 			description="Follow stores to get notified of new products &amp; deals"
@@ -59,6 +59,6 @@ export const PopularStores = () => {
 					{(store) => <StoreCard store={store} />}
 				</For>
 			</div>
-		</SectionCard>
+		</ScreenSectionCard>
 	);
 };

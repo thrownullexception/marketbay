@@ -71,15 +71,17 @@ export const ShopStoreScreen = () => {
 	return (
 		<>
 			<Breadcrumb
-				items={linkOptions([
-					{ label: "Home", to: "/" },
-					{ label: "Stores", to: "/stores" },
+				items={[
+					{ label: "Home", link: linkOptions({ to: "/" }) },
+					{ label: "Stores", link: linkOptions({ to: "/stores" }) },
 					{
 						label: "TechVault",
-						to: "/store/$storeSlug",
-						params: { storeSlug: "techvault" },
+						link: linkOptions({
+							to: "/store/$storeSlug",
+							params: { storeSlug: "todo" },
+						}),
 					},
-				])}
+				]}
 			/>
 			<StoreHero />
 			<StorePromo />

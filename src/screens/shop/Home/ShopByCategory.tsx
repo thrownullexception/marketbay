@@ -1,6 +1,6 @@
 import { Link, linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { SectionCard } from "@/screens/_components/section-card";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 
 interface Category {
 	label: string;
@@ -127,7 +127,7 @@ const CategoryItem = (props: { category: Category }) => (
 
 export const ShopByCategory = () => {
 	return (
-		<SectionCard
+		<ScreenSectionCard
 			title="Shop by Category"
 			alternate
 			action={linkOptions({ label: "View All", to: "/categories" })}
@@ -137,6 +137,6 @@ export const ShopByCategory = () => {
 					{(category) => <CategoryItem category={category} />}
 				</For>
 			</div>
-		</SectionCard>
+		</ScreenSectionCard>
 	);
 };

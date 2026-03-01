@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/solid-router";
 import { ArrowRightIcon } from "lucide-solid";
 import { For } from "solid-js";
-import { SectionCard } from "@/screens/_components/section-card";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 
 interface SubCategory {
 	label: string;
@@ -256,12 +256,12 @@ const CategoryCard = (props: { category: BrowseCategoryData }) => (
 
 export const BrowseAllCategories = () => {
 	return (
-		<SectionCard title="Browse All Categories" alternate>
+		<ScreenSectionCard title="Browse All Categories" alternate>
 			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
 				<For each={BROWSE_CATEGORIES}>
 					{(category) => <CategoryCard category={category} />}
 				</For>
 			</div>
-		</SectionCard>
+		</ScreenSectionCard>
 	);
 };

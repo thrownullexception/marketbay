@@ -1,6 +1,6 @@
 import { Link, linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { SectionCard } from "@/screens/_components/section-card";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 
 interface StoreEntry {
 	initials: string;
@@ -207,7 +207,7 @@ const CategoryStoreCard = (props: { data: CategoryStoresData }) => (
 
 export const TopStoresByCategory = () => {
 	return (
-		<SectionCard
+		<ScreenSectionCard
 			title="Top Stores by Category"
 			alternate
 			action={linkOptions({ label: "All Stores", to: "/stores" })}
@@ -217,6 +217,6 @@ export const TopStoresByCategory = () => {
 					{(data) => <CategoryStoreCard data={data} />}
 				</For>
 			</div>
-		</SectionCard>
+		</ScreenSectionCard>
 	);
 };

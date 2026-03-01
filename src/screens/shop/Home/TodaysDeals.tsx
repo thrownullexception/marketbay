@@ -4,7 +4,7 @@ import {
 	ProductCard,
 	type ProductCardData,
 } from "@/screens/_components/product-card";
-import { SectionCard } from "@/screens/_components/section-card";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 
 const TODAYS_DEALS: ProductCardData[] = [
 	{
@@ -48,7 +48,7 @@ const TODAYS_DEALS: ProductCardData[] = [
 
 export const TodaysDeals = () => {
 	return (
-		<SectionCard
+		<ScreenSectionCard
 			title="Today's Deals"
 			description="Limited-time prices on top products"
 			action={linkOptions({
@@ -62,6 +62,6 @@ export const TodaysDeals = () => {
 					{(product) => <ProductCard product={product} />}
 				</For>
 			</div>
-		</SectionCard>
+		</ScreenSectionCard>
 	);
 };

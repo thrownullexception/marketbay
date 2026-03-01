@@ -9,10 +9,10 @@ export function HelpScreen() {
 	return (
 		<>
 			<Breadcrumb
-				items={linkOptions([
-					{ label: "Home", to: "/" },
-					{ label: "Help", to: "/help" },
-				])}
+				items={[
+					{ label: "Home", link: linkOptions({ to: "/" }) },
+					{ label: "Help", link: linkOptions({ to: "/help" }) },
+				]}
 			/>
 			<section class="relative overflow-hidden bg-linear-to-r from-brand-600 to-brand-800">
 				<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>

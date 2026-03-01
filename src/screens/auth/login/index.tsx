@@ -1,5 +1,8 @@
-import { Link } from "@tanstack/solid-router";
-import { LockIcon, MailIcon } from "lucide-solid";
+import { LockIcon, LogInIcon, MailIcon } from "lucide-solid";
+import { Button } from "@/ui/button";
+import { InputCheckbox } from "@/ui/input-checkbox";
+import { InputText } from "@/ui/input-text";
+import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../SocialAuth";
 
 export function LoginScreen() {
@@ -14,67 +17,31 @@ export function LoginScreen() {
 
 			<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
 				<form class="space-y-5">
-					<div>
-						<label
-							for="email"
-							class="block text-sm font-medium text-gray-700 mb-1.5"
-						>
-							Email address
-						</label>
-						<div class="relative">
-							<input
-								type="email"
-								id="email"
-								placeholder="you@example.com"
-								class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-							/>
-							<MailIcon class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-						</div>
-					</div>
+					<InputText
+						label="Email address"
+						placeholder="you@example.com"
+						Icon={MailIcon}
+					/>
 
-					<div>
-						<div class="flex items-center justify-between mb-1.5">
-							<label
-								for="password"
-								class="block text-sm font-medium text-gray-700"
-							>
-								Password
-							</label>
-							<Link
-								to="/forgotpassword"
-								class="text-xs font-medium text-brand-600 hover:text-brand-700 transition"
-							>
-								Forgot password?
-							</Link>
-						</div>
-						<div class="relative">
-							<input
-								type="password"
-								id="password"
-								placeholder="Enter your password"
-								class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
-							/>
-							<LockIcon class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-						</div>
-					</div>
+					<InputText
+						label="Password"
+						placeholder="Enter your password"
+						Icon={LockIcon}
+						labelLink={{
+							label: "Forgot password?",
+							to: "/forgotpassword",
+						}}
+					/>
 
-					<div class="flex items-center gap-2">
-						<input
-							type="checkbox"
-							id="remember"
-							class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500 transition"
-						/>
-						<label for="remember" class="text-sm text-gray-600">
-							Remember me
-						</label>
-					</div>
+					<InputCheckbox label="Remember me" id="remember" />
 
-					<button
+					<Button
+						label="Sign In"
 						type="submit"
-						class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition shadow-sm text-sm"
-					>
-						Sign In
-					</button>
+						Icon={LogInIcon}
+						variant="primary"
+						fullWidth
+					/>
 				</form>
 
 				<div class="relative my-6">
@@ -93,12 +60,7 @@ export function LoginScreen() {
 
 			<p class="text-center text-sm text-gray-500 mt-6">
 				Don't have an account?{" "}
-				<Link
-					to="/register"
-					class="font-semibold text-brand-600 hover:text-brand-700 transition"
-				>
-					Sign up for free
-				</Link>
+				<TextLink to="/register" label="Sign up for free" />
 			</p>
 		</>
 	);

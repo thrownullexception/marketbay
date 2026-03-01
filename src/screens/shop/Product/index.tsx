@@ -13,20 +13,24 @@ export const ShopProductScreen = () => {
 	return (
 		<>
 			<Breadcrumb
-				items={linkOptions([
-					{ label: "Home", to: "/" },
-					{ label: "Electronics", to: "/categories" },
+				items={[
+					{ label: "Home", link: linkOptions({ to: "/" }) },
+					{ label: "Electronics", link: linkOptions({ to: "/categories" }) },
 					{
 						label: "Headphones",
-						to: "/category/$categorySlug",
-						params: { categorySlug: "todo" },
+						link: linkOptions({
+							to: "/category/$categorySlug",
+							params: { categorySlug: "todo" },
+						}),
 					},
 					{
 						label: "Pro Studio Wireless Headphones",
-						to: "/product/$productSlug",
-						params: { productSlug: "pro-studio-wireless-headphones" },
+						link: linkOptions({
+							to: "/product/$productSlug",
+							params: { productSlug: "todo" },
+						}),
 					},
-				])}
+				]}
 			/>
 
 			<main class="max-w-7xl mx-auto px-4 py-8 lg:py-12">

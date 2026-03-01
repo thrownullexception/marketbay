@@ -111,7 +111,7 @@ const ConversationItem = (props: { conversation: Conversation }) => {
 	const isUnread = () => (props.conversation.unreadCount ?? 0) > 0;
 
 	return (
-		<Link to="/messages/$storeSlug" params={{ storeSlug: "todo" }}>
+		<Link to="/chat/$storeSlug" params={{ storeSlug: "todo" }}>
 			<div
 				class={`conversation-item flex items-start gap-3 px-4 py-3.5 cursor-pointer border-b border-gray-50 ${props.conversation.active ? "active" : ""}`}
 			>
@@ -164,7 +164,7 @@ const ConversationItem = (props: { conversation: Conversation }) => {
 
 const FILTER_TABS = ["All", "Unread", "Buying", "Selling"];
 
-export const ConversationList = () => {
+export const ChatConversations = () => {
 	return (
 		<div
 			class="w-full sm:w-80 lg:w-96 border-r border-gray-200 flex flex-col shrink-0"

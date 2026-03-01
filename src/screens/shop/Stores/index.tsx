@@ -1,3 +1,4 @@
+import { linkOptions } from "@tanstack/solid-router";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { Pagination } from "@/ui/pagination";
 import { FeaturedStoreCard } from "./FeaturedStoreCard";
@@ -11,8 +12,8 @@ export const StoresScreen = () => {
 		<>
 			<Breadcrumb
 				items={[
-					{ label: "Home", to: "/" },
-					{ label: "Browse Stores", to: "/stores" },
+					{ label: "Home", link: linkOptions({ to: "/" }) },
+					{ label: "Browse Stores", link: linkOptions({ to: "/stores" }) },
 				]}
 			/>
 			<StoresHeader />
