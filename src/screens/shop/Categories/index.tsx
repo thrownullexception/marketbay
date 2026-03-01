@@ -1,4 +1,35 @@
+import { ComputerIcon, HomeIcon, ShirtIcon } from "lucide-solid";
+import { For } from "solid-js";
+import { ScreenHeader } from "@/screens/_components/screen-header";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { FeaturedCategory } from "./FeaturedCategory";
+
+const CATEGORIES = [
+	{
+		label: "Electronics",
+		slug: "electronics",
+		productCount: 12400,
+		gradient: "from-blue-600 to-indigo-800",
+		textColor: "text-blue-200",
+		Icon: ComputerIcon,
+	},
+	{
+		label: "Fashion",
+		slug: "fashion",
+		productCount: 18600,
+		gradient: "from-rose-500 to-pink-700",
+		textColor: "text-rose-200",
+		Icon: ShirtIcon,
+	},
+	{
+		label: "Home & Garden",
+		slug: "home-and-garden",
+		productCount: 9300,
+		gradient: "from-emerald-500 to-teal-700",
+		textColor: "text-emerald-200",
+		Icon: HomeIcon,
+	},
+];
 
 export const CategoriesScreen = () => {
 	return (
@@ -10,17 +41,10 @@ export const CategoriesScreen = () => {
 				]}
 			/>
 
-			<section class="bg-linear-to-br from-brand-50 via-white to-accent-50 border-b border-gray-100">
-				<div class="max-w-7xl mx-auto px-4 py-8 lg:py-10">
-					<h1 class="text-2xl lg:text-3xl font-extrabold text-gray-900">
-						All Categories
-					</h1>
-					<p class="text-gray-500 text-sm mt-1.5 max-w-lg">
-						Browse thousands of products across every category. Find exactly
-						what you're looking for from independent sellers worldwide.
-					</p>
-				</div>
-			</section>
+			<ScreenHeader
+				title="All Categories"
+				description="Browse thousands of products across every category. Find exactly what you're looking for from independent sellers worldwide."
+			/>
 
 			<section class="py-8 bg-white">
 				<div class="max-w-7xl mx-auto px-4">
@@ -28,120 +52,9 @@ export const CategoriesScreen = () => {
 						Featured Categories
 					</h2>
 					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-						<a
-							href="#"
-							class="relative rounded-2xl overflow-hidden bg-linear-to-br from-blue-600 to-indigo-800 min-h-[160px] flex items-end p-6 group cursor-pointer"
-						>
-							<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
-							<div class="absolute top-5 right-5 opacity-20 group-hover:opacity-30 transition">
-								<svg
-									class="w-24 h-24 text-white"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="0.5"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-									/>
-								</svg>
-							</div>
-							<div class="relative">
-								<h3 class="text-xl font-bold text-white">Electronics</h3>
-								<p class="text-blue-200 text-sm mt-0.5">12,400+ products</p>
-							</div>
-							<svg
-								class="absolute right-5 bottom-5 w-5 h-5 text-white/40 group-hover:text-white/70 group-hover:translate-x-1 transition-all"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								stroke-width="2"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M17 8l4 4m0 0l-4 4m4-4H3"
-								/>
-							</svg>
-						</a>
-						<a
-							href="#"
-							class="relative rounded-2xl overflow-hidden bg-linear-to-br from-rose-500 to-pink-700 min-h-[160px] flex items-end p-6 group cursor-pointer"
-						>
-							<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
-							<div class="absolute top-5 right-5 opacity-20 group-hover:opacity-30 transition">
-								<svg
-									class="w-24 h-24 text-white"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="0.5"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-									/>
-								</svg>
-							</div>
-							<div class="relative">
-								<h3 class="text-xl font-bold text-white">Fashion</h3>
-								<p class="text-rose-200 text-sm mt-0.5">18,600+ products</p>
-							</div>
-							<svg
-								class="absolute right-5 bottom-5 w-5 h-5 text-white/40 group-hover:text-white/70 group-hover:translate-x-1 transition-all"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								stroke-width="2"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M17 8l4 4m0 0l-4 4m4-4H3"
-								/>
-							</svg>
-						</a>
-						<a
-							href="#"
-							class="relative rounded-2xl overflow-hidden bg-linear-to-br from-emerald-500 to-teal-700 min-h-[160px] flex items-end p-6 group cursor-pointer"
-						>
-							<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
-							<div class="absolute top-5 right-5 opacity-20 group-hover:opacity-30 transition">
-								<svg
-									class="w-24 h-24 text-white"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="0.5"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-									/>
-								</svg>
-							</div>
-							<div class="relative">
-								<h3 class="text-xl font-bold text-white">Home &amp; Garden</h3>
-								<p class="text-emerald-200 text-sm mt-0.5">9,300+ products</p>
-							</div>
-							<svg
-								class="absolute right-5 bottom-5 w-5 h-5 text-white/40 group-hover:text-white/70 group-hover:translate-x-1 transition-all"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								stroke-width="2"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M17 8l4 4m0 0l-4 4m4-4H3"
-								/>
-							</svg>
-						</a>
+						<For each={CATEGORIES}>
+							{(category) => <FeaturedCategory {...category} />}
+						</For>
 					</div>
 				</div>
 			</section>

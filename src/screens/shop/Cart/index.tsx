@@ -1,19 +1,49 @@
 import {
-	BookIcon,
-	DumbbellIcon,
 	FlaskConicalIcon,
 	MonitorIcon,
 	SpeakerIcon,
+	Trash2Icon,
 } from "lucide-solid";
+import { For } from "solid-js";
+import {
+	ProductCard,
+	type ProductCardData,
+} from "@/screens/_components/product-card";
+import { ScreenHeader } from "@/screens/_components/screen-header";
+import { SectionCard } from "@/screens/_components/section-card";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { CartBenefits } from "./CartBenefits";
 import { CartItem } from "./CartItem";
-import { CartHeader } from "./Header";
 import { OrderSummary } from "./OrderSummary";
-import { SavedForLater } from "./SavedForLater";
-import { SavedItem } from "./SavedItem";
-import { StoreGroup } from "./StoreGroup";
 import { StoreGroupHeader } from "./StoreGroupHeader";
+
+const SAVED_ITEMS: ProductCardData[] = [
+	{
+		storeName: "StyleHouse",
+		name: "Cashmere Blend Oversize Sweater",
+		rating: "4.6",
+		ratingCount: "64",
+		price: "$59",
+		originalPrice: "$89",
+		badge: "-33%",
+	},
+	{
+		storeName: "FitGear Pro",
+		name: "Resistance Band Set — Pro Series",
+		rating: "4.7",
+		ratingCount: "203",
+		price: "$39.99",
+		originalPrice: "$49.99",
+		badge: "-20%",
+	},
+	{
+		storeName: "BookNook",
+		name: "The Art of Focus — 2026 Bestseller",
+		rating: "4.8",
+		ratingCount: "156",
+		price: "$16.99",
+	},
+];
 
 export const CartScreen = () => {
 	return (
@@ -25,12 +55,20 @@ export const CartScreen = () => {
 				]}
 			/>
 
-			<main class="max-w-7xl mx-auto px-4 py-8 lg:py-10">
-				<CartHeader />
+			<ScreenHeader title="Shopping Cart" description="3 items from 2 stores">
+				<button
+					type="button"
+					class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-gray-400 hover:text-red-500 transition"
+				>
+					<Trash2Icon class="w-4 h-4" />
+					Clear Cart
+				</button>
+			</ScreenHeader>
 
+			<main class="max-w-7xl mx-auto px-4 py-8 lg:py-10">
 				<div class="grid lg:grid-cols-3 gap-8">
 					<div class="lg:col-span-2 space-y-6">
-						<StoreGroup>
+						<div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
 							<StoreGroupHeader
 								initials="TV"
 								name="TechVault"
@@ -71,9 +109,9 @@ export const CartScreen = () => {
 								quantity={1}
 								isLast
 							/>
-						</StoreGroup>
+						</div>
 
-						<StoreGroup>
+						<div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
 							<StoreGroupHeader
 								initials="GN"
 								name="GreenNest"
@@ -99,38 +137,15 @@ export const CartScreen = () => {
 								quantity={1}
 								isLast
 							/>
-						</StoreGroup>
+						</div>
 
-						<SavedForLater>
-							<SavedItem
-								href="#"
-								imageGradient="from-pink-50 to-rose-100"
-								image={<DumbbellIcon class="w-12 h-12 text-rose-300" />}
-								storeName="StyleHouse"
-								name="Cashmere Blend Oversize Sweater"
-								price="$59"
-								originalPrice="$89"
-								discount="-33%"
-							/>
-							<SavedItem
-								href="#"
-								imageGradient="from-cyan-50 to-sky-100"
-								image={<DumbbellIcon class="w-12 h-12 text-cyan-300" />}
-								storeName="FitGear Pro"
-								name="Resistance Band Set — Pro Series"
-								price="$39.99"
-								originalPrice="$49.99"
-								discount="-20%"
-							/>
-							<SavedItem
-								href="#"
-								imageGradient="from-amber-50 to-orange-100"
-								image={<BookIcon class="w-12 h-12 text-amber-300" />}
-								storeName="BookNook"
-								name="The Art of Focus — 2026 Bestseller"
-								price="$16.99"
-							/>
-						</SavedForLater>
+						<SectionCard title="Saved for Later">
+							<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+								<For each={SAVED_ITEMS}>
+									{(product) => <ProductCard product={product} />}
+								</For>
+							</div>
+						</SectionCard>
 					</div>
 
 					<div class="lg:col-span-1">

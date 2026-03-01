@@ -1,6 +1,5 @@
-import { Link } from "@tanstack/solid-router";
-import { ExternalLinkIcon, MessageCircleIcon } from "lucide-solid";
 import "./styles.css";
+import { StoreCardActions } from "./actions";
 
 export interface StoreCardData {
 	name: string;
@@ -41,34 +40,6 @@ export const StoreCard = (props: { store: StoreCardData }) => (
 				</div>
 			</div>
 		</div>
-		<div class="flex gap-2 mt-4">
-			<button
-				type="button"
-				class={`flex-1 px-3 py-2 text-xs font-semibold rounded-lg transition ${
-					props.store.following
-						? "bg-brand-600 hover:bg-brand-700 text-white"
-						: "bg-brand-50 hover:bg-brand-100 text-brand-600"
-				}`}
-			>
-				{props.store.following ? "Following" : "Follow"}
-			</button>
-			<button
-				type="button"
-				class="px-3 py-2 bg-gray-50 hover:bg-gray-100 text-gray-500 text-xs font-semibold rounded-lg transition"
-				aria-label="Chat with seller"
-			>
-				<MessageCircleIcon class="w-4 h-4" />
-			</button>
-			<Link
-				to="/store/$storeSlug"
-				params={{
-					storeSlug: props.store.name.toLowerCase().replace(/\s+/g, "-"),
-				}}
-				class="px-3 py-2 bg-gray-50 hover:bg-gray-100 text-gray-500 text-xs font-semibold rounded-lg transition"
-				aria-label="Visit store"
-			>
-				<ExternalLinkIcon class="w-4 h-4" />
-			</Link>
-		</div>
+		<StoreCardActions following={props.store.following ?? false} slug="todo" />
 	</div>
 );

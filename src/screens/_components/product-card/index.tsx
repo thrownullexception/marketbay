@@ -10,8 +10,6 @@ export interface ProductCardData {
 	ratingCount: string;
 	price: string;
 	originalPrice?: string;
-	imageGradient: string;
-	iconColor: string;
 	badge?: string;
 	badgeColor?: string;
 	wishlisted?: boolean;
@@ -26,9 +24,9 @@ export const ProductCard = (props: { product: ProductCardData }) => {
 			<div class="product-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 cursor-pointer">
 				<div class="relative aspect-square bg-gray-50">
 					<div
-						class={`absolute inset-0 bg-linear-to-br ${props.product.imageGradient} flex items-center justify-center`}
+						class={`absolute inset-0 bg-linear-to-br from-blue-50 to-indigo-100 flex items-center justify-center`}
 					>
-						<ShoppingBag class={`w-14 h-14 ${props.product.iconColor}`} />
+						<ShoppingBag class={`w-14 h-14 text-brand-300`} />
 					</div>
 					<Show when={props.product.badge}>
 						<span

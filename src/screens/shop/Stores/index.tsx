@@ -5,7 +5,6 @@ import { SellCTA } from "./SellCTA";
 import { StoreListCard } from "./StoreListCard";
 import { StoresHeader } from "./StoresHeader";
 import { StoresToolbar } from "./StoresToolbar";
-import { TrustBar } from "./TrustBar";
 
 export const StoresScreen = () => {
 	return (
@@ -16,9 +15,7 @@ export const StoresScreen = () => {
 					{ label: "Browse Stores", to: "/stores" },
 				]}
 			/>
-
 			<StoresHeader />
-
 			<section class="py-8 bg-white border-b border-gray-100">
 				<div class="max-w-7xl mx-auto px-4">
 					<div class="flex items-center justify-between mb-5">
@@ -29,7 +26,7 @@ export const StoresScreen = () => {
 					</div>
 					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 						<FeaturedStoreCard
-							href="store.html"
+							slug="todo"
 							gradient="from-blue-600 to-indigo-800"
 							initials="TV"
 							name="TechVault"
@@ -42,7 +39,7 @@ export const StoresScreen = () => {
 							followersTextColor="text-blue-300"
 						/>
 						<FeaturedStoreCard
-							href="#"
+							slug="todo"
 							gradient="from-rose-500 to-pink-700"
 							initials="SH"
 							name="StyleHouse"
@@ -55,7 +52,7 @@ export const StoresScreen = () => {
 							followersTextColor="text-rose-300"
 						/>
 						<FeaturedStoreCard
-							href="#"
+							slug="todo"
 							gradient="from-emerald-500 to-teal-700"
 							initials="GN"
 							name="GreenNest"
@@ -205,13 +202,10 @@ export const StoresScreen = () => {
 							followers="7.8k"
 						/>
 					</div>
-
 					<Pagination />
 				</div>
 			</section>
-
 			<SellCTA />
-			<TrustBar />
 		</>
 	);
 };

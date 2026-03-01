@@ -4,6 +4,7 @@ import {
 	ProductCard,
 	type ProductCardData,
 } from "@/screens/_components/product-card";
+import { SearchToolbar } from "@/screens/_components/search-toolbar";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { Pagination } from "@/ui/pagination";
 
@@ -207,7 +208,7 @@ export const CategoryScreen = () => {
 
 			<main class="max-w-7xl mx-auto px-4 py-6 lg:py-8">
 				<div class="flex gap-8">
-					<aside class="hidden lg:block w-60 flex-shrink-0">
+					<aside class="hidden lg:block w-60 shrink-0">
 						<div class="sticky top-24 space-y-6">
 							<div>
 								<h3 class="text-sm font-bold text-gray-900 mb-3">
@@ -531,113 +532,7 @@ export const CategoryScreen = () => {
 					</aside>
 
 					<div class="flex-1 min-w-0">
-						<div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-							<div class="flex items-center gap-3">
-								<button class="lg:hidden inline-flex items-center gap-1.5 px-3.5 py-2 border border-gray-200 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 transition">
-									<svg
-										class="w-4 h-4"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-										stroke-width="2"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"
-										/>
-									</svg>
-									Filters
-								</button>
-								<p class="text-sm text-gray-500">
-									Showing <span class="font-semibold text-gray-900">1–24</span>{" "}
-									of <span class="font-semibold text-gray-900">1,248</span>{" "}
-									results
-								</p>
-							</div>
-							<div class="flex items-center gap-2">
-								<span class="text-sm text-gray-500 hidden sm:inline">
-									Sort by:
-								</span>
-								<select class="px-3 py-2 border border-gray-200 rounded-xl text-sm font-medium text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-brand-400 cursor-pointer">
-									<option>Most Relevant</option>
-									<option>Price: Low to High</option>
-									<option>Price: High to Low</option>
-									<option>Newest First</option>
-									<option>Best Rating</option>
-									<option>Most Sold</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="flex flex-wrap gap-2 mb-5">
-							<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-50 text-brand-700 text-xs font-semibold rounded-full">
-								$50 – $100
-								<button
-									class="hover:text-brand-900 transition"
-									aria-label="Remove filter"
-								>
-									<svg
-										class="w-3.5 h-3.5"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-										stroke-width="2"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M6 18L18 6M6 6l12 12"
-										/>
-									</svg>
-								</button>
-							</span>
-							<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-50 text-brand-700 text-xs font-semibold rounded-full">
-								4 stars & up
-								<button
-									class="hover:text-brand-900 transition"
-									aria-label="Remove filter"
-								>
-									<svg
-										class="w-3.5 h-3.5"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-										stroke-width="2"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M6 18L18 6M6 6l12 12"
-										/>
-									</svg>
-								</button>
-							</span>
-							<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-50 text-brand-700 text-xs font-semibold rounded-full">
-								New
-								<button
-									class="hover:text-brand-900 transition"
-									aria-label="Remove filter"
-								>
-									<svg
-										class="w-3.5 h-3.5"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-										stroke-width="2"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M6 18L18 6M6 6l12 12"
-										/>
-									</svg>
-								</button>
-							</span>
-							<button class="text-xs font-semibold text-gray-500 hover:text-gray-700 transition px-2">
-								Clear all
-							</button>
-						</div>
+						<SearchToolbar />
 
 						<div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 							<For each={CATEGORY_PRODUCTS}>

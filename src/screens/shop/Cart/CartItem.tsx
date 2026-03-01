@@ -1,10 +1,4 @@
-import {
-	CheckCircleIcon,
-	CircleCheck,
-	MinusIcon,
-	PlusIcon,
-	XIcon,
-} from "lucide-solid";
+import { CircleCheck, MinusIcon, PlusIcon, XIcon } from "lucide-solid";
 import type { JSX } from "solid-js";
 
 interface CartItemProps {

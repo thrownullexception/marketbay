@@ -85,7 +85,7 @@ export function ForgotPasswordScreen() {
 						<div class="space-y-4">
 							<div class="flex items-start gap-3 p-3 bg-brand-50/50 rounded-xl">
 								<svg
-									class="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5"
+									class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke="currentColor"
@@ -107,7 +107,7 @@ export function ForgotPasswordScreen() {
 
 							<div class="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
 								<svg
-									class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"
+									class="w-5 h-5 text-gray-400 shrink-0 mt-0.5"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke="currentColor"

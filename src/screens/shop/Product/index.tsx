@@ -7,8 +7,12 @@ export const ShopProductScreen = () => {
 			<Breadcrumb
 				items={linkOptions([
 					{ label: "Home", to: "/" },
-					{ label: "Electronics", to: "/electronics" },
-					{ label: "Headphones", to: "/headphones" },
+					{ label: "Electronics", to: "/categories" },
+					{
+						label: "Headphones",
+						to: "/category/$categorySlug",
+						params: { categorySlug: "todo" },
+					},
 					{
 						label: "Pro Studio Wireless Headphones",
 						to: "/product/$productSlug",

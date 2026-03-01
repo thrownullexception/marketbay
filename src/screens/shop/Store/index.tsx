@@ -4,6 +4,7 @@ import {
 	ProductCard,
 	type ProductCardData,
 } from "@/screens/_components/product-card";
+import { SearchToolbar } from "@/screens/_components/search-toolbar";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { Pagination } from "@/ui/pagination";
 import { StoreHero } from "./StoreHero";
@@ -11,7 +12,6 @@ import { StorePromo } from "./StorePromo";
 import { StoreReviews } from "./StoreReviews";
 import { StoreSidebar } from "./StoreSidebar";
 import { StoreTabs } from "./StoreTabs";
-import { StoreToolbar } from "./StoreToolbar";
 
 const STORE_PRODUCTS: ProductCardData[] = [
 	{
@@ -21,8 +21,6 @@ const STORE_PRODUCTS: ProductCardData[] = [
 		ratingCount: "243",
 		price: "$59.99",
 		originalPrice: "$99.99",
-		imageGradient: "from-blue-50 to-indigo-100",
-		iconColor: "text-brand-200",
 		badge: "-40%",
 	},
 	{
@@ -32,8 +30,6 @@ const STORE_PRODUCTS: ProductCardData[] = [
 		ratingCount: "128",
 		price: "$299",
 		originalPrice: "$399",
-		imageGradient: "from-slate-50 to-gray-100",
-		iconColor: "text-gray-300",
 		badge: "-25%",
 	},
 	{
@@ -42,8 +38,6 @@ const STORE_PRODUCTS: ProductCardData[] = [
 		rating: "4.8",
 		ratingCount: "890",
 		price: "$19.99",
-		imageGradient: "from-violet-50 to-purple-100",
-		iconColor: "text-violet-200",
 		badge: "New",
 		badgeColor: "bg-brand-600",
 		wishlisted: true,
@@ -54,8 +48,6 @@ const STORE_PRODUCTS: ProductCardData[] = [
 		rating: "4.7",
 		ratingCount: "312",
 		price: "$89.99",
-		imageGradient: "from-cyan-50 to-sky-100",
-		iconColor: "text-emerald-200",
 	},
 	{
 		storeName: "TechVault",
@@ -64,8 +56,6 @@ const STORE_PRODUCTS: ProductCardData[] = [
 		ratingCount: "76",
 		price: "$33.99",
 		originalPrice: "$39.99",
-		imageGradient: "from-amber-50 to-orange-100",
-		iconColor: "text-emerald-200",
 		badge: "-15%",
 	},
 	{
@@ -74,8 +64,6 @@ const STORE_PRODUCTS: ProductCardData[] = [
 		rating: "4.8",
 		ratingCount: "456",
 		price: "$49.99",
-		imageGradient: "from-emerald-50 to-teal-100",
-		iconColor: "text-emerald-200",
 	},
 ];
 
@@ -100,7 +88,7 @@ export const ShopStoreScreen = () => {
 				<div class="flex flex-col lg:flex-row gap-8">
 					<StoreSidebar />
 					<div class="flex-1 min-w-0">
-						<StoreToolbar />
+						<SearchToolbar />
 						<div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
 							<For each={STORE_PRODUCTS}>
 								{(product) => <ProductCard product={product} />}

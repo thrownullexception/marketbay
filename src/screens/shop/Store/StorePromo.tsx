@@ -1,3 +1,5 @@
+import { ArrowRightIcon } from "lucide-solid";
+
 export const StorePromo = () => {
 	return (
 		<section class="bg-white border-b border-gray-100">
@@ -25,20 +27,7 @@ export const StorePromo = () => {
 							</p>
 						</div>
 						<span class="inline-flex items-center gap-1.5 px-5 py-2.5 bg-white text-brand-700 font-semibold rounded-lg text-sm group-hover:bg-brand-50 transition shadow-sm self-start sm:self-center shrink-0">
-							Shop Sale{" "}
-							<svg
-								class="w-4 h-4"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								stroke-width="2"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M17 8l4 4m0 0l-4 4m4-4H3"
-								/>
-							</svg>
+							Shop Sale <ArrowRightIcon class="w-4 h-4" />
 						</span>
 					</div>
 				</a>

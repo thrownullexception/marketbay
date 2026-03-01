@@ -1,0 +1,14 @@
+.step-active .step-circle {
+	background-color: #1d44f2;
+	color: #fff;
+}
+.step-complete .step-circle {
+	background-color: #10b981;
+	color: #fff;
+}
+.step-complete .step-line {
+	background-color: #10b981;
+}
+.step-active .step-line {
+	background: linear-gradient(to right, #10b981 50%, #e5e7eb 50%);
+}

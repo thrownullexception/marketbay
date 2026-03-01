@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/solid-router";
 import { ShieldCheckIcon, TriangleAlert } from "lucide-solid";
 
 interface StoreGroupHeaderProps {
@@ -44,12 +45,13 @@ export const StoreGroupHeader = (props: StoreGroupHeaderProps) => {
 					</p>
 				)}
 			</div>
-			<a
-				href="#"
+			<Link
+				to="/message/$storeSlug"
+				params={{ storeSlug: "todo" }}
 				class="text-xs text-brand-600 font-medium hover:underline hidden sm:inline"
 			>
 				Chat with seller
-			</a>
+			</Link>
 		</div>
 	);
 };

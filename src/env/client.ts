@@ -1,16 +1,7 @@
-import { createEnv } from "@t3-oss/env-core";
-import { config } from "dotenv";
-import * as v from "valibot";
-
-config({ path: ["../../.env.local", "../../.env"] });
-
-export const clientEnv = createEnv({
-	clientPrefix: "PUBLIC_",
-	client: {
-		PUBLIC_APP_TITLE: v.optional(v.pipe(v.string(), v.minLength(1))),
+export const CLIENT_CONSTANTS = {
+	SOCIAL_LINKS: {
+		TWITTER: "https://x.com/marketbay",
+		INSTAGRAM: "https://www.instagram.com/marketbay",
+		FACEBOOK: "https://www.facebook.com/marketbay",
 	},
-	runtimeEnv: process.env,
-	emptyStringAsUndefined: true,
-});
-
-export type CLIENT_ENV = typeof clientEnv;
+};

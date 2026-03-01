@@ -1,6 +1,9 @@
+import { Link } from "@tanstack/solid-router";
+import { ArrowRightIcon, CircleCheckIcon } from "lucide-solid";
+
 export const SellCTA = () => {
 	const benefits = [
-		"No monthly fees",
+		"Manage inventory",
 		"Built-in analytics",
 		"Seller chat support",
 	];
@@ -23,41 +26,18 @@ export const SellCTA = () => {
 							<div class="flex flex-wrap items-center gap-4 mt-4 text-sm text-brand-300">
 								{benefits.map((benefit) => (
 									<span class="flex items-center gap-1.5">
-										<svg
-											class="w-4 h-4 text-emerald-400"
-											fill="currentColor"
-											viewBox="0 0 20 20"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-												clip-rule="evenodd"
-											/>
-										</svg>
+										<CircleCheckIcon class="w-4 h-4 text-emerald-400" />
 										{benefit}
 									</span>
 								))}
 							</div>
 						</div>
-						<a
-							href="create-store.html"
-							class="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-brand-700 font-semibold rounded-xl text-sm hover:bg-brand-50 transition shadow-sm self-start sm:self-center flex-shrink-0"
+						<Link
+							to="/create-store"
+							class="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-brand-700 font-semibold rounded-xl text-sm hover:bg-brand-50 transition shadow-sm self-start sm:self-center shrink-0"
 						>
-							Open Your Store{" "}
-							<svg
-								class="w-4 h-4"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								stroke-width="2"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M17 8l4 4m0 0l-4 4m4-4H3"
-								/>
-							</svg>
-						</a>
+							Open Your Store <ArrowRightIcon class="w-4 h-4" />
+						</Link>
 					</div>
 				</div>
 			</div>

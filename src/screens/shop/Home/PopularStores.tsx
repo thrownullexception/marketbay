@@ -1,4 +1,6 @@
+import { linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
+import { SectionCard } from "@/screens/_components/section-card";
 import {
 	StoreCard,
 	type StoreCardData,
@@ -46,28 +48,17 @@ const POPULAR_STORES: StoreCardData[] = [
 
 export const PopularStores = () => {
 	return (
-		<section class="py-10 bg-white">
-			<div class="max-w-7xl mx-auto px-4">
-				<div class="flex items-end justify-between mb-6">
-					<div>
-						<h2 class="text-xl font-bold text-gray-900">Popular Stores</h2>
-						<p class="text-gray-500 text-sm mt-0.5">
-							Follow stores to get notified of new products &amp; deals
-						</p>
-					</div>
-					<a
-						href="/stores"
-						class="text-sm font-semibold text-brand-600 hover:text-brand-700 transition hidden sm:inline-flex items-center gap-1"
-					>
-						All Stores <span>&rarr;</span>
-					</a>
-				</div>
-				<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-					<For each={POPULAR_STORES}>
-						{(store) => <StoreCard store={store} />}
-					</For>
-				</div>
+		<SectionCard
+			title="Popular Stores"
+			alternate
+			description="Follow stores to get notified of new products &amp; deals"
+			action={linkOptions({ label: "All Stores", to: "/stores" })}
+		>
+			<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+				<For each={POPULAR_STORES}>
+					{(store) => <StoreCard store={store} />}
+				</For>
 			</div>
-		</section>
+		</SectionCard>
 	);
 };
