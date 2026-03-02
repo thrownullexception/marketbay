@@ -1,0 +1,10 @@
+.cat-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+.cat-card:hover .cat-icon {
+	transform: scale(1.08);
+}
+.subcat-link:hover {
+	background-color: rgba(29, 68, 242, 0.04);
+}

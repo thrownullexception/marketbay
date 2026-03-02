@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/solid-router";
-import { ShieldCheckIcon, TriangleAlert } from "lucide-solid";
+import { BadgeCheckIcon, TriangleAlert } from "lucide-solid";
 
 interface StoreGroupHeaderProps {
 	initials: string;
@@ -30,7 +30,7 @@ export const StoreGroupHeader = (props: StoreGroupHeaderProps) => {
 					</a>
 					{props.verified && (
 						<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
-							<ShieldCheckIcon class="w-2.5 h-2.5" aria-label="Verified" />
+							<BadgeCheckIcon class="w-2.5 h-2.5" aria-label="Verified" />
 							Verified
 						</span>
 					)}
@@ -46,7 +46,7 @@ export const StoreGroupHeader = (props: StoreGroupHeaderProps) => {
 				)}
 			</div>
 			<Link
-				to="/message/$storeSlug"
+				to="/chat/$storeSlug"
 				params={{ storeSlug: "todo" }}
 				class="text-xs text-brand-600 font-medium hover:underline hidden sm:inline"
 			>

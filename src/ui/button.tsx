@@ -6,7 +6,7 @@ export const Button = (props: {
 	onClick?: () => void;
 	type?: "button" | "submit" | "reset";
 	Icon?: LucideIcon;
-	variant?: "primary" | "secondary" | "default";
+	variant: "primary" | "secondary" | "default";
 	fullWidth?: boolean;
 	iconPosition?: "left" | "right";
 }) => {
@@ -22,7 +22,7 @@ export const Button = (props: {
 						props.variant === "primary",
 					"bg-accent-500 hover:bg-accent-600 text-white":
 						props.variant === "secondary",
-					"bg-gray-50 hover:bg-gray-100 text-gray-600":
+					"bg-white hover:bg-gray-50 text-gray-600":
 						props.variant === "default",
 					"w-full": props.fullWidth,
 				},

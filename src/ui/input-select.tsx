@@ -26,9 +26,6 @@ export const InputSelect = (
 					{(option) => <option value={option.value}>{option.label}</option>}
 				</For>
 			</select>
-			{props.description && (
-				<p class="text-xs text-gray-400 mt-1.5">{props.description}</p>
-			)}
 		</BaseInput>
 	);
 };

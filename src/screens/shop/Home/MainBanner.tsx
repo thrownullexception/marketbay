@@ -1,8 +1,10 @@
+import { Grid3 } from "@/ui/grid";
+
 export const MainBanner = () => {
 	return (
 		<section class="bg-gray-100 py-4">
 			<div class="max-w-7xl mx-auto px-4">
-				<div class="grid lg:grid-cols-3 gap-4">
+				<Grid3>
 					<div class="lg:col-span-2 relative rounded-2xl overflow-hidden bg-linear-to-r from-brand-700 to-brand-900 min-h-[220px] lg:min-h-[280px] flex items-center cursor-pointer group">
 						<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
 						<div class="relative px-8 lg:px-10 py-8 w-full">
@@ -101,7 +103,7 @@ export const MainBanner = () => {
 							</svg>
 						</a>
 					</div>
-				</div>
+				</Grid3>
 			</div>
 		</section>
 	);

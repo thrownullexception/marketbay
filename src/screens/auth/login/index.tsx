@@ -1,29 +1,32 @@
 import { LockIcon, LogInIcon, MailIcon } from "lucide-solid";
+import {
+	FormCard,
+	FormHeader,
+	FormRoot,
+	FormText,
+} from "@/screens/_components/form-card";
 import { Button } from "@/ui/button";
+import { DividerText } from "@/ui/divider";
 import { InputCheckbox } from "@/ui/input-checkbox";
-import { InputText } from "@/ui/input-text";
+import { InputPassword, InputText } from "@/ui/input-text";
 import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../SocialAuth";
 
 export function LoginScreen() {
 	return (
-		<>
-			<div class="text-center mb-8">
-				<h1 class="text-2xl font-extrabold text-gray-900">Welcome back</h1>
-				<p class="text-sm text-gray-500 mt-1.5">
-					Sign in to your MarketBay account
-				</p>
-			</div>
-
-			<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
-				<form class="space-y-5">
+		<FormRoot>
+			<FormHeader
+				title="Welcome back"
+				description="Sign in to your MarketBay account"
+			/>
+			<form>
+				<FormCard>
 					<InputText
 						label="Email address"
 						placeholder="you@example.com"
 						Icon={MailIcon}
 					/>
-
-					<InputText
+					<InputPassword
 						label="Password"
 						placeholder="Enter your password"
 						Icon={LockIcon}
@@ -32,9 +35,7 @@ export function LoginScreen() {
 							to: "/forgotpassword",
 						}}
 					/>
-
-					<InputCheckbox label="Remember me" id="remember" />
-
+					<InputCheckbox checked={false} label="Remember me" id="remember" />
 					<Button
 						label="Sign In"
 						type="submit"
@@ -42,26 +43,15 @@ export function LoginScreen() {
 						variant="primary"
 						fullWidth
 					/>
-				</form>
+					<DividerText text="or continue with" />
+					<SocialAuth />
+				</FormCard>
+			</form>
 
-				<div class="relative my-6">
-					<div class="absolute inset-0 flex items-center">
-						<div class="w-full border-t border-gray-100"></div>
-					</div>
-					<div class="relative flex justify-center">
-						<span class="bg-white px-3 text-xs text-gray-400 font-medium">
-							or continue with
-						</span>
-					</div>
-				</div>
-
-				<SocialAuth />
-			</div>
-
-			<p class="text-center text-sm text-gray-500 mt-6">
+			<FormText>
 				Don't have an account?{" "}
 				<TextLink to="/register" label="Sign up for free" />
-			</p>
-		</>
+			</FormText>
+		</FormRoot>
 	);
 }

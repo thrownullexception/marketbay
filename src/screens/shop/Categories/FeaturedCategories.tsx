@@ -7,6 +7,7 @@ import {
 } from "lucide-solid";
 import { For } from "solid-js";
 import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
+import { Grid3 } from "@/ui/grid";
 
 const CATEGORIES = [
 	{
@@ -60,11 +61,11 @@ const FeaturedCategory = (props: (typeof CATEGORIES)[number]) => {
 export const FeaturedCategories = () => {
 	return (
 		<ScreenSectionCard title="Featured Categories">
-			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+			<Grid3>
 				<For each={CATEGORIES}>
 					{(category) => <FeaturedCategory {...category} />}
 				</For>
-			</div>
+			</Grid3>
 		</ScreenSectionCard>
 	);
 };

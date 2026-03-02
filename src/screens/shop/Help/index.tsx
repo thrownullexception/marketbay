@@ -3,6 +3,7 @@ import { Breadcrumb } from "@/ui/breadcrumb";
 import { HelpByTopic } from "./HelpByTopic";
 import "./styles.css";
 import { SearchIcon } from "lucide-solid";
+import { Grid4 } from "@/ui/grid";
 import { Faq } from "./Faq";
 
 export function HelpScreen() {
@@ -207,7 +208,7 @@ export function HelpScreen() {
 
 				<section>
 					<h2 class="text-xl font-bold text-gray-900 mb-6">Quick links</h2>
-					<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+					<Grid4>
 						<a
 							href="#"
 							class="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 p-4 hover:border-brand-200 hover:bg-brand-50/30 transition group"
@@ -315,7 +316,7 @@ export function HelpScreen() {
 								<p class="text-xs text-gray-500">Flag problems</p>
 							</div>
 						</a>
-					</div>
+					</Grid4>
 				</section>
 			</main>
 		</>

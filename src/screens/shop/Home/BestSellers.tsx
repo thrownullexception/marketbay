@@ -5,6 +5,7 @@ import {
 	type ProductCardData,
 } from "@/screens/_components/product-card";
 import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
+import { Grid4 } from "@/ui/grid";
 
 const BEST_SELLERS: ProductCardData[] = [
 	{
@@ -56,11 +57,11 @@ export const BestSellers = () => {
 				search: { bestSellers: true },
 			})}
 		>
-			<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+			<Grid4>
 				<For each={BEST_SELLERS}>
 					{(product) => <ProductCard product={product} />}
 				</For>
-			</div>
+			</Grid4>
 		</ScreenSectionCard>
 	);
 };

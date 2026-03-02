@@ -6,6 +6,7 @@ import {
 } from "@/screens/_components/product-card";
 import { SearchToolbar } from "@/screens/_components/search-toolbar";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { Grid3 } from "@/ui/grid";
 import { Pagination } from "@/ui/pagination";
 import { StoreHero } from "./StoreHero";
 import { StorePromo } from "./StorePromo";
@@ -91,11 +92,11 @@ export const ShopStoreScreen = () => {
 					<StoreSidebar />
 					<div class="flex-1 min-w-0">
 						<SearchToolbar />
-						<div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+						<Grid3>
 							<For each={STORE_PRODUCTS}>
 								{(product) => <ProductCard product={product} />}
 							</For>
-						</div>
+						</Grid3>
 						<Pagination />
 					</div>
 				</div>

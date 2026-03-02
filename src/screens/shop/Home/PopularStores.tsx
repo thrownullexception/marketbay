@@ -5,6 +5,7 @@ import {
 	StoreCard,
 	type StoreCardData,
 } from "@/screens/_components/store-card";
+import { Grid4 } from "@/ui/grid";
 
 const POPULAR_STORES: StoreCardData[] = [
 	{
@@ -54,11 +55,11 @@ export const PopularStores = () => {
 			description="Follow stores to get notified of new products &amp; deals"
 			action={linkOptions({ label: "All Stores", to: "/stores" })}
 		>
-			<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+			<Grid4>
 				<For each={POPULAR_STORES}>
 					{(store) => <StoreCard store={store} />}
 				</For>
-			</div>
+			</Grid4>
 		</ScreenSectionCard>
 	);
 };

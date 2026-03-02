@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/solid-router";
 import {
+	BadgeCheckIcon,
 	MessageSquareMoreIcon,
 	ShareIcon,
-	ShieldCheckIcon,
 	StarIcon,
 	UserPlusIcon,
 } from "lucide-solid";
@@ -26,7 +26,7 @@ export const StoreHero = () => {
 						<div class="flex flex-wrap items-center gap-2">
 							<h1 class="text-2xl font-extrabold text-gray-900">TechVault</h1>
 							<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-50 text-blue-700 text-[11px] font-semibold rounded-full border border-blue-100">
-								<ShieldCheckIcon class="w-3 h-3" />
+								<BadgeCheckIcon class="w-3 h-3" />
 								Verified Store
 							</span>
 						</div>

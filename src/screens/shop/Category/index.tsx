@@ -1,4 +1,5 @@
-import { linkOptions } from "@tanstack/solid-router";
+import { Link, linkOptions } from "@tanstack/solid-router";
+import { XIcon } from "lucide-solid";
 import { For } from "solid-js";
 import {
 	ProductCard,
@@ -6,6 +7,8 @@ import {
 } from "@/screens/_components/product-card";
 import { SearchToolbar } from "@/screens/_components/search-toolbar";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { Button } from "@/ui/button";
+import { Grid3 } from "@/ui/grid";
 import { Pagination } from "@/ui/pagination";
 
 const CATEGORY_PRODUCTS: ProductCardData[] = [
@@ -16,8 +19,6 @@ const CATEGORY_PRODUCTS: ProductCardData[] = [
 		ratingCount: "243",
 		price: "$59.99",
 		originalPrice: "$99.99",
-		imageGradient: "from-blue-50 to-indigo-100",
-		iconColor: "text-brand-200",
 		badge: "-40%",
 	},
 	{
@@ -27,8 +28,6 @@ const CATEGORY_PRODUCTS: ProductCardData[] = [
 		ratingCount: "128",
 		price: "$299",
 		originalPrice: "$399",
-		imageGradient: "from-slate-50 to-gray-100",
-		iconColor: "text-gray-300",
 		badge: "-25%",
 	},
 	{
@@ -37,8 +36,6 @@ const CATEGORY_PRODUCTS: ProductCardData[] = [
 		rating: "4.8",
 		ratingCount: "890",
 		price: "$19.99",
-		imageGradient: "from-violet-50 to-purple-100",
-		iconColor: "text-violet-200",
 		wishlisted: true,
 	},
 	{
@@ -47,8 +44,6 @@ const CATEGORY_PRODUCTS: ProductCardData[] = [
 		rating: "4.7",
 		ratingCount: "156",
 		price: "$89.99",
-		imageGradient: "from-cyan-50 to-sky-100",
-		iconColor: "text-cyan-200",
 		badge: "New",
 		badgeColor: "bg-brand-600",
 	},
@@ -59,8 +54,6 @@ const CATEGORY_PRODUCTS: ProductCardData[] = [
 		ratingCount: "312",
 		price: "$42.49",
 		originalPrice: "$49.99",
-		imageGradient: "from-emerald-50 to-teal-100",
-		iconColor: "text-emerald-200",
 		badge: "-15%",
 	},
 	{
@@ -69,8 +62,6 @@ const CATEGORY_PRODUCTS: ProductCardData[] = [
 		rating: "4.9",
 		ratingCount: "1.2k",
 		price: "$54.99",
-		imageGradient: "from-amber-50 to-orange-100",
-		iconColor: "text-amber-200",
 	},
 	{
 		storeName: "PixelHub",
@@ -79,8 +70,6 @@ const CATEGORY_PRODUCTS: ProductCardData[] = [
 		ratingCount: "87",
 		price: "$79.99",
 		originalPrice: "$99.99",
-		imageGradient: "from-pink-50 to-rose-100",
-		iconColor: "text-rose-200",
 		badge: "-20%",
 	},
 	{
@@ -89,8 +78,6 @@ const CATEGORY_PRODUCTS: ProductCardData[] = [
 		rating: "4.7",
 		ratingCount: "445",
 		price: "$24.99",
-		imageGradient: "from-indigo-50 to-blue-100",
-		iconColor: "text-indigo-200",
 	},
 	{
 		storeName: "HomeHaven",
@@ -98,8 +85,6 @@ const CATEGORY_PRODUCTS: ProductCardData[] = [
 		rating: "4.8",
 		ratingCount: "203",
 		price: "$149.00",
-		imageGradient: "from-teal-50 to-emerald-100",
-		iconColor: "text-teal-200",
 		badge: "New",
 		badgeColor: "bg-brand-600",
 	},
@@ -150,60 +135,24 @@ export const CategoryScreen = () => {
 						</div>
 					</div>
 					<div class="flex gap-2 mt-5 overflow-x-auto scrollbar-hide pb-1">
-						<a
-							href="#"
-							class="whitespace-nowrap px-3.5 py-1.5 bg-white text-brand-700 text-xs font-semibold rounded-full transition"
-						>
-							All
-						</a>
-						<a
-							href="#"
-							class="whitespace-nowrap px-3.5 py-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-medium rounded-full transition"
-						>
-							Headphones
-						</a>
-						<a
-							href="#"
-							class="whitespace-nowrap px-3.5 py-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-medium rounded-full transition"
-						>
-							Monitors
-						</a>
-						<a
-							href="#"
-							class="whitespace-nowrap px-3.5 py-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-medium rounded-full transition"
-						>
-							Keyboards
-						</a>
-						<a
-							href="#"
-							class="whitespace-nowrap px-3.5 py-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-medium rounded-full transition"
-						>
-							Speakers
-						</a>
-						<a
-							href="#"
-							class="whitespace-nowrap px-3.5 py-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-medium rounded-full transition"
-						>
-							Phone Cases
-						</a>
-						<a
-							href="#"
-							class="whitespace-nowrap px-3.5 py-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-medium rounded-full transition"
-						>
-							Chargers
-						</a>
-						<a
-							href="#"
-							class="whitespace-nowrap px-3.5 py-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-medium rounded-full transition"
-						>
-							Cameras
-						</a>
-						<a
-							href="#"
-							class="whitespace-nowrap px-3.5 py-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-medium rounded-full transition"
-						>
-							Smart Home
-						</a>
+						{[
+							{ label: "Headphones", href: "#" },
+							{ label: "Monitors", href: "#" },
+							{ label: "Keyboards", href: "#" },
+							{ label: "Speakers", href: "#" },
+							{ label: "Phone Cases", href: "#" },
+							{ label: "Chargers", href: "#" },
+							{ label: "Cameras", href: "#" },
+							{ label: "Smart Home", href: "#" },
+						].map((category) => (
+							<Link
+								to="/category/$categorySlug"
+								params={{ categorySlug: "todo" }}
+								class="whitespace-nowrap px-3.5 py-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-medium rounded-full transition"
+							>
+								{category.label}
+							</Link>
+						))}
 					</div>
 				</div>
 			</section>
@@ -527,20 +476,27 @@ export const CategoryScreen = () => {
 								</div>
 							</div>
 
-							<button class="w-full py-2.5 border border-gray-200 text-sm font-semibold text-gray-600 rounded-xl hover:bg-gray-50 transition">
-								Clear All Filters
-							</button>
+							<Button
+								label="Clear All Filters"
+								type="button"
+								Icon={XIcon}
+								fullWidth
+								variant="default"
+								onClick={() => {
+									// TODO: Clear all filters
+								}}
+								iconPosition="left"
+							/>
 						</div>
 					</aside>
 
 					<div class="flex-1 min-w-0">
 						<SearchToolbar />
-
-						<div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+						<Grid3>
 							<For each={CATEGORY_PRODUCTS}>
 								{(product) => <ProductCard product={product} />}
 							</For>
-						</div>
+						</Grid3>
 						<Pagination />
 					</div>
 				</div>

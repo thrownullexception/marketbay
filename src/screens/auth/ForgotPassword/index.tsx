@@ -1,6 +1,7 @@
 import { useRouter } from "@tanstack/solid-router";
-import { LockKeyholeIcon, MailIcon } from "lucide-solid";
+import { MailIcon } from "lucide-solid";
 import { createSignal, Show } from "solid-js";
+import { FormCard, FormHeader } from "@/screens/_components/form-card";
 import { AlertDefault, AlertInfo } from "@/ui/alert";
 import { Button } from "@/ui/button";
 import { InputText } from "@/ui/input-text";
@@ -12,22 +13,13 @@ export function ForgotPasswordScreen() {
 	return (
 		<>
 			<Show when={!isSubmitted()}>
-				<div id="request-form">
-					<div class="text-center mb-8">
-						<div class="w-16 h-16 rounded-2xl bg-brand-50 flex items-center justify-center mx-auto mb-5">
-							<LockKeyholeIcon class="w-8 h-8 text-brand-600" />
-						</div>
-						<h1 class="text-2xl font-extrabold text-gray-900">
-							Reset your password
-						</h1>
-						<p class="text-sm text-gray-500 mt-1.5">
-							Enter the email address linked to your account and we'll send you
-							a reset link.
-						</p>
-					</div>
-
-					<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
-						<form class="space-y-5">
+				<div class="space-y-8">
+					<FormHeader
+						title="Reset your password"
+						description="Enter the email address linked to your account and we'll send you a reset link."
+					/>
+					<form>
+						<FormCard>
 							<InputText
 								label="Email address"
 								placeholder="you@example.com"
@@ -41,8 +33,8 @@ export function ForgotPasswordScreen() {
 								variant="primary"
 								fullWidth
 							/>
-						</form>
-					</div>
+						</FormCard>
+					</form>
 
 					<p class="text-center text-sm text-gray-500 mt-6">
 						Remember your password? <TextLink to="/login" label="Sign in" />
@@ -50,24 +42,19 @@ export function ForgotPasswordScreen() {
 				</div>
 			</Show>
 			<Show when={isSubmitted()}>
-				<div id="success-state">
-					<div class="text-center mb-8 fade-in">
+				<div class="space-y-8">
+					<div class="text-center fade-in">
 						<div class="w-16 h-16 rounded-2xl bg-emerald-50 flex items-center justify-center mx-auto mb-5">
 							<MailIcon class="w-8 h-8 text-emerald-600" />
 						</div>
-						<h1 class="text-2xl font-extrabold text-gray-900">
-							Check your email
-						</h1>
-						<p class="text-sm text-gray-500 mt-1.5">
-							We've sent a password reset link to
-						</p>
-						<p
-							class="text-sm font-semibold text-gray-900 mt-1"
-							id="sent-email"
-						></p>
+						<FormHeader
+							title="Check your email"
+							description="We've sent a password reset link to"
+						/>
+						<p class="text-sm font-semibold text-gray-900 mt-1">todo</p>
 					</div>
 
-					<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 fade-in">
+					<FormCard>
 						<div class="space-y-4">
 							<AlertInfo description="Click the link in the email to create a new password. The link expires in 60 minutes." />
 							<AlertDefault description="Don't see the email? Check your spam folder or make sure you entered the correct address." />
@@ -87,9 +74,9 @@ export function ForgotPasswordScreen() {
 								fullWidth
 							/>
 						</div>
-					</div>
+					</FormCard>
 
-					<p class="text-center text-sm text-gray-500 mt-6">
+					<p class="text-center text-sm text-gray-500">
 						Need help? <TextLink to="/help" label="Contact Support" />
 					</p>
 				</div>

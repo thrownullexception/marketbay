@@ -5,6 +5,7 @@ import { BrowseAllCategories } from "./BrowseAllCategories";
 import { FeaturedCategories } from "./FeaturedCategories";
 import { MoreToExplore } from "./MoreToExplore";
 import { TopStoresByCategory } from "./TopStoresByCategory";
+import "./styles.css";
 
 export const CategoriesScreen = () => {
 	return (

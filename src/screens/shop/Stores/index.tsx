@@ -1,5 +1,7 @@
 import { linkOptions } from "@tanstack/solid-router";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { Grid3 } from "@/ui/grid";
 import { Pagination } from "@/ui/pagination";
 import { FeaturedStoreCard } from "./FeaturedStoreCard";
 import { SellCTA } from "./SellCTA";
@@ -17,59 +19,54 @@ export const StoresScreen = () => {
 				]}
 			/>
 			<StoresHeader />
-			<section class="py-8 bg-white border-b border-gray-100">
-				<div class="max-w-7xl mx-auto px-4">
-					<div class="flex items-center justify-between mb-5">
-						<h2 class="text-lg font-bold text-gray-900">Featured Stores</h2>
-						<span class="text-xs font-medium text-gray-400 uppercase tracking-wide">
-							Staff Picks
-						</span>
-					</div>
-					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-						<FeaturedStoreCard
-							slug="todo"
-							gradient="from-blue-600 to-indigo-800"
-							initials="TV"
-							name="TechVault"
-							subtextColor="text-blue-200"
-							description="Electronics &bull; Gadgets &bull; 342 products"
-							rating="4.9"
-							ratingCount="2.1k"
-							ratingTextColor="text-blue-300"
-							followers="8.4k"
-							followersTextColor="text-blue-300"
-						/>
-						<FeaturedStoreCard
-							slug="todo"
-							gradient="from-rose-500 to-pink-700"
-							initials="SH"
-							name="StyleHouse"
-							subtextColor="text-rose-200"
-							description="Fashion &bull; Accessories &bull; 518 products"
-							rating="4.8"
-							ratingCount="1.8k"
-							ratingTextColor="text-rose-300"
-							followers="12.1k"
-							followersTextColor="text-rose-300"
-						/>
-						<FeaturedStoreCard
-							slug="todo"
-							gradient="from-emerald-500 to-teal-700"
-							initials="GN"
-							name="GreenNest"
-							subtextColor="text-emerald-200"
-							description="Beauty &bull; Wellness &bull; 215 products"
-							rating="4.9"
-							ratingCount="956"
-							ratingTextColor="text-emerald-300"
-							followers="6.2k"
-							followersTextColor="text-emerald-300"
-						/>
-					</div>
-				</div>
-			</section>
+			<ScreenSectionCard
+				title="Featured Stores"
+				description="Picked by our staff"
+			>
+				<Grid3>
+					<FeaturedStoreCard
+						slug="todo"
+						gradient="from-blue-600 to-indigo-800"
+						initials="TV"
+						name="TechVault"
+						subtextColor="text-blue-200"
+						description="Electronics &bull; Gadgets &bull; 342 products"
+						rating="4.9"
+						ratingCount="2.1k"
+						ratingTextColor="text-blue-300"
+						followers="8.4k"
+						followersTextColor="text-blue-300"
+					/>
+					<FeaturedStoreCard
+						slug="todo"
+						gradient="from-rose-500 to-pink-700"
+						initials="SH"
+						name="StyleHouse"
+						subtextColor="text-rose-200"
+						description="Fashion &bull; Accessories &bull; 518 products"
+						rating="4.8"
+						ratingCount="1.8k"
+						ratingTextColor="text-rose-300"
+						followers="12.1k"
+						followersTextColor="text-rose-300"
+					/>
+					<FeaturedStoreCard
+						slug="todo"
+						gradient="from-emerald-500 to-teal-700"
+						initials="GN"
+						name="GreenNest"
+						subtextColor="text-emerald-200"
+						description="Beauty &bull; Wellness &bull; 215 products"
+						rating="4.9"
+						ratingCount="956"
+						ratingTextColor="text-emerald-300"
+						followers="6.2k"
+						followersTextColor="text-emerald-300"
+					/>
+				</Grid3>
+			</ScreenSectionCard>
 
-			<section class="py-8 bg-gray-50">
+			<section class="py-8 bg-gray-50 border-t border-gray-100">
 				<div class="max-w-7xl mx-auto px-4">
 					<StoresToolbar />
 
@@ -78,7 +75,7 @@ export const StoresScreen = () => {
 						<span class="font-semibold text-gray-700">1,240</span> stores
 					</p>
 
-					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+					<Grid3>
 						<StoreListCard
 							href="store.html"
 							bannerGradient="from-blue-500 to-indigo-600"
@@ -202,7 +199,7 @@ export const StoresScreen = () => {
 							productCount="145"
 							followers="7.8k"
 						/>
-					</div>
+					</Grid3>
 					<Pagination />
 				</div>
 			</section>

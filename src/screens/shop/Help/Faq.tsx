@@ -1,6 +1,3 @@
-import { Accordion } from "@kobalte/core/accordion";
-import { ChevronDownIcon } from "lucide-solid";
-
 const faqs = [
 	{
 		question: "How do I track my order?",
@@ -44,34 +41,7 @@ const faqs = [
 	},
 ];
 
-const AccordionItem = ({ faq }: { faq: (typeof faqs)[0] }) => {
-	return (
-		<Accordion.Item
-			class="bg-white rounded-2xl border border-gray-100 overflow-hidden"
-			value={faq.question}
-		>
-			<Accordion.Header class="accordion__item-header">
-				<Accordion.Trigger class="w-full px-5 py-4 flex items-center justify-between text-left cursor-pointer">
-					<span class="text-sm font-semibold text-gray-900 pr-4">
-						{faq.question}
-					</span>
-					<ChevronDownIcon
-						class="faq-chevron w-5 h-5 text-gray-400 shrink-0"
-						aria-hidden
-					/>
-				</Accordion.Trigger>
-			</Accordion.Header>
-			<Accordion.Content class="faq-answer px-5 pb-0">
-				<div class="pb-4">
-					<p
-						class="text-sm text-gray-600 leading-relaxed"
-						innerHTML={faq.answer}
-					/>
-				</div>
-			</Accordion.Content>
-		</Accordion.Item>
-	);
-};
+import { AccordionItem } from "@/ui/accordion";
 
 export function Faq() {
 	return (
@@ -86,25 +56,23 @@ export function Faq() {
 					</p>
 				</div>
 			</div>
-			<Accordion class="accordion" multiple>
-				<div class="grid lg:grid-cols-2 gap-4">
-					<div class="space-y-3">
-						{faqs
-							.filter((_, index) => index % 2 === 0)
-							.map((faq) => (
-								<AccordionItem faq={faq} />
-							))}
-					</div>
-
-					<div class="space-y-3">
-						{faqs
-							.filter((_, index) => index % 2 === 1)
-							.map((faq) => (
-								<AccordionItem faq={faq} />
-							))}
-					</div>
+			<div class="grid lg:grid-cols-2 gap-4">
+				<div class="space-y-3">
+					{faqs
+						.filter((_, index) => index % 2 === 0)
+						.map((faq) => (
+							<AccordionItem question={faq.question} answer={faq.answer} />
+						))}
 				</div>
-			</Accordion>
+
+				<div class="space-y-3">
+					{faqs
+						.filter((_, index) => index % 2 === 1)
+						.map((faq) => (
+							<AccordionItem question={faq.question} answer={faq.answer} />
+						))}
+				</div>
+			</div>
 		</section>
 	);
 }

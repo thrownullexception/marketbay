@@ -1,8 +1,8 @@
-import { ShieldCheckIcon, StarIcon } from "lucide-solid";
+import { Link } from "@tanstack/solid-router";
+import { BadgeCheckIcon, StarIcon } from "lucide-solid";
 import { StoreCardActions } from "@/screens/_components/store-card/actions";
 
 interface StoreListCardProps {
-	href: string;
 	bannerGradient: string;
 	avatarGradient: string;
 	initials: string;
@@ -19,8 +19,9 @@ interface StoreListCardProps {
 
 export const StoreListCard = (props: StoreListCardProps) => {
 	return (
-		<a
-			href={props.href}
+		<Link
+			to="/store/$storeSlug"
+			params={{ storeSlug: "todo" }}
 			class="store-card bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300"
 		>
 			<div class={`h-20 bg-linear-to-r ${props.bannerGradient} relative`}>
@@ -37,7 +38,7 @@ export const StoreListCard = (props: StoreListCardProps) => {
 					<h3 class="font-bold text-gray-900">{props.name}</h3>
 					{props.verified && (
 						<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
-							<ShieldCheckIcon class="w-2.5 h-2.5" />
+							<BadgeCheckIcon class="w-2.5 h-2.5" />
 						</span>
 					)}
 				</div>
@@ -56,6 +57,6 @@ export const StoreListCard = (props: StoreListCardProps) => {
 				</div>
 				<StoreCardActions following={props.following} slug="todo" />
 			</div>
-		</a>
+		</Link>
 	);
 };

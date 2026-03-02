@@ -4,6 +4,7 @@ import {
 	type ProductCardData,
 } from "@/screens/_components/product-card";
 import { SearchToolbar } from "@/screens/_components/search-toolbar";
+import { Grid3 } from "@/ui/grid";
 import { Pagination } from "@/ui/pagination";
 
 const SEARCH_RESULTS: ProductCardData[] = [
@@ -69,12 +70,11 @@ export const SearchResults = () => {
 	return (
 		<div class="flex-1 min-w-0">
 			<SearchToolbar />
-			<div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+			<Grid3>
 				<For each={SEARCH_RESULTS}>
 					{(product) => <ProductCard product={product} />}
 				</For>
-			</div>
-
+			</Grid3>
 			<Pagination />
 		</div>
 	);

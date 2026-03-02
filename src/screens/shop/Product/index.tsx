@@ -1,5 +1,6 @@
 import { linkOptions } from "@tanstack/solid-router";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { Divider } from "@/ui/divider";
 import { MoreFromStore } from "./MoreFromStore";
 import { ProductActions } from "./ProductActions";
 import { ProductDescription } from "./ProductDescription";
@@ -38,10 +39,10 @@ export const ShopProductScreen = () => {
 					<ProductGallery />
 					<div>
 						<ProductInfo />
-						<hr class="my-6 border-gray-100" />
+						<Divider />
 						<ProductOptions />
 						<ProductActions />
-						<hr class="my-6 border-gray-100" />
+						<Divider />
 						<ProductGuarantees />
 					</div>
 				</div>

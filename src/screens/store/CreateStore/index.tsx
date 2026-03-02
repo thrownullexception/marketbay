@@ -17,6 +17,8 @@ import { InputText } from "@/ui/input-text";
 import { InputTextarea } from "@/ui/input-textarea";
 import { TextLink } from "@/ui/link";
 import "./styles.css";
+import { FormCard, FormHeader } from "@/screens/_components/form-card";
+import { Grid2 } from "@/ui/grid";
 
 export const CreateStoreScreen = () => {
 	const router = useRouter();
@@ -67,230 +69,196 @@ export const CreateStoreScreen = () => {
 
 			<main class="flex-1 py-8 sm:py-12">
 				<div class="max-w-3xl mx-auto px-4">
-					<div class="mb-8">
-						<h1 class="text-2xl font-extrabold text-gray-900">
-							Set up your store
-						</h1>
-						<p class="text-sm text-gray-500 mt-1">
-							Tell buyers what your store is about. You can always change these
-							later.
-						</p>
-					</div>
-
 					<form class="space-y-8">
-						<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-							<h2 class="text-base font-semibold text-gray-900 mb-4">
-								Store Information
-							</h2>
-							<div class="space-y-5">
-								<InputText
-									label="Store Name"
-									placeholder="e.g. TechVault, StyleHouse, GreenNest"
-									description="This is how buyers will find and recognize your store."
-									required
-								/>
-
-								<div>
-									<label
-										for="store-url"
-										class="block text-sm font-medium text-gray-700 mb-1.5"
-									>
-										Store URL
-									</label>
-									<div class="flex rounded-xl border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand-400 focus-within:border-transparent transition">
-										<span class="inline-flex items-center px-3.5 bg-gray-50 text-sm text-gray-400 border-r border-gray-200 select-none">
-											marketbay.com/store/
-										</span>
-										<input
-											id="store-url"
-											type="text"
-											placeholder="your-store-name"
-											class="flex-1 px-3 py-2.5 text-sm focus:outline-none"
-										/>
-									</div>
+						<FormHeader
+							title="Set up your store"
+							description="Tell buyers what your store is about. You can always change these later."
+						/>
+						<FormCard title="Store Information">
+							<InputText
+								label="Store Name"
+								placeholder="e.g. TechVault, StyleHouse, GreenNest"
+								description="This is how buyers will find and recognize your store."
+								required
+							/>
+							<div>
+								<label
+									for="store-url"
+									class="block text-sm font-medium text-gray-700 mb-1.5"
+								>
+									Store Handle
+								</label>
+								<div class="flex rounded-xl border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand-400 focus-within:border-transparent transition">
+									<span class="inline-flex items-center px-3.5 bg-gray-50 text-sm text-gray-400 border-r border-gray-200 select-none">
+										marketbay.com/store/
+									</span>
+									<input
+										id="store-url"
+										type="text"
+										placeholder="your-store-name"
+										class="flex-1 px-3 py-2.5 text-sm focus:outline-none"
+									/>
 								</div>
-
-								<InputTextarea
-									label="Description"
-									placeholder="Tell buyers what you sell, what makes your products unique, and why they should shop with you..."
-									description="This appears on your store profile page."
-									required
-								/>
 							</div>
-						</div>
+							<InputTextarea
+								label="Description"
+								placeholder="Tell buyers what you sell, what makes your products unique, and why they should shop with you..."
+								description="This appears on your store profile page."
+								required
+							/>
+						</FormCard>
 
-						<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-							<h2 class="text-base font-semibold text-gray-900 mb-4">
-								Category &amp; Location
-							</h2>
-							<div class="space-y-5">
+						<FormCard title="Category &amp; Location">
+							<InputSelect
+								label="Primary Category"
+								placeholder="Select a category"
+								description="This is the category that will be displayed on your store profile page."
+								required
+								options={[
+									{
+										label: "Electronics &amp; Gadgets",
+										value: "electronics-and-gadgets",
+									},
+									{
+										label: "Fashion &amp; Accessories",
+										value: "fashion-and-accessories",
+									},
+									{ label: "Home &amp; Garden", value: "home-and-garden" },
+									{
+										label: "Beauty &amp; Wellness",
+										value: "beauty-and-wellness",
+									},
+									{
+										label: "Sports &amp; Fitness",
+										value: "sports-and-fitness",
+									},
+									{ label: "Books &amp; Media", value: "books-and-media" },
+									{ label: "Toys &amp; Games", value: "toys-and-games" },
+									{ label: "Automotive", value: "automotive" },
+									{
+										label: "Groceries &amp; Food",
+										value: "groceries-and-food",
+									},
+									{ label: "Art &amp; Crafts", value: "art-and-crafts" },
+									{ label: "Other", value: "other" },
+								]}
+							/>
+
+							<Grid2>
 								<InputSelect
-									label="Primary Category"
-									placeholder="Select a category"
-									description="This is the category that will be displayed on your store profile page."
+									label="State"
+									placeholder="Select a state"
 									required
 									options={[
-										{
-											label: "Electronics &amp; Gadgets",
-											value: "electronics-and-gadgets",
-										},
-										{
-											label: "Fashion &amp; Accessories",
-											value: "fashion-and-accessories",
-										},
-										{ label: "Home &amp; Garden", value: "home-and-garden" },
-										{
-											label: "Beauty &amp; Wellness",
-											value: "beauty-and-wellness",
-										},
-										{
-											label: "Sports &amp; Fitness",
-											value: "sports-and-fitness",
-										},
-										{ label: "Books &amp; Media", value: "books-and-media" },
-										{ label: "Toys &amp; Games", value: "toys-and-games" },
-										{ label: "Automotive", value: "automotive" },
-										{
-											label: "Groceries &amp; Food",
-											value: "groceries-and-food",
-										},
-										{ label: "Art &amp; Crafts", value: "art-and-crafts" },
+										{ label: "California", value: "california" },
+										{ label: "New York", value: "new-york" },
+										{ label: "Texas", value: "texas" },
+										{ label: "Florida", value: "florida" },
+										{ label: "Illinois", value: "illinois" },
 										{ label: "Other", value: "other" },
 									]}
 								/>
+								<InputText label="City" placeholder="e.g. San Francisco" />
+							</Grid2>
+						</FormCard>
 
-								<div class="grid sm:grid-cols-2 gap-5">
-									<InputSelect
-										label="State"
-										placeholder="Select a state"
-										required
-										options={[
-											{ label: "California", value: "california" },
-											{ label: "New York", value: "new-york" },
-											{ label: "Texas", value: "texas" },
-											{ label: "Florida", value: "florida" },
-											{ label: "Illinois", value: "illinois" },
-											{ label: "Other", value: "other" },
-										]}
-									/>
-									<InputText label="City" placeholder="e.g. San Francisco" />
-								</div>
-							</div>
-						</div>
-
-						<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-							<h2 class="text-base font-semibold text-gray-900 mb-1">
-								Branding
-							</h2>
-							<p class="text-sm text-gray-500 mb-5">
-								Upload a logo and cover to make your store stand out.
-							</p>
-
-							<div class="grid sm:grid-cols-2 gap-6">
+						<FormCard
+							title="Branding"
+							description="Upload a logo and cover to make your store stand out."
+						>
+							<Grid2>
 								<InputFile
 									label="Store Logo"
-									hint="PNG, JPG up to 2MB"
+									accept="image"
+									maxSizeInMB={2}
 									description="Recommended: 400 × 400px, square"
-									aspectRatio="square"
-									maxWidth="180px"
 								/>
 								<InputFile
 									label="Cover Image"
-									hint="PNG, JPG up to 5MB"
+									accept="image"
+									maxSizeInMB={5}
 									description="Recommended: 1200 × 400px, landscape"
-									aspectRatio="video"
 								/>
-							</div>
-						</div>
+							</Grid2>
+						</FormCard>
 
-						<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-							<h2 class="text-base font-semibold text-gray-900 mb-1">
-								Contact &amp; Social
-							</h2>
-							<p class="text-sm text-gray-500 mb-5">
-								Optional — help buyers reach you outside MarketBay.
-							</p>
+						<FormCard
+							title="Contact &amp; Social"
+							description="Optional — help buyers reach you outside MarketBay."
+						>
+							<InputText
+								label="Business Email"
+								placeholder="hello@yourbusiness.com"
+								Icon={MailIcon}
+							/>
 
-							<div class="space-y-5">
-								<InputText
-									label="Business Email"
-									placeholder="hello@yourbusiness.com"
-									Icon={MailIcon}
-								/>
+							<InputText
+								label="Phone Number"
+								placeholder="+234 (000) 000-0000"
+								Icon={PhoneIcon}
+							/>
 
-								<InputText
-									label="Phone Number"
-									placeholder="+234 (000) 000-0000"
-									Icon={PhoneIcon}
-								/>
+							<InputText
+								label="Website URL"
+								placeholder="https://yourwebsite.com"
+								Icon={GlobeIcon}
+							/>
 
-								<InputText
-									label="Website URL"
-									placeholder="https://yourwebsite.com"
-									Icon={GlobeIcon}
-								/>
+							<InputText
+								label="Instagram URL"
+								placeholder="https://www.instagram.com/yourbusiness"
+								Icon={InstagramIcon}
+							/>
 
-								<InputText
-									label="Instagram URL"
-									placeholder="https://www.instagram.com/yourbusiness"
-									Icon={InstagramIcon}
-								/>
+							<InputText
+								label="X (Twitter) URL"
+								placeholder="https://x.com/yourbusiness"
+								Icon={TwitterIcon}
+							/>
+						</FormCard>
 
-								<InputText
-									label="X (Twitter) URL"
-									placeholder="https://x.com/yourbusiness"
-									Icon={TwitterIcon}
-								/>
-							</div>
-						</div>
+						<FormCard
+							title="Shipping &amp; Policies"
+							description="Set expectations for your buyers."
+						>
+							<InputCheckboxGroup
+								label="Shipping options"
+								value="standard"
+								options={[
+									{
+										label: "Standard Shipping",
+										value: "standard",
+										description: "5–8 business days",
+									},
+									{
+										label: "Express Shipping",
+										value: "express",
+										description: "1–3 business days",
+									},
+									{
+										label: "Free Shipping",
+										value: "free",
+										description: "On orders over a minimum amount you set",
+									},
+								]}
+							/>
+							<InputSelect
+								label="Return Policy"
+								placeholder="Select a return policy"
+								required
+								options={[
+									{ label: "30-day returns", value: "30-day-returns" },
+									{ label: "14-day returns", value: "14-day-returns" },
+									{ label: "60-day returns", value: "60-day-returns" },
+									{ label: "No returns", value: "no-returns" },
+								]}
+							/>
+						</FormCard>
 
-						<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-							<h2 class="text-base font-semibold text-gray-900 mb-1">
-								Shipping &amp; Policies
-							</h2>
-							<p class="text-sm text-gray-500 mb-5">
-								Set expectations for your buyers.
-							</p>
-
-							<div class="space-y-5">
-								<InputCheckboxGroup
-									label="Shipping options"
-									value="standard"
-									options={[
-										{
-											label: "Standard Shipping",
-											value: "standard",
-											description: "5–8 business days",
-										},
-										{
-											label: "Express Shipping",
-											value: "express",
-											description: "1–3 business days",
-										},
-										{
-											label: "Free Shipping",
-											value: "free",
-											description: "On orders over a minimum amount you set",
-										},
-									]}
-								/>
-								<InputSelect
-									label="Return Policy"
-									placeholder="Select a return policy"
-									required
-									options={[
-										{ label: "30-day returns", value: "30-day-returns" },
-										{ label: "14-day returns", value: "14-day-returns" },
-										{ label: "60-day returns", value: "60-day-returns" },
-										{ label: "No returns", value: "no-returns" },
-									]}
-								/>
-							</div>
-						</div>
-
-						<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+						<FormCard>
 							<InputCheckbox
 								id="terms-of-service"
+								checked={true}
 								label={
 									<>
 										I agree to the MarketBay{" "}
@@ -308,7 +276,7 @@ export const CreateStoreScreen = () => {
 									</>
 								}
 							/>
-						</div>
+						</FormCard>
 
 						<div class="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-2 pb-8">
 							<Button

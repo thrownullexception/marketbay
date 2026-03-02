@@ -1,6 +1,7 @@
 import { Link, linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
 import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
+import { Grid4 } from "@/ui/grid";
 
 interface StoreEntry {
 	initials: string;
@@ -212,11 +213,11 @@ export const TopStoresByCategory = () => {
 			alternate
 			action={linkOptions({ label: "All Stores", to: "/stores" })}
 		>
-			<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+			<Grid4>
 				<For each={CATEGORY_STORES}>
 					{(data) => <CategoryStoreCard data={data} />}
 				</For>
-			</div>
+			</Grid4>
 		</ScreenSectionCard>
 	);
 };

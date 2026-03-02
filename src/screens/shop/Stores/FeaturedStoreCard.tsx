@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/solid-router";
-import { ArrowRightIcon, ShieldCheckIcon, StarIcon } from "lucide-solid";
+import { ArrowRightIcon, BadgeCheckIcon, StarIcon } from "lucide-solid";
 
 interface FeaturedStoreCardProps {
 	slug: string;
@@ -32,7 +32,7 @@ export const FeaturedStoreCard = (props: FeaturedStoreCardProps) => {
 				<div class="flex items-center gap-2 mb-1">
 					<h3 class="text-lg font-bold text-white">{props.name}</h3>
 					<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-white/20 text-white text-[10px] font-semibold rounded-full">
-						<ShieldCheckIcon class="w-2.5 h-2.5" />
+						<BadgeCheckIcon class="w-2.5 h-2.5" />
 						Verified
 					</span>
 				</div>
