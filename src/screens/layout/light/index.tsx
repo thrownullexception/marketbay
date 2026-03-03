@@ -1,8 +1,10 @@
-import { Link, Outlet } from "@tanstack/solid-router";
+import { Link, Outlet, useRouter } from "@tanstack/solid-router";
 import { X } from "lucide-solid";
 import type { JSX } from "solid-js";
+import { Button } from "@/ui/button";
 
 const MinimalWrapper = ({ children }: { children: JSX.Element }) => {
+	const router = useRouter();
 	return (
 		<div class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
 			<nav class="bg-white border-b border-gray-100 shadow-sm">
@@ -28,13 +30,12 @@ const MinimalWrapper = ({ children }: { children: JSX.Element }) => {
 							Market<span class="text-brand-600">Bay</span>
 						</span>
 					</Link>
-					<Link
-						to="/"
-						class="text-sm text-gray-400 hover:text-gray-600 transition flex items-center gap-1"
-					>
-						<X class="w-4 h-4" />
-						Exit
-					</Link>
+					<Button
+						label="Exit"
+						variant="text"
+						Icon={X}
+						onClick={() => router.history.back()}
+					/>
 				</div>
 			</nav>
 

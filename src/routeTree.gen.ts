@@ -30,11 +30,15 @@ import { Route as appCartRouteImport } from './routes/(app)/cart'
 import { Route as appChatRouteRouteImport } from './routes/(app)/chat/route'
 import { Route as appSellerIndexRouteImport } from './routes/(app)/seller/index'
 import { Route as appChatIndexRouteImport } from './routes/(app)/chat/index'
-import { Route as appStoreStoreSlugRouteImport } from './routes/(app)/store.$storeSlug'
 import { Route as appProductProductSlugRouteImport } from './routes/(app)/product.$productSlug'
 import { Route as appChatStoreSlugRouteImport } from './routes/(app)/chat/$storeSlug'
 import { Route as appCategoryCategorySlugRouteImport } from './routes/(app)/category.$categorySlug'
 import { Route as appaccountAccountRouteImport } from './routes/(app)/(account)/account'
+import { Route as appStoreStoreSlugRouteRouteImport } from './routes/(app)/store/$storeSlug/route'
+import { Route as appStoreStoreSlugIndexRouteImport } from './routes/(app)/store/$storeSlug/index'
+import { Route as appStoreStoreSlugReviewsRouteImport } from './routes/(app)/store/$storeSlug/reviews'
+import { Route as appStoreStoreSlugPoliciesRouteImport } from './routes/(app)/store/$storeSlug/policies'
+import { Route as appStoreStoreSlugAboutRouteImport } from './routes/(app)/store/$storeSlug/about'
 import { Route as appSellerStoreIdSettingsRouteImport } from './routes/(app)/seller/$storeId/settings'
 import { Route as appSellerStoreIdProductsRouteImport } from './routes/(app)/seller/$storeId/products'
 import { Route as appSellerStoreIdProductNewRouteImport } from './routes/(app)/seller/$storeId/product-new'
@@ -144,11 +148,6 @@ const appChatIndexRoute = appChatIndexRouteImport.update({
   path: '/',
   getParentRoute: () => appChatRouteRoute,
 } as any)
-const appStoreStoreSlugRoute = appStoreStoreSlugRouteImport.update({
-  id: '/store/$storeSlug',
-  path: '/store/$storeSlug',
-  getParentRoute: () => appRouteRoute,
-} as any)
 const appProductProductSlugRoute = appProductProductSlugRouteImport.update({
   id: '/product/$productSlug',
   path: '/product/$productSlug',
@@ -168,6 +167,33 @@ const appaccountAccountRoute = appaccountAccountRouteImport.update({
   id: '/(account)/account',
   path: '/account',
   getParentRoute: () => appRouteRoute,
+} as any)
+const appStoreStoreSlugRouteRoute = appStoreStoreSlugRouteRouteImport.update({
+  id: '/store/$storeSlug',
+  path: '/store/$storeSlug',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appStoreStoreSlugIndexRoute = appStoreStoreSlugIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appStoreStoreSlugRouteRoute,
+} as any)
+const appStoreStoreSlugReviewsRoute =
+  appStoreStoreSlugReviewsRouteImport.update({
+    id: '/reviews',
+    path: '/reviews',
+    getParentRoute: () => appStoreStoreSlugRouteRoute,
+  } as any)
+const appStoreStoreSlugPoliciesRoute =
+  appStoreStoreSlugPoliciesRouteImport.update({
+    id: '/policies',
+    path: '/policies',
+    getParentRoute: () => appStoreStoreSlugRouteRoute,
+  } as any)
+const appStoreStoreSlugAboutRoute = appStoreStoreSlugAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => appStoreStoreSlugRouteRoute,
 } as any)
 const appSellerStoreIdSettingsRoute =
   appSellerStoreIdSettingsRouteImport.update({
@@ -222,11 +248,11 @@ export interface FileRoutesByFullPath {
   '/register': typeof authRegisterRoute
   '/create-store': typeof formsCreateStoreRoute
   '/': typeof appIndexRoute
+  '/store/$storeSlug': typeof appStoreStoreSlugRouteRouteWithChildren
   '/account': typeof appaccountAccountRoute
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/product/$productSlug': typeof appProductProductSlugRoute
-  '/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/chat/': typeof appChatIndexRoute
   '/seller/': typeof appSellerIndexRoute
   '/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
@@ -235,6 +261,10 @@ export interface FileRoutesByFullPath {
   '/seller/$storeId/product-new': typeof appSellerStoreIdProductNewRoute
   '/seller/$storeId/products': typeof appSellerStoreIdProductsRoute
   '/seller/$storeId/settings': typeof appSellerStoreIdSettingsRoute
+  '/store/$storeSlug/about': typeof appStoreStoreSlugAboutRoute
+  '/store/$storeSlug/policies': typeof appStoreStoreSlugPoliciesRoute
+  '/store/$storeSlug/reviews': typeof appStoreStoreSlugReviewsRoute
+  '/store/$storeSlug/': typeof appStoreStoreSlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/deferred': typeof DeferredRoute
@@ -256,7 +286,6 @@ export interface FileRoutesByTo {
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/product/$productSlug': typeof appProductProductSlugRoute
-  '/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/chat': typeof appChatIndexRoute
   '/seller': typeof appSellerIndexRoute
   '/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
@@ -265,6 +294,10 @@ export interface FileRoutesByTo {
   '/seller/$storeId/product-new': typeof appSellerStoreIdProductNewRoute
   '/seller/$storeId/products': typeof appSellerStoreIdProductsRoute
   '/seller/$storeId/settings': typeof appSellerStoreIdSettingsRoute
+  '/store/$storeSlug/about': typeof appStoreStoreSlugAboutRoute
+  '/store/$storeSlug/policies': typeof appStoreStoreSlugPoliciesRoute
+  '/store/$storeSlug/reviews': typeof appStoreStoreSlugReviewsRoute
+  '/store/$storeSlug': typeof appStoreStoreSlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -287,11 +320,11 @@ export interface FileRoutesById {
   '/(auth)/register': typeof authRegisterRoute
   '/(forms)/create-store': typeof formsCreateStoreRoute
   '/(app)/': typeof appIndexRoute
+  '/(app)/store/$storeSlug': typeof appStoreStoreSlugRouteRouteWithChildren
   '/(app)/(account)/account': typeof appaccountAccountRoute
   '/(app)/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/(app)/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/(app)/product/$productSlug': typeof appProductProductSlugRoute
-  '/(app)/store/$storeSlug': typeof appStoreStoreSlugRoute
   '/(app)/chat/': typeof appChatIndexRoute
   '/(app)/seller/': typeof appSellerIndexRoute
   '/(app)/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
@@ -300,6 +333,10 @@ export interface FileRoutesById {
   '/(app)/seller/$storeId/product-new': typeof appSellerStoreIdProductNewRoute
   '/(app)/seller/$storeId/products': typeof appSellerStoreIdProductsRoute
   '/(app)/seller/$storeId/settings': typeof appSellerStoreIdSettingsRoute
+  '/(app)/store/$storeSlug/about': typeof appStoreStoreSlugAboutRoute
+  '/(app)/store/$storeSlug/policies': typeof appStoreStoreSlugPoliciesRoute
+  '/(app)/store/$storeSlug/reviews': typeof appStoreStoreSlugReviewsRoute
+  '/(app)/store/$storeSlug/': typeof appStoreStoreSlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -320,11 +357,11 @@ export interface FileRouteTypes {
     | '/register'
     | '/create-store'
     | '/'
+    | '/store/$storeSlug'
     | '/account'
     | '/category/$categorySlug'
     | '/chat/$storeSlug'
     | '/product/$productSlug'
-    | '/store/$storeSlug'
     | '/chat/'
     | '/seller/'
     | '/seller/$storeId/analytics'
@@ -333,6 +370,10 @@ export interface FileRouteTypes {
     | '/seller/$storeId/product-new'
     | '/seller/$storeId/products'
     | '/seller/$storeId/settings'
+    | '/store/$storeSlug/about'
+    | '/store/$storeSlug/policies'
+    | '/store/$storeSlug/reviews'
+    | '/store/$storeSlug/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/deferred'
@@ -354,7 +395,6 @@ export interface FileRouteTypes {
     | '/category/$categorySlug'
     | '/chat/$storeSlug'
     | '/product/$productSlug'
-    | '/store/$storeSlug'
     | '/chat'
     | '/seller'
     | '/seller/$storeId/analytics'
@@ -363,6 +403,10 @@ export interface FileRouteTypes {
     | '/seller/$storeId/product-new'
     | '/seller/$storeId/products'
     | '/seller/$storeId/settings'
+    | '/store/$storeSlug/about'
+    | '/store/$storeSlug/policies'
+    | '/store/$storeSlug/reviews'
+    | '/store/$storeSlug'
   id:
     | '__root__'
     | '/(app)'
@@ -384,11 +428,11 @@ export interface FileRouteTypes {
     | '/(auth)/register'
     | '/(forms)/create-store'
     | '/(app)/'
+    | '/(app)/store/$storeSlug'
     | '/(app)/(account)/account'
     | '/(app)/category/$categorySlug'
     | '/(app)/chat/$storeSlug'
     | '/(app)/product/$productSlug'
-    | '/(app)/store/$storeSlug'
     | '/(app)/chat/'
     | '/(app)/seller/'
     | '/(app)/seller/$storeId/analytics'
@@ -397,6 +441,10 @@ export interface FileRouteTypes {
     | '/(app)/seller/$storeId/product-new'
     | '/(app)/seller/$storeId/products'
     | '/(app)/seller/$storeId/settings'
+    | '/(app)/store/$storeSlug/about'
+    | '/(app)/store/$storeSlug/policies'
+    | '/(app)/store/$storeSlug/reviews'
+    | '/(app)/store/$storeSlug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -559,13 +607,6 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appChatIndexRouteImport
       parentRoute: typeof appChatRouteRoute
     }
-    '/(app)/store/$storeSlug': {
-      id: '/(app)/store/$storeSlug'
-      path: '/store/$storeSlug'
-      fullPath: '/store/$storeSlug'
-      preLoaderRoute: typeof appStoreStoreSlugRouteImport
-      parentRoute: typeof appRouteRoute
-    }
     '/(app)/product/$productSlug': {
       id: '/(app)/product/$productSlug'
       path: '/product/$productSlug'
@@ -593,6 +634,41 @@ declare module '@tanstack/solid-router' {
       fullPath: '/account'
       preLoaderRoute: typeof appaccountAccountRouteImport
       parentRoute: typeof appRouteRoute
+    }
+    '/(app)/store/$storeSlug': {
+      id: '/(app)/store/$storeSlug'
+      path: '/store/$storeSlug'
+      fullPath: '/store/$storeSlug'
+      preLoaderRoute: typeof appStoreStoreSlugRouteRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/store/$storeSlug/': {
+      id: '/(app)/store/$storeSlug/'
+      path: '/'
+      fullPath: '/store/$storeSlug/'
+      preLoaderRoute: typeof appStoreStoreSlugIndexRouteImport
+      parentRoute: typeof appStoreStoreSlugRouteRoute
+    }
+    '/(app)/store/$storeSlug/reviews': {
+      id: '/(app)/store/$storeSlug/reviews'
+      path: '/reviews'
+      fullPath: '/store/$storeSlug/reviews'
+      preLoaderRoute: typeof appStoreStoreSlugReviewsRouteImport
+      parentRoute: typeof appStoreStoreSlugRouteRoute
+    }
+    '/(app)/store/$storeSlug/policies': {
+      id: '/(app)/store/$storeSlug/policies'
+      path: '/policies'
+      fullPath: '/store/$storeSlug/policies'
+      preLoaderRoute: typeof appStoreStoreSlugPoliciesRouteImport
+      parentRoute: typeof appStoreStoreSlugRouteRoute
+    }
+    '/(app)/store/$storeSlug/about': {
+      id: '/(app)/store/$storeSlug/about'
+      path: '/about'
+      fullPath: '/store/$storeSlug/about'
+      preLoaderRoute: typeof appStoreStoreSlugAboutRouteImport
+      parentRoute: typeof appStoreStoreSlugRouteRoute
     }
     '/(app)/seller/$storeId/settings': {
       id: '/(app)/seller/$storeId/settings'
@@ -653,6 +729,26 @@ const appChatRouteRouteWithChildren = appChatRouteRoute._addFileChildren(
   appChatRouteRouteChildren,
 )
 
+interface appStoreStoreSlugRouteRouteChildren {
+  appStoreStoreSlugAboutRoute: typeof appStoreStoreSlugAboutRoute
+  appStoreStoreSlugPoliciesRoute: typeof appStoreStoreSlugPoliciesRoute
+  appStoreStoreSlugReviewsRoute: typeof appStoreStoreSlugReviewsRoute
+  appStoreStoreSlugIndexRoute: typeof appStoreStoreSlugIndexRoute
+}
+
+const appStoreStoreSlugRouteRouteChildren: appStoreStoreSlugRouteRouteChildren =
+  {
+    appStoreStoreSlugAboutRoute: appStoreStoreSlugAboutRoute,
+    appStoreStoreSlugPoliciesRoute: appStoreStoreSlugPoliciesRoute,
+    appStoreStoreSlugReviewsRoute: appStoreStoreSlugReviewsRoute,
+    appStoreStoreSlugIndexRoute: appStoreStoreSlugIndexRoute,
+  }
+
+const appStoreStoreSlugRouteRouteWithChildren =
+  appStoreStoreSlugRouteRoute._addFileChildren(
+    appStoreStoreSlugRouteRouteChildren,
+  )
+
 interface appRouteRouteChildren {
   appChatRouteRoute: typeof appChatRouteRouteWithChildren
   appCartRoute: typeof appCartRoute
@@ -661,10 +757,10 @@ interface appRouteRouteChildren {
   appSearchRoute: typeof appSearchRoute
   appStoresRoute: typeof appStoresRoute
   appIndexRoute: typeof appIndexRoute
+  appStoreStoreSlugRouteRoute: typeof appStoreStoreSlugRouteRouteWithChildren
   appaccountAccountRoute: typeof appaccountAccountRoute
   appCategoryCategorySlugRoute: typeof appCategoryCategorySlugRoute
   appProductProductSlugRoute: typeof appProductProductSlugRoute
-  appStoreStoreSlugRoute: typeof appStoreStoreSlugRoute
   appSellerIndexRoute: typeof appSellerIndexRoute
   appSellerStoreIdAnalyticsRoute: typeof appSellerStoreIdAnalyticsRoute
   appSellerStoreIdDashboardRoute: typeof appSellerStoreIdDashboardRoute
@@ -682,10 +778,10 @@ const appRouteRouteChildren: appRouteRouteChildren = {
   appSearchRoute: appSearchRoute,
   appStoresRoute: appStoresRoute,
   appIndexRoute: appIndexRoute,
+  appStoreStoreSlugRouteRoute: appStoreStoreSlugRouteRouteWithChildren,
   appaccountAccountRoute: appaccountAccountRoute,
   appCategoryCategorySlugRoute: appCategoryCategorySlugRoute,
   appProductProductSlugRoute: appProductProductSlugRoute,
-  appStoreStoreSlugRoute: appStoreStoreSlugRoute,
   appSellerIndexRoute: appSellerIndexRoute,
   appSellerStoreIdAnalyticsRoute: appSellerStoreIdAnalyticsRoute,
   appSellerStoreIdDashboardRoute: appSellerStoreIdDashboardRoute,

@@ -29,7 +29,7 @@ export const StoreGroupHeader = (props: StoreGroupHeaderProps) => {
 						{props.name}
 					</a>
 					{props.verified && (
-						<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
+						<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-green-50 text-green-700 text-[10px] font-semibold rounded-full border border-blue-100">
 							<BadgeCheckIcon class="w-2.5 h-2.5" aria-label="Verified" />
 							Verified
 						</span>

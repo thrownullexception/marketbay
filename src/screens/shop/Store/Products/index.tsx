@@ -1,18 +1,13 @@
-import { linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
 import {
 	ProductCard,
 	type ProductCardData,
 } from "@/screens/_components/product-card";
 import { SearchToolbar } from "@/screens/_components/search-toolbar";
-import { Breadcrumb } from "@/ui/breadcrumb";
 import { Grid3 } from "@/ui/grid";
+import { SideBar } from "@/ui/layout";
 import { Pagination } from "@/ui/pagination";
-import { StoreHero } from "./StoreHero";
-import { StorePromo } from "./StorePromo";
-import { StoreReviews } from "./StoreReviews";
 import { StoreSidebar } from "./StoreSidebar";
-import { StoreTabs } from "./StoreTabs";
 
 const STORE_PRODUCTS: ProductCardData[] = [
 	{
@@ -68,40 +63,21 @@ const STORE_PRODUCTS: ProductCardData[] = [
 	},
 ];
 
-export const ShopStoreScreen = () => {
+export const ShopStoreProducts = () => {
 	return (
-		<>
-			<Breadcrumb
-				items={[
-					{ label: "Home", link: linkOptions({ to: "/" }) },
-					{ label: "Stores", link: linkOptions({ to: "/stores" }) },
-					{
-						label: "TechVault",
-						link: linkOptions({
-							to: "/store/$storeSlug",
-							params: { storeSlug: "todo" },
-						}),
-					},
-				]}
-			/>
-			<StoreHero />
-			<StorePromo />
-			<StoreTabs />
-			<main class="max-w-7xl mx-auto px-4 py-8">
-				<div class="flex flex-col lg:flex-row gap-8">
-					<StoreSidebar />
-					<div class="flex-1 min-w-0">
-						<SearchToolbar />
-						<Grid3>
-							<For each={STORE_PRODUCTS}>
-								{(product) => <ProductCard product={product} />}
-							</For>
-						</Grid3>
-						<Pagination />
-					</div>
-				</div>
-			</main>
-			<StoreReviews />
-		</>
+		<SideBar
+			left={<StoreSidebar />}
+			right={
+				<>
+					<SearchToolbar />
+					<Grid3>
+						<For each={STORE_PRODUCTS}>
+							{(product) => <ProductCard product={product} />}
+						</For>
+					</Grid3>
+					<Pagination />
+				</>
+			}
+		/>
 	);
 };

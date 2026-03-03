@@ -1,9 +1,11 @@
+import { Container } from "@/ui/layout";
+
 export const NewArrivals = () => {
 	return (
 		<>
 			{/* <!-- ========== NEW ARRIVALS ========== --> */}
 			<section class="py-10 bg-gray-50">
-				<div class="max-w-7xl mx-auto px-4">
+				<Container>
 					<div class="flex items-end justify-between mb-6">
 						<div>
 							<h2 class="text-xl font-bold text-gray-900">New Arrivals</h2>
@@ -303,7 +305,7 @@ export const NewArrivals = () => {
 							</div>
 						</div>
 					</div>
-				</div>
+				</Container>
 			</section>
 		</>
 	);

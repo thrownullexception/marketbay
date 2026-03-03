@@ -1,3 +1,5 @@
+import { StarIcon } from "@/ui/icons";
+
 export const StoreSidebar = () => {
 	return (
 		<aside class="w-full lg:w-60 shrink-0">
@@ -90,13 +92,7 @@ const RatingFilter = () => {
 					/>
 					<div class="flex items-center gap-1">
 						<div class="flex text-accent-500">
-							<svg
-								class="w-3.5 h-3.5"
-								fill="currentColor"
-								viewBox="0 0 20 20"
-							>
-								<path d={starPath} />
-							</svg>
+							<StarIcon class="w-3.5 h-3.5" />
 						</div>
 						<span class="text-gray-600">4 &amp; up</span>
 					</div>
@@ -109,13 +105,7 @@ const RatingFilter = () => {
 					/>
 					<div class="flex items-center gap-1">
 						<div class="flex text-accent-500">
-							<svg
-								class="w-3.5 h-3.5"
-								fill="currentColor"
-								viewBox="0 0 20 20"
-							>
-								<path d={starPath} />
-							</svg>
+							<StarIcon class="w-3.5 h-3.5" />
 						</div>
 						<span class="text-gray-600">3 &amp; up</span>
 					</div>

@@ -1,6 +1,7 @@
 import { linkOptions } from "@tanstack/solid-router";
 import { CheckCheckIcon } from "lucide-solid";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { Button } from "@/ui/button";
 
 export const ChatHeader = () => {
 	return (
@@ -19,13 +20,13 @@ export const ChatHeader = () => {
 						<p class="text-sm text-gray-500 mt-0.5">Chat with stores</p>
 					</div>
 					<div class="flex items-center gap-2">
-						<button
+						<Button
 							type="button"
-							class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition"
-						>
-							<CheckCheckIcon class="w-3.5 h-3.5" />
-							Mark All Read
-						</button>
+							label="Mark All Read"
+							variant="default"
+							size="sm"
+							Icon={CheckCheckIcon}
+						/>
 					</div>
 				</div>
 			</div>

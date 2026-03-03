@@ -1,7 +1,9 @@
+import { Container } from "@/ui/layout";
+
 export const TrustBar = () => {
 	return (
 		<section class="py-5 bg-gray-50 border-y border-gray-100">
-			<div class="max-w-7xl mx-auto px-4">
+			<Container>
 				<div class="flex flex-wrap items-center justify-center gap-8 lg:gap-12 text-sm text-gray-500">
 					<div class="flex items-center gap-2">
 						<svg
@@ -60,7 +62,7 @@ export const TrustBar = () => {
 						<span>Easy returns</span>
 					</div>
 				</div>
-			</div>
+			</Container>
 		</section>
 	);
 };

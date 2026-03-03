@@ -23,3 +23,14 @@ https://github.com/choiexe1/elysia-wide-event
 
 https://www.shopify.com/ng/legal/privacy
 https://shop.remix.run/policies/terms-of-service
+
+shopping bots for:
+⦁ WhatsApp
+⦁ Facebook Messenger
+⦁ Telegram
+⦁ Instagram
+
+Point-of-Sale (POS) Software
+tracking
+
+https://demo.invotide.com/pos/

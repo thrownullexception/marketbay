@@ -1,4 +1,6 @@
+import { linkOptions } from "@tanstack/solid-router";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { Container, SideBar } from "@/ui/layout";
 import { MatchingStores } from "./MatchingStores";
 import { SearchFilters } from "./SearchFilters";
 import { SearchHeader } from "./SearchHeader";
@@ -9,18 +11,18 @@ export const SearchScreen = () => {
 		<>
 			<Breadcrumb
 				items={[
-					{ label: "Home", to: "/" },
-					{ label: "Search results for 'wireless headphones'", to: "/search" },
+					{ label: "Home", link: linkOptions({ to: "/" }) },
+					{
+						label: "Search results for 'wireless headphones'",
+						link: linkOptions({ to: "/search" }),
+					},
 				]}
 			/>
 			<SearchHeader />
 			<MatchingStores />
-			<main class="max-w-7xl mx-auto px-4 py-8">
-				<div class="flex flex-col lg:flex-row gap-8">
-					<SearchFilters />
-					<SearchResults />
-				</div>
-			</main>
+			<Container className="py-8">
+				<SideBar left={<SearchFilters />} right={<SearchResults />} />
+			</Container>
 		</>
 	);
 };

@@ -1,6 +1,6 @@
 export const SearchFilters = () => {
 	return (
-		<aside class="w-full lg:w-60 flex-shrink-0">
+		<aside class="w-full lg:w-60 shrink-0">
 			<div class="lg:sticky lg:top-[72px] space-y-6">
 				<div class="bg-white rounded-xl border border-gray-100 p-4">
 					<div class="flex items-center justify-between mb-3">

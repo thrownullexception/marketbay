@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/solid-router";
-import { ShopStoreScreen } from "@/screens/shop/Store";
+import { ShopStoreLayout } from "@/screens/shop/Store/Layout";
 
 export const Route = createFileRoute("/(app)/store/$storeSlug")({
-	component: ShopStoreScreen,
+	component: ShopStoreLayout,
 });

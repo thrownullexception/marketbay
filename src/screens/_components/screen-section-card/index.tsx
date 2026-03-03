@@ -1,6 +1,7 @@
 import { Link, type LinkOptions } from "@tanstack/solid-router";
 import clsx from "clsx";
 import type { JSX } from "solid-js";
+import { Container } from "@/ui/layout";
 
 export const ScreenSectionCard = (props: {
 	title: string;
@@ -24,7 +25,7 @@ export const ScreenSectionCard = (props: {
 				"pb-0": props.isLast,
 			})}
 		>
-			<div class="max-w-7xl mx-auto px-4">
+			<Container>
 				<div class="flex items-end justify-between mb-6">
 					<div>
 						<h2 class="text-xl font-bold text-gray-900">{props.title}</h2>
@@ -42,7 +43,7 @@ export const ScreenSectionCard = (props: {
 					) : null}
 				</div>
 				{props.children}
-			</div>
+			</Container>
 		</section>
 	);
 };

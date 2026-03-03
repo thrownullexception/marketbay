@@ -6,6 +6,7 @@ import {
 	ShoppingBagIcon,
 	Undo2Icon,
 } from "lucide-solid";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Grid3 } from "@/ui/grid";
 
 const helpByTopic = [
@@ -61,12 +62,11 @@ const helpByTopic = [
 
 export const HelpByTopic = () => {
 	return (
-		<section class="mb-14">
-			<h2 class="text-xl font-bold text-gray-900 mb-6">Browse by topic</h2>
+		<ScreenSectionCard title="Browse by topic">
 			<Grid3>
 				{helpByTopic.map((topic) => (
 					<a
-						href="#"
+						href="/todo"
 						class="category-card bg-white rounded-2xl border border-gray-100 p-6 transition-all duration-300 group"
 					>
 						<div class="flex items-start gap-4">
@@ -87,6 +87,6 @@ export const HelpByTopic = () => {
 					</a>
 				))}
 			</Grid3>
-		</section>
+		</ScreenSectionCard>
 	);
 };

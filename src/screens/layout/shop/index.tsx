@@ -6,6 +6,7 @@ import {
 	User,
 } from "lucide-solid";
 import { CLIENT_CONSTANTS } from "@/env/client";
+import { Container } from "@/ui/layout";
 
 export const ShopLayout = () => {
 	return (
@@ -66,7 +67,7 @@ export const ShopLayout = () => {
 						<Link
 							class="relative p-2 rounded-full hover:bg-gray-100 transition"
 							aria-label="Messages"
-							to="/messages"
+							to="/chat"
 						>
 							<MessageSquareMoreIcon class="w-5 h-5 text-gray-600" />
 							<span class="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">
@@ -96,7 +97,7 @@ export const ShopLayout = () => {
 			<Outlet />
 
 			<footer class="bg-brand-950 text-brand-200">
-				<div class="max-w-7xl mx-auto px-4 py-12">
+				<Container className="py-12">
 					<div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
 						<div class="lg:col-span-2">
 							<div class="flex items-center gap-2 mb-3">
@@ -307,7 +308,7 @@ export const ShopLayout = () => {
 							</span>
 						</div>
 					</div>
-				</div>
+				</Container>
 			</footer>
 		</>
 	);

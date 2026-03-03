@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/solid-router";
-import { ArrowRightIcon, BadgeCheckIcon, StarIcon } from "lucide-solid";
+import { ArrowRightIcon, BadgeCheckIcon } from "lucide-solid";
+import { StarIcon } from "@/ui/icons";
 
 interface FeaturedStoreCardProps {
 	slug: string;

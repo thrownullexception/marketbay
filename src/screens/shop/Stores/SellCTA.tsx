@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/solid-router";
-import { ArrowRightIcon, CircleCheckIcon } from "lucide-solid";
+import { ArrowRightIcon, CircleCheckIcon, Container } from "lucide-solid";
 
 export const SellCTA = () => {
 	const benefits = [
@@ -10,7 +10,7 @@ export const SellCTA = () => {
 
 	return (
 		<section class="py-12 bg-white border-t border-gray-100">
-			<div class="max-w-7xl mx-auto px-4">
+			<Container>
 				<div class="rounded-2xl bg-linear-to-r from-brand-700 to-brand-900 p-8 sm:p-10 relative overflow-hidden">
 					<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
 					<div class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
@@ -20,7 +20,7 @@ export const SellCTA = () => {
 							</h2>
 							<p class="text-brand-200 text-sm mt-2 max-w-md">
 								Join thousands of independent sellers. Set up your store in
-								minutes, reach millions of buyers, and grow your business with
+								minutes, reach thousands of buyers, and grow your business with
 								powerful tools.
 							</p>
 							<div class="flex flex-wrap items-center gap-4 mt-4 text-sm text-brand-300">
@@ -40,7 +40,7 @@ export const SellCTA = () => {
 						</Link>
 					</div>
 				</div>
-			</div>
+			</Container>
 		</section>
 	);
 };

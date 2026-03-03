@@ -2,6 +2,7 @@ import { linkOptions } from "@tanstack/solid-router";
 import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { Grid3 } from "@/ui/grid";
+import { Container } from "@/ui/layout";
 import { Pagination } from "@/ui/pagination";
 import { FeaturedStoreCard } from "./FeaturedStoreCard";
 import { SellCTA } from "./SellCTA";
@@ -67,7 +68,7 @@ export const StoresScreen = () => {
 			</ScreenSectionCard>
 
 			<section class="py-8 bg-gray-50 border-t border-gray-100">
-				<div class="max-w-7xl mx-auto px-4">
+				<Container>
 					<StoresToolbar />
 
 					<p class="text-sm text-gray-500 mb-5">
@@ -77,7 +78,6 @@ export const StoresScreen = () => {
 
 					<Grid3>
 						<StoreListCard
-							href="store.html"
 							bannerGradient="from-blue-500 to-indigo-600"
 							avatarGradient="from-blue-500 to-indigo-600"
 							initials="TV"
@@ -91,7 +91,6 @@ export const StoresScreen = () => {
 							followers="8.4k"
 						/>
 						<StoreListCard
-							href="#"
 							bannerGradient="from-rose-400 to-pink-600"
 							avatarGradient="from-rose-500 to-pink-600"
 							initials="SH"
@@ -105,7 +104,6 @@ export const StoresScreen = () => {
 							followers="12.1k"
 						/>
 						<StoreListCard
-							href="#"
 							bannerGradient="from-emerald-400 to-teal-600"
 							avatarGradient="from-emerald-500 to-teal-600"
 							initials="GN"
@@ -120,7 +118,6 @@ export const StoresScreen = () => {
 							following
 						/>
 						<StoreListCard
-							href="#"
 							bannerGradient="from-orange-400 to-amber-600"
 							avatarGradient="from-orange-500 to-amber-600"
 							initials="FG"
@@ -133,7 +130,6 @@ export const StoresScreen = () => {
 							followers="3.8k"
 						/>
 						<StoreListCard
-							href="#"
 							bannerGradient="from-violet-500 to-purple-700"
 							avatarGradient="from-violet-500 to-purple-600"
 							initials="BN"
@@ -147,7 +143,6 @@ export const StoresScreen = () => {
 							followers="5.6k"
 						/>
 						<StoreListCard
-							href="#"
 							bannerGradient="from-amber-400 to-yellow-600"
 							avatarGradient="from-amber-500 to-yellow-600"
 							initials="HH"
@@ -160,7 +155,6 @@ export const StoresScreen = () => {
 							followers="4.5k"
 						/>
 						<StoreListCard
-							href="#"
 							bannerGradient="from-purple-500 to-violet-700"
 							avatarGradient="from-purple-500 to-violet-600"
 							initials="UV"
@@ -173,7 +167,6 @@ export const StoresScreen = () => {
 							followers="9.3k"
 						/>
 						<StoreListCard
-							href="#"
 							bannerGradient="from-gray-700 to-gray-900"
 							avatarGradient="from-gray-700 to-gray-900"
 							initials="GZ"
@@ -186,7 +179,6 @@ export const StoresScreen = () => {
 							followers="5.1k"
 						/>
 						<StoreListCard
-							href="#"
 							bannerGradient="from-amber-500 to-orange-600"
 							avatarGradient="from-amber-500 to-orange-600"
 							initials="TC"
@@ -201,7 +193,7 @@ export const StoresScreen = () => {
 						/>
 					</Grid3>
 					<Pagination />
-				</div>
+				</Container>
 			</section>
 			<SellCTA />
 		</>

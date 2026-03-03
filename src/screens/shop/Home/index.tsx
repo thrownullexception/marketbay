@@ -1,4 +1,3 @@
-import "./styles.css";
 import { BestSellers } from "./BestSellers";
 import { DealsTicker } from "./DealsTicker";
 import { MainBanner } from "./MainBanner";

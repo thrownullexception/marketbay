@@ -48,6 +48,34 @@ export const InputText = (
 	);
 };
 
+export const InputWithPrefix = (
+	props: {
+		prefix: string;
+		placeholder: string;
+	} & BaseInputProps,
+) => {
+	return (
+		<BaseInput
+			label={props.label}
+			required={props.required}
+			labelLink={props.labelLink}
+			description={props.description}
+		>
+			<div class="flex rounded-xl border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand-400 focus-within:border-transparent transition">
+				<span class="inline-flex items-center px-3.5 bg-gray-50 text-sm text-gray-400 border-r border-gray-200 select-none">
+					{props.prefix}
+				</span>
+				<input
+					id={sluggify(props.label)}
+					type="text"
+					placeholder={props.placeholder}
+					class="flex-1 px-3 py-2.5 text-sm focus:outline-none"
+				/>
+			</div>
+		</BaseInput>
+	);
+};
+
 export const InputPassword = (
 	props: {
 		placeholder: string;

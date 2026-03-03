@@ -41,22 +41,17 @@ const faqs = [
 	},
 ];
 
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { AccordionItem } from "@/ui/accordion";
+import { Grid2 } from "@/ui/grid";
 
 export function Faq() {
 	return (
-		<section id="faq" class="mb-14">
-			<div class="flex items-end justify-between mb-6">
-				<div>
-					<h2 class="text-xl font-bold text-gray-900">
-						Frequently Asked Questions
-					</h2>
-					<p class="text-gray-500 text-sm mt-0.5">
-						Quick answers to common questions
-					</p>
-				</div>
-			</div>
-			<div class="grid lg:grid-cols-2 gap-4">
+		<ScreenSectionCard
+			title="Frequently Asked Questions"
+			description="Quick answers to common questions"
+		>
+			<Grid2>
 				<div class="space-y-3">
 					{faqs
 						.filter((_, index) => index % 2 === 0)
@@ -72,7 +67,7 @@ export function Faq() {
 							<AccordionItem question={faq.question} answer={faq.answer} />
 						))}
 				</div>
-			</div>
-		</section>
+			</Grid2>
+		</ScreenSectionCard>
 	);
 }
