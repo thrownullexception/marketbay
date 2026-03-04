@@ -6,6 +6,7 @@ import {
 } from "@/screens/_components/product-card";
 import {
 	ActiveFilters,
+	FilterOptions,
 	PriceRangeFilter,
 	RatingFilter,
 } from "@/screens/_components/product-filters";
@@ -115,6 +116,7 @@ export const CategoryScreen = () => {
 					<div class="flex items-center gap-4">
 						<div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center shrink-0">
 							<svg
+								aria-hidden="true"
 								class="w-7 h-7 text-white"
 								fill="none"
 								viewBox="0 0 24 24"
@@ -165,95 +167,46 @@ export const CategoryScreen = () => {
 					<aside class="hidden lg:block w-60 shrink-0">
 						<div class="sticky top-24 space-y-6">
 							<ActiveFilters />
-							<PriceRangeFilter />
-							<hr class="border-gray-100" />
-
-							<div>
-								<h3 class="text-sm font-bold text-gray-900 mb-3">Store</h3>
-								<div class="space-y-2">
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											TechVault
-										</span>
-										<span class="ml-auto text-xs text-gray-400">412</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											GadgetWorld
-										</span>
-										<span class="ml-auto text-xs text-gray-400">289</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											PixelHub
-										</span>
-										<span class="ml-auto text-xs text-gray-400">176</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											SoundLab
-										</span>
-										<span class="ml-auto text-xs text-gray-400">143</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											HomeHaven
-										</span>
-										<span class="ml-auto text-xs text-gray-400">98</span>
-									</label>
-								</div>
-								<button class="mt-2 text-xs font-semibold text-brand-600 hover:text-brand-700 transition">
-									Show all 86 stores &rarr;
-								</button>
-							</div>
-
-							<hr class="border-gray-100" />
-
+							<PriceRangeFilter
+								options={[
+									{ label: "Under $25", value: "under_25" },
+									{ label: "$25 – $50", value: "25_50" },
+									{ label: "$50 – $100", value: "50_100" },
+									{ label: "$100 – $300", value: "100_300" },
+									{ label: "Over $300", value: "over_300" },
+								]}
+							/>
+							<FilterOptions
+								type="checkbox"
+								name="favourite_stores"
+								options={[
+									{ label: "TechVault", value: "techvault", count: "412" },
+									{ label: "GadgetWorld", value: "gadgetworld", count: "289" },
+									{ label: "PixelHub", value: "pixelhub", count: "176" },
+									{ label: "SoundLab", value: "soundlab", count: "143" },
+									{ label: "HomeHaven", value: "homehaven", count: "98" },
+									{ label: "SoundLab", value: "soundlab", count: "143" },
+									{ label: "HomeHaven", value: "homehaven", count: "98" },
+									{ label: "SoundLab", value: "soundlab", count: "143" },
+									{ label: "HomeHaven", value: "homehaven", count: "98" },
+									{ label: "SoundLab", value: "soundlab", count: "143" },
+									{ label: "HomeHaven", value: "homehaven", count: "98" },
+								]}
+								values={[]}
+								title="Your Favourite Stores"
+							/>
 							<RatingFilter />
-							<hr class="border-gray-100" />
-
-							<div>
-								<h3 class="text-sm font-bold text-gray-900 mb-3">Condition</h3>
-								<div class="space-y-2">
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											checked
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-900 font-medium">New</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											Refurbished
-										</span>
-									</label>
-								</div>
-							</div>
+							<FilterOptions
+								type="radio"
+								name="condition"
+								options={[
+									{ label: "New", value: "new" },
+									{ label: "Refurbished", value: "refurbished" },
+									{ label: "Used", value: "used" },
+								]}
+								values={[]}
+								title="Condition"
+							/>
 						</div>
 					</aside>
 

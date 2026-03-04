@@ -40,7 +40,7 @@ export const FeaturedStoreCard = (props: FeaturedStoreCardProps) => {
 				<p class={`${props.subtextColor} text-sm`}>{props.description}</p>
 				<div class="flex items-center gap-3 mt-2">
 					<div class="flex items-center gap-1">
-						<StarIcon class="w-3.5 h-3.5 text-accent-400" />
+						<StarIcon class="w-3.5 h-3.5 text-yellow-500" />
 						<span class="text-white text-sm font-semibold">{props.rating}</span>
 						<span class={`${props.ratingTextColor} text-xs`}>
 							({props.ratingCount})

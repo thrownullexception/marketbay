@@ -1,85 +1,140 @@
 import { XIcon } from "lucide-solid";
-import { For, type JSX } from "solid-js";
+import { createMemo, createSignal, For, type JSX, Show } from "solid-js";
+import { Button } from "@/ui/button";
 import { StarIcon } from "@/ui/icons";
 
-export const FilterShell = (props: {
+const FilterShell = (props: {
 	title: string;
+	canClear: boolean;
 	children: JSX.Element;
 }) => {
 	return (
 		<div class="bg-white rounded-xl border border-gray-100 p-4">
-			<h3 class="text-sm font-semibold text-gray-900 mb-3">{props.title}</h3>
+			<div class="flex items-center align-center justify-between mb-3">
+				<h3 class="text-sm font-semibold text-gray-900">{props.title}</h3>
+				<Show when={props.canClear}>
+					<Button
+						type="button"
+						variant="primaryText"
+						size="sm"
+						label="Clear"
+						onClick={() => {
+							console.log("todo");
+						}}
+					/>
+				</Show>
+			</div>
 			<div class="space-y-2 text-sm">{props.children}</div>
 		</div>
 	);
 };
 
-export const PriceRangeFilter = () => {
-	const ranges = [
-		{ label: "Under $25" },
-		{ label: "$25 – $50" },
-		{ label: "$50 – $100", checked: true },
-		{ label: "$100 – $300" },
-		{ label: "Over $300" },
-	];
+const MAX_OPTIONS_TO_SHOW = 7;
+
+type FilterOption = {
+	value: string;
+	label: string | JSX.Element;
+	count?: string;
+};
+
+export const FilterOptions = (props: {
+	options: FilterOption[];
+	values: string[];
+	title: string;
+	type: "checkbox" | "radio";
+	name: string;
+}) => {
+	const [showAll, setShowAll] = createSignal(false);
+	const options = createMemo(() =>
+		showAll() ? props.options : props.options.slice(0, MAX_OPTIONS_TO_SHOW),
+	);
 
 	return (
-		<FilterShell title="Price Range">
-			<For each={ranges}>
-				{(range) => (
-					<label class="flex items-center gap-2 cursor-pointer">
+		<FilterShell title={props.title} canClear={props.values.length > 0}>
+			<For each={options()}>
+				{(option) => (
+					<label class="flex items-center gap-2 cursor-pointer group">
 						<input
-							type="checkbox"
-							class="rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-							checked={range.checked}
+							type={props.type || "checkbox"}
+							name={props.name}
+							class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
 						/>
-						<span class="text-gray-600">{range.label}</span>
+						<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
+							{option.label}
+						</span>
+						{option.count && (
+							<span class="ml-auto text-xs text-gray-400">{option.count}</span>
+						)}
 					</label>
 				)}
 			</For>
+			{props.options.length > MAX_OPTIONS_TO_SHOW && (
+				<div class="mt-4">
+					<Button
+						type="button"
+						variant="primaryText"
+						size="sm"
+						label={
+							showAll()
+								? "Show less"
+								: `Show ${props.options.length - MAX_OPTIONS_TO_SHOW} more`
+						}
+						onClick={() => setShowAll((prev) => !prev)}
+					/>
+				</div>
+			)}
 		</FilterShell>
+	);
+};
+
+export const PriceRangeFilter = (props: { options: FilterOption[] }) => {
+	return (
+		<FilterOptions
+			type="radio"
+			name="price_range"
+			options={props.options}
+			values={[]}
+			title="Price Range"
+		/>
+	);
+};
+
+const RatingOption = (props: { rating: number }) => {
+	return (
+		<div class="flex items-center gap-1">
+			<For each={Array(props.rating)}>
+				{() => (
+					<div class="flex text-yellow-500">
+						<StarIcon class="w-3.5 h-3.5" />
+					</div>
+				)}
+			</For>
+		</div>
 	);
 };
 
 export const RatingFilter = () => {
 	return (
-		<FilterShell title="Minimum Rating">
-			<label class="flex items-center gap-2 cursor-pointer">
-				<input
-					type="radio"
-					name="rating"
-					class="border-gray-300 text-brand-600 focus:ring-brand-500"
-				/>
-				<div class="flex items-center gap-1">
-					<div class="flex text-accent-500">
-						<StarIcon class="w-3.5 h-3.5" />
-					</div>
-					<span class="text-gray-600">4 &amp; up</span>
-				</div>
-			</label>
-			<label class="flex items-center gap-2 cursor-pointer">
-				<input
-					type="radio"
-					name="rating"
-					class="border-gray-300 text-brand-600 focus:ring-brand-500"
-				/>
-				<div class="flex items-center gap-1">
-					<div class="flex text-accent-500">
-						<StarIcon class="w-3.5 h-3.5" />
-					</div>
-					<span class="text-gray-600">3 &amp; up</span>
-				</div>
-			</label>
-			<label class="flex items-center gap-2 cursor-pointer">
-				<input
-					type="radio"
-					name="rating"
-					class="border-gray-300 text-brand-600 focus:ring-brand-500"
-					checked
-				/>
-				<span class="text-gray-600">All ratings</span>
-			</label>
-		</FilterShell>
+		<FilterOptions
+			type="radio"
+			name="rating"
+			options={[
+				{
+					value: "4_up",
+					label: <RatingOption rating={4} />,
+				},
+				{
+					value: "3_up",
+					label: <RatingOption rating={3} />,
+				},
+				{
+					value: "2_up",
+					label: <RatingOption rating={2} />,
+				},
+			]}
+			values={[]}
+			title="Minimum Rating"
+		/>
 	);
 };
 
@@ -88,19 +143,30 @@ export const ActiveFilters = () => {
 		<div class="bg-white rounded-xl border border-gray-100 p-4">
 			<div class="flex items-center justify-between mb-3">
 				<h3 class="text-sm font-semibold text-gray-900">Active Filters</h3>
-				<button class="text-xs text-brand-600 hover:text-brand-700 font-medium transition">
-					Clear all
-				</button>
+				<Button
+					type="button"
+					variant="primaryText"
+					size="sm"
+					label="Clear all"
+					onClick={() => {
+						console.log("todo");
+					}}
+				/>
 			</div>
 			<div class="flex flex-wrap gap-1.5">
 				<For each={[{ label: "$50 – $100" }, { label: "4 stars & up" }]}>
 					{(filter) => (
-						<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-brand-50 text-brand-700 text-xs font-medium rounded-lg">
-							{filter.label}
-							<button type="button" class="hover:text-brand-900 transition">
-								<XIcon class="w-3 h-3" aria-label="Remove filter" />
-							</button>
-						</span>
+						<Button
+							type="button"
+							variant="soft"
+							size="sm"
+							Icon={XIcon}
+							iconPosition="right"
+							label={filter.label}
+							onClick={() => {
+								console.log("remove filter", filter.label);
+							}}
+						/>
 					)}
 				</For>
 			</div>

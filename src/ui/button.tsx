@@ -7,6 +7,8 @@ const VariantsConfig = {
 	secondary: "bg-accent-500 hover:bg-accent-600 text-white shadow-sm",
 	default: "bg-white border border-gray-200 hover:bg-gray-50 text-gray-700",
 	text: "text-gray-400 hover:text-gray-600 p-0!",
+	primaryText: "text-brand-600 hover:text-brand-700 p-0!",
+	soft: "bg-brand-50 hover:bg-brand-100 text-brand-700",
 };
 
 const SizesConfig = {

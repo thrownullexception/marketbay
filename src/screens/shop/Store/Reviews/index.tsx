@@ -106,7 +106,7 @@ const ReviewSummary = () => {
 				<div class="flex items-center gap-6 sm:w-56 shrink-0">
 					<div class="text-center">
 						<div class="text-5xl font-extrabold text-gray-900">4.9</div>
-						<div class="flex justify-center text-accent-500 mt-1.5 gap-0.5">
+						<div class="flex justify-center text-yellow-500 mt-1.5 gap-0.5">
 							{Array.from({ length: 5 }).map(() => (
 								<StarIcon class="w-4 h-4" />
 							))}
@@ -120,11 +120,11 @@ const ReviewSummary = () => {
 						<div class="flex items-center gap-2.5">
 							<div class="flex items-center gap-1 w-8 shrink-0 justify-end">
 								<span class="text-sm text-gray-600">{bar.label}</span>
-								<StarIcon class="w-3 h-3 text-accent-500" />
+								<StarIcon class="w-3 h-3 text-yellow-500" />
 							</div>
 							<div class="flex-1 h-2.5 bg-gray-100 rounded-full overflow-hidden">
 								<div
-									class="h-full bg-accent-500 rounded-full"
+									class="h-full bg-yellow-500 rounded-full"
 									style={`width:${bar.width}`}
 								/>
 							</div>
@@ -140,7 +140,7 @@ const ReviewSummary = () => {
 						<div class="flex items-center justify-between gap-3">
 							<span class="text-sm text-gray-600">{cat.label}</span>
 							<div class="flex items-center gap-1">
-								<StarIcon class="w-3 h-3 text-accent-500" />
+								<StarIcon class="w-3 h-3 text-yellow-500" />
 								<span class="text-sm font-semibold text-gray-900">
 									{cat.score}
 								</span>
@@ -177,7 +177,7 @@ const ReviewCard = (props: ReviewCardProps) => {
 					<div>
 						<p class="text-sm font-semibold text-gray-900">{props.name}</p>
 						<div class="flex items-center gap-2 mt-0.5">
-							<div class="flex text-accent-500">
+							<div class="flex text-yellow-500">
 								{Array.from({ length: props.rating }).map(() => (
 									<StarIcon class="w-3.5 h-3.5" />
 								))}

@@ -17,3 +17,11 @@ export const Grid2 = (props: { children: JSX.Element }) => {
 		<div class="grid sm:grid-cols-2 grid-cols-1 gap-4">{props.children}</div>
 	);
 };
+
+export const Grid5 = (props: { children: JSX.Element }) => {
+	return (
+		<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+			{props.children}
+		</div>
+	);
+};

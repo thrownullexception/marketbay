@@ -6,14 +6,15 @@ import {
 	User,
 } from "lucide-solid";
 import { CLIENT_CONSTANTS } from "@/env/client";
+import { Grid5 } from "@/ui/grid";
 import { Container } from "@/ui/layout";
 
 export const ShopLayout = () => {
 	return (
 		<>
 			<div class="bg-brand-950 text-brand-200 text-xs py-1.5">
-				<div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
-					<p>Free shipping on orders over $50</p>
+				<Container class="flex items-center justify-between">
+					<p>Free shipping on orders over N50,000</p>
 					<div class="hidden sm:flex items-center gap-4">
 						<Link to="/create-store" class="hover:text-white transition">
 							Create your store
@@ -25,11 +26,11 @@ export const ShopLayout = () => {
 							Help
 						</Link>
 					</div>
-				</div>
+				</Container>
 			</div>
 
 			<nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100 shadow-sm">
-				<div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
+				<Container class="py-3 flex items-center">
 					<Link to="/" class="shrink-0 flex items-center gap-2">
 						<div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center">
 							<svg
@@ -38,8 +39,8 @@ export const ShopLayout = () => {
 								viewBox="0 0 24 24"
 								stroke="currentColor"
 								stroke-width="2"
+								aria-hidden="true"
 							>
-								<title>MarketBay</title>
 								<path
 									stroke-linecap="round"
 									stroke-linejoin="round"
@@ -55,7 +56,7 @@ export const ShopLayout = () => {
 					<div class="flex-1 max-w-2xl mx-auto">
 						<div class="relative">
 							<input
-								type="text"
+								type="search"
 								placeholder="Search products, stores, brands..."
 								class="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
 							/>
@@ -91,14 +92,14 @@ export const ShopLayout = () => {
 							Sign In
 						</Link>
 					</div>
-				</div>
+				</Container>
 			</nav>
 
 			<Outlet />
 
 			<footer class="bg-brand-950 text-brand-200">
 				<Container class="py-12">
-					<div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
+					<Grid5>
 						<div class="lg:col-span-2">
 							<div class="flex items-center gap-2 mb-3">
 								<div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
@@ -266,7 +267,7 @@ export const ShopLayout = () => {
 								</li>
 							</ul>
 						</div>
-					</div>
+					</Grid5>
 					<div class="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
 						<p class="text-xs text-brand-300">
 							&copy; 2026 MarketBay. All rights reserved.

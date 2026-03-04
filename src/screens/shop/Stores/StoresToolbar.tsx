@@ -13,12 +13,12 @@ const categories = [
 ];
 
 export const StoresToolbar = () => {
-	// const routeApi = getRouteApi("/(app)/stores");
-	// const foo = routeApi.useLoaderData();
+	const routeApi = getRouteApi("/(app)/stores");
+	const foo = routeApi.useLoaderData();
 
-	// createEffect(() => {
-	// 	console.log(foo());
-	// });
+	createEffect(() => {
+		console.log(foo());
+	});
 
 	return (
 		<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">

@@ -1,5 +1,6 @@
 import {
 	ActiveFilters,
+	FilterOptions,
 	PriceRangeFilter,
 	RatingFilter,
 } from "@/screens/_components/product-filters";
@@ -9,109 +10,48 @@ export const SearchFilters = () => {
 		<aside class="w-full lg:w-60 shrink-0">
 			<div class="lg:sticky lg:top-[72px] space-y-6">
 				<ActiveFilters />
-
-				{/* <!-- Category filter --> */}
-				<div class="bg-white rounded-xl border border-gray-100 p-4">
-					<h3 class="text-sm font-semibold text-gray-900 mb-3">Category</h3>
-					<ul class="space-y-2 text-sm">
-						<li>
-							<a
-								href="#"
-								class="flex items-center justify-between text-brand-600 font-medium"
-							>
-								<span>All Categories</span>
-								<span class="text-xs text-gray-400">156</span>
-							</a>
-						</li>
-						<li>
-							<a
-								href="#"
-								class="flex items-center justify-between text-gray-600 hover:text-brand-600 transition"
-							>
-								<span>Over-Ear</span>
-								<span class="text-xs text-gray-400">52</span>
-							</a>
-						</li>
-						<li>
-							<a
-								href="#"
-								class="flex items-center justify-between text-gray-600 hover:text-brand-600 transition"
-							>
-								<span>In-Ear / Earbuds</span>
-								<span class="text-xs text-gray-400">64</span>
-							</a>
-						</li>
-						<li>
-							<a
-								href="#"
-								class="flex items-center justify-between text-gray-600 hover:text-brand-600 transition"
-							>
-								<span>On-Ear</span>
-								<span class="text-xs text-gray-400">18</span>
-							</a>
-						</li>
-						<li>
-							<a
-								href="#"
-								class="flex items-center justify-between text-gray-600 hover:text-brand-600 transition"
-							>
-								<span>Gaming Headsets</span>
-								<span class="text-xs text-gray-400">14</span>
-							</a>
-						</li>
-						<li>
-							<a
-								href="#"
-								class="flex items-center justify-between text-gray-600 hover:text-brand-600 transition"
-							>
-								<span>Sports / Workout</span>
-								<span class="text-xs text-gray-400">8</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-
-				<PriceRangeFilter />
+				<FilterOptions
+					type="checkbox"
+					title="Category"
+					name="category"
+					options={[
+						{ label: "Over-Ear", value: "over_ear", count: "52" },
+						{ label: "In-Ear / Earbuds", value: "in_ear", count: "64" },
+						{ label: "On-Ear", value: "on_ear", count: "18" },
+						{ label: "Gaming Headsets", value: "gaming_headsets", count: "14" },
+						{ label: "Sports / Workout", value: "sports_workout", count: "8" },
+					]}
+					values={["over_ear"]}
+				/>
+				<PriceRangeFilter
+					options={[
+						{ label: "Under $25", value: "under_25" },
+						{ label: "$25 – $50", value: "25_50" },
+						{ label: "$50 – $100", value: "50_100" },
+						{ label: "$100 – $300", value: "100_300" },
+						{ label: "Over $300", value: "over_300" },
+					]}
+				/>
 				<RatingFilter />
-
-				{/* <!-- Seller filter --> */}
-				<div class="bg-white rounded-xl border border-gray-100 p-4">
-					<h3 class="text-sm font-semibold text-gray-900 mb-3">Seller</h3>
-					<div class="space-y-2 text-sm">
-						<label class="flex items-center gap-2 cursor-pointer">
-							<input
-								type="checkbox"
-								class="rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-							/>
-							<span class="text-gray-600">TechVault</span>
-						</label>
-						<label class="flex items-center gap-2 cursor-pointer">
-							<input
-								type="checkbox"
-								class="rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-							/>
-							<span class="text-gray-600">SoundArc</span>
-						</label>
-						<label class="flex items-center gap-2 cursor-pointer">
-							<input
-								type="checkbox"
-								class="rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-							/>
-							<span class="text-gray-600">FitGear Pro</span>
-						</label>
-						<label class="flex items-center gap-2 cursor-pointer">
-							<input
-								type="checkbox"
-								class="rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-							/>
-							<span class="text-gray-600">AudioHive</span>
-						</label>
-					</div>
-					<button class="text-xs text-brand-600 font-medium mt-2 hover:text-brand-700 transition">
-						Show 8 more
-					</button>
-				</div>
-
+				<FilterOptions
+					type="checkbox"
+					name="favourite_stores"
+					options={[
+						{ label: "TechVault", value: "techvault", count: "412" },
+						{ label: "GadgetWorld", value: "gadgetworld", count: "289" },
+						{ label: "PixelHub", value: "pixelhub", count: "176" },
+						{ label: "SoundLab", value: "soundlab", count: "143" },
+						{ label: "HomeHaven", value: "homehaven", count: "98" },
+						{ label: "SoundLab", value: "soundlab", count: "143" },
+						{ label: "HomeHaven", value: "homehaven", count: "98" },
+						{ label: "SoundLab", value: "soundlab", count: "143" },
+						{ label: "HomeHaven", value: "homehaven", count: "98" },
+						{ label: "SoundLab", value: "soundlab", count: "143" },
+						{ label: "HomeHaven", value: "homehaven", count: "98" },
+					]}
+					values={[]}
+					title="Your Favourite Stores"
+				/>
 				{/* <!-- Features filter --> */}
 				<div class="bg-white rounded-xl border border-gray-100 p-4">
 					<h3 class="text-sm font-semibold text-gray-900 mb-3">Features</h3>

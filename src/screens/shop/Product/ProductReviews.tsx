@@ -59,11 +59,11 @@ const ReviewCard = (props: { review: Review }) => (
 			<div>
 				<p class="text-sm font-semibold text-gray-900">{props.review.name}</p>
 				<div class="flex items-center gap-1.5">
-					<div class="flex text-accent-500">
+					<div class="flex text-yellow-500">
 						<For each={Array.from({ length: 5 })}>
 							{(_, i) => (
 								<StarIcon
-									class={`w-3 h-3 ${i() < props.review.stars ? "text-accent-500" : "text-gray-200"}`}
+									class={`w-3 h-3 ${i() < props.review.stars ? "text-yellow-500" : "text-gray-200"}`}
 								/>
 							)}
 						</For>
@@ -128,7 +128,7 @@ export const ProductReviews = () => {
 				<div class="flex items-center gap-6 bg-gray-50 rounded-2xl p-6 sm:w-64 shrink-0">
 					<div class="text-center">
 						<div class="text-4xl font-extrabold text-gray-900">4.9</div>
-						<div class="flex justify-center text-accent-500 mt-1 gap-0.5">
+						<div class="flex justify-center text-yellow-500 mt-1 gap-0.5">
 							<For each={Array.from({ length: 5 })}>
 								{() => <StarIcon class="w-4 h-4" />}
 							</For>
@@ -141,7 +141,7 @@ export const ProductReviews = () => {
 									<span class="text-xs text-gray-500 w-4">{bar.stars}</span>
 									<div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
 										<div
-											class="h-full bg-accent-500 rounded-full"
+											class="h-full bg-yellow-500 rounded-full"
 											style={{ width: bar.width }}
 										/>
 									</div>
