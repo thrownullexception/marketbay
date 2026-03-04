@@ -10,7 +10,7 @@ const FilterShell = (props: {
 }) => {
 	return (
 		<div class="bg-white rounded-xl border border-gray-100 p-4">
-			<div class="flex items-center align-center justify-between mb-3">
+			<div class="flex items-center justify-between mb-3">
 				<h3 class="text-sm font-semibold text-gray-900">{props.title}</h3>
 				<Show when={props.canClear}>
 					<Button
@@ -25,6 +25,42 @@ const FilterShell = (props: {
 				</Show>
 			</div>
 			<div class="space-y-2 text-sm">{props.children}</div>
+		</div>
+	);
+};
+
+export const ActiveFilters = () => {
+	return (
+		<div class="bg-white rounded-xl border border-gray-100 p-4">
+			<div class="flex items-center justify-between mb-3">
+				<h3 class="text-sm font-semibold text-gray-900">Active Filters</h3>
+				<Button
+					type="button"
+					variant="primaryText"
+					size="sm"
+					label="Clear all"
+					onClick={() => {
+						console.log("todo");
+					}}
+				/>
+			</div>
+			<div class="flex flex-wrap gap-1.5">
+				<For each={[{ label: "$50 – $100" }, { label: "4 stars & up" }]}>
+					{(filter) => (
+						<Button
+							type="button"
+							variant="soft"
+							size="sm"
+							Icon={XIcon}
+							iconPosition="right"
+							label={filter.label}
+							onClick={() => {
+								console.log("remove filter", filter.label);
+							}}
+						/>
+					)}
+				</For>
+			</div>
 		</div>
 	);
 };
@@ -135,41 +171,5 @@ export const RatingFilter = () => {
 			values={[]}
 			title="Minimum Rating"
 		/>
-	);
-};
-
-export const ActiveFilters = () => {
-	return (
-		<div class="bg-white rounded-xl border border-gray-100 p-4">
-			<div class="flex items-center justify-between mb-3">
-				<h3 class="text-sm font-semibold text-gray-900">Active Filters</h3>
-				<Button
-					type="button"
-					variant="primaryText"
-					size="sm"
-					label="Clear all"
-					onClick={() => {
-						console.log("todo");
-					}}
-				/>
-			</div>
-			<div class="flex flex-wrap gap-1.5">
-				<For each={[{ label: "$50 – $100" }, { label: "4 stars & up" }]}>
-					{(filter) => (
-						<Button
-							type="button"
-							variant="soft"
-							size="sm"
-							Icon={XIcon}
-							iconPosition="right"
-							label={filter.label}
-							onClick={() => {
-								console.log("remove filter", filter.label);
-							}}
-						/>
-					)}
-				</For>
-			</div>
-		</div>
 	);
 };

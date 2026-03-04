@@ -1,4 +1,4 @@
-import { linkOptions } from "@tanstack/solid-router";
+import { getRouteApi, linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
 import {
 	ProductCard,
@@ -48,6 +48,9 @@ const TODAYS_DEALS: ProductCardData[] = [
 ];
 
 export const TodaysDeals = () => {
+	const routeApi = getRouteApi("/(app)/");
+	const foo = routeApi.useLoaderData();
+
 	return (
 		<ScreenSectionCard
 			title="Today's Deals"
@@ -58,6 +61,7 @@ export const TodaysDeals = () => {
 				search: { deals: true },
 			})}
 		>
+			{JSON.stringify(foo())}
 			<Grid4>
 				<For each={TODAYS_DEALS}>
 					{(product) => <ProductCard product={product} />}
