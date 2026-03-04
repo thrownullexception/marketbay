@@ -3,10 +3,17 @@ import type { JSX } from "solid-js";
 
 export const Container = (props: {
 	children: JSX.Element;
-	className?: string;
+	class?: string;
+	size?: "md" | "lg";
 }) => {
 	return (
-		<div class={clsx("max-w-7xl mx-auto px-4", props.className)}>
+		<div
+			class={clsx(
+				"mx-auto px-4",
+				props.class,
+				props.size === "md" ? "max-w-3xl" : "max-w-7xl",
+			)}
+		>
 			{props.children}
 		</div>
 	);

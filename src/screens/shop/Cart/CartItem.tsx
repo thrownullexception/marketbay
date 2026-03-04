@@ -1,8 +1,9 @@
+import { Link } from "@tanstack/solid-router";
 import { CircleCheck, MinusIcon, PlusIcon, XIcon } from "lucide-solid";
 import type { JSX } from "solid-js";
 
 interface CartItemProps {
-	href: string;
+	productSlug: string;
 	image: JSX.Element;
 	imageGradient: string;
 	name: JSX.Element;
@@ -18,21 +19,23 @@ export const CartItem = (props: CartItemProps) => {
 	return (
 		<div class={`p-5 ${props.isLast ? "" : "border-b border-gray-50"}`}>
 			<div class="flex gap-4">
-				<a
-					href={props.href}
+				<Link
+					to="/product/$productSlug"
+					params={{ productSlug: props.productSlug }}
 					class={`w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-linear-to-br ${props.imageGradient} flex items-center justify-center shrink-0 overflow-hidden`}
 				>
 					{props.image}
-				</a>
+				</Link>
 				<div class="flex-1 min-w-0">
 					<div class="flex items-start justify-between gap-3">
 						<div>
-							<a
-								href={props.href}
+							<Link
+								to="/product/$productSlug"
+								params={{ productSlug: props.productSlug }}
 								class="text-sm font-semibold text-gray-900 hover:text-brand-600 transition line-clamp-2"
 							>
 								{props.name}
-							</a>
+							</Link>
 							<div class="flex items-center gap-2 mt-1.5 flex-wrap">
 								<span class="text-xs text-gray-400">{props.variant}</span>
 								<span class="text-gray-200">|</span>

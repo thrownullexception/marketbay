@@ -13,6 +13,8 @@ import {
 import { ScreenHeader } from "@/screens/_components/screen-header";
 import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { Button } from "@/ui/button";
+import { Container } from "@/ui/layout";
 import { CartBenefits } from "./CartBenefits";
 import { CartItem } from "./CartItem";
 import { OrderSummary } from "./OrderSummary";
@@ -57,30 +59,24 @@ export const CartScreen = () => {
 			/>
 
 			<ScreenHeader title="Shopping Cart" description="3 items from 2 stores">
-				<button
-					type="button"
-					class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-gray-400 hover:text-red-500 transition"
-				>
-					<Trash2Icon class="w-4 h-4" />
-					Clear Cart
-				</button>
+				<Button label="Clear Cart" variant="text" Icon={Trash2Icon} />
 			</ScreenHeader>
 
-			<main class="max-w-7xl mx-auto px-4 py-8 lg:py-10">
+			<Container class="py-8 lg:py-10">
 				<div class="grid lg:grid-cols-3 gap-8">
 					<div class="lg:col-span-2 space-y-6">
 						<div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
 							<StoreGroupHeader
 								initials="TV"
 								name="TechVault"
-								storeUrl="store.html"
+								storeSlug="techvault"
 								gradientFrom="from-blue-500"
 								gradientTo="to-indigo-600"
 								verified
 								shippingNote="Free shipping on this order"
 							/>
 							<CartItem
-								href="product.html"
+								productSlug="pro-studio-wireless-headphones"
 								imageGradient="from-blue-50 to-indigo-100"
 								image={<SpeakerIcon class="w-12 h-12 text-brand-200" />}
 								name="Pro Studio Wireless Headphones — Active Noise Cancelling"
@@ -95,7 +91,7 @@ export const CartScreen = () => {
 								quantity={1}
 							/>
 							<CartItem
-								href="#"
+								productSlug="ultra-hd-27-monitor"
 								imageGradient="from-slate-50 to-gray-100"
 								image={<MonitorIcon class="w-12 h-12 text-gray-300" />}
 								name={<>Ultra HD 27" Monitor — 4K IPS Display</>}
@@ -116,14 +112,14 @@ export const CartScreen = () => {
 							<StoreGroupHeader
 								initials="GN"
 								name="GreenNest"
-								storeUrl="#"
+								storeSlug="greennest"
 								gradientFrom="from-emerald-500"
 								gradientTo="to-teal-600"
 								verified
 								shippingWarning="Add $25.01 more for free shipping"
 							/>
 							<CartItem
-								href="#"
+								productSlug="vitamin-c-serum"
 								imageGradient="from-emerald-50 to-green-100"
 								image={<FlaskConicalIcon class="w-12 h-12 text-emerald-300" />}
 								name="Vitamin C Serum — Natural Glow"
@@ -154,7 +150,7 @@ export const CartScreen = () => {
 						<CartBenefits />
 					</div>
 				</div>
-			</main>
+			</Container>
 		</>
 	);
 };

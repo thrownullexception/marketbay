@@ -15,6 +15,7 @@ import { InputFile } from "@/ui/input-file";
 import { InputSelect } from "@/ui/input-select";
 import { InputText, InputWithPrefix } from "@/ui/input-text";
 import { InputTextarea } from "@/ui/input-textarea";
+import { Container } from "@/ui/layout";
 import { TextLink } from "@/ui/link";
 import "./styles.css";
 import {
@@ -30,7 +31,7 @@ export const CreateStoreScreen = () => {
 	return (
 		<>
 			<div class="bg-white border-b border-gray-100">
-				<div class="max-w-3xl mx-auto px-4 py-5">
+				<Container size="md" class="py-5">
 					<div class="flex items-center justify-between">
 						<div class="flex items-center gap-2 step-complete">
 							<div class="step-circle w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 border-transparent">
@@ -68,11 +69,11 @@ export const CreateStoreScreen = () => {
 							</span>
 						</div>
 					</div>
-				</div>
+				</Container>
 			</div>
 
 			<main class="flex-1 py-8 sm:py-12">
-				<div class="max-w-3xl mx-auto px-4">
+				<Container size="md">
 					<form>
 						<FormRoot>
 							<FormHeader
@@ -287,7 +288,7 @@ export const CreateStoreScreen = () => {
 							</div>
 						</FormRoot>
 					</form>
-				</div>
+				</Container>
 			</main>
 		</>
 	);

@@ -97,7 +97,7 @@ export const ShopLayout = () => {
 			<Outlet />
 
 			<footer class="bg-brand-950 text-brand-200">
-				<Container className="py-12">
+				<Container class="py-12">
 					<div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
 						<div class="lg:col-span-2">
 							<div class="flex items-center gap-2 mb-3">

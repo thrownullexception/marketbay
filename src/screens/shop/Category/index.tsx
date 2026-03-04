@@ -1,13 +1,16 @@
 import { Link, linkOptions } from "@tanstack/solid-router";
-import { XIcon } from "lucide-solid";
 import { For } from "solid-js";
 import {
 	ProductCard,
 	type ProductCardData,
 } from "@/screens/_components/product-card";
+import {
+	ActiveFilters,
+	PriceRangeFilter,
+	RatingFilter,
+} from "@/screens/_components/product-filters";
 import { SearchToolbar } from "@/screens/_components/search-toolbar";
 import { Breadcrumb } from "@/ui/breadcrumb";
-import { Button } from "@/ui/button";
 import { Grid3 } from "@/ui/grid";
 import { Pagination } from "@/ui/pagination";
 
@@ -161,65 +164,8 @@ export const CategoryScreen = () => {
 				<div class="flex gap-8">
 					<aside class="hidden lg:block w-60 shrink-0">
 						<div class="sticky top-24 space-y-6">
-							<div>
-								<h3 class="text-sm font-bold text-gray-900 mb-3">
-									Price Range
-								</h3>
-								<div class="space-y-2">
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											Under $25
-										</span>
-										<span class="ml-auto text-xs text-gray-400">312</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											$25 – $50
-										</span>
-										<span class="ml-auto text-xs text-gray-400">287</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											checked
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-900 font-medium">
-											$50 – $100
-										</span>
-										<span class="ml-auto text-xs text-gray-400">198</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											$100 – $300
-										</span>
-										<span class="ml-auto text-xs text-gray-400">326</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											Over $300
-										</span>
-										<span class="ml-auto text-xs text-gray-400">125</span>
-									</label>
-								</div>
-							</div>
-
+							<ActiveFilters />
+							<PriceRangeFilter />
 							<hr class="border-gray-100" />
 
 							<div>
@@ -283,174 +229,7 @@ export const CategoryScreen = () => {
 
 							<hr class="border-gray-100" />
 
-							<div>
-								<h3 class="text-sm font-bold text-gray-900 mb-3">Rating</h3>
-								<div class="space-y-2">
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="radio"
-											name="rating"
-											class="w-4 h-4 border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<div class="flex text-accent-500">
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-										</div>
-										<span class="text-xs text-gray-500">& up</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="radio"
-											name="rating"
-											checked
-											class="w-4 h-4 border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<div class="flex text-accent-500">
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5 text-gray-200"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-										</div>
-										<span class="text-xs text-gray-500">& up</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="radio"
-											name="rating"
-											class="w-4 h-4 border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<div class="flex text-accent-500">
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5 text-gray-200"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-											<svg
-												class="w-3.5 h-3.5 text-gray-200"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-											</svg>
-										</div>
-										<span class="text-xs text-gray-500">& up</span>
-									</label>
-								</div>
-							</div>
-
-							<hr class="border-gray-100" />
-
-							<div>
-								<h3 class="text-sm font-bold text-gray-900 mb-3">Shipping</h3>
-								<div class="space-y-2">
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											Free shipping
-										</span>
-									</label>
-									<label class="flex items-center gap-2 cursor-pointer group">
-										<input
-											type="checkbox"
-											class="w-4 h-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-										/>
-										<span class="text-sm text-gray-600 group-hover:text-gray-900 transition">
-											Ships in 24h
-										</span>
-									</label>
-								</div>
-							</div>
-
+							<RatingFilter />
 							<hr class="border-gray-100" />
 
 							<div>
@@ -475,18 +254,6 @@ export const CategoryScreen = () => {
 									</label>
 								</div>
 							</div>
-
-							<Button
-								label="Clear All Filters"
-								type="button"
-								Icon={XIcon}
-								fullWidth
-								variant="default"
-								onClick={() => {
-									// TODO: Clear all filters
-								}}
-								iconPosition="left"
-							/>
 						</div>
 					</aside>
 

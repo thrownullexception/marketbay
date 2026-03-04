@@ -6,91 +6,70 @@ import {
 	type LucideIcon,
 	TriangleAlertIcon,
 } from "lucide-solid";
+import { sanitizeHtml } from "@/utils/strings";
+
+const VariantConfig = {
+	info: {
+		bgColor: "bg-blue-50/50",
+		iconColor: "text-blue-600",
+		Icon: InfoIcon,
+	},
+	success: {
+		bgColor: "bg-emerald-50/50",
+		iconColor: "text-emerald-600",
+		Icon: CircleCheckIcon,
+	},
+	warning: {
+		bgColor: "bg-yellow-50/50",
+		iconColor: "text-yellow-600",
+		Icon: TriangleAlertIcon,
+	},
+	error: {
+		bgColor: "bg-red-50/50",
+		iconColor: "text-red-600",
+		Icon: CircleXIcon,
+	},
+	default: {
+		bgColor: "bg-gray-50/50",
+		iconColor: "text-gray-600",
+		Icon: InfoIcon,
+	},
+} satisfies Record<
+	string,
+	{
+		bgColor: string;
+		iconColor: string;
+		Icon: LucideIcon;
+	}
+>;
 
 export const Alert = (props: {
-	variant: "info" | "success" | "warning" | "error" | "default";
-	title: string;
+	variant: keyof typeof VariantConfig;
+	title?: string;
 	description: string;
-	Icon: LucideIcon;
 }) => {
+	const variantConfig = VariantConfig[props.variant];
 	return (
 		<div
-			class={clsx("flex items-start gap-3 p-3 rounded-xl", {
-				"bg-blue-50/50": props.variant === "info",
-				"bg-emerald-50/50": props.variant === "success",
-				"bg-yellow-50/50": props.variant === "warning",
-				"bg-red-50/50": props.variant === "error",
-				"bg-gray-50/50": props.variant === "default",
+			class={clsx("flex items-center gap-3 p-4 rounded-xl", {
+				[variantConfig.bgColor]: true,
 			})}
 		>
-			<props.Icon
-				class={clsx("w-5 h-5 shrink-0 mt-0.5", {
-					"text-blue-600": props.variant === "info",
-					"text-emerald-600": props.variant === "success",
-					"text-yellow-600": props.variant === "warning",
-					"text-red-600": props.variant === "error",
-					"text-gray-600": props.variant === "default",
+			<variantConfig.Icon
+				class={clsx("w-6 h-6 shrink-0", {
+					[variantConfig.iconColor]: true,
 				})}
 				aria-hidden="true"
 			/>
 			<div>
-				<p class="text-sm text-gray-700">{props.description}</p>
+				{props.title ? (
+					<p class="text-sm font-semibold text-gray-700">{props.title}</p>
+				) : null}
+				<p
+					class="text-xs text-gray-500 mt-0.5"
+					innerHTML={sanitizeHtml(props.description)}
+				/>
 			</div>
 		</div>
-	);
-};
-
-export const AlertInfo = (props: { description: string }) => {
-	return (
-		<Alert
-			Icon={InfoIcon}
-			variant="info"
-			title="Info"
-			description={props.description}
-		/>
-	);
-};
-
-export const AlertSuccess = (props: { description: string }) => {
-	return (
-		<Alert
-			Icon={CircleCheckIcon}
-			variant="success"
-			title="Success"
-			description={props.description}
-		/>
-	);
-};
-
-export const AlertWarning = (props: { description: string }) => {
-	return (
-		<Alert
-			Icon={TriangleAlertIcon}
-			variant="warning"
-			title="Warning"
-			description={props.description}
-		/>
-	);
-};
-
-export const AlertError = (props: { description: string }) => {
-	return (
-		<Alert
-			Icon={CircleXIcon}
-			variant="error"
-			title="Error"
-			description={props.description}
-		/>
-	);
-};
-
-export const AlertDefault = (props: { description: string }) => {
-	return (
-		<Alert
-			Icon={InfoIcon}
-			variant="default"
-			title="Default"
-			description={props.description}
-		/>
 	);
 };

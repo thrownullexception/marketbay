@@ -1,9 +1,13 @@
 import { linkOptions } from "@tanstack/solid-router";
 import {
 	BadgeCheckIcon,
+	CalendarIcon,
 	MessageSquareMoreIcon,
+	PackageIcon,
 	ShareIcon,
+	TruckIcon,
 	UserPlusIcon,
+	UsersIcon,
 } from "lucide-solid";
 import { AnchorLink, Button, LinkButton } from "@/ui/button";
 import { StarIcon } from "@/ui/icons";
@@ -43,11 +47,24 @@ export const StoreHero = () => {
 								<span>(2,147 ratings)</span>
 							</div>
 							<span class="text-gray-300">|</span>
-							<span>342 products</span>
+							<span class="flex gap-1">
+								{" "}
+								<PackageIcon class="w-4 h-4" /> 342 products
+							</span>
 							<span class="text-gray-300">|</span>
-							<span>8.4k followers</span>
+							<span class="flex gap-1">
+								<UsersIcon class="w-4 h-4" /> 8.4k followers
+							</span>
 							<span class="text-gray-300 hidden sm:inline">|</span>
-							<span class="hidden sm:inline">Joined Mar 2023</span>
+							<span class="flex gap-1">
+								{" "}
+								<TruckIcon class="w-4 h-4" /> 12,500+ orders
+							</span>
+							<span class="text-gray-300 hidden sm:inline">|</span>
+							<span class="hidden sm:flex gap-1">
+								{" "}
+								<CalendarIcon class="w-4 h-4" /> Joined Mar 2023
+							</span>
 						</div>
 					</div>
 

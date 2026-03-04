@@ -1,26 +1,23 @@
 import type { LucideIcon } from "lucide-solid";
-import {
-	ClockIcon,
-	CreditCardIcon,
-	RefreshCcwIcon,
-	ShieldCheckIcon,
-	TruckIcon,
-} from "lucide-solid";
-import { Container } from "@/ui/layout";
+import { RefreshCcwIcon, ShieldCheckIcon } from "lucide-solid";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
+import { Alert } from "@/ui/alert";
+import { Grid2 } from "@/ui/grid";
 
 const POLICIES: PolicyCardProps[] = [
-	{
-		Icon: TruckIcon,
-		iconColor: "text-brand-600 bg-brand-50",
-		title: "Shipping Policy",
-		items: [
-			"Free standard shipping on all orders over $50",
-			"Standard delivery: 3–7 business days",
-			"Express delivery: 1–2 business days ($9.99)",
-			"We ship to all 50 US states and select international destinations",
-			"Tracking number provided via email once your order ships",
-		],
-	},
+	// TODO
+	// {
+	// 	Icon: TruckIcon,
+	// 	iconColor: "text-brand-600 bg-brand-50",
+	// 	title: "Shipping Policy",
+	// 	items: [
+	// 		"Free standard shipping on all orders over $50",
+	// 		"Standard delivery: 3–7 business days",
+	// 		"Express delivery: 1–2 business days ($9.99)",
+	// 		"We ship to all 50 US states and select international destinations",
+	// 		"Tracking number provided via email once your order ships",
+	// 	],
+	// },
 	{
 		Icon: RefreshCcwIcon,
 		iconColor: "text-emerald-600 bg-emerald-50",
@@ -45,47 +42,27 @@ const POLICIES: PolicyCardProps[] = [
 			"Contact us within 48 hours of receiving a damaged product",
 		],
 	},
-	{
-		Icon: CreditCardIcon,
-		iconColor: "text-amber-600 bg-amber-50",
-		title: "Payment & Security",
-		items: [
-			"We accept Visa, Mastercard, Amex, PayPal, and Apple Pay",
-			"All transactions are encrypted with 256-bit SSL",
-			"No card information is stored on our servers",
-			"Installment payments available via Afterpay for orders over $100",
-			"Prices are in USD and include applicable taxes at checkout",
-		],
-	},
 ];
 
 export const ShopStorePolicies = () => {
 	return (
-		<Container>
-			<div class="mb-8">
-				<h2 class="text-xl font-bold text-gray-900">Store Policies</h2>
-				<p class="text-sm text-gray-500 mt-1">
-					Everything you need to know before placing an order with TechVault.
-				</p>
+		<ScreenSectionCard
+			title="Store Policies"
+			description="Everything you need to know before placing an order with TechVault."
+		>
+			<div class="space-y-5">
+				<Grid2>
+					{POLICIES.map((policy) => (
+						<PolicyCard {...policy} />
+					))}
+				</Grid2>
+				<Alert
+					variant="info"
+					title="Last updated: February 2026"
+					description="Policies may be updated periodically. We recommend checking this page before each purchase."
+				/>
 			</div>
-			<div class="grid md:grid-cols-2 gap-6">
-				{POLICIES.map((policy) => (
-					<PolicyCard {...policy} />
-				))}
-			</div>
-			<div class="mt-8 rounded-xl bg-gray-50 border border-gray-100 p-5 flex items-start gap-3">
-				<ClockIcon class="w-5 h-5 text-gray-400 mt-0.5 shrink-0" />
-				<div>
-					<p class="text-sm font-semibold text-gray-700">
-						Last updated: February 2026
-					</p>
-					<p class="text-xs text-gray-500 mt-0.5">
-						Policies may be updated periodically. We recommend checking this
-						page before each purchase.
-					</p>
-				</div>
-			</div>
-		</Container>
+		</ScreenSectionCard>
 	);
 };
 

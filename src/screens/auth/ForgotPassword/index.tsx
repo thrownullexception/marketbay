@@ -2,7 +2,7 @@ import { useRouter } from "@tanstack/solid-router";
 import { MailIcon } from "lucide-solid";
 import { createSignal, Show } from "solid-js";
 import { FormCard, FormHeader } from "@/screens/_components/form-card";
-import { AlertDefault, AlertInfo } from "@/ui/alert";
+import { Alert } from "@/ui/alert";
 import { Button } from "@/ui/button";
 import { InputText } from "@/ui/input-text";
 import { TextLink } from "@/ui/link";
@@ -56,8 +56,16 @@ export function ForgotPasswordScreen() {
 
 					<FormCard>
 						<div class="space-y-4">
-							<AlertInfo description="Click the link in the email to create a new password. The link expires in 60 minutes." />
-							<AlertDefault description="Don't see the email? Check your spam folder or make sure you entered the correct address." />
+							<Alert
+								variant="info"
+								title="Email sent"
+								description="Click the link in the email to create a new password. The link expires in <b>60 minutes</b>."
+							/>
+							<Alert
+								variant="default"
+								title="Don't see the email?"
+								description=" Check your spam folder or make sure you entered the correct address."
+							/>
 						</div>
 
 						<div class="mt-6 flex flex-col gap-3">

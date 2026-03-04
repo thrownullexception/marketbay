@@ -20,7 +20,7 @@ export const SearchScreen = () => {
 			/>
 			<SearchHeader />
 			<MatchingStores />
-			<Container className="py-8">
+			<Container class="py-8">
 				<SideBar left={<SearchFilters />} right={<SearchResults />} />
 			</Container>
 		</>

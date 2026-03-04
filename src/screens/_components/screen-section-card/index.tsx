@@ -10,6 +10,7 @@ export const ScreenSectionCard = (props: {
 	alternate?: boolean;
 	border?: boolean;
 	isLast?: boolean;
+	noPadding?: boolean;
 	action?: {
 		label: string;
 		to: LinkOptions["to"];
@@ -19,10 +20,11 @@ export const ScreenSectionCard = (props: {
 }) => {
 	return (
 		<section
-			class={clsx(`py-10`, {
+			class={clsx({
 				"bg-gray-50": props.alternate,
 				"border-t border-gray-100 mt-14": props.border,
 				"pb-0": props.isLast,
+				"py-8": !props.noPadding,
 			})}
 		>
 			<Container>

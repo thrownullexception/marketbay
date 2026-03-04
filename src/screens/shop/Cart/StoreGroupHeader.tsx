@@ -4,7 +4,7 @@ import { BadgeCheckIcon, TriangleAlert } from "lucide-solid";
 interface StoreGroupHeaderProps {
 	initials: string;
 	name: string;
-	storeUrl: string;
+	storeSlug: string;
 	gradientFrom: string;
 	gradientTo: string;
 	verified?: boolean;
@@ -22,12 +22,13 @@ export const StoreGroupHeader = (props: StoreGroupHeaderProps) => {
 			</div>
 			<div class="flex-1 min-w-0">
 				<div class="flex items-center gap-2">
-					<a
-						href={props.storeUrl}
+					<Link
+						to="/store/$storeSlug"
+						params={{ storeSlug: props.storeSlug }}
 						class="text-sm font-semibold text-gray-900 hover:text-brand-600 transition"
 					>
 						{props.name}
-					</a>
+					</Link>
 					{props.verified && (
 						<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-green-50 text-green-700 text-[10px] font-semibold rounded-full border border-blue-100">
 							<BadgeCheckIcon class="w-2.5 h-2.5" aria-label="Verified" />

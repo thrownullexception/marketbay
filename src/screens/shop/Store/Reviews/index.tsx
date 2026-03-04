@@ -1,4 +1,3 @@
-import { ChevronDownIcon, ThumbsUpIcon } from "lucide-solid";
 import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { StarIcon } from "@/ui/icons";
 import { Pagination } from "@/ui/pagination";
@@ -89,19 +88,6 @@ export const ShopStoreReviews = () => {
 		>
 			<div class="space-y-8">
 				<ReviewSummary />
-				<div class="flex items-center justify-between">
-					<p class="text-sm text-gray-500">
-						Showing <span class="font-medium text-gray-700">1–6</span> of{" "}
-						<span class="font-medium text-gray-700">2,147</span> reviews
-					</p>
-					<button
-						type="button"
-						class="inline-flex items-center gap-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg px-3 py-1.5 hover:bg-gray-50 transition"
-					>
-						Most recent
-						<ChevronDownIcon class="w-4 h-4 text-gray-400" />
-					</button>
-				</div>
 				<div class="space-y-4">
 					{REVIEWS.map((review) => (
 						<ReviewCard {...review} />
@@ -210,13 +196,6 @@ const ReviewCard = (props: ReviewCardProps) => {
 					Purchased:{" "}
 					<span class="text-gray-600 font-medium">{props.product}</span>
 				</p>
-				<button
-					type="button"
-					class="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 transition"
-				>
-					<ThumbsUpIcon class="w-3.5 h-3.5" />
-					Helpful ({props.helpful})
-				</button>
 			</div>
 		</div>
 	);

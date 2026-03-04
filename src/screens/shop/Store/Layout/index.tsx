@@ -1,6 +1,5 @@
 import { linkOptions, Outlet } from "@tanstack/solid-router";
 import { Breadcrumb } from "@/ui/breadcrumb";
-import { Container } from "@/ui/layout";
 import { StoreHero } from "./StoreHero";
 import { StorePromo } from "./StorePromo";
 import { StoreTabs } from "./StoreTabs";
@@ -24,9 +23,7 @@ export const ShopStoreLayout = () => {
 			<StoreHero />
 			<StorePromo />
 			<StoreTabs />
-			<Container className="py-8">
-				<Outlet />
-			</Container>
+			<Outlet />
 		</>
 	);
 };

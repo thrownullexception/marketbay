@@ -5,7 +5,7 @@ import {
 } from "@/screens/_components/product-card";
 import { SearchToolbar } from "@/screens/_components/search-toolbar";
 import { Grid3 } from "@/ui/grid";
-import { SideBar } from "@/ui/layout";
+import { Container, SideBar } from "@/ui/layout";
 import { Pagination } from "@/ui/pagination";
 import { StoreSidebar } from "./StoreSidebar";
 
@@ -65,19 +65,21 @@ const STORE_PRODUCTS: ProductCardData[] = [
 
 export const ShopStoreProducts = () => {
 	return (
-		<SideBar
-			left={<StoreSidebar />}
-			right={
-				<>
-					<SearchToolbar />
-					<Grid3>
-						<For each={STORE_PRODUCTS}>
-							{(product) => <ProductCard product={product} />}
-						</For>
-					</Grid3>
-					<Pagination />
-				</>
-			}
-		/>
+		<Container class="py-8">
+			<SideBar
+				left={<StoreSidebar />}
+				right={
+					<>
+						<SearchToolbar />
+						<Grid3>
+							<For each={STORE_PRODUCTS}>
+								{(product) => <ProductCard product={product} />}
+							</For>
+						</Grid3>
+						<Pagination />
+					</>
+				}
+			/>
+		</Container>
 	);
 };

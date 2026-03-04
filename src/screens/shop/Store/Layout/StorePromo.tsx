@@ -1,4 +1,4 @@
-import { ArrowRightIcon, TagIcon } from "lucide-solid";
+import { TagIcon } from "lucide-solid";
 import { Container } from "@/ui/layout";
 
 export const StorePromo = () => {
@@ -18,24 +18,13 @@ export const StorePromo = () => {
 							<span class="text-brand-400 mx-1.5 hidden sm:inline">—</span>
 							<span class="hidden sm:inline">
 								Use code{" "}
-								<span class="font-mono font-bold text-accent-300">
-									AUDIO40
-								</span>{" "}
+								<span class="font-mono font-bold text-accent-300">AUDIO40</span>{" "}
 								at checkout
 							</span>
 						</p>
 					</div>
 					<div class="flex items-center gap-4 shrink-0">
-						<span class="text-xs text-brand-400 hidden md:inline">
-							Ends Feb 28
-						</span>
-						<button
-							type="button"
-							class="inline-flex items-center gap-1 text-xs font-semibold text-white hover:text-accent-300 transition"
-						>
-							Shop now
-							<ArrowRightIcon class="w-3.5 h-3.5" />
-						</button>
+						<span class="text-xs text-white">Promo ends Feb 28</span>
 					</div>
 				</div>
 			</Container>

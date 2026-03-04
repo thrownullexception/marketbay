@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/solid-router";
-import { ArrowRightIcon, CircleCheckIcon, Container } from "lucide-solid";
+import { ArrowRightIcon, CircleCheckIcon } from "lucide-solid";
+import { Container } from "@/ui/layout";
 
 export const SellCTA = () => {
 	const benefits = [
