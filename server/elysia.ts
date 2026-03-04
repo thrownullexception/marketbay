@@ -30,7 +30,7 @@ app.all("*", ({ request }) =>
 
 app.listen(
   {
-    maxRequestBodySize: 1024 * 1024 * 10, // 10MB
+    maxRequestBodySize: 1024 * 1024 * 5, // 5MB
     port: PORT,
     error(error) {
         log.error(

@@ -1,4 +1,5 @@
 import { LayoutGrid, ListIcon, SlidersHorizontalIcon } from "lucide-solid";
+import { SimpleSelect } from "@/ui/input-select";
 
 export const SearchToolbar = () => {
 	return (
@@ -17,14 +18,16 @@ export const SearchToolbar = () => {
 				</p>
 			</div>
 			<div class="flex items-center gap-3">
-				<select class="text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent cursor-pointer">
-					<option>Sort: Best Match</option>
-					<option>Price: Low to High</option>
-					<option>Price: High to Low</option>
-					<option>Newest First</option>
-					<option>Top Rated</option>
-					<option>Most Sold</option>
-				</select>
+				<SimpleSelect
+					options={[
+						{ label: "Best Match", value: "best_match" },
+						{ label: "Price: Low to High", value: "price_low_to_high" },
+						{ label: "Price: High to Low", value: "price_high_to_low" },
+						{ label: "Newest First", value: "newest_first" },
+						{ label: "Top Rated", value: "top_rated" },
+						{ label: "Most Sold", value: "most_sold" },
+					]}
+				/>
 				<div class="hidden sm:flex items-center border border-gray-200 rounded-lg overflow-hidden">
 					<button
 						type="button"

@@ -1,96 +1,48 @@
 import { Link, linkOptions } from "@tanstack/solid-router";
-import { For } from "solid-js";
 import {
-	ProductCard,
-	type ProductCardData,
-} from "@/screens/_components/product-card";
-import {
-	ActiveFilters,
-	FilterOptions,
-	PriceRangeFilter,
-	RatingFilter,
-} from "@/screens/_components/product-filters";
-import { SearchToolbar } from "@/screens/_components/search-toolbar";
+	type FilterConfig,
+	ProductListing,
+} from "@/screens/_components/product-listing";
 import { Breadcrumb } from "@/ui/breadcrumb";
-import { Grid3 } from "@/ui/grid";
-import { Pagination } from "@/ui/pagination";
 
-const CATEGORY_PRODUCTS: ProductCardData[] = [
+const CATEGORY_FILTERS: FilterConfig[] = [
 	{
-		storeName: "TechVault",
-		name: "Pro Studio Wireless Headphones — Active Noise Cancelling",
-		rating: "4.9",
-		ratingCount: "243",
-		price: "$59.99",
-		originalPrice: "$99.99",
-		badge: "-40%",
+		type: "price_range",
+		options: [
+			{ label: "Under $25", value: "under_25" },
+			{ label: "$25 – $50", value: "25_50" },
+			{ label: "$50 – $100", value: "50_100" },
+			{ label: "$100 – $300", value: "100_300" },
+			{ label: "Over $300", value: "over_300" },
+		],
 	},
 	{
-		storeName: "TechVault",
-		name: `Ultra HD 27" Monitor — 4K IPS Display`,
-		rating: "4.9",
-		ratingCount: "128",
-		price: "$299",
-		originalPrice: "$399",
-		badge: "-25%",
+		type: "checkbox",
+		title: "Your Favourite Stores",
+		name: "favourite_stores",
+		options: [
+			{ label: "TechVault", value: "techvault", count: "412" },
+			{ label: "GadgetWorld", value: "gadgetworld", count: "289" },
+			{ label: "PixelHub", value: "pixelhub", count: "176" },
+			{ label: "SoundLab", value: "soundlab", count: "143" },
+			{ label: "HomeHaven", value: "homehaven", count: "98" },
+			{ label: "SoundLab", value: "soundlab", count: "143" },
+			{ label: "HomeHaven", value: "homehaven", count: "98" },
+			{ label: "SoundLab", value: "soundlab", count: "143" },
+			{ label: "HomeHaven", value: "homehaven", count: "98" },
+			{ label: "SoundLab", value: "soundlab", count: "143" },
+			{ label: "HomeHaven", value: "homehaven", count: "98" },
+		],
 	},
 	{
-		storeName: "TechVault",
-		name: "MagSafe Phone Case — Frosted Clear",
-		rating: "4.8",
-		ratingCount: "890",
-		price: "$19.99",
-		wishlisted: true,
-	},
-	{
-		storeName: "GadgetWorld",
-		name: "Mechanical Keyboard — RGB Hot-Swap",
-		rating: "4.7",
-		ratingCount: "156",
-		price: "$89.99",
-		badge: "New",
-		badgeColor: "bg-brand-600",
-	},
-	{
-		storeName: "SoundLab",
-		name: "Portable Bluetooth Speaker — Waterproof IPX7",
-		rating: "4.6",
-		ratingCount: "312",
-		price: "$42.49",
-		originalPrice: "$49.99",
-		badge: "-15%",
-	},
-	{
-		storeName: "HomeHaven",
-		name: "Smart LED Floor Lamp — Dimmable WiFi",
-		rating: "4.9",
-		ratingCount: "1.2k",
-		price: "$54.99",
-	},
-	{
-		storeName: "PixelHub",
-		name: "Action Camera 4K — Underwater 30m",
-		rating: "4.5",
-		ratingCount: "87",
-		price: "$79.99",
-		originalPrice: "$99.99",
-		badge: "-20%",
-	},
-	{
-		storeName: "TechVault",
-		name: "Fast Wireless Charger Pad — 15W MagSafe",
-		rating: "4.7",
-		ratingCount: "445",
-		price: "$24.99",
-	},
-	{
-		storeName: "HomeHaven",
-		name: "Smart WiFi Router — Mesh System 3-Pack",
-		rating: "4.8",
-		ratingCount: "203",
-		price: "$149.00",
-		badge: "New",
-		badgeColor: "bg-brand-600",
+		type: "radio",
+		title: "Condition",
+		name: "condition",
+		options: [
+			{ label: "New", value: "new" },
+			{ label: "Refurbished", value: "refurbished" },
+			{ label: "Used", value: "used" },
+		],
 	},
 ];
 
@@ -116,13 +68,13 @@ export const CategoryScreen = () => {
 					<div class="flex items-center gap-4">
 						<div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center shrink-0">
 							<svg
-								aria-hidden="true"
 								class="w-7 h-7 text-white"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
 								stroke-width="1.5"
 							>
+								<title>todo</title>
 								<path
 									stroke-linecap="round"
 									stroke-linejoin="round"
@@ -162,65 +114,7 @@ export const CategoryScreen = () => {
 				</div>
 			</section>
 
-			<main class="max-w-7xl mx-auto px-4 py-6 lg:py-8">
-				<div class="flex gap-8">
-					<aside class="hidden lg:block w-60 shrink-0">
-						<div class="sticky top-24 space-y-6">
-							<ActiveFilters />
-							<PriceRangeFilter
-								options={[
-									{ label: "Under $25", value: "under_25" },
-									{ label: "$25 – $50", value: "25_50" },
-									{ label: "$50 – $100", value: "50_100" },
-									{ label: "$100 – $300", value: "100_300" },
-									{ label: "Over $300", value: "over_300" },
-								]}
-							/>
-							<FilterOptions
-								type="checkbox"
-								name="favourite_stores"
-								options={[
-									{ label: "TechVault", value: "techvault", count: "412" },
-									{ label: "GadgetWorld", value: "gadgetworld", count: "289" },
-									{ label: "PixelHub", value: "pixelhub", count: "176" },
-									{ label: "SoundLab", value: "soundlab", count: "143" },
-									{ label: "HomeHaven", value: "homehaven", count: "98" },
-									{ label: "SoundLab", value: "soundlab", count: "143" },
-									{ label: "HomeHaven", value: "homehaven", count: "98" },
-									{ label: "SoundLab", value: "soundlab", count: "143" },
-									{ label: "HomeHaven", value: "homehaven", count: "98" },
-									{ label: "SoundLab", value: "soundlab", count: "143" },
-									{ label: "HomeHaven", value: "homehaven", count: "98" },
-								]}
-								values={[]}
-								title="Your Favourite Stores"
-							/>
-							<RatingFilter />
-							<FilterOptions
-								type="radio"
-								name="condition"
-								options={[
-									{ label: "New", value: "new" },
-									{ label: "Refurbished", value: "refurbished" },
-									{ label: "Used", value: "used" },
-								]}
-								values={[]}
-								title="Condition"
-							/>
-						</div>
-					</aside>
-
-					<div class="flex-1 min-w-0">
-						<SearchToolbar />
-						<Grid3>
-							<For each={CATEGORY_PRODUCTS}>
-								{(product) => <ProductCard product={product} />}
-							</For>
-						</Grid3>
-						<Pagination />
-					</div>
-				</div>
-			</main>
+			<ProductListing dataSource="category" filters={CATEGORY_FILTERS} />
 		</>
 	);
 };

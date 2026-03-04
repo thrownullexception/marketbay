@@ -1,5 +1,6 @@
 import { getRouteApi, Link } from "@tanstack/solid-router";
 import { createEffect } from "solid-js";
+import { SimpleSelect } from "@/ui/input-select";
 
 const categories = [
 	{ name: "All Stores", value: "all" },
@@ -41,13 +42,15 @@ export const StoresToolbar = () => {
 					</Link>
 				))}
 			</div>
-			<select class="text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent cursor-pointer shrink-0">
-				<option>Sort: Most Popular</option>
-				<option>Top Rated</option>
-				<option>Most Products</option>
-				<option>Most Followers</option>
-				<option>Newest</option>
-			</select>
+			<SimpleSelect
+				options={[
+					{ label: "Most Popular", value: "most_popular" },
+					{ label: "Top Rated", value: "top_rated" },
+					{ label: "Most Products", value: "most_products" },
+					{ label: "Most Followers", value: "most_followers" },
+					{ label: "Newest", value: "newest" },
+				]}
+			/>
 		</div>
 	);
 };

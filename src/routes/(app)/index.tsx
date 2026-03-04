@@ -15,7 +15,7 @@ export const Route = createFileRoute("/(app)/")({
 			stores: stores.data || [],
 		};
 	},
-	staleTime: ms("1m"),
+	staleTime: ms("30m"),
 	gcTime: ms("24h"),
-	// ssr: false, // "data-only",
+	// ssr: "data-only",
 });

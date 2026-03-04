@@ -137,15 +137,15 @@ export const PriceRangeFilter = (props: { options: FilterOption[] }) => {
 
 const RatingOption = (props: { rating: number }) => {
 	return (
-		<div class="flex items-center gap-1">
-			<For each={Array(props.rating)}>
-				{() => (
-					<div class="flex text-yellow-500">
-						<StarIcon class="w-3.5 h-3.5" />
-					</div>
-				)}
-			</For>
-		</div>
+		// <div class="flex items-center gap-1">
+		// 	<For each={Array(props.rating)}>
+		// 		{() => (
+		// 			<div class="flex text-yellow-500">
+		<StarIcon class="w-3.5 h-3.5" />
+		// 			</div>
+		// 		)}
+		// 	</For>
+		// </div>
 	);
 };
 
@@ -154,20 +154,22 @@ export const RatingFilter = () => {
 		<FilterOptions
 			type="radio"
 			name="rating"
-			options={[
-				{
-					value: "4_up",
-					label: <RatingOption rating={4} />,
-				},
-				{
-					value: "3_up",
-					label: <RatingOption rating={3} />,
-				},
-				{
-					value: "2_up",
-					label: <RatingOption rating={2} />,
-				},
-			]}
+			options={
+				[
+					// {
+					// 	value: "4_up",
+					// 	label: <RatingOption rating={4} />,
+					// },
+					// {
+					// 	value: "3_up",
+					// 	label: <RatingOption rating={3} />,
+					// },
+					// {
+					// 	value: "2_up",
+					// 	label: <div>2</div>,
+					// },
+				]
+			}
 			values={[]}
 			title="Minimum Rating"
 		/>
