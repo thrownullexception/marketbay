@@ -10,7 +10,7 @@ import {
 	UsersIcon,
 } from "lucide-solid";
 import { AnchorLink, Button, LinkButton } from "@/ui/button";
-import { StarIcon } from "@/ui/icons";
+import { StarIcon } from "lucide-solid";
 import { Container } from "@/ui/layout";
 
 export const StoreHero = () => {
@@ -42,7 +42,7 @@ export const StoreHero = () => {
 						</p>
 						<div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-sm text-gray-500">
 							<div class="flex items-center gap-1">
-								<StarIcon class="w-4 h-4 text-yellow-500" />
+								<StarIcon class="w-4 h-4 text-yellow-500" fill="currentColor" />
 								<span class="font-semibold text-gray-700">4.9</span>
 								<span>(2,147 ratings)</span>
 							</div>

@@ -3,6 +3,15 @@ import { MinusIcon, PlusIcon } from "lucide-solid";
 export const ProductOptions = () => {
 	return (
 		<>
+
+<div class="mb-5">
+         	<p class="text-sm font-medium text-gray-700 mb-2.5">Quantity</p>
+            <div class="flex gap-2">
+              <button class="px-4 py-2 rounded-lg border-2 border-brand-500 bg-brand-50 text-brand-700 font-semibold text-sm">27"</button>
+              <button class="px-4 py-2 rounded-lg border-2 border-gray-200 text-gray-600 font-medium text-sm hover:border-gray-300 transition">32"</button>
+            </div>
+          </div>
+
 			<div class="mb-5">
 				<p class="text-sm font-medium text-gray-700 mb-2.5">
 					Color: <span class="text-gray-900 font-semibold">Matte Black</span>

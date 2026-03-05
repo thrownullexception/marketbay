@@ -22,7 +22,7 @@ export const StoresScreen = () => {
 			<StoresHeader />
 			<ScreenSectionCard
 				title="Featured Stores"
-				description="Picked by our staff"
+				description="Follow talented independent sellers"
 			>
 				<Grid3>
 					<FeaturedStoreCard

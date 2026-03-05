@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/solid-router";
 import { BadgeCheckIcon, CircleCheckIcon } from "lucide-solid";
 import { For } from "solid-js";
-import { StarIcon } from "@/ui/icons";
+import { StarIcon } from "lucide-solid";
 
 export const ProductInfo = () => {
 	return (
@@ -17,7 +17,7 @@ export const ProductInfo = () => {
 				<span class="text-sm font-medium text-brand-600 group-hover:underline">
 					TechVault
 				</span>
-				<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
+				<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-green-50 text-green-600 text-[10px] font-semibold rounded-full border border-green-100">
 					<BadgeCheckIcon class="w-2.5 h-2.5" />
 					Verified
 				</span>
@@ -31,12 +31,12 @@ export const ProductInfo = () => {
 				<div class="flex items-center gap-1">
 					<div class="flex text-yellow-500">
 						<For each={Array(5).fill(0)}>
-							{() => <StarIcon class="w-4 h-4" />}
+							{() => <StarIcon class="w-4 h-4" fill="currentColor" />}
 						</For>
 					</div>
 					<span class="text-sm font-semibold text-gray-700">4.9</span>
 				</div>
-				<a href="#reviews" class="text-sm text-brand-600 hover:underline">
+				<a href="#todo" class="text-sm text-brand-600 hover:underline">
 					243 reviews
 				</a>
 				<span class="text-gray-300">|</span>

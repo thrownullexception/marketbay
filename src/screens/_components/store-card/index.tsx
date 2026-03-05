@@ -1,5 +1,5 @@
 import "./styles.css";
-import { StarIcon } from "@/ui/icons";
+import { StarIcon } from "lucide-solid";
 import { StoreCardActions } from "./actions";
 
 export interface StoreCardData {
@@ -27,7 +27,7 @@ export const StoreCard = (props: { store: StoreCardData }) => (
 				</h3>
 				<p class="text-xs text-gray-500 truncate">{props.store.category}</p>
 				<div class="flex items-center gap-1 mt-0.5">
-					<StarIcon class="w-3 h-3 text-yellow-500" />
+					<StarIcon class="w-3 h-3 text-yellow-500" fill="currentColor" />
 					<span class="text-xs text-gray-500">
 						{props.store.rating} &bull; {props.store.reviewCount}
 					</span>

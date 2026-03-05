@@ -34,7 +34,7 @@ const SEARCH_FILTERS: FilterConfig[] = [
 	{ type: "rating" },
 	{
 		type: "checkbox",
-		title: "Your Favourite Stores",
+		title: "Subscribed Stores",
 		name: "favourite_stores",
 		options: [
 			{ label: "TechVault", value: "techvault", count: "412" },

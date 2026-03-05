@@ -23,44 +23,16 @@ const SPECS: { label: string; value: string }[] = [
 export const ProductDescription = () => {
 	return (
 		<div class="mt-14 border-t border-gray-100 pt-10">
-			<div class="flex gap-6 border-b border-gray-100 mb-8 overflow-x-auto scrollbar-hide">
-				<button
-					type="button"
-					class="whitespace-nowrap pb-3 text-sm font-semibold text-brand-600 border-b-2 border-brand-600"
-				>
-					Description
-				</button>
-				<button
-					type="button"
-					class="whitespace-nowrap pb-3 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-600 transition"
-				>
-					Specifications
-				</button>
-				<button
-					type="button"
-					class="whitespace-nowrap pb-3 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-600 transition"
-				>
-					Reviews (243)
-				</button>
-				<button
-					type="button"
-					class="whitespace-nowrap pb-3 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-600 transition"
-				>
-					Shipping &amp; Returns
-				</button>
-			</div>
-
 			<div class="grid lg:grid-cols-3 gap-10">
 				<div class="lg:col-span-2 prose prose-sm prose-gray max-w-none">
 					<h3 class="text-lg font-bold text-gray-900 mb-3">
-						Immersive Sound, Zero Distractions
+						Product Details
 					</h3>
 					<p class="text-gray-600 leading-relaxed mb-4">
 						Experience studio-quality audio with the Pro Studio Wireless
-						Headphones. Featuring advanced Active Noise Cancellation (ANC),
-						40mm custom drivers, and up to 35 hours of battery life, these
-						headphones are designed for audiophiles, commuters, and remote
-						workers alike.
+						Headphones. Featuring advanced Active Noise Cancellation (ANC), 40mm
+						custom drivers, and up to 35 hours of battery life, these headphones
+						are designed for audiophiles, commuters, and remote workers alike.
 					</p>
 					<p class="text-gray-600 leading-relaxed mb-6">
 						The memory-foam ear cushions provide all-day comfort, while the

@@ -1,6 +1,6 @@
 import { BadgeCheckIcon } from "lucide-solid";
 import { StoreCardActions } from "@/screens/_components/store-card/actions";
-import { StarIcon } from "@/ui/icons";
+import { StarIcon } from "lucide-solid";
 
 interface StoreListCardProps {
 	bannerGradient: string;
@@ -45,7 +45,7 @@ export const StoreListCard = (props: StoreListCardProps) => {
 				</p>
 				<div class="flex items-center gap-4 mt-3 text-xs text-gray-500">
 					<div class="flex items-center gap-1">
-						<StarIcon class="w-3.5 h-3.5 text-yellow-500" />
+						<StarIcon class="w-3.5 h-3.5 text-yellow-500"  fill="currentColor" />
 						<span class="font-semibold text-gray-700">{props.rating}</span>
 						<span>({props.ratingCount})</span>
 					</div>

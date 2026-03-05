@@ -1,6 +1,6 @@
 import { ArrowRightIcon } from "lucide-solid";
 import { For } from "solid-js";
-import { StarIcon } from "@/ui/icons";
+import { StarIcon } from "lucide-solid";
 import { TextLink } from "@/ui/link";
 
 interface Review {
@@ -63,6 +63,7 @@ const ReviewCard = (props: { review: Review }) => (
 						<For each={Array.from({ length: 5 })}>
 							{(_, i) => (
 								<StarIcon
+							    	fill="currentColor"
 									class={`w-3 h-3 ${i() < props.review.stars ? "text-yellow-500" : "text-gray-200"}`}
 								/>
 							)}
@@ -128,9 +129,9 @@ export const ProductReviews = () => {
 				<div class="flex items-center gap-6 bg-gray-50 rounded-2xl p-6 sm:w-64 shrink-0">
 					<div class="text-center">
 						<div class="text-4xl font-extrabold text-gray-900">4.9</div>
-						<div class="flex justify-center text-yellow-500 mt-1 gap-0.5">
+						<div class="flex justify-center mt-1 gap-0.5">
 							<For each={Array.from({ length: 5 })}>
-								{() => <StarIcon class="w-4 h-4" />}
+								{() => <StarIcon class="w-4 h-4 text-yellow-500" fill="currentColor" />}
 							</For>
 						</div>
 					</div>

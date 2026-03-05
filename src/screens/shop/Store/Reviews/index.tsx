@@ -1,5 +1,5 @@
 import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
-import { StarIcon } from "@/ui/icons";
+import { StarIcon } from "lucide-solid";
 import { Pagination } from "@/ui/pagination";
 
 const RATING_BARS = [
@@ -108,7 +108,7 @@ const ReviewSummary = () => {
 						<div class="text-5xl font-extrabold text-gray-900">4.9</div>
 						<div class="flex justify-center text-yellow-500 mt-1.5 gap-0.5">
 							{Array.from({ length: 5 }).map(() => (
-								<StarIcon class="w-4 h-4" />
+								<StarIcon class="w-4 h-4" fill="currentColor" />
 							))}
 						</div>
 						<p class="text-xs text-gray-400 mt-1">2,147 ratings</p>
@@ -120,7 +120,7 @@ const ReviewSummary = () => {
 						<div class="flex items-center gap-2.5">
 							<div class="flex items-center gap-1 w-8 shrink-0 justify-end">
 								<span class="text-sm text-gray-600">{bar.label}</span>
-								<StarIcon class="w-3 h-3 text-yellow-500" />
+								<StarIcon class="w-3 h-3 text-yellow-500" fill="currentColor" />
 							</div>
 							<div class="flex-1 h-2.5 bg-gray-100 rounded-full overflow-hidden">
 								<div
@@ -140,7 +140,7 @@ const ReviewSummary = () => {
 						<div class="flex items-center justify-between gap-3">
 							<span class="text-sm text-gray-600">{cat.label}</span>
 							<div class="flex items-center gap-1">
-								<StarIcon class="w-3 h-3 text-yellow-500" />
+								<StarIcon class="w-3 h-3 text-yellow-500" fill="currentColor" />
 								<span class="text-sm font-semibold text-gray-900">
 									{cat.score}
 								</span>
@@ -179,10 +179,10 @@ const ReviewCard = (props: ReviewCardProps) => {
 						<div class="flex items-center gap-2 mt-0.5">
 							<div class="flex text-yellow-500">
 								{Array.from({ length: props.rating }).map(() => (
-									<StarIcon class="w-3.5 h-3.5" />
+									<StarIcon class="w-3.5 h-3.5" fill="currentColor" />
 								))}
 								{Array.from({ length: 5 - props.rating }).map(() => (
-									<StarIcon class="w-3.5 h-3.5 text-gray-200" />
+									<StarIcon class="w-3.5 h-3.5 text-gray-200" fill="currentColor" />
 								))}
 							</div>
 							<span class="text-xs text-gray-400">{props.timeAgo}</span>

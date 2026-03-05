@@ -1,7 +1,7 @@
 import { XIcon } from "lucide-solid";
 import { createMemo, createSignal, For, type JSX, Show } from "solid-js";
 import { Button } from "@/ui/button";
-import { StarIcon } from "@/ui/icons";
+import { StarIcon } from "lucide-solid";
 
 const FilterShell = (props: {
 	title: string;
@@ -141,7 +141,7 @@ const RatingOption = (props: { rating: number }) => {
 		// 	<For each={Array(props.rating)}>
 		// 		{() => (
 		// 			<div class="flex text-yellow-500">
-		<StarIcon class="w-3.5 h-3.5" />
+		<StarIcon class="w-3.5 h-3.5" fill="currentColor" />
 		// 			</div>
 		// 		)}
 		// 	</For>

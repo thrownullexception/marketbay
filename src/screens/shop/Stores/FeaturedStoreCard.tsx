@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/solid-router";
 import { ArrowRightIcon, BadgeCheckIcon } from "lucide-solid";
-import { StarIcon } from "@/ui/icons";
+import { StarIcon } from "lucide-solid";
 
 interface FeaturedStoreCardProps {
 	slug: string;
@@ -21,7 +21,7 @@ export const FeaturedStoreCard = (props: FeaturedStoreCardProps) => {
 		<Link
 			to="/store/$storeSlug"
 			params={{ storeSlug: props.slug }}
-			class={`relative rounded-2xl overflow-hidden bg-linear-to-br ${props.gradient} min-h-[180px] flex flex-col justify-end p-6 group cursor-pointer`}
+			class={`relative rounded-2xl overflow-hidden bg-linear-to-br ${props.gradient} min-h-45 flex flex-col justify-end p-6 group cursor-pointer`}
 		>
 			<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
 			<div class="absolute top-5 right-5">
@@ -40,7 +40,7 @@ export const FeaturedStoreCard = (props: FeaturedStoreCardProps) => {
 				<p class={`${props.subtextColor} text-sm`}>{props.description}</p>
 				<div class="flex items-center gap-3 mt-2">
 					<div class="flex items-center gap-1">
-						<StarIcon class="w-3.5 h-3.5 text-yellow-500" />
+						<StarIcon class="w-3.5 h-3.5 text-yellow-500" fill="currentColor" />
 						<span class="text-white text-sm font-semibold">{props.rating}</span>
 						<span class={`${props.ratingTextColor} text-xs`}>
 							({props.ratingCount})

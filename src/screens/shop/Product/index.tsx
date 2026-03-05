@@ -5,7 +5,6 @@ import { MoreFromStore } from "./MoreFromStore";
 import { ProductActions } from "./ProductActions";
 import { ProductDescription } from "./ProductDescription";
 import { ProductGallery } from "./ProductGallery";
-import { ProductGuarantees } from "./ProductGuarantees";
 import { ProductInfo } from "./ProductInfo";
 import { ProductOptions } from "./ProductOptions";
 import { ProductReviews } from "./ProductReviews";
@@ -43,7 +42,6 @@ export const ShopProductScreen = () => {
 						<ProductOptions />
 						<ProductActions />
 						<Divider />
-						<ProductGuarantees />
 					</div>
 				</div>
 				<ProductDescription />

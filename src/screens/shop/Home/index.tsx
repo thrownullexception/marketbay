@@ -5,7 +5,7 @@ import { NewArrivals } from "./NewArrivals";
 import { PopularStores } from "./PopularStores";
 import { ShopByCategory } from "./ShopByCategory";
 import { TodaysDeals } from "./TodaysDeals";
-import { TrustBar } from "./TrustBar";
+import { WhyShopOnMarketBay } from "./WhyShopOnMarketBay";
 
 export const HomeScreen = () => {
 	return (
@@ -17,7 +17,7 @@ export const HomeScreen = () => {
 			<PopularStores />
 			<NewArrivals />
 			<BestSellers />
-			<TrustBar />
+			<WhyShopOnMarketBay />
 		</>
 	);
 };

@@ -1,4 +1,4 @@
-import { getRouteApi, linkOptions } from "@tanstack/solid-router";
+import { linkOptions, useLoaderData } from "@tanstack/solid-router";
 import { For } from "solid-js";
 import {
 	ProductCard,
@@ -48,8 +48,7 @@ const TODAYS_DEALS: ProductCardData[] = [
 ];
 
 export const TodaysDeals = () => {
-	const routeApi = getRouteApi("/(app)/");
-	const foo = routeApi.useLoaderData();
+	const foo = useLoaderData({ from: "/(app)/" });
 
 	return (
 		<ScreenSectionCard
