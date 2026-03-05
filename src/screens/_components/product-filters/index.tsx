@@ -1,7 +1,6 @@
-import { XIcon } from "lucide-solid";
+import { StarIcon, XIcon } from "lucide-solid";
 import { createMemo, createSignal, For, type JSX, Show } from "solid-js";
 import { Button } from "@/ui/button";
-import { StarIcon } from "lucide-solid";
 
 const FilterShell = (props: {
 	title: string;

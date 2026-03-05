@@ -5,7 +5,6 @@ import {
 	Search,
 	ShieldCheckIcon,
 	StarIcon,
-	StoreIcon,
 } from "lucide-solid";
 import { For, type JSX } from "solid-js";
 import { ScreenSectionCard } from "@/screens/_components/screen-section-card";

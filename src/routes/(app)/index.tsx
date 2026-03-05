@@ -13,6 +13,7 @@ export const Route = createFileRoute("/(app)/")({
 		return {
 			products: products.data || [],
 			stores: stores.data || [],
+			// notificationCount: getTreaty().notifications.get(),
 		};
 	},
 	staleTime: ms("30m"),

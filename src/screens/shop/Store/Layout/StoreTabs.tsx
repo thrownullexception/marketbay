@@ -44,6 +44,7 @@ export const StoreTabs = () => {
 						<Link
 							to={tab.link.to}
 							params={tab.link.params}
+							resetScroll={false}
 							class="whitespace-nowrap py-3 text-sm border-b-2 transition"
 							activeOptions={{ exact: true }}
 							activeProps={{ class: "tab-active font-semibold" }}

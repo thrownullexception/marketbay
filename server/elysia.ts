@@ -39,5 +39,5 @@ app.listen(
       return new Response("Internal Server Error", { status: 500 });
     },
   },
-  () => log.success(`Server running on http://localhost:${String(PORT)}`),
+  () => log.success(`Server running at http://localhost:${String(PORT)}`),
 );

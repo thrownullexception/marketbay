@@ -34,3 +34,7 @@ Point-of-Sale (POS) Software
 tracking
 
 https://demo.invotide.com/pos/
+
+https://web.dev/articles/vitals?utm_source=lighthouse&utm_medium=devtools
+https://github.com/gtramontina/elysia-requestid
+https://github.com/johnny-woodtke/elysiajs-cdn-cache
