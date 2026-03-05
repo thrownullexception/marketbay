@@ -1,28 +1,55 @@
+import { useStore } from "@tanstack/solid-form";
+import clsx from "clsx";
 import { For, type JSX } from "solid-js";
+import { useFieldContext } from "@/screens/_components/form/context";
+import { formatErrors } from "@/screens/_components/form/format-errors";
 import { sluggify } from "@/utils/strings";
+import { useFieldHasError } from "./input-shared";
 
-const Checkbox = (props: { id: string; checked: boolean }) => {
+const Checkbox = (props: {
+	id: string;
+	checked: boolean;
+	onChange: () => void;
+	hasError?: boolean;
+}) => {
 	return (
 		<input
 			type="checkbox"
 			id={props.id}
 			checked={props.checked}
-			class="w-4 h-4 mt-0.5 rounded border-gray-300 text-brand-600 focus:ring-brand-500 transition"
+			class={clsx(
+				"w-4 h-4 mt-0.5 rounded text-brand-600 transition",
+				props.hasError
+					? "border-red-400 focus:ring-red-400"
+					: "border-gray-300 focus:ring-brand-500",
+			)}
+			onChange={props.onChange}
 		/>
 	);
 };
 
-export const InputCheckbox = (props: {
-	label: JSX.Element;
-	id: string;
-	checked: boolean;
-}) => {
+export const InputCheckbox = (props: { id: string; label: JSX.Element }) => {
+	const field = useFieldContext<boolean>();
+	const hasError = useFieldHasError<boolean>();
+	const errors = useStore(field().store, (state) => state.meta.errors);
 	return (
-		<div class="flex items-start gap-2">
-			<Checkbox id={props.id} checked={props.checked} />
-			<label for={props.id} class="text-sm text-gray-600 cursor-pointer">
-				{props.label}
-			</label>
+		<div>
+			<div class="flex items-start gap-2">
+				<Checkbox
+					id={props.id}
+					checked={field().state.value}
+					onChange={() => field().handleChange(!field().state.value)}
+					hasError={hasError()}
+				/>
+				<label for={props.id} class="text-sm text-gray-600 cursor-pointer">
+					{props.label}{" "}
+				</label>
+			</div>
+			{errors().length > 0 && (
+				<p class="mt-1 text-xs text-red-400">
+					{formatErrors(errors()[0]).message}
+				</p>
+			)}
 		</div>
 	);
 };
@@ -32,6 +59,8 @@ export const InputCheckboxGroup = (props: {
 	value: string;
 	options: { label: string; value: string; description?: string }[];
 }) => {
+	const field = useFieldContext<boolean>();
+	const hasError = useFieldHasError<boolean>();
 	return (
 		<div>
 			<label
@@ -44,10 +73,19 @@ export const InputCheckboxGroup = (props: {
 				<For each={props.options}>
 					{(option) => (
 						// biome-ignore lint/a11y/noLabelWithoutControl: <we need to pass the id to the checkbox>
-						<label class="flex items-start gap-3 p-3.5 rounded-xl border border-gray-200 cursor-pointer hover:border-brand-200 hover:bg-brand-50/30 transition-colors has-checked:border-brand-400 has-checked:bg-brand-50/50">
+						<label
+							class={clsx(
+								"flex items-start gap-3 p-3.5 rounded-xl border cursor-pointer hover:bg-brand-50/30 transition-colors has-checked:border-brand-400 has-checked:bg-brand-50/50",
+								hasError()
+									? "border-red-400 hover:border-red-400"
+									: "border-gray-200 hover:border-brand-200",
+							)}
+						>
 							<Checkbox
 								id={option.value}
-								checked={props.value === option.value}
+								checked={field().state.value}
+								onChange={() => field().handleChange(!field().state.value)}
+								hasError={hasError()}
 							/>
 							<div>
 								<p class="text-sm font-medium text-gray-900">{option.label}</p>

@@ -1,5 +1,8 @@
+import { useStore } from "@tanstack/solid-form";
 import type { LinkOptions } from "@tanstack/solid-router";
 import type { JSX } from "solid-js";
+import { useFieldContext } from "@/screens/_components/form/context";
+import { formatErrors } from "@/screens/_components/form/format-errors";
 import { sluggify } from "@/utils/strings";
 import { TextLink } from "./link";
 
@@ -42,9 +45,18 @@ export type BaseInputProps = {
 	description?: string;
 };
 
+export const useFieldHasError = <T,>() => {
+	const field = useFieldContext<T>();
+	const errors = useStore(field().store, (state) => state.meta.errors);
+	return () => errors().length > 0;
+};
+
 export const BaseInput = (
 	props: BaseInputProps & { children: JSX.Element },
 ) => {
+	const field = useFieldContext<string>();
+	const errors = useStore(field().store, (state) => state.meta.errors);
+
 	return (
 		<div>
 			<InputLabel
@@ -54,6 +66,11 @@ export const BaseInput = (
 				link={props.labelLink}
 			/>
 			{props.children}
+			{errors().length > 0 && (
+				<p class="mt-1 text-xs text-red-400">
+					{formatErrors(errors()[0]).message}
+				</p>
+			)}
 			<InputDescription description={props.description} />
 		</div>
 	);

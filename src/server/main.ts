@@ -10,7 +10,7 @@ export const serverApp = new Elysia({
 	prefix: "/api",
 })
 	.use(csrfMiddleware)
-	.use(helmetMiddleware)
+	// .use(helmetMiddleware)
 	.use(healthcheckMiddleware)
 	.use(openapiMiddleware)
 	.use(loggerMiddleware)

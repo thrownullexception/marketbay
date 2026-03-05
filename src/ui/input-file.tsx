@@ -1,6 +1,12 @@
+import clsx from "clsx";
 import { ImageIcon } from "lucide-solid";
+import { useFieldContext } from "@/screens/_components/form/context";
 import { sluggify } from "@/utils/strings";
-import { BaseInput, type BaseInputProps } from "./input-shared";
+import {
+	BaseInput,
+	type BaseInputProps,
+	useFieldHasError,
+} from "./input-shared";
 
 type Accept = "image" | "video";
 
@@ -27,6 +33,14 @@ export const InputFile = (
 		maxSizeInMB: number;
 	} & BaseInputProps,
 ) => {
+	const field = useFieldContext<File>();
+	const hasError = useFieldHasError<File>();
+	const handleFileChange = (e: Event) => {
+		const file = (e.target as HTMLInputElement).files?.[0];
+		if (file) {
+			field().handleChange(file);
+		}
+	};
 	return (
 		<BaseInput
 			label={props.label}
@@ -36,7 +50,10 @@ export const InputFile = (
 		>
 			<div class="relative group">
 				<div
-					class={`w-full py-2 rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center cursor-pointer hover:border-brand-300 hover:bg-brand-50/30 transition-colors`}
+					class={clsx(
+						"w-full py-2 rounded-2xl border-2 border-dashed bg-gray-50 flex flex-col items-center justify-center cursor-pointer hover:bg-brand-50/30 transition-colors",
+						hasError() ? "border-red-400 hover:border-red-400" : "border-gray-200 hover:border-brand-300",
+					)}
 				>
 					<div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center mb-3">
 						<ImageIcon class="w-6 h-6 text-gray-400" />
@@ -49,6 +66,7 @@ export const InputFile = (
 					type="file"
 					accept={acceptMap[props.accept].mime}
 					class="absolute inset-0 opacity-0 cursor-pointer"
+					onChange={handleFileChange}
 				/>
 			</div>
 		</BaseInput>

@@ -1,110 +1,13 @@
-import { getRouteApi, Link, linkOptions, Outlet } from "@tanstack/solid-router";
-// import {
-// 	LayoutGrid,
-// 	MessageSquareMoreIcon,
-// 	ShoppingCartIcon,
-// 	SlidersHorizontalIcon,
-// 	StarIcon,
-// 	TagIcon,
-// 	User,
-// } from "lucide-solid";
+import { getRouteApi, Link, Outlet } from "@tanstack/solid-router";
+
 import { Grid5 } from "@/ui/grid";
 import { Container } from "@/ui/layout";
-
-const sidebarLinkBaseClass =
-	"sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium transition hover:bg-gray-50";
-
-const sidebarLinkActiveClass = `${sidebarLinkBaseClass} active`;
-const sidebarLinkInactiveClass = `${sidebarLinkBaseClass} text-gray-600`;
-
-const merchantSidebarPrimaryItems = (storeId: string) => [
-	{
-		label: "Dashboard",
-		// icon: LayoutGrid,
-		exact: true,
-		link: linkOptions({
-			to: "/merchant/$storeId",
-			params: { storeId },
-		}),
-	},
-	{
-		label: "Orders",
-		// icon: ShoppingCartIcon,
-		badge: { value: "8", tone: "accent" as const },
-		link: linkOptions({
-			to: "/merchant/$storeId/orders",
-			params: { storeId },
-		}),
-	},
-	{
-		label: "Products",
-		// icon: TagIcon,
-		badge: { value: "342", tone: "neutral" as const },
-		link: linkOptions({
-			to: "/merchant/$storeId/products",
-			params: { storeId },
-		}),
-	},
-	{
-		label: "Messages",
-		// icon: MessageSquareMoreIcon,
-		badge: { value: "6", tone: "danger" as const },
-		link: linkOptions({
-			to: "/merchant/$storeId/messages",
-			params: { storeId },
-		}),
-	},
-	{
-		label: "Analytics",
-		// icon: SlidersHorizontalIcon,
-		link: linkOptions({
-			to: "/merchant/$storeId/analytics",
-			params: { storeId },
-		}),
-	},
-	{
-		label: "Promotions",
-		// icon: TagIcon,
-		link: linkOptions({
-			to: "/merchant/$storeId/promotions",
-			params: { storeId },
-		}),
-	},
-	{
-		label: "Reviews",
-		// icon: StarIcon,
-		link: linkOptions({
-			to: "/merchant/$storeId/reviews",
-			params: { storeId },
-		}),
-	},
-];
-
-const merchantSidebarSecondaryItems = (storeId: string) => [
-	{
-		label: "Payouts",
-		// icon: ShoppingCartIcon,
-		link: linkOptions({
-			to: "/merchant/$storeId/payouts",
-			params: { storeId },
-		}),
-	},
-	{
-		label: "Store Settings",
-		// icon: User,
-		link: linkOptions({
-			to: "/merchant/$storeId/settings",
-			params: { storeId },
-		}),
-	},
-];
-
-const storeId = "1234";
+import { NavSection } from "./NavSection";
 
 export const MerchantLayout = () => {
-	// const routeApi = getRouteApi("/merchant/$storeId/");
-	// const params = routeApi.useParams();
-	// const storeId = params().storeId;
+	const routeApi = getRouteApi("/merchant/$storeId/");
+	const params = routeApi.useParams();
+	const storeId = params().storeId;
 	return (
 		<>
 			<div class="bg-brand-950 text-brand-200 text-xs py-1.5">
@@ -113,24 +16,27 @@ export const MerchantLayout = () => {
 						<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-accent-500/20 text-accent-300 text-[10px] font-bold rounded-full uppercase">
 							Seller Mode
 						</span>
-						<a href="home.html" class="hover:text-white transition">
+						<Link to="/" class="hover:text-white transition">
 							Switch to Buyer
-						</a>
+						</Link>
 					</div>
 					<div class="hidden sm:flex items-center gap-4">
-						<a href="#" class="hover:text-white transition">
+						<Link to="/help" class="hover:text-white transition">
 							Help Center
-						</a>
-						<a href="#" class="hover:text-white transition">
+						</Link>
+						<Link
+							to="/store-terms-of-service"
+							class="hover:text-white transition"
+						>
 							Seller Policies
-						</a>
+						</Link>
 					</div>
 				</div>
 			</div>
 
 			<nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100 shadow-sm">
 				<div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
-					<a href="home.html" class="shrink-0 flex items-center gap-2">
+					<Link to="/" class="shrink-0 flex items-center gap-2">
 						<div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center">
 							<svg
 								class="w-5 h-5 text-white"
@@ -138,6 +44,7 @@ export const MerchantLayout = () => {
 								viewBox="0 0 24 24"
 								stroke="currentColor"
 								stroke-width="2"
+								aria-hidden="true"
 							>
 								<path
 									stroke-linecap="round"
@@ -149,7 +56,7 @@ export const MerchantLayout = () => {
 						<span class="text-xl font-extrabold text-brand-950 tracking-tight">
 							Market<span class="text-brand-600">Bay</span>
 						</span>
-					</a>
+					</Link>
 
 					<div class="flex-1 max-w-xl mx-auto hidden sm:block">
 						<div class="relative">
@@ -248,7 +155,7 @@ export const MerchantLayout = () => {
 				</div>
 			</nav>
 
-			<main class="max-w-7xl mx-auto px-4 py-8 lg:py-10">
+			<Container class="py-8 lg:py-10">
 				<Grid5>
 					<div class="lg:col-span-1">
 						<div class="bg-white rounded-2xl border border-gray-100 overflow-hidden sticky top-24">
@@ -299,49 +206,7 @@ export const MerchantLayout = () => {
 									View Storefront
 								</a>
 							</div>
-
-							<nav class="py-2">
-								{merchantSidebarPrimaryItems(storeId).map((item) => (
-									<Link
-										to={item.link.to}
-										params={item.link.params}
-										activeOptions={{ exact: item.exact ?? false }}
-										class={sidebarLinkInactiveClass}
-										activeProps={{ class: sidebarLinkActiveClass }}
-										inactiveProps={{ class: sidebarLinkInactiveClass }}
-									>
-										{/* <item.icon class="w-4 h-4 shrink-0" /> */}
-										{item.label}
-										{item.badge && (
-											<span
-												class={`ml-auto px-1.5 py-0.5 text-[10px] font-bold rounded-full ${
-													item.badge.tone === "accent"
-														? "bg-accent-50 text-accent-600"
-														: item.badge.tone === "danger"
-															? "bg-red-50 text-red-500"
-															: "bg-gray-100 text-gray-500"
-												}`}
-											>
-												{item.badge.value}
-											</span>
-										)}
-									</Link>
-								))}
-								<hr class="my-2 border-gray-100" />
-								{merchantSidebarSecondaryItems(storeId).map((item) => (
-									<Link
-										to={item.link.to}
-										params={item.link.params}
-										activeOptions={{ exact: false }}
-										class={sidebarLinkInactiveClass}
-										activeProps={{ class: sidebarLinkActiveClass }}
-										inactiveProps={{ class: sidebarLinkInactiveClass }}
-									>
-										{/* <item.icon class="w-4 h-4 shrink-0" /> */}
-										{item.label}
-									</Link>
-								))}
-							</nav>
+							<NavSection storeId={storeId} />
 						</div>
 					</div>
 
@@ -391,7 +256,7 @@ export const MerchantLayout = () => {
 						<Outlet />
 					</div>
 				</Grid5>
-			</main>
+			</Container>
 			<footer class="bg-brand-950 text-brand-200">
 				<Container class="py-10">
 					<div class="flex flex-col sm:flex-row items-center justify-between gap-4">

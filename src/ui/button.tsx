@@ -26,6 +26,7 @@ type SharedButtonProps = {
 	variant: keyof typeof VariantsConfig;
 	size?: keyof typeof SizesConfig;
 	fullWidth?: boolean;
+	disabled?: boolean;
 	iconPosition?: "left" | "right";
 };
 
@@ -72,6 +73,7 @@ function getSharedButtonProps(props: SharedButtonProps) {
 	return {
 		"aria-label": props.iconOnly ? props.label : undefined,
 		class: buttonClass(props),
+		disabled: props.disabled,
 	};
 }
 

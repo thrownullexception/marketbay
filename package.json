@@ -27,6 +27,7 @@
     "@paralleldrive/cuid2": "^3.3.0",
     "@rasla/logify": "^5.2.1",
     "@t3-oss/env-core": "^0.13.8",
+    "@tanstack/solid-form": "^1.28.4",
     "@tanstack/solid-router": "^1.163.2",
     "@tanstack/solid-router-devtools": "^1.163.2",
     "@tanstack/solid-start": "^1.163.2",

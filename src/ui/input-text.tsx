@@ -1,8 +1,14 @@
+import clsx from "clsx";
 import type { LucideIcon } from "lucide-solid";
 import { EyeIcon, EyeOffIcon } from "lucide-solid";
 import { createSignal } from "solid-js";
+import { useFieldContext } from "@/screens/_components/form/context";
 import { sluggify } from "@/utils/strings";
-import { BaseInput, type BaseInputProps } from "./input-shared";
+import {
+	BaseInput,
+	type BaseInputProps,
+	useFieldHasError,
+} from "./input-shared";
 
 export const InputText = (
 	props: {
@@ -27,6 +33,9 @@ export const InputText = (
 		};
 	} & BaseInputProps,
 ) => {
+	const field = useFieldContext<string>();
+	const hasError = useFieldHasError<string>();
+
 	return (
 		<BaseInput
 			label={props.label}
@@ -42,7 +51,16 @@ export const InputText = (
 					id={sluggify(props.label)}
 					type={props.type ?? "text"}
 					placeholder={props.placeholder}
-					class={`w-full ${props.Icon ? "pl-10" : "pl-4"} ${props.suffix ? "pr-10" : "pr-4"} py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition`}
+					value={field().state.value}
+					onChange={(e) => field().handleChange(e.target.value)}
+					onBlur={() => field().handleBlur()}
+					class={clsx(
+						"w-full py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:border-transparent transition",
+						props.Icon ? "pl-10" : "pl-4",
+						props.suffix ? "pr-10" : "pr-4",
+						hasError() ? "border-red-400" : "border-gray-200",
+						hasError() ? "focus:ring-red-400" : "focus:ring-brand-400",
+					)}
 				/>
 				{props.suffix && (
 					<button
@@ -64,6 +82,9 @@ export const InputWithPrefix = (
 		placeholder: string;
 	} & BaseInputProps,
 ) => {
+	const field = useFieldContext<string>();
+	const hasError = useFieldHasError<string>();
+
 	return (
 		<BaseInput
 			label={props.label}
@@ -71,13 +92,24 @@ export const InputWithPrefix = (
 			labelLink={props.labelLink}
 			description={props.description}
 		>
-			<div class="flex rounded-xl border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-brand-400 focus-within:border-transparent transition">
+			<div
+				class={clsx(
+					"flex rounded-xl border overflow-hidden focus-within:ring-2 focus-within:border-transparent transition",
+					hasError() ? "border-red-400" : "border-gray-200",
+					hasError()
+						? "focus-within:ring-red-400"
+						: "focus-within:ring-brand-400",
+				)}
+			>
 				<span class="inline-flex items-center px-3.5 bg-gray-50 text-sm text-gray-400 border-r border-gray-200 select-none">
 					{props.prefix}
 				</span>
 				<input
 					id={sluggify(props.label)}
 					type="text"
+					value={field().state.value}
+					onChange={(e) => field().handleChange(e.target.value)}
+					onBlur={() => field().handleBlur()}
 					placeholder={props.placeholder}
 					class="flex-1 px-3 py-2.5 text-sm focus:outline-none"
 				/>

@@ -14,12 +14,10 @@ Secure checkout
 Verified sellers
 Easy payments
 
-https://github.com/auto-medica-labs/modern-csrf
 https://github.com/gaurishhs/elysia-ip
 https://github.com/johnny-woodtke/elysiajs-cdn-cache
 https://github.com/choiexe1/elysia-wide-event
 
-"build": "bun build --compile --target bun --minify --outfile server src/index.ts",
 
 https://www.shopify.com/ng/legal/privacy
 https://shop.remix.run/policies/terms-of-service
@@ -38,3 +36,11 @@ https://demo.invotide.com/pos/
 https://web.dev/articles/vitals?utm_source=lighthouse&utm_medium=devtools
 https://github.com/gtramontina/elysia-requestid
 https://github.com/johnny-woodtke/elysiajs-cdn-cache
+
+negotiatable
+TODO: /category, => show subcategories
+save all for later
+add to cart, buy now
+Only 3 left in stock
+Response rate: 98%
+Avg response time: 1 hour
