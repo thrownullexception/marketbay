@@ -59,9 +59,6 @@ const QUICK_REPLIES = [
 	"Do you accept returns?",
 ];
 
-const CHECK_PATH =
-	"M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z";
-
 const UserBubble = (props: { message: ChatMessage }) => (
 	<div class="flex justify-end gap-2.5">
 		<div class="max-w-[70%]">
@@ -70,14 +67,7 @@ const UserBubble = (props: { message: ChatMessage }) => (
 			</div>
 			<div class="flex items-center justify-end gap-1 mt-1">
 				<span class="text-[10px] text-gray-400">{props.message.time}</span>
-				<svg
-					class="w-3.5 h-3.5 text-brand-400"
-					fill="currentColor"
-					viewBox="0 0 20 20"
-				>
-					<title>Sent</title>
-					<path fill-rule="evenodd" d={CHECK_PATH} clip-rule="evenodd" />
-				</svg>
+				<SendIcon class="w-3.5 h-3.5 text-brand-400" />
 			</div>
 		</div>
 	</div>

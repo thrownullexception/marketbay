@@ -1,5 +1,5 @@
 import { Link, type LinkOptions } from "@tanstack/solid-router";
-import { ChevronRight } from "lucide-solid";
+import { ChevronRight, Container } from "lucide-solid";
 
 export function Breadcrumb({
 	items,
@@ -11,7 +11,7 @@ export function Breadcrumb({
 }) {
 	return (
 		<div class="bg-white border-b border-gray-100">
-			<div class="max-w-7xl mx-auto px-4 py-2.5">
+			<Container class="py-2.5">
 				<nav class="flex items-center gap-1.5 text-xs text-gray-400">
 					{items.slice(0, -1).map((item) => (
 						<>
@@ -25,7 +25,7 @@ export function Breadcrumb({
 						{items[items.length - 1].label}
 					</span>
 				</nav>
-			</div>
+			</Container>
 		</div>
 	);
 }

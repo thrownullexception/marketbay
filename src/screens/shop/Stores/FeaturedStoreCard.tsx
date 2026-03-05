@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/solid-router";
-import { ArrowRightIcon, BadgeCheckIcon } from "lucide-solid";
-import { StarIcon } from "lucide-solid";
+import { ArrowRightIcon, BadgeCheckIcon, StarIcon } from "lucide-solid";
 
 interface FeaturedStoreCardProps {
 	slug: string;
@@ -8,10 +7,12 @@ interface FeaturedStoreCardProps {
 	initials: string;
 	name: string;
 	subtextColor: string;
+	categories: string;
 	description: string;
 	rating: string;
 	ratingCount: string;
 	ratingTextColor: string;
+	productCount: string;
 	followers: string;
 	followersTextColor: string;
 }
@@ -37,7 +38,10 @@ export const FeaturedStoreCard = (props: FeaturedStoreCardProps) => {
 						Verified
 					</span>
 				</div>
-				<p class={`${props.subtextColor} text-sm`}>{props.description}</p>
+				<p class={`${props.subtextColor} text-xs`}>{props.categories}</p>
+				<p class="text-white/70 text-xs mt-1.5 line-clamp-2">
+					{props.description}
+				</p>
 				<div class="flex items-center gap-3 mt-2">
 					<div class="flex items-center gap-1">
 						<StarIcon class="w-3.5 h-3.5 text-yellow-500" fill="currentColor" />
@@ -46,6 +50,9 @@ export const FeaturedStoreCard = (props: FeaturedStoreCardProps) => {
 							({props.ratingCount})
 						</span>
 					</div>
+					<span class={`${props.followersTextColor} text-xs`}>
+						{props.productCount} products
+					</span>
 					<span class={`${props.followersTextColor} text-xs`}>
 						{props.followers} followers
 					</span>

@@ -1,7 +1,9 @@
+import { Container } from "@/ui/layout";
+
 export const SearchHeader = () => {
 	return (
 		<div class="bg-white border-b border-gray-100">
-			<div class="max-w-7xl mx-auto px-4 py-5">
+			<Container class="py-5">
 				<h1 class="text-xl font-bold text-gray-900">
 					Results for "<span class="text-brand-600">wireless headphones</span>"
 				</h1>
@@ -42,7 +44,7 @@ export const SearchHeader = () => {
 						gaming headset
 					</a>
 				</div> */}
-			</div>
+			</Container>
 		</div>
 	);
 };

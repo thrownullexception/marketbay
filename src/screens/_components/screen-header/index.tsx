@@ -1,4 +1,5 @@
 import type { JSX } from "solid-js";
+import { Container } from "@/ui/layout";
 
 export const ScreenHeader = (props: {
 	title: string;
@@ -7,7 +8,7 @@ export const ScreenHeader = (props: {
 }) => {
 	return (
 		<section class="bg-linear-to-br from-brand-50 via-white to-accent-50 border-b border-gray-100">
-			<div class="max-w-7xl mx-auto px-4 py-8 lg:py-10">
+			<Container class="py-8 lg:py-10">
 				<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
 					<div>
 						<h1 class="text-2xl lg:text-3xl font-extrabold text-gray-900">
@@ -19,7 +20,7 @@ export const ScreenHeader = (props: {
 					</div>
 					{props.children}
 				</div>
-			</div>
+			</Container>
 		</section>
 	);
 };

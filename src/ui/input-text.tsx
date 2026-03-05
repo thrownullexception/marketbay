@@ -1,6 +1,5 @@
 import type { LucideIcon } from "lucide-solid";
 import { EyeIcon, EyeOffIcon } from "lucide-solid";
-import type { JSX } from "solid-js";
 import { createSignal } from "solid-js";
 import { sluggify } from "@/utils/strings";
 import { BaseInput, type BaseInputProps } from "./input-shared";
@@ -22,7 +21,10 @@ export const InputText = (
 			| "month"
 			| "week";
 		Icon?: LucideIcon;
-		suffix?: JSX.Element;
+		suffix?: {
+			Icon: LucideIcon;
+			onClick: () => void;
+		};
 	} & BaseInputProps,
 ) => {
 	return (
@@ -42,7 +44,15 @@ export const InputText = (
 					placeholder={props.placeholder}
 					class={`w-full ${props.Icon ? "pl-10" : "pl-4"} ${props.suffix ? "pr-10" : "pr-4"} py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition`}
 				/>
-				{props.suffix}
+				{props.suffix && (
+					<button
+						type="button"
+						class="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 cursor-pointer"
+						onClick={props.suffix.onClick}
+					>
+						<props.suffix.Icon class="w-4 h-4" />
+					</button>
+				)}
 			</div>
 		</BaseInput>
 	);
@@ -87,19 +97,10 @@ export const InputPassword = (
 		<InputText
 			{...props}
 			type={showPassword() ? "text" : "password"}
-			suffix={
-				<button
-					type="button"
-					class="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 cursor-pointer"
-					onclick={() => setShowPassword(!showPassword())}
-				>
-					{showPassword() ? (
-						<EyeIcon class="w-4 h-4" />
-					) : (
-						<EyeOffIcon class="w-4 h-4" />
-					)}
-				</button>
-			}
+			suffix={{
+				Icon: showPassword() ? EyeIcon : EyeOffIcon,
+				onClick: () => setShowPassword(!showPassword()),
+			}}
 		/>
 	);
 };

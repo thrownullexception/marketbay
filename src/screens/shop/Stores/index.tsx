@@ -23,6 +23,7 @@ export const StoresScreen = () => {
 			<ScreenSectionCard
 				title="Featured Stores"
 				description="Follow talented independent sellers"
+				alternate
 			>
 				<Grid3>
 					<FeaturedStoreCard
@@ -31,10 +32,12 @@ export const StoresScreen = () => {
 						initials="TV"
 						name="TechVault"
 						subtextColor="text-blue-200"
-						description="Electronics &bull; Gadgets &bull; 342 products"
+						categories="Electronics &bull; Gadgets &bull; Accessories"
+						description="Premium electronics and gadgets. Curated selection of top-quality tech products with fast shipping."
 						rating="4.9"
 						ratingCount="2.1k"
 						ratingTextColor="text-blue-300"
+						productCount="342"
 						followers="8.4k"
 						followersTextColor="text-blue-300"
 					/>
@@ -44,10 +47,12 @@ export const StoresScreen = () => {
 						initials="SH"
 						name="StyleHouse"
 						subtextColor="text-rose-200"
-						description="Fashion &bull; Accessories &bull; 518 products"
+						categories="Fashion &bull; Shoes &bull; Accessories"
+						description="Trendy fashion pieces for every season. From casual basics to statement looks at affordable prices."
 						rating="4.8"
 						ratingCount="1.8k"
 						ratingTextColor="text-rose-300"
+						productCount="518"
 						followers="12.1k"
 						followersTextColor="text-rose-300"
 					/>
@@ -57,17 +62,19 @@ export const StoresScreen = () => {
 						initials="GN"
 						name="GreenNest"
 						subtextColor="text-emerald-200"
-						description="Beauty &bull; Wellness &bull; 215 products"
+						categories="Beauty &bull; Skincare &bull; Wellness"
+						description="Organic, cruelty-free beauty and wellness products. Natural ingredients for radiant skin and self-care."
 						rating="4.9"
 						ratingCount="956"
 						ratingTextColor="text-emerald-300"
+						productCount="215"
 						followers="6.2k"
 						followersTextColor="text-emerald-300"
 					/>
 				</Grid3>
 			</ScreenSectionCard>
 
-			<section class="py-8 bg-gray-50 border-t border-gray-100">
+			<section class="py-8 border-t border-gray-100">
 				<Container>
 					<StoresToolbar />
 

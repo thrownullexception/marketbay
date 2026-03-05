@@ -166,10 +166,7 @@ const FILTER_TABS = ["All", "Unread", "Buying", "Selling"];
 
 export const ChatConversations = () => {
 	return (
-		<div
-			class="w-full sm:w-80 lg:w-96 border-r border-gray-200 flex flex-col shrink-0"
-			id="conversationList"
-		>
+		<div class="w-full sm:w-80 lg:w-96 border-r border-gray-200 flex flex-col shrink-0">
 			<div class="p-3 border-b border-gray-100">
 				<div class="relative">
 					<input

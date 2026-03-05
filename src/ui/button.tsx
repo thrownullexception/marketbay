@@ -21,6 +21,7 @@ const SizesConfig = {
 type SharedButtonProps = {
 	label: string;
 	Icon?: LucideIcon;
+	svgIcon?: string;
 	iconOnly?: boolean;
 	variant: keyof typeof VariantsConfig;
 	size?: keyof typeof SizesConfig;
@@ -39,13 +40,30 @@ function buttonClass(props: SharedButtonProps) {
 	);
 }
 
+function IconSlot(props: { Icon?: LucideIcon; svgIcon?: string }) {
+	if (props.Icon) return <props.Icon class="w-4 h-4" />;
+	if (props.svgIcon)
+		return (
+			<span
+				class="w-4 h-4 [&>svg]:w-full [&>svg]:h-full"
+				innerHTML={props.svgIcon}
+			/>
+		);
+	return null;
+}
+
 function ButtonContent(props: SharedButtonProps) {
 	const iconPosition = props.iconPosition || "left";
+	const hasIcon = () => !!props.Icon || !!props.svgIcon;
 	return (
 		<>
-			{props.Icon && iconPosition === "left" && <props.Icon class="w-4 h-4" />}
+			{hasIcon() && iconPosition === "left" && (
+				<IconSlot Icon={props.Icon} svgIcon={props.svgIcon} />
+			)}
 			{props.iconOnly ? undefined : props.label}
-			{props.Icon && iconPosition === "right" && <props.Icon class="w-4 h-4" />}
+			{hasIcon() && iconPosition === "right" && (
+				<IconSlot Icon={props.Icon} svgIcon={props.svgIcon} />
+			)}
 		</>
 	);
 }

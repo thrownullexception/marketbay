@@ -4,6 +4,7 @@ import {
 	ProductListing,
 } from "@/screens/_components/product-listing";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { Container } from "@/ui/layout";
 
 const CATEGORY_FILTERS: FilterConfig[] = [
 	{
@@ -64,7 +65,7 @@ export const CategoryScreen = () => {
 
 			<section class="bg-linear-to-r from-brand-700 to-brand-900 relative overflow-hidden">
 				<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
-				<div class="max-w-7xl mx-auto px-4 py-8 relative">
+				<Container class="py-8 relative">
 					<div class="flex items-center gap-4">
 						<div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center shrink-0">
 							<svg
@@ -111,7 +112,7 @@ export const CategoryScreen = () => {
 							</Link>
 						))}
 					</div>
-				</div>
+				</Container>
 			</section>
 
 			<ProductListing dataSource="category" filters={CATEGORY_FILTERS} />

@@ -3,6 +3,7 @@ import {
 	StoreCard,
 	type StoreCardData,
 } from "@/screens/_components/store-card";
+import { Container } from "@/ui/layout";
 
 const MATCHING_STORES: StoreCardData[] = [
 	{
@@ -37,7 +38,7 @@ const MATCHING_STORES: StoreCardData[] = [
 export const MatchingStores = () => {
 	return (
 		<div class="bg-white border-b border-gray-100">
-			<div class="max-w-7xl mx-auto px-4 py-5">
+			<Container class="py-5">
 				<h2 class="text-sm font-semibold text-gray-900 mb-3">
 					Stores matching "wireless headphones"
 				</h2>
@@ -50,7 +51,7 @@ export const MatchingStores = () => {
 						)}
 					</For>
 				</div>
-			</div>
+			</Container>
 		</div>
 	);
 };

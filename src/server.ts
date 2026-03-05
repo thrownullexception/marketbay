@@ -1,15 +1,21 @@
 import handler, { createServerEntry } from "@tanstack/solid-start/server-entry";
+import pino from "pino";
 
-console.log("on load");
+const logger = pino();
 
 export default createServerEntry({
 	async fetch(request) {
-		console.log(request);
+		const start = performance.now();
+		const url = new URL(request.url);
 
-		const foo = await handler.fetch(request);
+		const response = await handler.fetch(request);
 
-		console.log(foo);
+		const duration = Math.round(performance.now() - start);
+		logger.info(
+			{ path: url.pathname, duration },
+			`SSR: ${url.pathname} ${duration}ms`,
+		);
 
-		return foo;
+		return response;
 	},
 });

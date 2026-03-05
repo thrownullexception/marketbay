@@ -1,13 +1,19 @@
 import "./styles.css";
-import { Outlet } from "@tanstack/solid-router";
+import { linkOptions, Outlet } from "@tanstack/solid-router";
+import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
+import { Breadcrumb } from "@/ui/breadcrumb";
 import { ChatConversations } from "./Conversations";
-import { ChatHeader } from "./Header";
 
 export function ChatLayout() {
 	return (
 		<>
-			<ChatHeader />
-			<main class="max-w-7xl mx-auto px-4">
+			<Breadcrumb
+				items={[
+					{ label: "Home", link: linkOptions({ to: "/" }) },
+					{ label: "Messages", link: linkOptions({ to: "/chat" }) },
+				]}
+			/>
+			<ScreenSectionCard title="Messages" description="Chat with stores">
 				<div
 					class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm"
 					style="height: calc(100vh - 240px); min-height: 500px;"
@@ -17,7 +23,7 @@ export function ChatLayout() {
 						<Outlet />
 					</div>
 				</div>
-			</main>
+			</ScreenSectionCard>
 		</>
 	);
 }

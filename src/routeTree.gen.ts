@@ -14,6 +14,7 @@ import { Route as StoreTermsOfServiceRouteImport } from './routes/store-terms-of
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as MarketplaceGuidelinesRouteImport } from './routes/marketplace-guidelines'
 import { Route as DeferredRouteImport } from './routes/deferred'
+import { Route as MerchantRouteRouteImport } from './routes/merchant/route'
 import { Route as formsRouteRouteImport } from './routes/(forms)/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as appRouteRouteImport } from './routes/(app)/route'
@@ -28,8 +29,17 @@ import { Route as appHelpRouteImport } from './routes/(app)/help'
 import { Route as appCategoriesRouteImport } from './routes/(app)/categories'
 import { Route as appCartRouteImport } from './routes/(app)/cart'
 import { Route as appChatRouteRouteImport } from './routes/(app)/chat/route'
-import { Route as appSellerIndexRouteImport } from './routes/(app)/seller/index'
+import { Route as MerchantStoreIdIndexRouteImport } from './routes/merchant/$storeId/index'
 import { Route as appChatIndexRouteImport } from './routes/(app)/chat/index'
+import { Route as MerchantStoreIdSettingsRouteImport } from './routes/merchant/$storeId/settings'
+import { Route as MerchantStoreIdReviewsRouteImport } from './routes/merchant/$storeId/reviews'
+import { Route as MerchantStoreIdPromotionsRouteImport } from './routes/merchant/$storeId/promotions'
+import { Route as MerchantStoreIdProductsRouteImport } from './routes/merchant/$storeId/products'
+import { Route as MerchantStoreIdProductNewRouteImport } from './routes/merchant/$storeId/product-new'
+import { Route as MerchantStoreIdPayoutsRouteImport } from './routes/merchant/$storeId/payouts'
+import { Route as MerchantStoreIdOrdersRouteImport } from './routes/merchant/$storeId/orders'
+import { Route as MerchantStoreIdMessagesRouteImport } from './routes/merchant/$storeId/messages'
+import { Route as MerchantStoreIdAnalyticsRouteImport } from './routes/merchant/$storeId/analytics'
 import { Route as appProductProductSlugRouteImport } from './routes/(app)/product.$productSlug'
 import { Route as appChatStoreSlugRouteImport } from './routes/(app)/chat/$storeSlug'
 import { Route as appCategoryCategorySlugRouteImport } from './routes/(app)/category.$categorySlug'
@@ -39,12 +49,6 @@ import { Route as appStoreStoreSlugIndexRouteImport } from './routes/(app)/store
 import { Route as appStoreStoreSlugReviewsRouteImport } from './routes/(app)/store/$storeSlug/reviews'
 import { Route as appStoreStoreSlugPoliciesRouteImport } from './routes/(app)/store/$storeSlug/policies'
 import { Route as appStoreStoreSlugAboutRouteImport } from './routes/(app)/store/$storeSlug/about'
-import { Route as appSellerStoreIdSettingsRouteImport } from './routes/(app)/seller/$storeId/settings'
-import { Route as appSellerStoreIdProductsRouteImport } from './routes/(app)/seller/$storeId/products'
-import { Route as appSellerStoreIdProductNewRouteImport } from './routes/(app)/seller/$storeId/product-new'
-import { Route as appSellerStoreIdOrdersRouteImport } from './routes/(app)/seller/$storeId/orders'
-import { Route as appSellerStoreIdDashboardRouteImport } from './routes/(app)/seller/$storeId/dashboard'
-import { Route as appSellerStoreIdAnalyticsRouteImport } from './routes/(app)/seller/$storeId/analytics'
 
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   id: '/terms-of-service',
@@ -69,6 +73,11 @@ const MarketplaceGuidelinesRoute = MarketplaceGuidelinesRouteImport.update({
 const DeferredRoute = DeferredRouteImport.update({
   id: '/deferred',
   path: '/deferred',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MerchantRouteRoute = MerchantRouteRouteImport.update({
+  id: '/merchant',
+  path: '/merchant',
   getParentRoute: () => rootRouteImport,
 } as any)
 const formsRouteRoute = formsRouteRouteImport.update({
@@ -138,16 +147,64 @@ const appChatRouteRoute = appChatRouteRouteImport.update({
   path: '/chat',
   getParentRoute: () => appRouteRoute,
 } as any)
-const appSellerIndexRoute = appSellerIndexRouteImport.update({
-  id: '/seller/',
-  path: '/seller/',
-  getParentRoute: () => appRouteRoute,
+const MerchantStoreIdIndexRoute = MerchantStoreIdIndexRouteImport.update({
+  id: '/$storeId/',
+  path: '/$storeId/',
+  getParentRoute: () => MerchantRouteRoute,
 } as any)
 const appChatIndexRoute = appChatIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => appChatRouteRoute,
 } as any)
+const MerchantStoreIdSettingsRoute = MerchantStoreIdSettingsRouteImport.update({
+  id: '/$storeId/settings',
+  path: '/$storeId/settings',
+  getParentRoute: () => MerchantRouteRoute,
+} as any)
+const MerchantStoreIdReviewsRoute = MerchantStoreIdReviewsRouteImport.update({
+  id: '/$storeId/reviews',
+  path: '/$storeId/reviews',
+  getParentRoute: () => MerchantRouteRoute,
+} as any)
+const MerchantStoreIdPromotionsRoute =
+  MerchantStoreIdPromotionsRouteImport.update({
+    id: '/$storeId/promotions',
+    path: '/$storeId/promotions',
+    getParentRoute: () => MerchantRouteRoute,
+  } as any)
+const MerchantStoreIdProductsRoute = MerchantStoreIdProductsRouteImport.update({
+  id: '/$storeId/products',
+  path: '/$storeId/products',
+  getParentRoute: () => MerchantRouteRoute,
+} as any)
+const MerchantStoreIdProductNewRoute =
+  MerchantStoreIdProductNewRouteImport.update({
+    id: '/$storeId/product-new',
+    path: '/$storeId/product-new',
+    getParentRoute: () => MerchantRouteRoute,
+  } as any)
+const MerchantStoreIdPayoutsRoute = MerchantStoreIdPayoutsRouteImport.update({
+  id: '/$storeId/payouts',
+  path: '/$storeId/payouts',
+  getParentRoute: () => MerchantRouteRoute,
+} as any)
+const MerchantStoreIdOrdersRoute = MerchantStoreIdOrdersRouteImport.update({
+  id: '/$storeId/orders',
+  path: '/$storeId/orders',
+  getParentRoute: () => MerchantRouteRoute,
+} as any)
+const MerchantStoreIdMessagesRoute = MerchantStoreIdMessagesRouteImport.update({
+  id: '/$storeId/messages',
+  path: '/$storeId/messages',
+  getParentRoute: () => MerchantRouteRoute,
+} as any)
+const MerchantStoreIdAnalyticsRoute =
+  MerchantStoreIdAnalyticsRouteImport.update({
+    id: '/$storeId/analytics',
+    path: '/$storeId/analytics',
+    getParentRoute: () => MerchantRouteRoute,
+  } as any)
 const appProductProductSlugRoute = appProductProductSlugRouteImport.update({
   id: '/product/$productSlug',
   path: '/product/$productSlug',
@@ -195,43 +252,9 @@ const appStoreStoreSlugAboutRoute = appStoreStoreSlugAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => appStoreStoreSlugRouteRoute,
 } as any)
-const appSellerStoreIdSettingsRoute =
-  appSellerStoreIdSettingsRouteImport.update({
-    id: '/seller/$storeId/settings',
-    path: '/seller/$storeId/settings',
-    getParentRoute: () => appRouteRoute,
-  } as any)
-const appSellerStoreIdProductsRoute =
-  appSellerStoreIdProductsRouteImport.update({
-    id: '/seller/$storeId/products',
-    path: '/seller/$storeId/products',
-    getParentRoute: () => appRouteRoute,
-  } as any)
-const appSellerStoreIdProductNewRoute =
-  appSellerStoreIdProductNewRouteImport.update({
-    id: '/seller/$storeId/product-new',
-    path: '/seller/$storeId/product-new',
-    getParentRoute: () => appRouteRoute,
-  } as any)
-const appSellerStoreIdOrdersRoute = appSellerStoreIdOrdersRouteImport.update({
-  id: '/seller/$storeId/orders',
-  path: '/seller/$storeId/orders',
-  getParentRoute: () => appRouteRoute,
-} as any)
-const appSellerStoreIdDashboardRoute =
-  appSellerStoreIdDashboardRouteImport.update({
-    id: '/seller/$storeId/dashboard',
-    path: '/seller/$storeId/dashboard',
-    getParentRoute: () => appRouteRoute,
-  } as any)
-const appSellerStoreIdAnalyticsRoute =
-  appSellerStoreIdAnalyticsRouteImport.update({
-    id: '/seller/$storeId/analytics',
-    path: '/seller/$storeId/analytics',
-    getParentRoute: () => appRouteRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
+  '/merchant': typeof MerchantRouteRouteWithChildren
   '/deferred': typeof DeferredRoute
   '/marketplace-guidelines': typeof MarketplaceGuidelinesRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -253,20 +276,24 @@ export interface FileRoutesByFullPath {
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/product/$productSlug': typeof appProductProductSlugRoute
+  '/merchant/$storeId/analytics': typeof MerchantStoreIdAnalyticsRoute
+  '/merchant/$storeId/messages': typeof MerchantStoreIdMessagesRoute
+  '/merchant/$storeId/orders': typeof MerchantStoreIdOrdersRoute
+  '/merchant/$storeId/payouts': typeof MerchantStoreIdPayoutsRoute
+  '/merchant/$storeId/product-new': typeof MerchantStoreIdProductNewRoute
+  '/merchant/$storeId/products': typeof MerchantStoreIdProductsRoute
+  '/merchant/$storeId/promotions': typeof MerchantStoreIdPromotionsRoute
+  '/merchant/$storeId/reviews': typeof MerchantStoreIdReviewsRoute
+  '/merchant/$storeId/settings': typeof MerchantStoreIdSettingsRoute
   '/chat/': typeof appChatIndexRoute
-  '/seller/': typeof appSellerIndexRoute
-  '/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
-  '/seller/$storeId/dashboard': typeof appSellerStoreIdDashboardRoute
-  '/seller/$storeId/orders': typeof appSellerStoreIdOrdersRoute
-  '/seller/$storeId/product-new': typeof appSellerStoreIdProductNewRoute
-  '/seller/$storeId/products': typeof appSellerStoreIdProductsRoute
-  '/seller/$storeId/settings': typeof appSellerStoreIdSettingsRoute
+  '/merchant/$storeId/': typeof MerchantStoreIdIndexRoute
   '/store/$storeSlug/about': typeof appStoreStoreSlugAboutRoute
   '/store/$storeSlug/policies': typeof appStoreStoreSlugPoliciesRoute
   '/store/$storeSlug/reviews': typeof appStoreStoreSlugReviewsRoute
   '/store/$storeSlug/': typeof appStoreStoreSlugIndexRoute
 }
 export interface FileRoutesByTo {
+  '/merchant': typeof MerchantRouteRouteWithChildren
   '/deferred': typeof DeferredRoute
   '/marketplace-guidelines': typeof MarketplaceGuidelinesRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -286,14 +313,17 @@ export interface FileRoutesByTo {
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/product/$productSlug': typeof appProductProductSlugRoute
+  '/merchant/$storeId/analytics': typeof MerchantStoreIdAnalyticsRoute
+  '/merchant/$storeId/messages': typeof MerchantStoreIdMessagesRoute
+  '/merchant/$storeId/orders': typeof MerchantStoreIdOrdersRoute
+  '/merchant/$storeId/payouts': typeof MerchantStoreIdPayoutsRoute
+  '/merchant/$storeId/product-new': typeof MerchantStoreIdProductNewRoute
+  '/merchant/$storeId/products': typeof MerchantStoreIdProductsRoute
+  '/merchant/$storeId/promotions': typeof MerchantStoreIdPromotionsRoute
+  '/merchant/$storeId/reviews': typeof MerchantStoreIdReviewsRoute
+  '/merchant/$storeId/settings': typeof MerchantStoreIdSettingsRoute
   '/chat': typeof appChatIndexRoute
-  '/seller': typeof appSellerIndexRoute
-  '/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
-  '/seller/$storeId/dashboard': typeof appSellerStoreIdDashboardRoute
-  '/seller/$storeId/orders': typeof appSellerStoreIdOrdersRoute
-  '/seller/$storeId/product-new': typeof appSellerStoreIdProductNewRoute
-  '/seller/$storeId/products': typeof appSellerStoreIdProductsRoute
-  '/seller/$storeId/settings': typeof appSellerStoreIdSettingsRoute
+  '/merchant/$storeId': typeof MerchantStoreIdIndexRoute
   '/store/$storeSlug/about': typeof appStoreStoreSlugAboutRoute
   '/store/$storeSlug/policies': typeof appStoreStoreSlugPoliciesRoute
   '/store/$storeSlug/reviews': typeof appStoreStoreSlugReviewsRoute
@@ -304,6 +334,7 @@ export interface FileRoutesById {
   '/(app)': typeof appRouteRouteWithChildren
   '/(auth)': typeof authRouteRouteWithChildren
   '/(forms)': typeof formsRouteRouteWithChildren
+  '/merchant': typeof MerchantRouteRouteWithChildren
   '/deferred': typeof DeferredRoute
   '/marketplace-guidelines': typeof MarketplaceGuidelinesRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -325,14 +356,17 @@ export interface FileRoutesById {
   '/(app)/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/(app)/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/(app)/product/$productSlug': typeof appProductProductSlugRoute
+  '/merchant/$storeId/analytics': typeof MerchantStoreIdAnalyticsRoute
+  '/merchant/$storeId/messages': typeof MerchantStoreIdMessagesRoute
+  '/merchant/$storeId/orders': typeof MerchantStoreIdOrdersRoute
+  '/merchant/$storeId/payouts': typeof MerchantStoreIdPayoutsRoute
+  '/merchant/$storeId/product-new': typeof MerchantStoreIdProductNewRoute
+  '/merchant/$storeId/products': typeof MerchantStoreIdProductsRoute
+  '/merchant/$storeId/promotions': typeof MerchantStoreIdPromotionsRoute
+  '/merchant/$storeId/reviews': typeof MerchantStoreIdReviewsRoute
+  '/merchant/$storeId/settings': typeof MerchantStoreIdSettingsRoute
   '/(app)/chat/': typeof appChatIndexRoute
-  '/(app)/seller/': typeof appSellerIndexRoute
-  '/(app)/seller/$storeId/analytics': typeof appSellerStoreIdAnalyticsRoute
-  '/(app)/seller/$storeId/dashboard': typeof appSellerStoreIdDashboardRoute
-  '/(app)/seller/$storeId/orders': typeof appSellerStoreIdOrdersRoute
-  '/(app)/seller/$storeId/product-new': typeof appSellerStoreIdProductNewRoute
-  '/(app)/seller/$storeId/products': typeof appSellerStoreIdProductsRoute
-  '/(app)/seller/$storeId/settings': typeof appSellerStoreIdSettingsRoute
+  '/merchant/$storeId/': typeof MerchantStoreIdIndexRoute
   '/(app)/store/$storeSlug/about': typeof appStoreStoreSlugAboutRoute
   '/(app)/store/$storeSlug/policies': typeof appStoreStoreSlugPoliciesRoute
   '/(app)/store/$storeSlug/reviews': typeof appStoreStoreSlugReviewsRoute
@@ -341,6 +375,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/merchant'
     | '/deferred'
     | '/marketplace-guidelines'
     | '/privacy-policy'
@@ -362,20 +397,24 @@ export interface FileRouteTypes {
     | '/category/$categorySlug'
     | '/chat/$storeSlug'
     | '/product/$productSlug'
+    | '/merchant/$storeId/analytics'
+    | '/merchant/$storeId/messages'
+    | '/merchant/$storeId/orders'
+    | '/merchant/$storeId/payouts'
+    | '/merchant/$storeId/product-new'
+    | '/merchant/$storeId/products'
+    | '/merchant/$storeId/promotions'
+    | '/merchant/$storeId/reviews'
+    | '/merchant/$storeId/settings'
     | '/chat/'
-    | '/seller/'
-    | '/seller/$storeId/analytics'
-    | '/seller/$storeId/dashboard'
-    | '/seller/$storeId/orders'
-    | '/seller/$storeId/product-new'
-    | '/seller/$storeId/products'
-    | '/seller/$storeId/settings'
+    | '/merchant/$storeId/'
     | '/store/$storeSlug/about'
     | '/store/$storeSlug/policies'
     | '/store/$storeSlug/reviews'
     | '/store/$storeSlug/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/merchant'
     | '/deferred'
     | '/marketplace-guidelines'
     | '/privacy-policy'
@@ -395,14 +434,17 @@ export interface FileRouteTypes {
     | '/category/$categorySlug'
     | '/chat/$storeSlug'
     | '/product/$productSlug'
+    | '/merchant/$storeId/analytics'
+    | '/merchant/$storeId/messages'
+    | '/merchant/$storeId/orders'
+    | '/merchant/$storeId/payouts'
+    | '/merchant/$storeId/product-new'
+    | '/merchant/$storeId/products'
+    | '/merchant/$storeId/promotions'
+    | '/merchant/$storeId/reviews'
+    | '/merchant/$storeId/settings'
     | '/chat'
-    | '/seller'
-    | '/seller/$storeId/analytics'
-    | '/seller/$storeId/dashboard'
-    | '/seller/$storeId/orders'
-    | '/seller/$storeId/product-new'
-    | '/seller/$storeId/products'
-    | '/seller/$storeId/settings'
+    | '/merchant/$storeId'
     | '/store/$storeSlug/about'
     | '/store/$storeSlug/policies'
     | '/store/$storeSlug/reviews'
@@ -412,6 +454,7 @@ export interface FileRouteTypes {
     | '/(app)'
     | '/(auth)'
     | '/(forms)'
+    | '/merchant'
     | '/deferred'
     | '/marketplace-guidelines'
     | '/privacy-policy'
@@ -433,14 +476,17 @@ export interface FileRouteTypes {
     | '/(app)/category/$categorySlug'
     | '/(app)/chat/$storeSlug'
     | '/(app)/product/$productSlug'
+    | '/merchant/$storeId/analytics'
+    | '/merchant/$storeId/messages'
+    | '/merchant/$storeId/orders'
+    | '/merchant/$storeId/payouts'
+    | '/merchant/$storeId/product-new'
+    | '/merchant/$storeId/products'
+    | '/merchant/$storeId/promotions'
+    | '/merchant/$storeId/reviews'
+    | '/merchant/$storeId/settings'
     | '/(app)/chat/'
-    | '/(app)/seller/'
-    | '/(app)/seller/$storeId/analytics'
-    | '/(app)/seller/$storeId/dashboard'
-    | '/(app)/seller/$storeId/orders'
-    | '/(app)/seller/$storeId/product-new'
-    | '/(app)/seller/$storeId/products'
-    | '/(app)/seller/$storeId/settings'
+    | '/merchant/$storeId/'
     | '/(app)/store/$storeSlug/about'
     | '/(app)/store/$storeSlug/policies'
     | '/(app)/store/$storeSlug/reviews'
@@ -451,6 +497,7 @@ export interface RootRouteChildren {
   appRouteRoute: typeof appRouteRouteWithChildren
   authRouteRoute: typeof authRouteRouteWithChildren
   formsRouteRoute: typeof formsRouteRouteWithChildren
+  MerchantRouteRoute: typeof MerchantRouteRouteWithChildren
   DeferredRoute: typeof DeferredRoute
   MarketplaceGuidelinesRoute: typeof MarketplaceGuidelinesRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
@@ -493,6 +540,13 @@ declare module '@tanstack/solid-router' {
       path: '/deferred'
       fullPath: '/deferred'
       preLoaderRoute: typeof DeferredRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/merchant': {
+      id: '/merchant'
+      path: '/merchant'
+      fullPath: '/merchant'
+      preLoaderRoute: typeof MerchantRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(forms)': {
@@ -593,12 +647,12 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appChatRouteRouteImport
       parentRoute: typeof appRouteRoute
     }
-    '/(app)/seller/': {
-      id: '/(app)/seller/'
-      path: '/seller'
-      fullPath: '/seller/'
-      preLoaderRoute: typeof appSellerIndexRouteImport
-      parentRoute: typeof appRouteRoute
+    '/merchant/$storeId/': {
+      id: '/merchant/$storeId/'
+      path: '/$storeId'
+      fullPath: '/merchant/$storeId/'
+      preLoaderRoute: typeof MerchantStoreIdIndexRouteImport
+      parentRoute: typeof MerchantRouteRoute
     }
     '/(app)/chat/': {
       id: '/(app)/chat/'
@@ -606,6 +660,69 @@ declare module '@tanstack/solid-router' {
       fullPath: '/chat/'
       preLoaderRoute: typeof appChatIndexRouteImport
       parentRoute: typeof appChatRouteRoute
+    }
+    '/merchant/$storeId/settings': {
+      id: '/merchant/$storeId/settings'
+      path: '/$storeId/settings'
+      fullPath: '/merchant/$storeId/settings'
+      preLoaderRoute: typeof MerchantStoreIdSettingsRouteImport
+      parentRoute: typeof MerchantRouteRoute
+    }
+    '/merchant/$storeId/reviews': {
+      id: '/merchant/$storeId/reviews'
+      path: '/$storeId/reviews'
+      fullPath: '/merchant/$storeId/reviews'
+      preLoaderRoute: typeof MerchantStoreIdReviewsRouteImport
+      parentRoute: typeof MerchantRouteRoute
+    }
+    '/merchant/$storeId/promotions': {
+      id: '/merchant/$storeId/promotions'
+      path: '/$storeId/promotions'
+      fullPath: '/merchant/$storeId/promotions'
+      preLoaderRoute: typeof MerchantStoreIdPromotionsRouteImport
+      parentRoute: typeof MerchantRouteRoute
+    }
+    '/merchant/$storeId/products': {
+      id: '/merchant/$storeId/products'
+      path: '/$storeId/products'
+      fullPath: '/merchant/$storeId/products'
+      preLoaderRoute: typeof MerchantStoreIdProductsRouteImport
+      parentRoute: typeof MerchantRouteRoute
+    }
+    '/merchant/$storeId/product-new': {
+      id: '/merchant/$storeId/product-new'
+      path: '/$storeId/product-new'
+      fullPath: '/merchant/$storeId/product-new'
+      preLoaderRoute: typeof MerchantStoreIdProductNewRouteImport
+      parentRoute: typeof MerchantRouteRoute
+    }
+    '/merchant/$storeId/payouts': {
+      id: '/merchant/$storeId/payouts'
+      path: '/$storeId/payouts'
+      fullPath: '/merchant/$storeId/payouts'
+      preLoaderRoute: typeof MerchantStoreIdPayoutsRouteImport
+      parentRoute: typeof MerchantRouteRoute
+    }
+    '/merchant/$storeId/orders': {
+      id: '/merchant/$storeId/orders'
+      path: '/$storeId/orders'
+      fullPath: '/merchant/$storeId/orders'
+      preLoaderRoute: typeof MerchantStoreIdOrdersRouteImport
+      parentRoute: typeof MerchantRouteRoute
+    }
+    '/merchant/$storeId/messages': {
+      id: '/merchant/$storeId/messages'
+      path: '/$storeId/messages'
+      fullPath: '/merchant/$storeId/messages'
+      preLoaderRoute: typeof MerchantStoreIdMessagesRouteImport
+      parentRoute: typeof MerchantRouteRoute
+    }
+    '/merchant/$storeId/analytics': {
+      id: '/merchant/$storeId/analytics'
+      path: '/$storeId/analytics'
+      fullPath: '/merchant/$storeId/analytics'
+      preLoaderRoute: typeof MerchantStoreIdAnalyticsRouteImport
+      parentRoute: typeof MerchantRouteRoute
     }
     '/(app)/product/$productSlug': {
       id: '/(app)/product/$productSlug'
@@ -670,48 +787,6 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appStoreStoreSlugAboutRouteImport
       parentRoute: typeof appStoreStoreSlugRouteRoute
     }
-    '/(app)/seller/$storeId/settings': {
-      id: '/(app)/seller/$storeId/settings'
-      path: '/seller/$storeId/settings'
-      fullPath: '/seller/$storeId/settings'
-      preLoaderRoute: typeof appSellerStoreIdSettingsRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/seller/$storeId/products': {
-      id: '/(app)/seller/$storeId/products'
-      path: '/seller/$storeId/products'
-      fullPath: '/seller/$storeId/products'
-      preLoaderRoute: typeof appSellerStoreIdProductsRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/seller/$storeId/product-new': {
-      id: '/(app)/seller/$storeId/product-new'
-      path: '/seller/$storeId/product-new'
-      fullPath: '/seller/$storeId/product-new'
-      preLoaderRoute: typeof appSellerStoreIdProductNewRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/seller/$storeId/orders': {
-      id: '/(app)/seller/$storeId/orders'
-      path: '/seller/$storeId/orders'
-      fullPath: '/seller/$storeId/orders'
-      preLoaderRoute: typeof appSellerStoreIdOrdersRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/seller/$storeId/dashboard': {
-      id: '/(app)/seller/$storeId/dashboard'
-      path: '/seller/$storeId/dashboard'
-      fullPath: '/seller/$storeId/dashboard'
-      preLoaderRoute: typeof appSellerStoreIdDashboardRouteImport
-      parentRoute: typeof appRouteRoute
-    }
-    '/(app)/seller/$storeId/analytics': {
-      id: '/(app)/seller/$storeId/analytics'
-      path: '/seller/$storeId/analytics'
-      fullPath: '/seller/$storeId/analytics'
-      preLoaderRoute: typeof appSellerStoreIdAnalyticsRouteImport
-      parentRoute: typeof appRouteRoute
-    }
   }
 }
 
@@ -761,13 +836,6 @@ interface appRouteRouteChildren {
   appaccountAccountRoute: typeof appaccountAccountRoute
   appCategoryCategorySlugRoute: typeof appCategoryCategorySlugRoute
   appProductProductSlugRoute: typeof appProductProductSlugRoute
-  appSellerIndexRoute: typeof appSellerIndexRoute
-  appSellerStoreIdAnalyticsRoute: typeof appSellerStoreIdAnalyticsRoute
-  appSellerStoreIdDashboardRoute: typeof appSellerStoreIdDashboardRoute
-  appSellerStoreIdOrdersRoute: typeof appSellerStoreIdOrdersRoute
-  appSellerStoreIdProductNewRoute: typeof appSellerStoreIdProductNewRoute
-  appSellerStoreIdProductsRoute: typeof appSellerStoreIdProductsRoute
-  appSellerStoreIdSettingsRoute: typeof appSellerStoreIdSettingsRoute
 }
 
 const appRouteRouteChildren: appRouteRouteChildren = {
@@ -782,13 +850,6 @@ const appRouteRouteChildren: appRouteRouteChildren = {
   appaccountAccountRoute: appaccountAccountRoute,
   appCategoryCategorySlugRoute: appCategoryCategorySlugRoute,
   appProductProductSlugRoute: appProductProductSlugRoute,
-  appSellerIndexRoute: appSellerIndexRoute,
-  appSellerStoreIdAnalyticsRoute: appSellerStoreIdAnalyticsRoute,
-  appSellerStoreIdDashboardRoute: appSellerStoreIdDashboardRoute,
-  appSellerStoreIdOrdersRoute: appSellerStoreIdOrdersRoute,
-  appSellerStoreIdProductNewRoute: appSellerStoreIdProductNewRoute,
-  appSellerStoreIdProductsRoute: appSellerStoreIdProductsRoute,
-  appSellerStoreIdSettingsRoute: appSellerStoreIdSettingsRoute,
 }
 
 const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
@@ -823,10 +884,41 @@ const formsRouteRouteWithChildren = formsRouteRoute._addFileChildren(
   formsRouteRouteChildren,
 )
 
+interface MerchantRouteRouteChildren {
+  MerchantStoreIdAnalyticsRoute: typeof MerchantStoreIdAnalyticsRoute
+  MerchantStoreIdMessagesRoute: typeof MerchantStoreIdMessagesRoute
+  MerchantStoreIdOrdersRoute: typeof MerchantStoreIdOrdersRoute
+  MerchantStoreIdPayoutsRoute: typeof MerchantStoreIdPayoutsRoute
+  MerchantStoreIdProductNewRoute: typeof MerchantStoreIdProductNewRoute
+  MerchantStoreIdProductsRoute: typeof MerchantStoreIdProductsRoute
+  MerchantStoreIdPromotionsRoute: typeof MerchantStoreIdPromotionsRoute
+  MerchantStoreIdReviewsRoute: typeof MerchantStoreIdReviewsRoute
+  MerchantStoreIdSettingsRoute: typeof MerchantStoreIdSettingsRoute
+  MerchantStoreIdIndexRoute: typeof MerchantStoreIdIndexRoute
+}
+
+const MerchantRouteRouteChildren: MerchantRouteRouteChildren = {
+  MerchantStoreIdAnalyticsRoute: MerchantStoreIdAnalyticsRoute,
+  MerchantStoreIdMessagesRoute: MerchantStoreIdMessagesRoute,
+  MerchantStoreIdOrdersRoute: MerchantStoreIdOrdersRoute,
+  MerchantStoreIdPayoutsRoute: MerchantStoreIdPayoutsRoute,
+  MerchantStoreIdProductNewRoute: MerchantStoreIdProductNewRoute,
+  MerchantStoreIdProductsRoute: MerchantStoreIdProductsRoute,
+  MerchantStoreIdPromotionsRoute: MerchantStoreIdPromotionsRoute,
+  MerchantStoreIdReviewsRoute: MerchantStoreIdReviewsRoute,
+  MerchantStoreIdSettingsRoute: MerchantStoreIdSettingsRoute,
+  MerchantStoreIdIndexRoute: MerchantStoreIdIndexRoute,
+}
+
+const MerchantRouteRouteWithChildren = MerchantRouteRoute._addFileChildren(
+  MerchantRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   appRouteRoute: appRouteRouteWithChildren,
   authRouteRoute: authRouteRouteWithChildren,
   formsRouteRoute: formsRouteRouteWithChildren,
+  MerchantRouteRoute: MerchantRouteRouteWithChildren,
   DeferredRoute: DeferredRoute,
   MarketplaceGuidelinesRoute: MarketplaceGuidelinesRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
