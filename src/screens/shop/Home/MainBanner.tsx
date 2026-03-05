@@ -17,7 +17,7 @@ export const MainBanner = () => {
 						<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
 						<div class="relative px-8 lg:px-10 py-8 w-full">
 							<span class="inline-block px-2.5 py-1 bg-accent-500 text-white text-xs font-bold rounded-md uppercase mb-3">
-							TechVault Promo
+								TechVault Promo
 							</span>
 							<h2 class="text-2xl lg:text-3xl font-bold text-white leading-tight">
 								Up to 40% off

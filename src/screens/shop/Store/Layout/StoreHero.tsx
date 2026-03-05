@@ -5,12 +5,12 @@ import {
 	MessageSquareMoreIcon,
 	PackageIcon,
 	ShareIcon,
+	StarIcon,
 	TruckIcon,
 	UserPlusIcon,
 	UsersIcon,
 } from "lucide-solid";
 import { AnchorLink, Button, LinkButton } from "@/ui/button";
-import { StarIcon } from "lucide-solid";
 import { Container } from "@/ui/layout";
 
 export const StoreHero = () => {

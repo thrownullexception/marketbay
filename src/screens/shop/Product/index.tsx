@@ -1,13 +1,14 @@
 import { linkOptions } from "@tanstack/solid-router";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { Divider } from "@/ui/divider";
+import { Container } from "@/ui/layout";
+import { ProductActions } from "./Actions";
+import { ProductDescription } from "./Description";
+import { ProductGallery } from "./Gallery";
+import { ProductInfo } from "./Info";
 import { MoreFromStore } from "./MoreFromStore";
-import { ProductActions } from "./ProductActions";
-import { ProductDescription } from "./ProductDescription";
-import { ProductGallery } from "./ProductGallery";
-import { ProductInfo } from "./ProductInfo";
-import { ProductOptions } from "./ProductOptions";
-import { ProductReviews } from "./ProductReviews";
+import { ProductOptions } from "./Options";
+import { ProductReviews } from "./Reviews";
 
 export const ShopProductScreen = () => {
 	return (
@@ -32,8 +33,7 @@ export const ShopProductScreen = () => {
 					},
 				]}
 			/>
-
-			<main class="max-w-7xl mx-auto px-4 py-8 lg:py-12">
+			<Container class="py-8 lg:py-12">
 				<div class="grid lg:grid-cols-2 gap-8 lg:gap-14">
 					<ProductGallery />
 					<div>
@@ -45,9 +45,9 @@ export const ShopProductScreen = () => {
 					</div>
 				</div>
 				<ProductDescription />
-				<ProductReviews />
-				<MoreFromStore />
-			</main>
+			</Container>
+			<ProductReviews />
+			<MoreFromStore />
 		</>
 	);
 };

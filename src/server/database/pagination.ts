@@ -33,5 +33,8 @@ const paginationFilter = ({
 
 export const paginationSchema = v.object({
 	page: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1)), 1),
-	take: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1), v.maxValue(100)), PAGINATION.TAKE),
+	take: v.optional(
+		v.pipe(v.number(), v.integer(), v.minValue(1), v.maxValue(100)),
+		PAGINATION.TAKE,
+	),
 });

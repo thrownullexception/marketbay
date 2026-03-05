@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/solid-router";
-import { BadgeCheckIcon, CircleCheckIcon } from "lucide-solid";
+import { BadgeCheckIcon, CircleCheckIcon, StarIcon } from "lucide-solid";
 import { For } from "solid-js";
-import { StarIcon } from "lucide-solid";
 
 export const ProductInfo = () => {
 	return (

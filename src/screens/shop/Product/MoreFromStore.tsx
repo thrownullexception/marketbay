@@ -52,8 +52,6 @@ export const MoreFromStore = () => {
 				to: "/store/$storeSlug",
 				params: { storeSlug: "techvault" },
 			})}
-			border
-			isLast
 		>
 			<Grid4>
 				<For each={MORE_PRODUCTS}>

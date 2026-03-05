@@ -25,9 +25,7 @@ export const ProductDescription = () => {
 		<div class="mt-14 border-t border-gray-100 pt-10">
 			<div class="grid lg:grid-cols-3 gap-10">
 				<div class="lg:col-span-2 prose prose-sm prose-gray max-w-none">
-					<h3 class="text-lg font-bold text-gray-900 mb-3">
-						Product Details
-					</h3>
+					<h3 class="text-lg font-bold text-gray-900 mb-3">Product Details</h3>
 					<p class="text-gray-600 leading-relaxed mb-4">
 						Experience studio-quality audio with the Pro Studio Wireless
 						Headphones. Featuring advanced Active Noise Cancellation (ANC), 40mm

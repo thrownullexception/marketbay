@@ -13,13 +13,7 @@ export const ProductActions = () => {
 					Icon={ShoppingCartIcon}
 				/>
 				<Button label="Buy Now" variant="secondary" fullWidth />
-				<button
-					type="button"
-					class="p-3.5 border border-gray-200 hover:bg-gray-50 text-gray-500 rounded-xl transition"
-					aria-label="Save"
-				>
-					<HeartIcon class="w-5 h-5" />
-				</button>
+				<Button variant="default" Icon={HeartIcon} label="Save" iconOnly />
 			</div>
 			<Link
 				to="/chat/$storeSlug"

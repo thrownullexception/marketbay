@@ -17,7 +17,7 @@ export const ShopLayout = () => {
 					<p>Free shipping on orders over N50,000</p>
 					<div class="hidden sm:flex items-center gap-4">
 						<Link to="/create-store" class="hover:text-white transition">
-						Sell on MarketBay
+							Sell on MarketBay
 						</Link>
 						<a href="#" class="hover:text-white transition">
 							Order Tracking
@@ -214,19 +214,17 @@ export const ShopLayout = () => {
 										Saved Items
 									</a>
 								</li>
-									<li>
-									<a href="#" class="hover:text-white transition">
-									Subscribed Stores
-									</a>
-								</li>
-								
 								<li>
 									<a href="#" class="hover:text-white transition">
-									Recently Viewed
+										Subscribed Stores
 									</a>
 								</li>
-								
-			
+
+								<li>
+									<a href="#" class="hover:text-white transition">
+										Recently Viewed
+									</a>
+								</li>
 							</ul>
 						</div>
 						<div>
