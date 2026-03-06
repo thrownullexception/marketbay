@@ -2,6 +2,7 @@ import { PackageIcon, ShoppingBagIcon, TruckIcon } from "lucide-solid";
 import { createSignal, For, Show } from "solid-js";
 import { AdminHeader } from "@/screens/_components/admin-header";
 import { StatCard } from "@/screens/_components/stat-card";
+import { Grid3 } from "@/ui/grid";
 import { Pagination } from "@/ui/pagination";
 import { ActiveOrderCard } from "./ActiveOrderCard";
 import { OrderFilters, type OrderFilterTab } from "./OrderFilters";
@@ -193,8 +194,7 @@ export const OrdersScreen = () => {
 			/>
 
 			<div class="space-y-6">
-				{/* Stats */}
-				<div class="grid grid-cols-3 gap-4">
+				<Grid3>
 					<StatCard
 						Icon={ShoppingBagIcon}
 						value={12}
@@ -213,7 +213,7 @@ export const OrdersScreen = () => {
 						label="Total Orders"
 						color="brand"
 					/>
-				</div>
+				</Grid3>
 
 				<OrderFilters activeTab={activeTab()} onTabChange={setActiveTab} />
 

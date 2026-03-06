@@ -49,10 +49,12 @@ export const SimpleSelect = (props: {
 	options: { label: string; value: string }[];
 }) => {
 	return (
-		<select class="text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent cursor-pointer shrink-0">
+		<select class="text-sm border border-gray-200 rounded-xl px-4 py-2.5 bg-white text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent cursor-pointer shrink-0">
 			<For each={props.options}>
 				{(option) => <option value={option.value}>{option.label}</option>}
 			</For>
 		</select>
 	);
 };
+
+// <select class="text-sm border border-gray-200 rounded-xl px-4 py-2.5 bg-white text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent cursor-pointer shrink-0">

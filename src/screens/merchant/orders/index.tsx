@@ -12,11 +12,13 @@ import { createSignal, For } from "solid-js";
 import { AdminHeader } from "@/screens/_components/admin-header";
 import { DataTableBulkBar } from "@/screens/_components/data-table/bulk-bar";
 import { DataTableFooter } from "@/screens/_components/data-table/footer";
+import { DataTableRoot } from "@/screens/_components/data-table/root";
 import { DataTableSearchBar } from "@/screens/_components/data-table/search-bar";
 import { DataTableStatusTabs } from "@/screens/_components/data-table/status-tabs";
 import { DataTable } from "@/screens/_components/data-table/table";
 import { StatCard } from "@/screens/_components/stat-card";
-import { AttentionBanner } from "./AttentionBanner";
+import { Alert } from "@/ui/alert";
+import { Grid5 } from "@/ui/grid";
 import { OrderRow } from "./OrderRow";
 import type { MerchantOrder } from "./types";
 
@@ -237,12 +239,14 @@ export const MerchantOrdersScreen = () => {
 				]}
 			/>
 			<div class="space-y-6">
-				<AttentionBanner
+				<Alert
+					variant="warning"
 					title="3 orders need your attention"
 					description="2 pending orders awaiting processing · 1 return request to review"
+					action={{ label: "Review Now", onClick: () => {} }}
 				/>
 
-				<div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+				<Grid5>
 					<StatCard
 						Icon={PackageIcon}
 						value={186}
@@ -268,27 +272,31 @@ export const MerchantOrdersScreen = () => {
 						label="Returns"
 						color="red"
 					/>
-				</div>
+				</Grid5>
 
-				<div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+				<DataTableRoot>
 					<DataTableSearchBar
 						placeholder="Search by order ID, customer, or product..."
 						filters={[
 							{
 								label: "All Time",
 								options: [
-									"All Time",
-									"Today",
-									"Last 7 Days",
-									"Last 30 Days",
-									"This Month",
-									"Last Month",
+									{ label: "All Time", value: "all_time" },
+									{ label: "Today", value: "today" },
+									{ label: "Last 7 Days", value: "last_7_days" },
+									{ label: "Last 30 Days", value: "last_30_days" },
+									{ label: "This Month", value: "this_month" },
+									{ label: "Last Month", value: "last_month" },
 								],
 							},
 							{
 								label: "All Payment",
-								options: ["All Payment", "Paid", "Pending Payment", "Refunded"],
-								hiddenOnMobile: true,
+								options: [
+									{ label: "All Payment", value: "all" },
+									{ label: "Paid", value: "paid" },
+									{ label: "Pending Payment", value: "pending_payment" },
+									{ label: "Refunded", value: "refunded" },
+								],
 							},
 						]}
 					/>
@@ -331,7 +339,7 @@ export const MerchantOrdersScreen = () => {
 						unit="orders"
 						lastPage={24}
 					/>
-				</div>
+				</DataTableRoot>
 			</div>
 		</>
 	);

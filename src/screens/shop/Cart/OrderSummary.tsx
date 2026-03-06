@@ -12,7 +12,7 @@ export const OrderSummary = () => {
 				<Button label="Apply" variant="default" />
 			</div>
 
-			<hr class="border-gray-100 mb-5" />
+			<hr class="border-gray-100 my-5" />
 
 			<dl class="space-y-3 text-sm">
 				<div class="flex justify-between">

@@ -18,10 +18,12 @@ import { createSignal, For } from "solid-js";
 import { AdminHeader } from "@/screens/_components/admin-header";
 import { DataTableBulkBar } from "@/screens/_components/data-table/bulk-bar";
 import { DataTableFooter } from "@/screens/_components/data-table/footer";
+import { DataTableRoot } from "@/screens/_components/data-table/root";
 import { DataTableSearchBar } from "@/screens/_components/data-table/search-bar";
 import { DataTableStatusTabs } from "@/screens/_components/data-table/status-tabs";
 import { DataTable } from "@/screens/_components/data-table/table";
 import { StatCard } from "@/screens/_components/stat-card";
+import { Grid4 } from "@/ui/grid";
 import { ProductRow } from "./ProductRow";
 import type { MerchantProduct } from "./types";
 
@@ -181,7 +183,7 @@ export const MerchantProductsScreen = () => {
 			/>
 
 			<div class="space-y-6">
-				<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+				<Grid4>
 					<StatCard
 						Icon={PackageIcon}
 						value={342}
@@ -196,31 +198,40 @@ export const MerchantProductsScreen = () => {
 					/>
 					<StatCard Icon={ZapIcon} value={7} label="Low Stock" color="amber" />
 					<StatCard Icon={Pencil} value={37} label="Drafts" color="gray" />
-				</div>
+				</Grid4>
 
-				<div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+				<DataTableRoot>
 					<DataTableSearchBar
 						placeholder="Search products by name, SKU, or tag..."
 						filters={[
 							{
 								label: "All Status",
-								options: ["All Status", "Active", "Draft", "Archived"],
+								options: [
+									{ label: "All Status", value: "all_status" },
+									{ label: "Active", value: "active" },
+									{ label: "Draft", value: "draft" },
+									{ label: "Archived", value: "archived" },
+								],
 							},
 							{
 								label: "All Categories",
 								options: [
-									"All Categories",
-									"Headphones & Audio",
-									"Monitors",
-									"Phone Accessories",
-									"Keyboards",
-									"Speakers",
+									{ label: "All Categories", value: "all_categories" },
+									{ label: "Headphones & Audio", value: "headphones_audio" },
+									{ label: "Monitors", value: "monitors" },
+									{ label: "Phone Accessories", value: "phone_accessories" },
+									{ label: "Keyboards", value: "keyboards" },
+									{ label: "Speakers", value: "speakers" },
 								],
 							},
 							{
 								label: "All Stock",
-								options: ["All Stock", "In Stock", "Low Stock", "Out of Stock"],
-								hiddenOnMobile: true,
+								options: [
+									{ label: "All Stock", value: "all_stock" },
+									{ label: "In Stock", value: "in_stock" },
+									{ label: "Low Stock", value: "low_stock" },
+									{ label: "Out of Stock", value: "out_of_stock" },
+								],
 							},
 						]}
 					/>
@@ -271,7 +282,7 @@ export const MerchantProductsScreen = () => {
 						unit="products"
 						lastPage={43}
 					/>
-				</div>
+				</DataTableRoot>
 			</div>
 		</>
 	);
