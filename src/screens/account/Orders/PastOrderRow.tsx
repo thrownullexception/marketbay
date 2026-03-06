@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { OrderStatusBadge } from "./OrderStatusBadge";
+import { StatusBadge } from "@/screens/_components/status-badge";
+import { OrderStatusConfig } from "@/screens/merchant/orders/config";
 import type { Order } from "./types";
 
 export const PastOrderRow = (props: { order: Order }) => {
@@ -44,7 +45,7 @@ export const PastOrderRow = (props: { order: Order }) => {
 				</div>
 			</div>
 			<div class="flex items-center gap-3 sm:gap-4 shrink-0 ml-15 sm:ml-0">
-				<OrderStatusBadge status={props.order.status} />
+				<StatusBadge {...OrderStatusConfig[props.order.status]} />
 				<span class="text-sm font-semibold text-gray-900 hidden sm:inline">
 					{props.order.total}
 				</span>

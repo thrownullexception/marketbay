@@ -49,7 +49,7 @@ export const useFieldHasError = <T,>() => {
 	const field = useFieldContext<T>();
 	const errors = useStore(field().store, (state) => state.meta.errors);
 	const isTouched = useStore(field().store, (state) => state.meta.isTouched);
-	return () => errors().length > 0 && isTouched()
+	return () => errors().length > 0 && isTouched();
 };
 
 export const BaseInput = (
@@ -57,7 +57,7 @@ export const BaseInput = (
 ) => {
 	const field = useFieldContext<string>();
 	const errors = useStore(field().store, (state) => state.meta.errors);
-const hasError = useFieldHasError();
+	const hasError = useFieldHasError();
 	return (
 		<div>
 			<InputLabel
@@ -67,7 +67,7 @@ const hasError = useFieldHasError();
 				link={props.labelLink}
 			/>
 			{props.children}
-			{ hasError() &&  (
+			{hasError() && (
 				<em role="alert" class="mt-1 text-xs text-red-400">
 					{formatErrors(errors()[0]).message}
 				</em>

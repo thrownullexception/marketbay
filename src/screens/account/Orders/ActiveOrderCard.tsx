@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { OrderStatusBadge } from "./OrderStatusBadge";
+import { StatusBadge } from "@/screens/_components/status-badge";
+import { OrderStatusConfig } from "@/screens/merchant/orders/config";
 import { TrackingProgress } from "./TrackingProgress";
 import type { Order } from "./types";
 
@@ -28,9 +29,7 @@ export const ActiveOrderCard = (props: { order: Order }) => {
 							</For>
 						</p>
 						<div class="flex items-center gap-2 mt-0.5 flex-wrap">
-							<span class="text-xs text-gray-400">
-								Order #{props.order.id}
-							</span>
+							<span class="text-xs text-gray-400">Order #{props.order.id}</span>
 							<span class="text-gray-200">|</span>
 							<Link
 								to="/store/$storeSlug"
@@ -43,7 +42,7 @@ export const ActiveOrderCard = (props: { order: Order }) => {
 					</div>
 				</div>
 				<div class="flex items-center gap-4 sm:gap-6 shrink-0">
-					<OrderStatusBadge status={props.order.status} />
+					<StatusBadge {...OrderStatusConfig[props.order.status]} />
 					<span class="text-sm font-bold text-gray-900">
 						{props.order.total}
 					</span>

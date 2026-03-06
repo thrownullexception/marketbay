@@ -1,4 +1,4 @@
-import { CheckCircle2Icon } from "lucide-solid";
+import { CircleCheckIcon } from "lucide-solid";
 import { For } from "solid-js";
 
 const FEATURES = [
@@ -43,7 +43,7 @@ export const ProductDescription = () => {
 						<For each={FEATURES}>
 							{(feature) => (
 								<li class="flex items-start gap-2 text-sm text-gray-600">
-									<CheckCircle2Icon class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+									<CircleCheckIcon class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
 									<span>{feature}</span>
 								</li>
 							)}

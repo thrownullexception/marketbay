@@ -1,10 +1,4 @@
-export type OrderStatus =
-	| "processing"
-	| "shipped"
-	| "in_transit"
-	| "delivered"
-	| "cancelled"
-	| "refunded";
+import type { OrderStatus } from "@/screens/merchant/orders/types";
 
 export interface OrderItem {
 	name: string;

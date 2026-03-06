@@ -1,6 +1,6 @@
 import { ArrowRightIcon, CircleCheckIcon, ShieldCheckIcon } from "lucide-solid";
 import { Button, LinkButton } from "@/ui/button";
-import { InputText } from "@/ui/input-text";
+import { SimpleInputText } from "@/ui/input-text";
 
 export const OrderSummary = () => {
 	return (
@@ -8,7 +8,7 @@ export const OrderSummary = () => {
 			<h2 class="text-lg font-bold text-gray-900 mb-5">Order Summary</h2>
 
 			<div class="flex gap-2">
-				<InputText label="Promo Code" placeholder="Enter code" />
+				<SimpleInputText placeholder="Enter code" label="Promo Code" />
 				<Button label="Apply" variant="default" />
 			</div>
 

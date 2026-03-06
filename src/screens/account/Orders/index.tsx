@@ -1,6 +1,7 @@
 import { PackageIcon, ShoppingBagIcon, TruckIcon } from "lucide-solid";
 import { createSignal, For, Show } from "solid-js";
 import { AdminHeader } from "@/screens/_components/admin-header";
+import { StatCard } from "@/screens/_components/stat-card";
 import { Pagination } from "@/ui/pagination";
 import { ActiveOrderCard } from "./ActiveOrderCard";
 import { OrderFilters, type OrderFilterTab } from "./OrderFilters";
@@ -194,36 +195,24 @@ export const OrdersScreen = () => {
 			<div class="space-y-6">
 				{/* Stats */}
 				<div class="grid grid-cols-3 gap-4">
-					<div class="bg-white rounded-2xl border border-gray-100 p-5">
-						<div class="flex items-center justify-between mb-3">
-							<div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
-								<ShoppingBagIcon class="w-5 h-5 text-brand-600" />
-							</div>
-						</div>
-						<p class="text-2xl font-extrabold text-gray-900">12</p>
-						<p class="text-xs text-gray-500 mt-0.5">Total Orders</p>
-					</div>
-					<div class="bg-white rounded-2xl border border-gray-100 p-5">
-						<div class="flex items-center justify-between mb-3">
-							<div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
-								<TruckIcon class="w-5 h-5 text-amber-600" />
-							</div>
-							<span class="inline-flex items-center px-2 py-0.5 bg-amber-50 text-amber-600 text-[10px] font-bold rounded-full">
-								Active
-							</span>
-						</div>
-						<p class="text-2xl font-extrabold text-gray-900">2</p>
-						<p class="text-xs text-gray-500 mt-0.5">In Progress</p>
-					</div>
-					<div class="bg-white rounded-2xl border border-gray-100 p-5">
-						<div class="flex items-center justify-between mb-3">
-							<div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
-								<PackageIcon class="w-5 h-5 text-emerald-600" />
-							</div>
-						</div>
-						<p class="text-2xl font-extrabold text-gray-900">10</p>
-						<p class="text-xs text-gray-500 mt-0.5">Completed</p>
-					</div>
+					<StatCard
+						Icon={ShoppingBagIcon}
+						value={12}
+						label="Total Orders"
+						color="brand"
+					/>
+					<StatCard
+						Icon={TruckIcon}
+						value={2}
+						label="In Progress"
+						color="amber"
+					/>
+					<StatCard
+						Icon={ShoppingBagIcon}
+						value={12}
+						label="Total Orders"
+						color="brand"
+					/>
 				</div>
 
 				<OrderFilters activeTab={activeTab()} onTabChange={setActiveTab} />
