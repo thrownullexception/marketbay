@@ -68,9 +68,9 @@ const hasError = useFieldHasError();
 			/>
 			{props.children}
 			{ hasError() &&  (
-				<p class="mt-1 text-xs text-red-400">
+				<em role="alert" class="mt-1 text-xs text-red-400">
 					{formatErrors(errors()[0]).message}
-				</p>
+				</em>
 			)}
 			<InputDescription description={props.description} />
 		</div>

@@ -18,5 +18,4 @@ export const Route = createFileRoute("/(app)/")({
 	},
 	staleTime: ms("30m"),
 	gcTime: Infinity,
-	// ssr: "data-only",
 });

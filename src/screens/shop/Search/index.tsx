@@ -70,6 +70,7 @@ const SEARCH_FILTERS: FilterConfig[] = [
 
 export const SearchScreen = () => {
 	return (
+
 		<>
 			<Breadcrumb
 				items={[
@@ -82,7 +83,7 @@ export const SearchScreen = () => {
 			/>
 			<SearchHeader />
 			<MatchingStores />
-			<ProductListing dataSource="search" filters={SEARCH_FILTERS} />
+			 <ProductListing dataSource="search" filters={SEARCH_FILTERS} />
 		</>
 	);
 };

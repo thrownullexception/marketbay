@@ -18,8 +18,8 @@ export const AccountLayout = () => {
 						<NavSection />
 					</SidebarCard>
 				}
-			/>
-			<Footer variant="full" />
+			/> 
+			<Footer variant="full" /> 
 		</>
 	);
 };

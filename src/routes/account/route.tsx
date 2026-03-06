@@ -3,5 +3,4 @@ import { AccountLayout } from "@/screens/account/_Layout";
 
 export const Route = createFileRoute("/account")({
 	component: AccountLayout,
-	// ssr: true,
 });
