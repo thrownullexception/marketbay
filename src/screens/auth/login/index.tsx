@@ -6,7 +6,7 @@ import {
 	FormHeader,
 	FormRoot,
 	FormText,
-} from "@/screens/_components/form-card";
+} from "@/screens/_components/form/card";
 import { DividerText } from "@/ui/divider";
 import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../SocialAuth";

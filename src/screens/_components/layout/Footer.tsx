@@ -2,7 +2,7 @@ import { Link } from "@tanstack/solid-router";
 import { CLIENT_CONSTANTS } from "@/env/client";
 import { Grid5 } from "@/ui/grid";
 import { Container } from "@/ui/layout";
-import { LogoFooter } from "./Logo";
+import { LogoFooter } from "./logo";
 
 type FooterVariant = "simple" | "full";
 
@@ -125,19 +125,25 @@ export const Footer = (props: { variant: FooterVariant }) => {
 						<h4 class="text-white font-semibold text-sm mb-3">My Account</h4>
 						<ul class="space-y-2 text-sm">
 							<li>
-								<a href="#" class="hover:text-white transition">
+								<Link to="/account/orders" class="hover:text-white transition">
 									Order History
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a href="#" class="hover:text-white transition">
+								<Link
+									to="/account/wishlist"
+									class="hover:text-white transition"
+								>
 									Saved Items
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a href="#" class="hover:text-white transition">
+								<Link
+									to="/account/following"
+									class="hover:text-white transition"
+								>
 									Subscribed Stores
-								</a>
+								</Link>
 							</li>
 							<li>
 								<a href="#" class="hover:text-white transition">

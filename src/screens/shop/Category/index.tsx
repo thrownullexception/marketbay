@@ -2,7 +2,7 @@ import { Link, linkOptions } from "@tanstack/solid-router";
 import {
 	type FilterConfig,
 	ProductListing,
-} from "@/screens/_components/product-listing";
+} from "@/screens/_components/product/listing";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { Container } from "@/ui/layout";
 

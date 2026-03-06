@@ -6,8 +6,8 @@ import {
 	ShoppingCartIcon,
 	User,
 } from "lucide-solid";
-import { LogoHeader } from "./Logo";
-import { SearchInput } from "./SearchInput";
+import { LogoHeader } from "./logo";
+import { SearchInput } from "./search-input";
 
 type MainNavVariant = "seller" | "buyer";
 

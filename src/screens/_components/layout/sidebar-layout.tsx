@@ -10,7 +10,7 @@ type SidebarLayoutProps = {
 export const SidebarLayout = (props: SidebarLayoutProps) => {
 	return (
 		<Container class="py-8 lg:py-10">
-			<Grid5>
+			<div class="grid lg:grid-cols-5 gap-8">
 				<div class="lg:col-span-1">
 					<div class="bg-white rounded-2xl border border-gray-100 overflow-hidden sticky top-24">
 						{props.sidebar}
@@ -19,7 +19,7 @@ export const SidebarLayout = (props: SidebarLayoutProps) => {
 				<div class="lg:col-span-4 space-y-6">
 					<Outlet />
 				</div>
-			</Grid5>
+			</div>
 		</Container>
 	);
 };

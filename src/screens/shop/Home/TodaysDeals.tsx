@@ -3,7 +3,7 @@ import { For } from "solid-js";
 import {
 	ProductCard,
 	type ProductCardData,
-} from "@/screens/_components/product-card";
+} from "@/screens/_components/product/card";
 import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Grid4 } from "@/ui/grid";
 

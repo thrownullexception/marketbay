@@ -17,7 +17,7 @@ import {
 	FormCard,
 	FormHeader,
 	FormRoot,
-} from "@/screens/_components/form-card";
+} from "@/screens/_components/form/card";
 import { Grid2 } from "@/ui/grid";
 
 const CreateStoreRequestSchema = v.object({

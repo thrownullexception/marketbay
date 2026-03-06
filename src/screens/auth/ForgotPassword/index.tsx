@@ -1,6 +1,6 @@
 import { MailIcon } from "lucide-solid";
 import { createSignal, Show } from "solid-js";
-import { FormCard, FormHeader } from "@/screens/_components/form-card";
+import { FormCard, FormHeader } from "@/screens/_components/form/card";
 import { Alert } from "@/ui/alert";
 import { Button, LinkButton } from "@/ui/button";
 import { TextLink } from "@/ui/link";

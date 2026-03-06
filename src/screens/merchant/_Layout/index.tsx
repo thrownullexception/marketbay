@@ -35,7 +35,7 @@ const MerchantSidebarCard = () => {
 };
 
 export const MerchantLayout = () => {
-	const routeApi = getRouteApi("/merchant/$storeId/");
+	const routeApi = getRouteApi("/merchant/$storeId");
 	const params = routeApi.useParams();
 	const storeId = params().storeId;
 

@@ -1,7 +1,7 @@
-export { Footer } from "./Footer";
-export { LogoFooter, LogoHeader } from "./Logo";
-export { MainNav } from "./MainNav";
+export { Footer } from "./footer";
+export { LogoFooter, LogoHeader } from "./logo";
+export { MainNav } from "./main-nav";
 export { NavItems, type NavLinkItemProps } from "./nav-items";
-export { SearchInput } from "./SearchInput";
-export { SidebarLayout } from "./SidebarLayout";
+export { SearchInput } from "./search-input";
+export { SidebarLayout } from "./sidebar-layout";
 export { TopBar } from "./TopBar";
