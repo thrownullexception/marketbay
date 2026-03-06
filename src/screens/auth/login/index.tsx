@@ -12,7 +12,7 @@ import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../SocialAuth";
 
 const LoginRequestSchema = v.object({
-	email: v.pipe(v.string(), v.minLength(1)),
+	email: v.pipe(v.string(), v.minLength(1), v.email()),
 	password: v.pipe(v.string(), v.minLength(1)),
 	remember: v.optional(v.boolean()),
 });
@@ -45,20 +45,18 @@ export function LoginScreen() {
 				}}
 			>
 				<FormCard>
-					<form.AppField
-						name="email"
-						children={(field) => (
+					<form.AppField name="email">
+						{(field) => (
 							<field.InputText
 								label="Email address"
 								placeholder="you@example.com"
 								Icon={MailIcon}
 							/>
 						)}
-					/>
+					</form.AppField>
 
-					<form.AppField
-						name="password"
-						children={(field) => (
+					<form.AppField name="password">
+						{(field) => (
 							<field.InputPassword
 								label="Password"
 								placeholder="Enter your password"
@@ -69,14 +67,13 @@ export function LoginScreen() {
 								}}
 							/>
 						)}
-					/>
+					</form.AppField>
 
-					<form.AppField
-						name="remember"
-						children={(field) => (
+					<form.AppField name="remember">
+						{(field) => (
 							<field.InputCheckbox id="remember" label="Remember me" />
 						)}
-					/>
+					</form.AppField>
 
 					<form.AppForm>
 						<form.SubmitButton label="Sign In" Icon={LogInIcon} />

@@ -24,7 +24,6 @@ Approved
 
 Rejected (with reason)
 
-Admin dashboard for review
 
 Success Criteria
 95% of legitimate sellers complete KYC successfully
@@ -618,32 +617,12 @@ This is how Amazon, Shopify ecosystems, and Alibaba scale massively.
 
 If you'd like next, I can:
 
-Model a 3-year revenue projection
-
-Design a pricing strategy by market (Africa, US, EU etc.)
-
-Create a competitive analysis (vs Shopify, Etsy, Amazon)
-
-Or design a unit economics breakdown per seller
-
 Modularity for Phase 2+ (ads bidding, finance, shipping, recommendations)
-
-Separate “system of record” (Postgres) from “read-optimized” stores (search/index, analytics)
-
-3. Service responsibilities and APIs
-   3.1 Identity & Access
-   Responsibilities
-
-Auth (email/phone/social), MFA, password reset
 
 3.3 Seller/Store Service (multi-store per seller)
 Responsibilities
 
 Seller profile
-
-Store CRUD (multiple stores per seller)
-
-Store public page settings (logo/banner/theme)
 
 Store status: active/paused/deleted
 
@@ -654,21 +633,7 @@ Stock levels per SKU/variant
 
 Reservation/hold for checkout
 
-Low stock alerts
-
 Inventory adjustment log
-
-APIs
-
-POST /inventory/adjust
-
-POST /inventory/reserve (cart->checkout)
-
-POST /inventory/release
-
-POST /inventory/commit (on payment success)
-
-GET /inventory/{sku}
 
 Data
 

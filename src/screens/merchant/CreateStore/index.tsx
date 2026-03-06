@@ -1,14 +1,11 @@
-/** biome-ignore-all lint/correctness/noChildrenProp: <explanation> */
 import { useRouter } from "@tanstack/solid-router";
 import {
 	ArrowLeftIcon,
 	ArrowRightIcon,
 	CheckIcon,
 	GlobeIcon,
-	InstagramIcon,
 	MailIcon,
 	PhoneIcon,
-	TwitterIcon,
 } from "lucide-solid";
 import { Button } from "@/ui/button";
 import { Container } from "@/ui/layout";
@@ -24,31 +21,56 @@ import {
 import { Grid2 } from "@/ui/grid";
 
 const CreateStoreRequestSchema = v.object({
-	name: v.pipe(v.string(), v.minLength(1), v.maxLength(10)),
-	handle: v.pipe(v.string(), v.minLength(1)),
+	name: v.pipe(
+		v.string(),
+		v.minLength(1),
+		v.regex(/[A-za-z0-9-_ ]+$/, "Special characters are not allowed"),
+	),
+	handle: v.pipe(
+		v.string(),
+		v.minLength(1),
+		v.regex(
+			v.SLUG_REGEX,
+			"Only lowercase letters, numbers, and hyphens are allowed",
+		),
+	),
 	description: v.pipe(v.string(), v.minLength(1)),
 	primaryCategory: v.pipe(v.string(), v.minLength(1)),
 	state: v.pipe(v.string(), v.minLength(1)),
 	city: v.pipe(v.string()),
-	logo: v.pipe(v.string(), v.minLength(1)),
-	coverImage: v.pipe(v.string(), v.minLength(1)),
+	// logo: v.pipe(v.file(), v.maxSize(2 * 1024 * 1024)),
+	// coverImage: v.pipe(v.file(), v.maxSize(2 * 1024 * 1024)), // TODO: add to 5MB
 	businessEmail: v.pipe(v.string(), v.minLength(1), v.email()),
 	phoneNumber: v.pipe(v.string(), v.minLength(1)),
-	websiteURL: v.pipe(v.string()),
-	instagramURL: v.pipe(v.string()),
-	xURL: v.pipe(v.string()),
-	shippingOptions: v.pipe(v.string(), v.minLength(1)),
-	returnPolicy: v.pipe(v.string(), v.minLength(1)),
-	termsOfService: v.pipe(
+	websiteURL: v.union([v.literal(""), v.pipe(v.string(), v.url())]),
+	instagramURL: v.union([
+		v.literal(""),
+		v.pipe(
+			v.string(),
+			v.regex(
+				v.SLUG_REGEX,
+				"Only lowercase letters, numbers, and hyphens are allowed",
+			),
+		),
+	]),
+	xURL: v.union([
+		v.literal(""),
+		v.pipe(
+			v.string(),
+			v.regex(
+				v.SLUG_REGEX,
+				"Only lowercase letters, numbers, and hyphens are allowed",
+			),
+		),
+	]),
+	warranty: v.pipe(v.string()),
+	returnPolicy: v.pipe(v.string()),
+	agreed: v.pipe(
 		v.boolean(),
-		v.transform((value) => value === true),
+		v.check((value) => value, "Required"),
 	),
-	// marketplaceGuidelines: v.pipe(
-	// 	v.boolean(),
-	// 	v.transform((value) => value === true),
-	// ),
-	// commission: v.pipe(v.number(), v.min(0)),
 	// minimumOrderAmount: v.pipe(v.number(), v.min(0)),
+
 	// freeShippingThreshold: v.pipe(v.number(), v.min(0)),
 	// standardShippingDays: v.pipe(v.number(), v.min(0)),
 	// expressShippingDays: v.pipe(v.number(), v.min(0)),
@@ -72,17 +94,17 @@ export const CreateStoreScreen = () => {
 			primaryCategory: "",
 			state: "",
 			city: "",
-			logo: "",
-			coverImage: "",
+			// logo: "",
+			// coverImage: "",
 			businessEmail: "",
 			password: "",
 			phoneNumber: "",
 			websiteURL: "",
 			instagramURL: "",
 			xURL: "",
-			shippingOptions: "",
+			warranty: "",
 			returnPolicy: "",
-			termsOfService: false,
+			agreed: false,
 			// marketplaceGuidelines: false,
 			// commission: 0,
 			// minimumOrderAmount: 0,
@@ -159,9 +181,8 @@ export const CreateStoreScreen = () => {
 								description="Tell buyers what your store is about. You can always change these later."
 							/>
 							<FormCard title="Store Information">
-								<form.AppField
-									name="name"
-									children={(field) => (
+								<form.AppField name="name">
+									{(field) => (
 										<field.InputText
 											label="Store Name"
 											placeholder="e.g. TechVault, StyleHouse, GreenNest"
@@ -169,10 +190,9 @@ export const CreateStoreScreen = () => {
 											required
 										/>
 									)}
-								/>
-								<form.AppField
-									name="handle"
-									children={(field) => (
+								</form.AppField>
+								<form.AppField name="handle">
+									{(field) => (
 										<field.InputWithPrefix
 											label="Store Handle"
 											prefix="marketbay.com/store/"
@@ -180,11 +200,10 @@ export const CreateStoreScreen = () => {
 											required
 										/>
 									)}
-								/>
+								</form.AppField>
 
-								<form.AppField
-									name="description"
-									children={(field) => (
+								<form.AppField name="description">
+									{(field) => (
 										<field.InputTextarea
 											label="Description"
 											placeholder="Tell buyers what you sell, what makes your products unique, and why they should shop with you..."
@@ -192,13 +211,12 @@ export const CreateStoreScreen = () => {
 											required
 										/>
 									)}
-								/>
+								</form.AppField>
 							</FormCard>
 
 							<FormCard title="Category &amp; Location">
-								<form.AppField
-									name="primaryCategory"
-									children={(field) => (
+								<form.AppField name="primaryCategory">
+									{(field) => (
 										<field.InputSelect
 											label="Primary Category"
 											placeholder="Select a category"
@@ -240,12 +258,11 @@ export const CreateStoreScreen = () => {
 											]}
 										/>
 									)}
-								/>
+								</form.AppField>
 
 								<Grid2>
-									<form.AppField
-										name="state"
-										children={(field) => (
+									<form.AppField name="state">
+										{(field) => (
 											<field.InputSelect
 												label="State"
 												placeholder="Select a state"
@@ -260,20 +277,19 @@ export const CreateStoreScreen = () => {
 												]}
 											/>
 										)}
-									/>
-									<form.AppField
-										name="city"
-										children={(field) => (
+									</form.AppField>
+									<form.AppField name="city">
+										{(field) => (
 											<field.InputText
 												label="City"
 												placeholder="e.g. San Francisco"
 											/>
 										)}
-									/>
+									</form.AppField>
 								</Grid2>
 							</FormCard>
 
-							<FormCard
+							{/* <FormCard
 								title="Branding"
 								description="Upload a logo and cover to make your store stand out."
 							>
@@ -301,15 +317,14 @@ export const CreateStoreScreen = () => {
 										)}
 									/>
 								</Grid2>
-							</FormCard>
+							</FormCard> */}
 
 							<FormCard
 								title="Contact &amp; Social"
 								description="Optional — help buyers reach you outside MarketBay."
 							>
-								<form.AppField
-									name="businessEmail"
-									children={(field) => (
+								<form.AppField name="businessEmail">
+									{(field) => (
 										<field.InputText
 											label="Business Email"
 											placeholder="hello@yourbusiness.com"
@@ -317,11 +332,10 @@ export const CreateStoreScreen = () => {
 											required
 										/>
 									)}
-								/>
+								</form.AppField>
 
-								<form.AppField
-									name="phoneNumber"
-									children={(field) => (
+								<form.AppField name="phoneNumber">
+									{(field) => (
 										<field.InputText
 											label="Phone Number"
 											placeholder="+234 (000) 000-0000"
@@ -329,84 +343,65 @@ export const CreateStoreScreen = () => {
 											required
 										/>
 									)}
-								/>
+								</form.AppField>
 
-								<form.AppField
-									name="websiteURL"
-									children={(field) => (
-										<field.InputWithPrefix
+								<form.AppField name="websiteURL">
+									{(field) => (
+										<field.InputText
 											label="Website URL"
-											placeholder="yourbusiness.com"
-											prefix="https://www."
+											placeholder="https://yourbusiness.com"
+											Icon={GlobeIcon}
 										/>
 									)}
-								/>
+								</form.AppField>
 
-								<form.AppField
-									name="instagramURL"
-									children={(field) => (
+								<form.AppField name="instagramURL">
+									{(field) => (
 										<field.InputWithPrefix
 											label="Instagram URL"
 											placeholder="yourbusiness"
 											prefix="https://instagram.com/"
 										/>
 									)}
-								/>
+								</form.AppField>
 
-								<form.AppField
-									name="xURL"
-									children={(field) => (
+								<form.AppField name="xURL">
+									{(field) => (
 										<field.InputWithPrefix
 											label="X (Twitter) URL"
 											placeholder="yourbusiness"
 											prefix="https://x.com/"
 										/>
 									)}
-								/>
+								</form.AppField>
 							</FormCard>
 
-							{/* <FormCard
-								title="Shipping &amp; Policies"
+							<FormCard
+								title="Policies"
 								description="Set expectations for your buyers."
 							>
-								<InputCheckboxGroup
-									label="Shipping options"
-									value="standard"
-									options={[
-										{
-											label: "Standard Shipping",
-											value: "standard",
-											description: "5–8 business days",
-										},
-										{
-											label: "Express Shipping",
-											value: "express",
-											description: "1–3 business days",
-										},
-										{
-											label: "Free Shipping",
-											value: "free",
-											description: "On orders over a minimum amount you set",
-										},
-									]}
-								/>
-								<InputSelect
-									label="Return Policy"
-									placeholder="Select a return policy"
-									required
-									options={[
-										{ label: "30-day returns", value: "30-day-returns" },
-										{ label: "14-day returns", value: "14-day-returns" },
-										{ label: "60-day returns", value: "60-day-returns" },
-										{ label: "No returns", value: "no-returns" },
-									]}
-								/>
-							</FormCard> */}
+								<form.AppField name="returnPolicy">
+									{(field) => (
+										<field.InputTextarea
+											label="Return Policy"
+											placeholder="We accept returns within 30 days of delivery. Items must be in original, unused condition with all packaging. Refunds are processed within 5-7 business days after we receive the returned item. Buyer is responsible for return shipping costs unless the item is defective."
+										/>
+									)}
+								</form.AppField>
+
+								<form.AppField name="warranty">
+									{(field) => (
+										<field.InputTextarea
+											label="Warranty"
+											placeholder="All electronics include a 1-year manufacturer warranty. Extended 2-year protection plan available at checkout. Warranty covers defects in materials and workmanship. Accidental damage not covered under standard warranty. Contact us within 48 hours of receiving a damaged product."
+										/>
+									)}
+								</form.AppField>
+							</FormCard>
 
 							<FormCard>
-								<form.AppField
-									name="termsOfService"
-									children={(field) => (
+								<form.AppField name="agreed">
+									{(field) => (
 										<field.InputCheckbox
 											id="terms-of-service"
 											label={
@@ -427,7 +422,7 @@ export const CreateStoreScreen = () => {
 											}
 										/>
 									)}
-								/>
+								</form.AppField>
 							</FormCard>
 
 							<div class="flex flex-col-reverse sm:flex-row items-center justify-between gap-3">

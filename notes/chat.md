@@ -43,12 +43,6 @@ Stock quantity per product
 Auto mark “Out of Stock”
 
 4.5 Seller–Buyer Chat System
-Description
-Real-time messaging between sellers and buyers.
-
-Chat from
-Product page
-Store page
 Block/report abuse
 
 4.6 Seller Analytics Dashboard
@@ -320,15 +314,6 @@ reviewed_by (FK → users.id) UUID
 created_at TIMESTAMP
 reviewed_at TIMESTAMP
 Relationship:
-
-
-4️⃣ PRODUCTS 5. categories
-Field Type
-id (PK) UUID
-parent_id (FK → categories.id) UUID (nullable)
-name VARCHAR
-created_at TIMESTAMP
-Self-referencing hierarchy.
 
 6. products
    Field Type

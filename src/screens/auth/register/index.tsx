@@ -15,11 +15,18 @@ import { SocialAuth } from "../SocialAuth";
 const RegisterRequestSchema = v.object({
 	firstName: v.pipe(v.string(), v.minLength(1)),
 	lastName: v.pipe(v.string(), v.minLength(1)),
-	email: v.pipe(v.string(), v.minLength(1)),
-	password: v.pipe(v.string(), v.minLength(1)),
+	email: v.pipe(v.string(), v.minLength(1), v.email()),
+	password: v.pipe(
+		v.string(),
+		v.minLength(8, "Must be at least 8 characters"),
+		v.check((value) => /[A-Z]/.test(value), "Must contain an uppercase letter"),
+		v.check((value) => /[a-z]/.test(value), "Must contain a lowercase letter"),
+		v.check((value) => /\d/.test(value), "Must contain a number"),
+		v.check((value) => /[^A-Za-z0-9]/.test(value), "Must contain a symbol"),
+	),
 	agreed: v.pipe(
 		v.boolean(),
-		v.transform((value) => value === true),
+		v.check((value) => value, "You must agree to the terms and privacy policy"),
 	),
 });
 
@@ -30,6 +37,7 @@ export function RegisterScreen() {
 			password: "",
 			firstName: "",
 			lastName: "",
+			agreed: false,
 		} as v.InferInput<typeof RegisterRequestSchema>,
 		validators: {
 			onChange: RegisterRequestSchema,
@@ -56,30 +64,27 @@ export function RegisterScreen() {
 					<SocialAuth />
 					<DividerText text="or register with email" />
 					<Grid2>
-						<form.AppField
-							name="firstName"
-							children={(field) => (
+						<form.AppField name="firstName">
+							{(field) => (
 								<field.InputText
 									label="First name"
 									placeholder="John"
 									Icon={UserIcon}
 								/>
 							)}
-						/>
-						<form.AppField
-							name="lastName"
-							children={(field) => (
+						</form.AppField>
+						<form.AppField name="lastName">
+							{(field) => (
 								<field.InputText
 									label="Last name"
 									placeholder="Doe"
 									Icon={UserIcon}
 								/>
 							)}
-						/>
+						</form.AppField>
 					</Grid2>
-					<form.AppField
-						name="email"
-						children={(field) => (
+					<form.AppField name="email">
+						{(field) => (
 							<field.InputText
 								type="email"
 								label="Email address"
@@ -87,10 +92,9 @@ export function RegisterScreen() {
 								Icon={MailIcon}
 							/>
 						)}
-					/>
-					<form.AppField
-						name="password"
-						children={(field) => (
+					</form.AppField>
+					<form.AppField name="password">
+						{(field) => (
 							<field.InputPassword
 								label="Password"
 								placeholder="Create a strong password"
@@ -102,11 +106,10 @@ export function RegisterScreen() {
 								}}
 							/>
 						)}
-					/>
+					</form.AppField>
 
-					<form.AppField
-						name="agreed"
-						children={(field) => (
+					<form.AppField name="agreed">
+						{(field) => (
 							<field.InputCheckbox
 								id="terms"
 								label={
@@ -118,7 +121,7 @@ export function RegisterScreen() {
 								}
 							/>
 						)}
-					/>
+					</form.AppField>
 
 					<form.AppForm>
 						<form.SubmitButton label="Create Account" Icon={UserPlusIcon} />

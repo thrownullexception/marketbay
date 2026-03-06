@@ -1,15 +1,33 @@
-import { useRouter } from "@tanstack/solid-router";
 import { MailIcon } from "lucide-solid";
 import { createSignal, Show } from "solid-js";
 import { FormCard, FormHeader } from "@/screens/_components/form-card";
 import { Alert } from "@/ui/alert";
-import { Button } from "@/ui/button";
-import { InputText } from "@/ui/input-text";
+import { Button, LinkButton } from "@/ui/button";
 import { TextLink } from "@/ui/link";
+import * as v from "valibot";
+import { useAppForm } from "@/screens/_components/form";
+
+const ForgotPasswordRequestSchema = v.object({
+	email: v.pipe(v.string(), v.minLength(1), v.email()),
+});
 
 export function ForgotPasswordScreen() {
 	const [isSubmitted, setIsSubmitted] = createSignal(false);
-	const router = useRouter();
+	 
+		const form = useAppForm(() => ({
+			defaultValues: {
+				email: "",
+				password: "",
+			} as v.InferInput<typeof ForgotPasswordRequestSchema>,
+			validators: {
+				onChange: ForgotPasswordRequestSchema,
+			},
+			onSubmit: ({ value }) => {
+				console.log(value);
+				setIsSubmitted(true)
+			},
+		}));
+
 	return (
 		<>
 			<Show when={!isSubmitted()}>
@@ -18,21 +36,30 @@ export function ForgotPasswordScreen() {
 						title="Reset your password"
 						description="Enter the email address linked to your account and we'll send you a reset link."
 					/>
-					<form>
+					<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					form.handleSubmit();
+				}}
+			>
 						<FormCard>
-							<InputText
+							<form.AppField name="email">
+						{(field) => (
+							<field.InputText
 								label="Email address"
 								placeholder="you@example.com"
 								Icon={MailIcon}
 							/>
+						)}
+					</form.AppField>
 
-							<Button
-								type="submit"
-								onClick={() => setIsSubmitted(true)}
-								label="Send Reset Link"
-								variant="primary"
-								fullWidth
-							/>
+	<form.AppForm>
+						<form.SubmitButton label="Send Reset Link" />
+					</form.AppForm>
+
+
+					 
 						</FormCard>
 					</form>
 
@@ -75,8 +102,10 @@ export function ForgotPasswordScreen() {
 								variant="default"
 								fullWidth
 							/>
-							<Button
-								onClick={() => router.navigate({ to: "/login" })}
+							<LinkButton
+							link={{
+								to: "/login"
+							}}
 								label="Back to Sign In"
 								variant="primary"
 								fullWidth

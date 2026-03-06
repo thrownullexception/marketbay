@@ -52,7 +52,7 @@ export const InputText = (
 					type={props.type ?? "text"}
 					placeholder={props.placeholder}
 					value={field().state.value}
-					onChange={(e) => field().handleChange(e.target.value)}
+					onInput={(e) => field().handleChange(e.target.value)}
 					onBlur={() => field().handleBlur()}
 					class={clsx(
 						"w-full py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:border-transparent transition",
@@ -108,7 +108,7 @@ export const InputWithPrefix = (
 					id={sluggify(props.label)}
 					type="text"
 					value={field().state.value}
-					onChange={(e) => field().handleChange(e.target.value)}
+					onInput={(e) => field().handleChange(e.target.value)}
 					onBlur={() => field().handleBlur()}
 					placeholder={props.placeholder}
 					class="flex-1 px-3 py-2.5 text-sm focus:outline-none"

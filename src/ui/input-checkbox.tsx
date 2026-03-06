@@ -45,7 +45,7 @@ export const InputCheckbox = (props: { id: string; label: JSX.Element }) => {
 					{props.label}{" "}
 				</label>
 			</div>
-			{errors().length > 0 && (
+			{errors().length > 0 && hasError() && (
 				<p class="mt-1 text-xs text-red-400">
 					{formatErrors(errors()[0]).message}
 				</p>

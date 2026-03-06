@@ -7,7 +7,7 @@ export function SubmitButton({
   Icon,
 }: {
   label: string;
-  Icon: LucideIcon;
+  Icon?: LucideIcon;
 }) {
   const form = useFormContext();
   return (

@@ -1,4 +1,4 @@
-MFA for sellers
+2FA for sellers
 best sellers
 Built for Sellers. Loved by Buyers.
 Autocomplete suggestions
@@ -29,7 +29,7 @@ shopping bots for:
 ⦁ Instagram
 
 Point-of-Sale (POS) Software
-tracking
+user event tracking
 
 https://demo.invotide.com/pos/
 

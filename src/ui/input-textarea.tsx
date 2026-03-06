@@ -24,7 +24,7 @@ export const InputTextarea = (
 			<textarea
 				id={sluggify(props.label)}
 				rows="3"
-				onChange={(e) => field().handleChange(e.target.value)}
+				onInput={(e) => field().handleChange(e.target.value)}
 				onBlur={() => field().handleBlur()}
 				placeholder={props.placeholder}
 				class={clsx(
