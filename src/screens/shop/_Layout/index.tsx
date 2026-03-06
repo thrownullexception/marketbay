@@ -5,7 +5,7 @@ export const ShopLayout = () => {
 	return (
 		<>
 			<TopBar variant="buyer" />
-			<MainNav variant="buyer" />
+			<MainNav variant="buyer" isAuthenticated={false} />
 			<Outlet />
 			<Footer variant="full" />
 		</>

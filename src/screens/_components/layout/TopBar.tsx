@@ -10,7 +10,7 @@ export const TopBar = (props: { variant: TopBarVariant }) => {
 					<>
 						<div class="flex items-center gap-2">
 							<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-accent-500/20 text-accent-300 text-[10px] font-bold rounded-full uppercase">
-								Seller Mode
+								Merchant Mode
 							</span>
 							<Link to="/" class="hover:text-white transition">
 								Switch to Buyer

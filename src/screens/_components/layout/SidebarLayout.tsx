@@ -11,7 +11,11 @@ export const SidebarLayout = (props: SidebarLayoutProps) => {
 	return (
 		<Container class="py-8 lg:py-10">
 			<Grid5>
-				<div class="lg:col-span-1">{props.sidebar}</div>
+				<div class="lg:col-span-1">
+					<div class="bg-white rounded-2xl border border-gray-100 overflow-hidden sticky top-24">
+						{props.sidebar}
+					</div>
+				</div>
 				<div class="lg:col-span-4 space-y-6">
 					<Outlet />
 				</div>
