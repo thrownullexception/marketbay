@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/solid-router";
 
-export const Route = createFileRoute("/(app)/account/settings")({
+export const Route = createFileRoute("/account/settings")({
 	component: RouteComponent,
 });
 
