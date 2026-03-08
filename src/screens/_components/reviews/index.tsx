@@ -78,12 +78,7 @@ const ReviewCard = (props: { review: Review }) => (
 					{() => <StarIcon class="w-3 h-3" fill="currentColor" />}
 				</For>
 				<For each={Array.from({ length: 5 - props.review.rating })}>
-					{() => (
-						<StarIcon
-							class="w-3 h-3 text-gray-200"
-							fill="currentColor"
-						/>
-					)}
+					{() => <StarIcon class="w-3 h-3 text-gray-200" fill="currentColor" />}
 				</For>
 			</div>
 			<span class="text-xs text-gray-400">{props.review.timeAgo}</span>

@@ -2,11 +2,7 @@ import clsx from "clsx";
 import { ImageIcon } from "lucide-solid";
 import { useFieldContext } from "@/screens/_components/form/context";
 import { sluggify } from "@/utils/strings";
-import {
-	BaseInput,
-	type BaseInputProps,
-	useFieldHasError,
-} from "./input-shared";
+import { FormInput, type FormInputProps, useFieldHasError } from "./input-form";
 
 type Accept = "image" | "video";
 
@@ -31,7 +27,7 @@ export const InputFile = (
 	props: {
 		accept: Accept;
 		maxSizeInMB: number;
-	} & BaseInputProps,
+	} & FormInputProps,
 ) => {
 	const field = useFieldContext<File>();
 	const hasError = useFieldHasError<File>();
@@ -42,7 +38,7 @@ export const InputFile = (
 		}
 	};
 	return (
-		<BaseInput
+		<FormInput
 			label={props.label}
 			required={props.required}
 			labelLink={props.labelLink}
@@ -52,7 +48,9 @@ export const InputFile = (
 				<div
 					class={clsx(
 						"w-full py-2 rounded-2xl border-2 border-dashed bg-gray-50 flex flex-col items-center justify-center cursor-pointer hover:bg-brand-50/30 transition-colors",
-						hasError() ? "border-red-400 hover:border-red-400" : "border-gray-200 hover:border-brand-300",
+						hasError()
+							? "border-red-400 hover:border-red-400"
+							: "border-gray-200 hover:border-brand-300",
 					)}
 				>
 					<div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center mb-3">
@@ -69,6 +67,6 @@ export const InputFile = (
 					onChange={handleFileChange}
 				/>
 			</div>
-		</BaseInput>
+		</FormInput>
 	);
 };

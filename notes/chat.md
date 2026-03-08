@@ -315,31 +315,6 @@ created_at TIMESTAMP
 reviewed_at TIMESTAMP
 Relationship:
 
-6. products
-   Field Type
-   id (PK) UUID
-   store_id (FK → stores.id) UUID
-   category_id (FK → categories.id) UUID
-   title VARCHAR
-   description TEXT
-   price DECIMAL
-   discount_price DECIMAL
-   sku VARCHAR
-   status ENUM('draft','active','out_of_stock')
-   created_at TIMESTAMP
-   updated_at TIMESTAMP
-   Relationship:
-
-One store → Many products
-
-One category → Many products
-
-7. product_images
-   Field Type
-   id (PK) UUID
-   product_id (FK → products.id) UUID
-   image_url TEXT
-   position INT
 8. product_variants
    Field Type
    id (PK) UUID
@@ -365,23 +340,6 @@ One category → Many products
     reason VARCHAR
     created_at TIMESTAMP
     6️⃣ CART & ORDERS
-11. carts
-    Field Type
-    id (PK) UUID
-    buyer_id (FK → users.id) UUID
-    created_at TIMESTAMP
-    updated_at TIMESTAMP
-12. cart_items
-    Field Type
-    id (PK) UUID
-    cart_id (FK → carts.id) UUID
-    product_id (FK → products.id) UUID
-    variant_id (FK → product_variants.id) UUID (nullable)
-    quantity INT
-    created_at TIMESTAMP
-    Relationship:
-
-One cart → Many cart items
 
 13. orders
     Field Type

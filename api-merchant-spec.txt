@@ -1,0 +1,1071 @@
+================================================================================
+  MarketBay – Merchant API Spec  (seller-facing)
+================================================================================
+  Conventions
+  -----------
+  - All endpoints are prefixed with /api/merchant
+  - Every endpoint requires [auth]  (omitted for brevity)
+  - The authenticated user must be the store owner or a team member whose
+    role grants the required permission (noted per section)
+  - :storeId is always the store UUID
+  - Pagination: query params  ?page=1&limit=20  (default limit 20)
+  - Successful mutation responses: 204 No Content unless a generated id or
+    computed value needs to be returned (noted per endpoint)
+  - Error shape:
+      { error: string, details?: Record<string, string> }
+  - Amounts are strings in "0.00" format
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+  STORE SETUP
+────────────────────────────────────────────────────────────────────────────────
+
+POST /stores
+  -- Create a new store (multi-step onboarding; can POST draft and update later)
+  {
+    name: string,
+    slug: string,
+    tagline?: string,
+    description?: string,
+    primaryCategoryId?: string,
+    country?: string,
+    city?: string,
+    contactEmail?: string,
+    phone?: string,
+    website?: string,
+    instagramUrl?: string,
+    twitterUrl?: string
+  }
+  → 201  { id: string, slug: string }
+
+GET /stores/:storeId
+  -- Full store record including private fields (for the owner/team)
+  → 200  {
+    id: string,
+    name: string,
+    slug: string,
+    tagline: string | null,
+    description: string | null,
+    logoUrl: string | null,
+    coverImageUrl: string | null,
+    primaryCategory: { id: string, name: string } | null,
+    country: string | null,
+    city: string | null,
+    contactEmail: string | null,
+    phone: string | null,
+    website: string | null,
+    instagramUrl: string | null,
+    twitterUrl: string | null,
+    legalBusinessName: string | null,
+    taxIdEin: string | null,
+    businessAddress: {
+      street: string | null, city: string | null, state: string | null,
+      zip: string | null, country: string | null
+    },
+    returnPolicy: "30_day" | "14_day" | "60_day" | "no_returns",
+    handlingTime: "same_day" | "1_business_day" | "2_business_days" | "3_5_business_days",
+    isVerified: boolean,
+    isActive: boolean,
+    joinedAt: string
+  }
+
+PATCH /stores/:storeId
+  Permission: edit_store
+  {
+    name?: string,
+    slug?: string,
+    tagline?: string,
+    description?: string,
+    primaryCategoryId?: string,
+    country?: string,
+    city?: string,
+    contactEmail?: string,
+    phone?: string,
+    website?: string,
+    instagramUrl?: string,
+    twitterUrl?: string,
+    legalBusinessName?: string,
+    taxIdEin?: string,
+    businessAddressStreet?: string,
+    businessAddressCity?: string,
+    businessAddressState?: string,
+    businessAddressZip?: string,
+    businessAddressCountry?: string,
+    returnPolicy?: "30_day" | "14_day" | "60_day" | "no_returns",
+    handlingTime?: "same_day" | "1_business_day" | "2_business_days" | "3_5_business_days"
+  }
+  → 204
+
+POST /stores/:storeId/logo
+  Permission: edit_store
+  multipart/form-data  { logo: File }
+  → 200  { logoUrl: string }
+
+DELETE /stores/:storeId/logo
+  Permission: edit_store
+  → 204
+
+POST /stores/:storeId/cover-image
+  Permission: edit_store
+  multipart/form-data  { coverImage: File }
+  → 200  { coverImageUrl: string }
+
+DELETE /stores/:storeId/cover-image
+  Permission: edit_store
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  SHIPPING ZONES
+────────────────────────────────────────────────────────────────────────────────
+  Permission: edit_store
+
+GET /stores/:storeId/shipping-zones
+  → 200  {
+    shippingZones: [
+      {
+        id: string,
+        name: string,
+        countries: string[],
+        regions: string[],
+        handlingTime: string,
+        shipFrom: string | null,
+        flatRate: string | null,
+        freeShippingThreshold: string | null,
+        isActive: boolean
+      }
+    ]
+  }
+
+POST /stores/:storeId/shipping-zones
+  {
+    name: string,
+    countries?: string[],
+    regions?: string[],
+    handlingTime?: string,
+    shipFrom?: string,
+    flatRate?: string,
+    freeShippingThreshold?: string
+  }
+  → 201  { id: string }
+
+PATCH /stores/:storeId/shipping-zones/:zoneId
+  {
+    name?: string,
+    countries?: string[],
+    regions?: string[],
+    handlingTime?: string,
+    shipFrom?: string,
+    flatRate?: string,
+    freeShippingThreshold?: string,
+    isActive?: boolean
+  }
+  → 204
+
+DELETE /stores/:storeId/shipping-zones/:zoneId
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  DASHBOARD
+────────────────────────────────────────────────────────────────────────────────
+  Permission: view_analytics
+
+GET /stores/:storeId/dashboard
+  Query params: period ("7d" | "30d" | "90d" | "1y", default "30d")
+  → 200  {
+    stats: {
+      revenue: string,
+      revenueChange: number,          -- % change vs previous period
+      ordersCount: number,
+      ordersChange: number,
+      avgRating: number | null,
+      ratingChange: number | null,
+      visitorCount: number,
+      visitorChange: number
+    },
+    recentOrders: [
+      {
+        id: string,
+        orderNumber: string,
+        status: string,
+        total: string,
+        placedAt: string,
+        buyer: { firstName: string, lastName: string }
+      }
+    ],
+    lowStockProducts: [
+      { id: string, title: string, imageUrl: string | null, quantityAvailable: number }
+    ],
+    unreadMessageCount: number,
+    pendingReturnCount: number
+  }
+
+
+────────────────────────────────────────────────────────────────────────────────
+  ANALYTICS
+────────────────────────────────────────────────────────────────────────────────
+  Permission: view_analytics
+
+GET /stores/:storeId/analytics
+  Query params: period ("7d" | "30d" | "90d" | "1y"), page, limit
+  → 200  {
+    period: string,
+    totals: {
+      revenue: string,
+      orders: number,
+      visitors: number,
+      avgOrderValue: string,
+      conversionRate: number
+    },
+    chart: [
+      { date: string, revenue: string, orders: number, visitors: number }
+    ],
+    topProducts: [
+      {
+        id: string,
+        title: string,
+        imageUrl: string | null,
+        revenue: string,
+        unitsSold: number
+      }
+    ]
+  }
+
+
+────────────────────────────────────────────────────────────────────────────────
+  PRODUCTS
+────────────────────────────────────────────────────────────────────────────────
+  Permission: manage_products
+
+GET /stores/:storeId/products
+  Query params:
+    status    "active" | "draft" | "archived"
+    search    string
+    sort      "newest" | "oldest" | "price_asc" | "price_desc" | "title_asc"
+    page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    products: [
+      {
+        id: string,
+        title: string,
+        status: "active" | "draft" | "archived",
+        visibility: "visible" | "hidden" | "scheduled",
+        price: string,
+        compareAtPrice: string | null,
+        quantityAvailable: number,
+        imageUrl: string | null,
+        category: { id: string, name: string } | null,
+        createdAt: string,
+        updatedAt: string
+      }
+    ]
+  }
+
+GET /stores/:storeId/products/:productId
+  → 200  {
+    id: string,
+    title: string,
+    description: string | null,
+    categoryId: string | null,
+    subcategoryId: string | null,
+    price: string,
+    compareAtPrice: string | null,
+    costPerItem: string | null,
+    sku: string | null,
+    barcode: string | null,
+    quantity: number,
+    trackInventory: boolean,
+    continueSellingWhenOutOfStock: boolean,
+    weightLb: number | null,
+    lengthIn: number | null,
+    widthIn: number | null,
+    heightIn: number | null,
+    requiresShipping: boolean,
+    condition: "new" | "refurbished" | "used",
+    tags: string[],
+    status: "active" | "draft" | "archived",
+    visibility: "visible" | "hidden" | "scheduled",
+    scheduledPublishAt: string | null,
+    metaTitle: string | null,
+    metaDescription: string | null,
+    urlHandle: string | null,
+    images: [ { id: string, url: string, altText: string | null, sortOrder: number } ],
+    options: [
+      {
+        id: string,
+        name: string,
+        values: [ { id: string, value: string, sortOrder: number } ]
+      }
+    ],
+    variants: [
+      {
+        id: string,
+        sku: string | null,
+        price: string | null,
+        quantity: number,
+        optionValueIds: string[]
+      }
+    ],
+    createdAt: string,
+    updatedAt: string
+  }
+
+POST /stores/:storeId/products
+  {
+    title: string,
+    description?: string,
+    categoryId?: string,
+    subcategoryId?: string,
+    price: string,
+    compareAtPrice?: string,
+    costPerItem?: string,
+    sku?: string,
+    barcode?: string,
+    quantity?: number,
+    trackInventory?: boolean,
+    continueSellingWhenOutOfStock?: boolean,
+    weightLb?: number,
+    lengthIn?: number,
+    widthIn?: number,
+    heightIn?: number,
+    requiresShipping?: boolean,
+    condition?: "new" | "refurbished" | "used",
+    tags?: string[],
+    status?: "active" | "draft" | "archived",
+    visibility?: "visible" | "hidden" | "scheduled",
+    scheduledPublishAt?: string,
+    metaTitle?: string,
+    metaDescription?: string,
+    urlHandle?: string,
+    options?: [
+      {
+        name: string,
+        values: string[]
+      }
+    ],
+    variants?: [
+      {
+        sku?: string,
+        price?: string,
+        quantity?: number,
+        optionValues: string[]   -- matches option value strings above
+      }
+    ]
+  }
+  → 201  { id: string }
+
+PATCH /stores/:storeId/products/:productId
+  -- Same shape as POST but all fields optional
+  → 204
+
+DELETE /stores/:storeId/products/:productId
+  → 204
+
+POST /stores/:storeId/products/:productId/images
+  multipart/form-data  { images: File[] }  (up to 8 total)
+  → 200  {
+    images: [ { id: string, url: string, sortOrder: number } ]
+  }
+
+PATCH /stores/:storeId/products/:productId/images/order
+  { imageIds: string[] }   -- full ordered list of ids
+  → 204
+
+DELETE /stores/:storeId/products/:productId/images/:imageId
+  → 204
+
+POST /stores/:storeId/products/export
+  -- Triggers async CSV export; returns a job id to poll or download URL when ready
+  { status?: string, categoryId?: string }
+  → 202  { jobId: string }
+
+GET /stores/:storeId/products/export/:jobId
+  → 200  { status: "pending" | "ready" | "failed", downloadUrl: string | null }
+
+POST /stores/:storeId/products/import
+  Permission: manage_products
+  multipart/form-data  { file: File }   -- CSV
+  → 202  { jobId: string }
+
+GET /stores/:storeId/products/import/:jobId
+  → 200  {
+    status: "pending" | "done" | "failed",
+    imported: number,
+    failed: number,
+    errors: [ { row: number, message: string } ]
+  }
+
+POST /stores/:storeId/products/:productId/duplicate
+  → 201  { id: string }
+
+
+────────────────────────────────────────────────────────────────────────────────
+  ORDERS  (merchant)
+────────────────────────────────────────────────────────────────────────────────
+  Permission: view_orders (GET), process_orders (mutations)
+
+GET /stores/:storeId/orders
+  Query params:
+    status    "pending" | "processing" | "shipped" | "in_transit" | "delivered" | "cancelled" | "refunded"
+    search    string   -- order number or buyer name
+    sort      "newest" | "oldest" | "total_desc" | "total_asc"
+    page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    orders: [
+      {
+        id: string,
+        orderNumber: string,
+        status: string,
+        total: string,
+        itemCount: number,
+        placedAt: string,
+        buyer: { id: string, firstName: string, lastName: string },
+        items: [
+          { productTitle: string, variantLabel: string | null, imageUrl: string | null, quantity: number }
+        ]
+      }
+    ]
+  }
+
+GET /stores/:storeId/orders/:orderId
+  Permission: view_orders
+  → 200  {
+    id: string,
+    orderNumber: string,
+    status: string,
+    placedAt: string,
+    estimatedDelivery: string | null,
+    shippedAt: string | null,
+    deliveredAt: string | null,
+    trackingNumber: string | null,
+    carrier: string | null,
+    shippingMethod: string,
+    subtotal: string,
+    discountAmount: string,
+    shippingCost: string,
+    taxAmount: string,
+    total: string,
+    couponCode: string | null,
+    shippingAddress: {
+      firstName: string, lastName: string, street: string, apartment: string | null,
+      city: string, state: string, zip: string, country: string
+    },
+    buyer: { id: string, firstName: string, lastName: string, email: string },
+    items: [
+      {
+        id: string,
+        productId: string,
+        productTitle: string,
+        variantLabel: string | null,
+        imageUrl: string | null,
+        quantity: number,
+        unitPrice: string,
+        lineTotal: string
+      }
+    ],
+    return: {
+      id: string,
+      status: string,
+      reason: string,
+      refundAmount: string | null
+    } | null
+  }
+
+PATCH /stores/:storeId/orders/:orderId/status
+  Permission: process_orders
+  { status: "processing" | "shipped" | "delivered" | "cancelled" }
+  → 204
+
+PATCH /stores/:storeId/orders/:orderId/tracking
+  Permission: process_orders
+  { trackingNumber: string, carrier: string }
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  RETURNS  (merchant)
+────────────────────────────────────────────────────────────────────────────────
+  Permission: process_orders
+
+GET /stores/:storeId/returns
+  Query params: status ("requested" | "pending_review" | "approved" | "rejected" | "completed"), page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    returns: [
+      {
+        id: string,
+        status: string,
+        reason: string,
+        refundAmount: string | null,
+        createdAt: string,
+        order: { id: string, orderNumber: string },
+        buyer: { firstName: string, lastName: string }
+      }
+    ]
+  }
+
+PATCH /stores/:storeId/returns/:returnId
+  { status: "approved" | "rejected", refundAmount?: string, notes?: string }
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  REVIEWS  (merchant)
+────────────────────────────────────────────────────────────────────────────────
+  Permission: respond_to_messages  (replies treated same permission)
+
+GET /stores/:storeId/reviews
+  Query params:
+    rating     number   -- filter by star rating
+    replied    boolean  -- filter by whether merchant has replied
+    sort       "recent" | "high_rating" | "low_rating" | "helpful"
+    page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    summary: {
+      avgRating: number,
+      total: number,
+      breakdown: { 1: number, 2: number, 3: number, 4: number, 5: number }
+    },
+    reviews: [
+      {
+        id: string,
+        rating: number,
+        title: string | null,
+        body: string | null,
+        helpfulVotes: number,
+        verifiedPurchase: boolean,
+        sellerReply: string | null,
+        sellerReplyAt: string | null,
+        createdAt: string,
+        buyer: { firstName: string, lastName: string, profilePhoto: string | null },
+        product: { id: string, title: string, imageUrl: string | null }
+      }
+    ]
+  }
+
+POST /stores/:storeId/reviews/:reviewId/reply
+  { reply: string }
+  → 204
+
+PATCH /stores/:storeId/reviews/:reviewId/reply
+  { reply: string }
+  → 204
+
+DELETE /stores/:storeId/reviews/:reviewId/reply
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  PROMOTIONS
+────────────────────────────────────────────────────────────────────────────────
+  Permission: manage_promotions
+
+GET /stores/:storeId/promotions
+  Query params: status ("active" | "scheduled" | "expired" | "disabled"), page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    promotions: [
+      {
+        id: string,
+        name: string,
+        type: "percentage_off" | "fixed_amount" | "free_shipping" | "buy_x_get_y",
+        discountValue: string,
+        couponCode: string | null,
+        autoApply: boolean,
+        status: string,
+        timesUsed: number,
+        totalUsageLimit: number | null,
+        startDate: string,
+        endDate: string | null,
+        isFlashSale: boolean
+      }
+    ]
+  }
+
+GET /stores/:storeId/promotions/:promotionId
+  → 200  {
+    id: string,
+    name: string,
+    description: string | null,
+    type: string,
+    discountValue: string,
+    maxDiscountCap: string | null,
+    couponCode: string | null,
+    autoApply: boolean,
+    appliesTo: "all" | "specific_products" | "specific_categories",
+    productIds: string[],
+    categoryIds: string[],
+    minimumOrderValue: string | null,
+    minimumItems: number | null,
+    buyQuantity: number | null,
+    getQuantity: number | null,
+    totalUsageLimit: number | null,
+    limitPerCustomer: number | null,
+    timesUsed: number,
+    customerEligibility: "all" | "new" | "returning",
+    startDate: string,
+    endDate: string | null,
+    isFlashSale: boolean,
+    canCombineFreeShipping: boolean,
+    canCombineOtherCodes: boolean,
+    canCombineProductSale: boolean,
+    status: string,
+    createdAt: string
+  }
+
+POST /stores/:storeId/promotions
+  {
+    name: string,
+    description?: string,
+    type: "percentage_off" | "fixed_amount" | "free_shipping" | "buy_x_get_y",
+    discountValue: string,
+    maxDiscountCap?: string,
+    couponCode?: string,
+    autoApply?: boolean,
+    appliesTo?: "all" | "specific_products" | "specific_categories",
+    productIds?: string[],
+    categoryIds?: string[],
+    minimumOrderValue?: string,
+    minimumItems?: number,
+    buyQuantity?: number,
+    getQuantity?: number,
+    totalUsageLimit?: number,
+    limitPerCustomer?: number,
+    customerEligibility?: "all" | "new" | "returning",
+    startDate: string,
+    endDate?: string,
+    isFlashSale?: boolean,
+    canCombineFreeShipping?: boolean,
+    canCombineOtherCodes?: boolean,
+    canCombineProductSale?: boolean
+  }
+  → 201  { id: string }
+
+PATCH /stores/:storeId/promotions/:promotionId
+  -- Same shape as POST but all fields optional
+  → 204
+
+POST /stores/:storeId/promotions/:promotionId/duplicate
+  → 201  { id: string }
+
+PATCH /stores/:storeId/promotions/:promotionId/end
+  -- Immediately expires an active or scheduled promotion
+  → 204
+
+DELETE /stores/:storeId/promotions/:promotionId
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  MESSAGES  (merchant)
+────────────────────────────────────────────────────────────────────────────────
+  Permission: respond_to_messages
+
+GET /stores/:storeId/conversations
+  Query params: filter ("all" | "unread" | "archived"), page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    conversations: [
+      {
+        id: string,
+        buyer: { id: string, firstName: string, lastName: string, profilePhoto: string | null },
+        lastMessagePreview: string | null,
+        lastMessageAt: string | null,
+        unreadCount: number,
+        context: {
+          type: "order" | "return" | "product" | null,
+          id: string | null,
+          label: string | null
+        }
+      }
+    ]
+  }
+
+GET /stores/:storeId/conversations/:conversationId
+  Query params: page, limit
+  → 200  {
+    id: string,
+    buyer: { id: string, firstName: string, lastName: string, profilePhoto: string | null },
+    context: { type: string | null, id: string | null, label: string | null },
+    messages: [
+      {
+        id: string,
+        senderType: "buyer" | "store",
+        content: string | null,
+        attachmentUrl: string | null,
+        attachmentName: string | null,
+        isRead: boolean,
+        sentAt: string
+      }
+    ],
+    total: number, page: number, limit: number
+  }
+
+POST /stores/:storeId/conversations/:conversationId/messages
+  { content?: string, attachmentUrl?: string, attachmentName?: string }
+  → 201  { messageId: string }
+
+PATCH /stores/:storeId/conversations/:conversationId/read
+  -- marks all messages in conversation as read by the store
+  → 204
+
+PATCH /stores/:storeId/conversations/:conversationId/archive
+  → 204
+
+PATCH /stores/:storeId/conversations/:conversationId/unarchive
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  NOTIFICATIONS  (merchant)
+────────────────────────────────────────────────────────────────────────────────
+
+GET /stores/:storeId/notifications
+  Query params: unreadOnly (boolean), page, limit
+  → 200  {
+    total: number, unreadCount: number, page: number, limit: number,
+    notifications: [
+      {
+        id: string,
+        type: "new_order" | "low_stock" | "new_review" | "order_delivered" | "new_message" | "return_request" | "payout_processed" | "performance_alert" | "platform_update",
+        title: string,
+        description: string | null,
+        isRead: boolean,
+        relatedEntityType: string | null,
+        relatedEntityId: string | null,
+        createdAt: string
+      }
+    ]
+  }
+
+PATCH /stores/:storeId/notifications/:notificationId/read
+  → 204
+
+POST /stores/:storeId/notifications/read-all
+  → 204
+
+GET /stores/:storeId/notification-preferences
+  → 200  {
+    newOrders: boolean,
+    lowStockAlerts: boolean,
+    newReviews: boolean,
+    payoutNotifications: boolean,
+    platformUpdates: boolean
+  }
+
+PATCH /stores/:storeId/notification-preferences
+  {
+    newOrders?: boolean,
+    lowStockAlerts?: boolean,
+    newReviews?: boolean,
+    payoutNotifications?: boolean,
+    platformUpdates?: boolean
+  }
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  TEAM
+────────────────────────────────────────────────────────────────────────────────
+  Permission: manage_team
+
+GET /stores/:storeId/team
+  → 200  {
+    members: [
+      {
+        id: string,
+        role: "owner" | "manager" | "staff",
+        status: "active" | "away" | "inactive",
+        lastActive: string | null,
+        joinedAt: string,
+        permissions: string[],
+        user: { id: string, firstName: string, lastName: string, email: string, profilePhoto: string | null }
+      }
+    ],
+    pendingInvitations: [
+      {
+        id: string,
+        email: string,
+        role: "owner" | "manager" | "staff",
+        sentAt: string,
+        expiresAt: string,
+        status: "pending"
+      }
+    ]
+  }
+
+POST /stores/:storeId/team/invitations
+  { email: string, role: "manager" | "staff", personalMessage?: string }
+  → 201  { id: string }
+
+POST /stores/:storeId/team/invitations/:invitationId/resend
+  → 204
+
+DELETE /stores/:storeId/team/invitations/:invitationId
+  -- revokes a pending invitation
+  → 204
+
+PATCH /stores/:storeId/team/members/:memberId
+  { role?: "manager" | "staff", permissions?: string[] }
+  → 204
+
+DELETE /stores/:storeId/team/members/:memberId
+  → 204
+
+-- Public endpoint: accept an invitation via token (no :storeId needed)
+POST /team/invitations/accept
+  { token: string }
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  INVENTORY
+────────────────────────────────────────────────────────────────────────────────
+  Permission: manage_products
+
+GET /stores/:storeId/inventory
+  Query params:
+    search        string    -- product title or SKU
+    locationId    string
+    lowStock      boolean   -- only items at or below threshold
+    page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    items: [
+      {
+        id: string,          -- inventory row id
+        product: { id: string, title: string, sku: string | null, imageUrl: string | null },
+        variant: { id: string, label: string, sku: string | null } | null,
+        location: { id: string, name: string } | null,
+        quantityOnHand: number,
+        quantityReserved: number,
+        quantityAvailable: number,
+        lowStockThreshold: number,
+        reorderPoint: number,
+        reorderQuantity: number
+      }
+    ]
+  }
+
+PATCH /stores/:storeId/inventory/:inventoryId
+  { lowStockThreshold?: number, reorderPoint?: number, reorderQuantity?: number }
+  → 204
+
+GET /stores/:storeId/inventory/:inventoryId/movements
+  Query params: page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    movements: [
+      {
+        id: string,
+        reason: string,
+        quantityDelta: number,
+        quantityBefore: number,
+        quantityAfter: number,
+        note: string | null,
+        performedBy: { firstName: string, lastName: string } | null,
+        orderId: string | null,
+        returnId: string | null,
+        createdAt: string
+      }
+    ]
+  }
+
+POST /stores/:storeId/inventory/adjustments
+  -- Request a manual stock correction
+  {
+    inventoryId: string,
+    quantityDelta: number,    -- positive to add, negative to remove
+    reason: string
+  }
+  → 201  { id: string }
+
+GET /stores/:storeId/inventory/adjustments
+  Query params: status ("pending" | "approved" | "rejected"), page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    adjustments: [
+      {
+        id: string,
+        status: string,
+        quantityDelta: number,
+        reason: string,
+        createdAt: string,
+        reviewedAt: string | null,
+        requestedBy: { firstName: string, lastName: string },
+        approvedBy: { firstName: string, lastName: string } | null,
+        inventory: {
+          product: { id: string, title: string },
+          variant: { id: string, label: string } | null
+        }
+      }
+    ]
+  }
+
+GET /stores/:storeId/inventory/locations
+  → 200  {
+    locations: [
+      { id: string, name: string, address: string | null, isDefault: boolean, isActive: boolean }
+    ]
+  }
+
+POST /stores/:storeId/inventory/locations
+  { name: string, address?: string, isDefault?: boolean }
+  → 201  { id: string }
+
+PATCH /stores/:storeId/inventory/locations/:locationId
+  { name?: string, address?: string, isDefault?: boolean, isActive?: boolean }
+  → 204
+
+DELETE /stores/:storeId/inventory/locations/:locationId
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  PURCHASE ORDERS
+────────────────────────────────────────────────────────────────────────────────
+  Permission: manage_products
+
+GET /stores/:storeId/suppliers
+  → 200  {
+    suppliers: [
+      { id: string, name: string, contactName: string | null, email: string | null, phone: string | null, isActive: boolean }
+    ]
+  }
+
+POST /stores/:storeId/suppliers
+  { name: string, contactName?: string, email?: string, phone?: string, website?: string, address?: string, notes?: string }
+  → 201  { id: string }
+
+PATCH /stores/:storeId/suppliers/:supplierId
+  { name?: string, contactName?: string, email?: string, phone?: string, website?: string, address?: string, notes?: string, isActive?: boolean }
+  → 204
+
+DELETE /stores/:storeId/suppliers/:supplierId
+  → 204
+
+GET /stores/:storeId/purchase-orders
+  Query params: status ("draft" | "sent" | "partial" | "received" | "cancelled"), page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    purchaseOrders: [
+      {
+        id: string,
+        poNumber: string,
+        status: string,
+        supplier: { id: string, name: string } | null,
+        location: { id: string, name: string } | null,
+        itemCount: number,
+        expectedAt: string | null,
+        createdAt: string
+      }
+    ]
+  }
+
+GET /stores/:storeId/purchase-orders/:poId
+  → 200  {
+    id: string,
+    poNumber: string,
+    status: string,
+    notes: string | null,
+    expectedAt: string | null,
+    receivedAt: string | null,
+    supplier: { id: string, name: string, email: string | null } | null,
+    location: { id: string, name: string } | null,
+    createdBy: { firstName: string, lastName: string } | null,
+    createdAt: string,
+    items: [
+      {
+        id: string,
+        product: { id: string, title: string, imageUrl: string | null },
+        variant: { id: string, label: string } | null,
+        quantityOrdered: number,
+        quantityReceived: number,
+        unitCost: string | null,
+        note: string | null
+      }
+    ]
+  }
+
+POST /stores/:storeId/purchase-orders
+  {
+    supplierId?: string,
+    locationId?: string,
+    notes?: string,
+    expectedAt?: string,
+    items: [
+      { productId: string, variantId?: string, quantityOrdered: number, unitCost?: string, note?: string }
+    ]
+  }
+  → 201  { id: string, poNumber: string }
+
+PATCH /stores/:storeId/purchase-orders/:poId
+  {
+    supplierId?: string,
+    locationId?: string,
+    notes?: string,
+    expectedAt?: string,
+    status?: "sent" | "cancelled"
+  }
+  → 204
+
+PATCH /stores/:storeId/purchase-orders/:poId/receive
+  -- Mark items as received (partial or full)
+  {
+    items: [ { purchaseOrderItemId: string, quantityReceived: number } ]
+  }
+  → 204
+
+DELETE /stores/:storeId/purchase-orders/:poId
+  -- Only allowed when status = "draft"
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  PAYOUTS
+────────────────────────────────────────────────────────────────────────────────
+  Permission: view_payouts
+
+GET /stores/:storeId/payouts
+  Query params: status ("pending" | "due" | "processing" | "processed" | "failed"), page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    balance: {
+      available: string,
+      pending: string
+    },
+    payouts: [
+      {
+        id: string,
+        amount: string,
+        currency: string,
+        status: string,
+        periodStart: string,
+        periodEnd: string,
+        processedAt: string | null,
+        payoutAccount: { bankName: string | null, accountLast4: string | null } | null
+      }
+    ]
+  }
+
+GET /stores/:storeId/payout-accounts
+  → 200  {
+    accounts: [
+      { id: string, bankName: string | null, accountHolder: string | null, accountLast4: string | null, isDefault: boolean }
+    ]
+  }
+
+POST /stores/:storeId/payout-accounts
+  { bankName?: string, accountHolder?: string, routingNumber: string, accountNumber: string, isDefault?: boolean }
+  → 201  { id: string }
+
+PATCH /stores/:storeId/payout-accounts/:accountId/default
+  → 204
+
+DELETE /stores/:storeId/payout-accounts/:accountId
+  → 204

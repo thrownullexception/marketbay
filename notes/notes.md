@@ -8,6 +8,8 @@ Inventory logs
 Links
 // shop messages stores
 
+product images ordering
+
 https://react-table-craft.vercel.app/docs/installation
 
 Secure checkout

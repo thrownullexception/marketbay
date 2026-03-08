@@ -1,11 +1,11 @@
 import { MailIcon } from "lucide-solid";
 import { createSignal, Show } from "solid-js";
+import * as v from "valibot";
+import { useAppForm } from "@/screens/_components/form";
 import { FormCard, FormHeader } from "@/screens/_components/form/card";
 import { Alert } from "@/ui/alert";
 import { Button, LinkButton } from "@/ui/button";
 import { TextLink } from "@/ui/link";
-import * as v from "valibot";
-import { useAppForm } from "@/screens/_components/form";
 
 const ForgotPasswordRequestSchema = v.object({
 	email: v.pipe(v.string(), v.minLength(1), v.email()),
@@ -13,20 +13,20 @@ const ForgotPasswordRequestSchema = v.object({
 
 export function ForgotPasswordScreen() {
 	const [isSubmitted, setIsSubmitted] = createSignal(false);
-	 
-		const form = useAppForm(() => ({
-			defaultValues: {
-				email: "",
-				password: "",
-			} as v.InferInput<typeof ForgotPasswordRequestSchema>,
-			validators: {
-				onChange: ForgotPasswordRequestSchema,
-			},
-			onSubmit: ({ value }) => {
-				console.log(value);
-				setIsSubmitted(true)
-			},
-		}));
+
+	const form = useAppForm(() => ({
+		defaultValues: {
+			email: "",
+			password: "",
+		} as v.InferInput<typeof ForgotPasswordRequestSchema>,
+		validators: {
+			onChange: ForgotPasswordRequestSchema,
+		},
+		onSubmit: ({ value }) => {
+			console.log(value);
+			setIsSubmitted(true);
+		},
+	}));
 
 	return (
 		<>
@@ -37,29 +37,26 @@ export function ForgotPasswordScreen() {
 						description="Enter the email address linked to your account and we'll send you a reset link."
 					/>
 					<form
-				onSubmit={(e) => {
-					e.preventDefault();
-					e.stopPropagation();
-					form.handleSubmit();
-				}}
-			>
+						onSubmit={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+							form.handleSubmit();
+						}}
+					>
 						<FormCard>
 							<form.AppField name="email">
-						{(field) => (
-							<field.InputText
-								label="Email address"
-								placeholder="you@example.com"
-								Icon={MailIcon}
-							/>
-						)}
-					</form.AppField>
+								{(field) => (
+									<field.InputText
+										label="Email address"
+										placeholder="you@example.com"
+										Icon={MailIcon}
+									/>
+								)}
+							</form.AppField>
 
-	<form.AppForm>
-						<form.SubmitButton label="Send Reset Link" />
-					</form.AppForm>
-
-
-					 
+							<form.AppForm>
+								<form.SubmitButton label="Send Reset Link" />
+							</form.AppForm>
 						</FormCard>
 					</form>
 
@@ -103,9 +100,9 @@ export function ForgotPasswordScreen() {
 								fullWidth
 							/>
 							<LinkButton
-							link={{
-								to: "/login"
-							}}
+								link={{
+									to: "/login",
+								}}
 								label="Back to Sign In"
 								variant="primary"
 								fullWidth

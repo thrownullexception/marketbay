@@ -1,21 +1,17 @@
 import clsx from "clsx";
 import { useFieldContext } from "@/screens/_components/form/context";
 import { sluggify } from "@/utils/strings";
-import {
-	BaseInput,
-	type BaseInputProps,
-	useFieldHasError,
-} from "./input-shared";
+import { FormInput, type FormInputProps, useFieldHasError } from "./input-form";
 
 export const InputTextarea = (
 	props: {
 		placeholder: string;
-	} & BaseInputProps,
+	} & FormInputProps,
 ) => {
 	const field = useFieldContext<string>();
 	const hasError = useFieldHasError<string>();
 	return (
-		<BaseInput
+		<FormInput
 			label={props.label}
 			required={props.required}
 			labelLink={props.labelLink}
@@ -36,6 +32,6 @@ export const InputTextarea = (
 				{field().state.value}
 			</textarea>
 			{/* TODO <span class="text-xs text-gray-400">0 / 500</span> */}
-		</BaseInput>
+		</FormInput>
 	);
 };

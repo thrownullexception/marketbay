@@ -4,13 +4,9 @@ import { EyeIcon, EyeOffIcon } from "lucide-solid";
 import { createSignal, type JSX } from "solid-js";
 import { useFieldContext } from "@/screens/_components/form/context";
 import { sluggify } from "@/utils/strings";
-import {
-	BaseInput,
-	type BaseInputProps,
-	useFieldHasError,
-} from "./input-shared";
+import { FormInput, type FormInputProps, useFieldHasError } from "./input-form";
 
-type BaseInputTextProps = {
+type FormInputTextProps = {
 	placeholder: string;
 	type?:
 		| "text"
@@ -30,34 +26,36 @@ type BaseInputTextProps = {
 		Icon: LucideIcon;
 		onClick: () => void;
 	};
-} & BaseInputProps;
+	id?: string;
+};
 
-export const InputText = (props: BaseInputTextProps) => {
+export const FormInputText = (props: FormInputTextProps & FormInputProps) => {
 	const field = useFieldContext<string>();
 	const hasError = useFieldHasError<string>();
 
 	return (
-		<BaseInput
+		<FormInput
 			label={props.label}
 			required={props.required}
 			labelLink={props.labelLink}
 			description={props.description}
 		>
-			<BaseInputText
+			<InputPresentation
 				{...props}
 				value={field().state.value}
 				onInput={(e) => field().handleChange(e.target.value)}
 				onBlur={() => field().handleBlur()}
 				hasError={hasError()}
+				id={sluggify(props.label)}
 			/>
-		</BaseInput>
+		</FormInput>
 	);
 };
 
-export const SimpleInputText = (props: BaseInputTextProps) => {
+export const SimpleInputText = (props: FormInputTextProps) => {
 	const [value, setValue] = createSignal<string>("");
 	return (
-		<BaseInputText
+		<InputPresentation
 			{...props}
 			value={value()}
 			onInput={(e) => setValue(e.target.value)}
@@ -66,8 +64,8 @@ export const SimpleInputText = (props: BaseInputTextProps) => {
 	);
 };
 
-const BaseInputText = (
-	props: BaseInputTextProps & {
+const InputPresentation = (
+	props: FormInputTextProps & {
 		value: string;
 		onInput: JSX.InputEventHandlerUnion<HTMLInputElement, InputEvent>;
 		onBlur?: () => void;
@@ -80,7 +78,7 @@ const BaseInputText = (
 				<props.Icon class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
 			)}
 			<input
-				id={sluggify(props.label)}
+				id={props.id}
 				type={props.type ?? "text"}
 				placeholder={props.placeholder}
 				value={props.value}
@@ -107,17 +105,17 @@ const BaseInputText = (
 	);
 };
 
-export const InputWithPrefix = (
+export const FormInputWithPrefix = (
 	props: {
 		prefix: string;
 		placeholder: string;
-	} & BaseInputProps,
+	} & FormInputProps,
 ) => {
 	const field = useFieldContext<string>();
 	const hasError = useFieldHasError<string>();
 
 	return (
-		<BaseInput
+		<FormInput
 			label={props.label}
 			required={props.required}
 			labelLink={props.labelLink}
@@ -145,19 +143,19 @@ export const InputWithPrefix = (
 					class="flex-1 px-3 py-2.5 text-sm focus:outline-none"
 				/>
 			</div>
-		</BaseInput>
+		</FormInput>
 	);
 };
 
-export const InputPassword = (
+export const FormInputPassword = (
 	props: {
 		placeholder: string;
 		Icon?: LucideIcon;
-	} & BaseInputProps,
+	} & FormInputProps,
 ) => {
 	const [showPassword, setShowPassword] = createSignal(false);
 	return (
-		<InputText
+		<FormInputText
 			{...props}
 			type={showPassword() ? "text" : "password"}
 			suffix={{

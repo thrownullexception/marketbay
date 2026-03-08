@@ -1,13 +1,21 @@
 export const formatErrors = (errors: {
-	type: "email" | "min_length" | "max_length" | "required";
+	type: "email" | "min_length" | "max_length" | "required" | "url";
 	message: string;
 	requirement: number;
 	code: string;
 	path: string[];
 }): { message: string } => {
+	if (!errors) {
+		return { message: "" };
+	}
 	if (errors.type === "email") {
 		return {
 			message: "Invalid email",
+		};
+	}
+	if (errors.type === "url") {
+		return {
+			message: "Invalid URL",
 		};
 	}
 	if (errors.type === "min_length") {

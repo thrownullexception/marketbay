@@ -1,0 +1,761 @@
+================================================================================
+  MarketBay – Shop API Spec  (buyer-facing)
+================================================================================
+  Conventions
+  -----------
+  - All endpoints are prefixed with /api
+  - Auth required endpoints are marked  [auth]
+  - Pagination: query params  ?page=1&limit=20  (default limit 20)
+  - Successful mutation responses: 204 No Content unless a generated id or
+    computed value needs to be returned (noted per endpoint)
+  - Error shape (all errors):
+      { error: string, details?: Record<string, string> }
+  - Amounts are strings in "0.00" format to avoid float precision issues
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+  AUTH
+────────────────────────────────────────────────────────────────────────────────
+
+POST /auth/register
+  { firstName: string, lastName: string, email: string, password: string }
+  → 201  { id: string, email: string, firstName: string, lastName: string }
+
+POST /auth/login
+  { email: string, password: string }
+  → 200  { token: string, user: { id: string, email: string, firstName: string, lastName: string, profilePhoto: string | null } }
+
+POST /auth/logout  [auth]
+  → 204
+
+POST /auth/forgot-password
+  { email: string }
+  → 204
+
+POST /auth/reset-password
+  { token: string, password: string }
+  → 204
+
+POST /auth/social
+  { provider: "google" | "facebook" | "apple", idToken: string }
+  → 200  { token: string, user: { id: string, email: string, firstName: string, lastName: string, profilePhoto: string | null } }
+
+
+────────────────────────────────────────────────────────────────────────────────
+  CATEGORIES
+────────────────────────────────────────────────────────────────────────────────
+
+GET /categories
+  → 200  {
+    categories: [
+      {
+        id: string,
+        name: string,
+        slug: string,
+        imageUrl: string | null,
+        productCount: number,
+        children: [
+          { id: string, name: string, slug: string }
+        ]
+      }
+    ]
+  }
+
+GET /categories/:slug
+  → 200  {
+    id: string,
+    name: string,
+    slug: string,
+    description: string | null,
+    imageUrl: string | null,
+    parent: { id: string, name: string, slug: string } | null,
+    children: [ { id: string, name: string, slug: string } ],
+    productCount: number,
+    storeCount: number
+  }
+
+
+────────────────────────────────────────────────────────────────────────────────
+  SEARCH
+────────────────────────────────────────────────────────────────────────────────
+
+GET /search
+  Query params:
+    q            string       – search term
+    type         "products" | "stores"  (default "products")
+    categoryId   string
+    minPrice     number
+    maxPrice     number
+    rating       number       – minimum avg rating (1–5)
+    condition    "new" | "refurbished" | "used"
+    storeId      string
+    sort         "relevance" | "price_asc" | "price_desc" | "rating" | "newest"
+    page, limit
+
+  → 200  {
+    total: number,
+    page: number,
+    limit: number,
+    results: [
+      // when type = "products"
+      {
+        id: string,
+        title: string,
+        price: string,
+        compareAtPrice: string | null,
+        imageUrl: string | null,
+        avgRating: number | null,
+        reviewCount: number,
+        soldCount: number,
+        store: { id: string, name: string, slug: string, isVerified: boolean }
+      }
+      // when type = "stores"
+      {
+        id: string,
+        name: string,
+        slug: string,
+        tagline: string | null,
+        logoUrl: string | null,
+        isVerified: boolean,
+        avgRating: number | null,
+        reviewCount: number,
+        productCount: number,
+        followerCount: number
+      }
+    ]
+  }
+
+
+────────────────────────────────────────────────────────────────────────────────
+  STORES
+────────────────────────────────────────────────────────────────────────────────
+
+GET /stores
+  Query params: categoryId, sort ("popular" | "rating" | "newest"), page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    stores: [
+      {
+        id: string,
+        name: string,
+        slug: string,
+        tagline: string | null,
+        logoUrl: string | null,
+        coverImageUrl: string | null,
+        isVerified: boolean,
+        avgRating: number | null,
+        reviewCount: number,
+        productCount: number,
+        followerCount: number,
+        primaryCategory: { id: string, name: string } | null
+      }
+    ]
+  }
+
+GET /stores/:storeSlug
+  → 200  {
+    id: string,
+    name: string,
+    slug: string,
+    tagline: string | null,
+    description: string | null,
+    logoUrl: string | null,
+    coverImageUrl: string | null,
+    isVerified: boolean,
+    contactEmail: string | null,
+    phone: string | null,
+    website: string | null,
+    instagramUrl: string | null,
+    twitterUrl: string | null,
+    returnPolicy: "30_day" | "14_day" | "60_day" | "no_returns",
+    handlingTime: string,
+    avgRating: number | null,
+    reviewCount: number,
+    productCount: number,
+    followerCount: number,
+    joinedAt: string,
+    isFollowing: boolean       -- always false when unauthenticated
+  }
+
+GET /stores/:storeSlug/products
+  Query params: categoryId, sort, page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    products: [ { id, title, price, compareAtPrice, imageUrl, avgRating, reviewCount, soldCount } ]
+  }
+
+POST /stores/:storeId/follow  [auth]
+  → 204
+
+DELETE /stores/:storeId/follow  [auth]
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  PRODUCTS
+────────────────────────────────────────────────────────────────────────────────
+
+GET /products/:productId
+  → 200  {
+    id: string,
+    title: string,
+    description: string | null,
+    price: string,
+    compareAtPrice: string | null,
+    condition: "new" | "refurbished" | "used",
+    requiresShipping: boolean,
+    soldCount: number,
+    tags: string[],
+    images: [ { id: string, url: string, altText: string | null, sortOrder: number } ],
+    options: [
+      {
+        id: string,
+        name: string,           -- e.g. "Color"
+        values: [ { id: string, value: string } ]
+      }
+    ],
+    variants: [
+      {
+        id: string,
+        sku: string | null,
+        price: string | null,   -- null means use product price
+        isAvailable: boolean,
+        optionValueIds: string[]
+      }
+    ],
+    category: { id: string, name: string, slug: string } | null,
+    store: {
+      id: string,
+      name: string,
+      slug: string,
+      logoUrl: string | null,
+      isVerified: boolean,
+      avgRating: number | null,
+      reviewCount: number,
+      returnPolicy: string,
+      handlingTime: string
+    },
+    avgRating: number | null,
+    reviewCount: number,
+    ratingBreakdown: { 1: number, 2: number, 3: number, 4: number, 5: number }
+  }
+
+GET /products/:productId/reviews
+  Query params: sort ("recent" | "helpful" | "high_rating" | "low_rating"), page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    reviews: [
+      {
+        id: string,
+        rating: number,
+        title: string | null,
+        body: string | null,
+        helpfulVotes: number,
+        verifiedPurchase: boolean,
+        hasVotedHelpful: boolean,   -- false when unauthenticated
+        sellerReply: string | null,
+        sellerReplyAt: string | null,
+        buyer: { firstName: string, lastName: string, profilePhoto: string | null },
+        createdAt: string
+      }
+    ]
+  }
+
+POST /products/:productId/reviews  [auth]
+  { orderItemId: string, rating: number, title?: string, body?: string }
+  → 201  { id: string }
+
+PATCH /products/:productId/reviews/:reviewId  [auth]
+  { rating?: number, title?: string, body?: string }
+  → 204
+
+DELETE /products/:productId/reviews/:reviewId  [auth]
+  → 204
+
+POST /products/:productId/reviews/:reviewId/helpful  [auth]
+  → 204
+
+DELETE /products/:productId/reviews/:reviewId/helpful  [auth]
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  CART
+────────────────────────────────────────────────────────────────────────────────
+  Note: cart is identified by the auth token for logged-in users,
+        or a session token in the X-Session-Id header for guests.
+
+GET /cart
+  → 200  {
+    id: string,
+    stores: [
+      {
+        store: { id: string, name: string, slug: string, logoUrl: string | null },
+        items: [
+          {
+            id: string,               -- cart item id
+            product: { id: string, title: string, urlHandle: string },
+            variant: {
+              id: string,
+              label: string,          -- e.g. "Matte Black / M"
+              imageUrl: string | null
+            } | null,
+            quantity: number,
+            unitPrice: string,
+            lineTotal: string,
+            isAvailable: boolean
+          }
+        ]
+      }
+    ],
+    subtotal: string,
+    itemCount: number
+  }
+
+POST /cart/items
+  { productId: string, variantId?: string, quantity: number }
+  → 201  { cartItemId: string }
+
+PATCH /cart/items/:cartItemId
+  { quantity: number }
+  → 204
+
+DELETE /cart/items/:cartItemId
+  → 204
+
+DELETE /cart  [auth]
+  → 204
+
+POST /cart/merge  [auth]
+  -- merges a guest cart into the user's cart after login
+  { sessionId: string }
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  WISHLIST
+────────────────────────────────────────────────────────────────────────────────
+
+GET /wishlist  [auth]
+  Query params: page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    items: [
+      {
+        id: string,
+        addedAt: string,
+        product: {
+          id: string, title: string, price: string, compareAtPrice: string | null,
+          imageUrl: string | null, isAvailable: boolean, avgRating: number | null,
+          store: { id: string, name: string, slug: string }
+        }
+      }
+    ]
+  }
+
+POST /wishlist  [auth]
+  { productId: string }
+  → 204
+
+DELETE /wishlist/:productId  [auth]
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  CHECKOUT
+────────────────────────────────────────────────────────────────────────────────
+
+POST /checkout/shipping-rates
+  -- Returns available shipping options for the items in the current cart
+  {
+    addressId?: string,
+    address?: {
+      street: string, apartment?: string, city: string,
+      state: string, zip: string, country: string
+    }
+  }
+  → 200  {
+    rates: [
+      {
+        method: "standard" | "express" | "overnight",
+        label: string,              -- e.g. "Standard (5–7 days)"
+        cost: string,
+        estimatedDelivery: string   -- e.g. "Mar 12–14"
+      }
+    ]
+  }
+
+POST /checkout/apply-coupon
+  { code: string }
+  → 200  {
+    promotionId: string,
+    discountAmount: string,
+    description: string             -- e.g. "10% off – SAVE10"
+  }
+
+DELETE /checkout/coupon
+  → 204
+
+POST /checkout/order  [auth]
+  {
+    addressId?: string,
+    address?: {
+      firstName: string, lastName: string, street: string, apartment?: string,
+      city: string, state: string, zip: string, country: string,
+      saveAddress?: boolean
+    },
+    shippingMethod: "standard" | "express" | "overnight",
+    paymentMethodId?: string,
+    payment?: {
+      type: "card" | "paypal" | "apple_pay" | "google_pay",
+      -- card only:
+      nameOnCard?: string, cardToken?: string,
+      saveCard?: boolean
+    },
+    couponCode?: string
+  }
+  → 201  {
+    orderId: string,
+    orderNumber: string,
+    total: string,
+    estimatedDelivery: string
+  }
+
+
+────────────────────────────────────────────────────────────────────────────────
+  ORDERS  (buyer)
+────────────────────────────────────────────────────────────────────────────────
+
+GET /account/orders  [auth]
+  Query params:
+    status  "active" | "past"  (active = pending|processing|shipped|in_transit)
+    page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    orders: [
+      {
+        id: string,
+        orderNumber: string,
+        status: string,
+        total: string,
+        placedAt: string,
+        estimatedDelivery: string | null,
+        store: { id: string, name: string, slug: string, logoUrl: string | null },
+        items: [
+          { productTitle: string, variantLabel: string | null, imageUrl: string | null, quantity: number }
+        ]
+      }
+    ]
+  }
+
+GET /account/orders/:orderId  [auth]
+  → 200  {
+    id: string,
+    orderNumber: string,
+    status: "pending" | "processing" | "shipped" | "in_transit" | "delivered" | "cancelled" | "refunded",
+    placedAt: string,
+    estimatedDelivery: string | null,
+    shippedAt: string | null,
+    deliveredAt: string | null,
+    trackingNumber: string | null,
+    carrier: string | null,
+    shippingMethod: string,
+    subtotal: string,
+    discountAmount: string,
+    shippingCost: string,
+    taxAmount: string,
+    total: string,
+    couponCode: string | null,
+    shippingAddress: {
+      firstName: string, lastName: string, street: string, apartment: string | null,
+      city: string, state: string, zip: string, country: string
+    },
+    paymentSummary: { type: string, cardLast4: string | null },
+    store: { id: string, name: string, slug: string, logoUrl: string | null },
+    items: [
+      {
+        id: string,
+        productId: string,
+        productTitle: string,
+        variantLabel: string | null,
+        imageUrl: string | null,
+        quantity: number,
+        unitPrice: string,
+        lineTotal: string,
+        hasReview: boolean
+      }
+    ]
+  }
+
+POST /account/orders/:orderId/cancel  [auth]
+  → 204
+
+POST /account/orders/:orderId/reorder  [auth]
+  -- copies all items into the current cart
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  RETURNS  (buyer)
+────────────────────────────────────────────────────────────────────────────────
+
+POST /account/orders/:orderId/returns  [auth]
+  {
+    items: [ { orderItemId: string, quantity: number } ],
+    reason: string,
+    notes?: string
+  }
+  → 201  { returnId: string }
+
+GET /account/returns/:returnId  [auth]
+  → 200  {
+    id: string,
+    status: "requested" | "pending_review" | "approved" | "rejected" | "completed",
+    reason: string,
+    notes: string | null,
+    refundAmount: string | null,
+    createdAt: string,
+    updatedAt: string,
+    order: { id: string, orderNumber: string },
+    items: [ { orderItemId: string, productTitle: string, variantLabel: string | null, quantity: number } ]
+  }
+
+
+────────────────────────────────────────────────────────────────────────────────
+  MESSAGES  (buyer)
+────────────────────────────────────────────────────────────────────────────────
+
+GET /account/conversations  [auth]
+  Query params: filter ("all" | "unread"), page, limit
+  → 200  {
+    total: number, page: number, limit: number,
+    conversations: [
+      {
+        id: string,
+        store: { id: string, name: string, slug: string, logoUrl: string | null },
+        lastMessagePreview: string | null,
+        lastMessageAt: string | null,
+        unreadCount: number,
+        context: {
+          type: "order" | "return" | "product" | null,
+          id: string | null,
+          label: string | null    -- e.g. "Order MB-30247"
+        }
+      }
+    ]
+  }
+
+POST /account/conversations  [auth]
+  -- start a new conversation with a store (pre-sale or post-sale)
+  {
+    storeId: string,
+    message: string,
+    orderId?: string,
+    returnId?: string,
+    productId?: string
+  }
+  → 201  { conversationId: string }
+
+GET /account/conversations/:conversationId  [auth]
+  Query params: page, limit  (messages, newest first)
+  → 200  {
+    id: string,
+    store: { id: string, name: string, slug: string, logoUrl: string | null },
+    context: { type: string | null, id: string | null, label: string | null },
+    messages: [
+      {
+        id: string,
+        senderType: "buyer" | "store",
+        content: string | null,
+        attachmentUrl: string | null,
+        attachmentName: string | null,
+        isRead: boolean,
+        sentAt: string
+      }
+    ],
+    total: number, page: number, limit: number
+  }
+
+POST /account/conversations/:conversationId/messages  [auth]
+  { content?: string, attachmentUrl?: string, attachmentName?: string }
+  → 201  { messageId: string }
+
+PATCH /account/conversations/:conversationId/read  [auth]
+  -- marks all messages in conversation as read
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  ACCOUNT
+────────────────────────────────────────────────────────────────────────────────
+
+GET /account/me  [auth]
+  → 200  {
+    id: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string | null,
+    dateOfBirth: string | null,
+    gender: "male" | "female" | "non_binary" | "prefer_not_to_say" | null,
+    profilePhoto: string | null,
+    emailVerified: boolean,
+    memberSince: string,
+    socialAccounts: [ { provider: string } ]
+  }
+
+PATCH /account/me  [auth]
+  {
+    firstName?: string,
+    lastName?: string,
+    phone?: string,
+    dateOfBirth?: string,
+    gender?: "male" | "female" | "non_binary" | "prefer_not_to_say"
+  }
+  → 204
+
+POST /account/me/photo  [auth]
+  multipart/form-data  { photo: File }
+  → 200  { profilePhoto: string }
+
+DELETE /account/me/photo  [auth]
+  → 204
+
+PATCH /account/me/email  [auth]
+  { email: string, currentPassword: string }
+  → 204
+
+PATCH /account/me/password  [auth]
+  { currentPassword: string, newPassword: string }
+  → 204
+
+POST /account/me/social/:provider  [auth]
+  { idToken: string }
+  → 204
+
+DELETE /account/me/social/:provider  [auth]
+  → 204
+
+GET /account/notification-preferences  [auth]
+  → 200  {
+    orderUpdates: boolean,
+    promotionsAndDeals: boolean,
+    wishlistPriceDrops: boolean,
+    newFollowers: boolean,
+    reviewResponses: boolean
+  }
+
+PATCH /account/notification-preferences  [auth]
+  {
+    orderUpdates?: boolean,
+    promotionsAndDeals?: boolean,
+    wishlistPriceDrops?: boolean,
+    newFollowers?: boolean,
+    reviewResponses?: boolean
+  }
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  ADDRESSES
+────────────────────────────────────────────────────────────────────────────────
+
+GET /account/addresses  [auth]
+  → 200  {
+    addresses: [
+      {
+        id: string,
+        firstName: string, lastName: string,
+        street: string, apartment: string | null,
+        city: string, state: string, zip: string, country: string,
+        isDefault: boolean
+      }
+    ]
+  }
+
+POST /account/addresses  [auth]
+  {
+    firstName: string, lastName: string, street: string, apartment?: string,
+    city: string, state: string, zip: string, country: string,
+    isDefault?: boolean
+  }
+  → 201  { id: string }
+
+PUT /account/addresses/:addressId  [auth]
+  {
+    firstName?: string, lastName?: string, street?: string, apartment?: string,
+    city?: string, state?: string, zip?: string, country?: string
+  }
+  → 204
+
+PATCH /account/addresses/:addressId/default  [auth]
+  → 204
+
+DELETE /account/addresses/:addressId  [auth]
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  PAYMENT METHODS
+────────────────────────────────────────────────────────────────────────────────
+
+GET /account/payment-methods  [auth]
+  → 200  {
+    paymentMethods: [
+      {
+        id: string,
+        type: "card" | "paypal" | "apple_pay" | "google_pay",
+        cardBrand: "visa" | "mastercard" | "amex" | "discover" | "other" | null,
+        cardLast4: string | null,
+        expiryMonth: number | null,
+        expiryYear: number | null,
+        nameOnCard: string | null,
+        isDefault: boolean
+      }
+    ]
+  }
+
+POST /account/payment-methods  [auth]
+  {
+    type: "card" | "paypal" | "apple_pay" | "google_pay",
+    cardToken?: string,     -- tokenized by payment provider (e.g. Stripe)
+    nameOnCard?: string,
+    isDefault?: boolean
+  }
+  → 201  { id: string }
+
+PATCH /account/payment-methods/:paymentMethodId/default  [auth]
+  → 204
+
+DELETE /account/payment-methods/:paymentMethodId  [auth]
+  → 204
+
+
+────────────────────────────────────────────────────────────────────────────────
+  NOTIFICATIONS
+────────────────────────────────────────────────────────────────────────────────
+
+GET /account/notifications  [auth]
+  Query params: unreadOnly (boolean), page, limit
+  → 200  {
+    total: number, unreadCount: number, page: number, limit: number,
+    notifications: [
+      {
+        id: string,
+        type: string,
+        title: string,
+        description: string | null,
+        isRead: boolean,
+        relatedEntityType: string | null,
+        relatedEntityId: string | null,
+        createdAt: string
+      }
+    ]
+  }
+
+PATCH /account/notifications/:notificationId/read  [auth]
+  → 204
+
+POST /account/notifications/read-all  [auth]
+  → 204

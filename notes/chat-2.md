@@ -170,85 +170,7 @@ Conversion history
    Description
    Search across all stores.
 
-Functional Requirements
-Keyword search
-
-Search by:
-
-Product name
-
-Category
-
-Store name
-
-Autocomplete suggestions
-
-Sort:
-
-Price low-high
-
-Price high-low
-
-Most popular
-
-Highest rated
-
-Newest
-
-5.2 Filtering Within a Store
-Description
-Filter products on a specific store page.
-
-Filters
-Category
-
-Price range
-
-Availability
-
-Ratings
-
-Variants (size, color)
-
-5.3 Shopping Cart
-Description
-Buyers can add items from multiple stores into one cart.
-
-Functional Requirements
-Add to cart
-
-Remove from cart
-
-Update quantity
-
-Multi-store checkout logic
-
-Price summary:
-
-Subtotal per store
-
-Tax
-
-Shipping
-
-Total
-
-5.4 Ratings & Reviews
-Description
-Buyers can rate sellers.
-
-Functional Requirements
-1–5 star rating
-
-Text review
-
-Only verified purchasers can review
-
-Seller overall rating score
-
-Review moderation
-
-Report abuse
+Report abuse for review
 
 5.5 Subscribe/Bookmark Sellers
 Description
@@ -354,29 +276,13 @@ Advanced analytics (cohort, LTV)
 
 Dynamic pricing tools
 
-Seller ads bidding system
 
 Loyalty programs
-
-Mobile app
-
 Affiliate program
 
 Multi-currency support
 
 International shipping
-
-If you'd like, I can now:
-
-Turn this into a technical architecture blueprint
-
-Break it into epics and user stories for Jira
-
-Create a database schema draft
-
-Create a monetization strategy
-
-Or help you define an MVP vs Phase 2 roadmap
 
 Taking a percentage of successful transactions
 Charging for visibility (promotion/ads)
@@ -395,11 +301,6 @@ Encourages volume growth.
 
 Example:
 
-Monthly GMV Commission Rate
-$0–$5,000 12%
-$5,001–$20,000 10%
-$20,001+ 8%
-Why This Works
 Aligns with marketplace success
 
 2.2 Payment Processing Margin
@@ -409,10 +310,6 @@ Add 0.5–1% margin on top of payment processor fee.
 Stripe charges 2.9% + $0.30
 You charge seller 3.5% + $0.30
 Platform keeps 0.6%
-
-Sellers pay to:
-Feature product
-Feature store
 
 Run limited-time deal banner
 $20/day (small slot)
@@ -426,49 +323,11 @@ CPC model (cost per click)
 2.4 Seller Subscription Plans
 Freemium + Premium Model
 
-Free Tier
-1 store
-
-Basic analytics
-
-Standard commission rate
-
-Limited promotions access
 
 Pro Plan ($29–$79/month)
-Features:
-
 Lower commission rate (e.g., -2%)
 
-Advanced analytics
-
-More stores
-
-Priority support
-
-Early access to new features
-
-Higher promotion ranking weight
-
-Enterprise Plan (Custom Pricing)
-Custom commission
-
-Dedicated account manager
-
-Advanced analytics exports
-
-API access
-
 Bulk upload tools
-
-Why Subscription Works
-Predictable recurring revenue
-
-Encourages platform lock-in
-
-Reduces churn
-
-Creates upgrade path
 
 2.5 Seller Tools Monetization (Add-Ons)
 Optional paid add-ons:
@@ -644,71 +503,19 @@ Key correctness rule
 Inventory is updated by atomic DB transactions (or a dedicated locking strategy) to prevent oversell.
 
 3.6 Cart Service
-Responsibilities
-
-Buyer carts (multi-store)
-
 Pricing snapshot + validation
-
 Stores cart in Redis (fast) with persistence fallback to Postgres
 
-APIs
-
-POST /cart/items
-
-PATCH /cart/items/{id}
-
-GET /cart
-
-POST /cart/checkout-intent
-
-Data
-
-carts (optional), cart_items (optional) + Redis keys
-
 3.7 Order Service
-Responsibilities
-
 Order creation per store (split orders) or unified order with suborders
 
 Order state machine: created → awaiting_payment → paid → fulfilled → completed/cancelled
 
 Refund workflow initiation
 
-APIs
-
-POST /orders
-
-GET /orders/{id}
-
-POST /orders/{id}/cancel
-
-POST /orders/{id}/refund-request
-
-Data
-
-orders, suborders, order_items, order_status_history
-
 3.8 Payment Service
-Responsibilities
-
-Payment intents, webhooks handling
-
-Reconciliation
 
 Seller payouts (Phase 2) or marketplace payout routing
-
-APIs
-
-POST /payments/intent
-
-POST /payments/webhook (provider)
-
-GET /payments/{id}
-
-Integration
-
-Stripe/Adyen/Paystack/Flutterwave (region-based)
 
 3.9 Promotions/Ads Service (homepage boosts)
 Responsibilities
@@ -717,24 +524,7 @@ Seller-created promotion campaigns (store/product)
 
 Budget/credit model
 
-Approval workflow (optional)
-
-Ranking + placement delivery
-
-APIs
-
-POST /promotions
-
-GET /promotions/placements?slot=home_hero
-
-POST /admin/promotions/{id}/approve|reject
-
-Data
-
-promotions, promotion_assets, promotion_budgets, promotion_impressions_clicks
-
-Buyer follows store/seller
-Triggers on new product/promo/discount
+Trigger  on new product/promo/discount
 
 Cart validates pricing/availability
 Cart requests Inventory reservation (reserve)
@@ -810,52 +600,6 @@ uploaded_at
 Relationship
 
 seller_profiles 1→M kyc_submissions 1→M kyc_documents
-
-Catalog
-categories
-id (PK, uuid)
-
-parent_id (FK → categories.id, nullable)
-
-name
-
-slug (unique)
-
-products
-id (PK, uuid)
-
-store_id (FK → stores.id)
-
-title
-
-description
-
-category_id (FK → categories.id, nullable)
-
-brand (nullable)
-
-status (enum: draft, active, inactive, archived)
-
-is_featured (bool default false)
-
-created_at, updated_at
-
-Indexes
-
-idx(store_id)
-
-idx(category_id)
-
-product_images
-id (PK, uuid)
-
-product_id (FK → products.id)
-
-url
-
-sort_order (int)
-
-created_at
 
 product_variants
 Variants are what you actually sell/stock.
@@ -1140,91 +884,6 @@ created_at
 
 Indexes: idx(promotion_id, event_type, created_at)
 
-Chat
-conversations
-id (PK, uuid)
-
-store_id (FK → stores.id)
-
-buyer_user_id (FK → users.id)
-
-seller_user_id (FK → seller_profiles.user_id) (or derive from store)
-
-order_store_group_id (FK → order_store_groups.id, nullable)
-
-created_at, updated_at
-
-Constraints
-
-unique(store_id, buyer_user_id, order_store_group_id) (optional; prevents duplicates per order)
-
-messages
-id (PK, uuid)
-
-conversation_id (FK → conversations.id)
-
-sender_user_id (FK → users.id)
-
-message_type (enum: text, system)
-
-body (text)
-
-sent_at (timestamp)
-
-read_at (nullable)
-
-metadata (jsonb, nullable)
-
-Indexes: idx(conversation_id, sent_at)
-
-Ratings / Reviews (buyers rate sellers)
-store_reviews
-Rating at store-level (simplest) and “verified purchase only”.
-
-id (PK, uuid)
-
-store_id (FK → stores.id)
-
-buyer_user_id (FK → users.id)
-
-order_store_group_id (FK → order_store_groups.id) (enforces verified purchase)
-
-rating (int check 1–5)
-
-review_text (text, nullable)
-
-status (enum: published, hidden, flagged)
-
-created_at, updated_at
-
-Constraints
-
-unique(order_store_group_id) (one review per store order)
-
-check(order_store_group_id belongs to store_id and buyer_user_id) (enforced via app or trigger)
-
-store_rating_aggregates
-store_id (PK/FK → stores.id)
-
-avg_rating (numeric(3,2))
-
-rating_count (int)
-
-updated_at
-
-Subscriptions / Bookmarks + Notifications
-store_subscriptions
-id (PK, uuid)
-
-buyer_user_id (FK → users.id)
-
-store_id (FK → stores.id)
-
-created_at
-
-Constraints
-
-unique(buyer_user_id, store_id)
 
 notification_preferences
 buyer_user_id (PK/FK → users.id)

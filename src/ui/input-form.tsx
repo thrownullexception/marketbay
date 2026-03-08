@@ -6,7 +6,7 @@ import { formatErrors } from "@/screens/_components/form/format-errors";
 import { sluggify } from "@/utils/strings";
 import { TextLink } from "./link";
 
-export const InputLabel = (props: {
+export const FormLabel = (props: {
 	label: string;
 	required?: boolean;
 	for: string;
@@ -30,12 +30,12 @@ export const InputLabel = (props: {
 	);
 };
 
-export const InputDescription = (props: { description?: string }) => {
+export const FormDescription = (props: { description?: string }) => {
 	if (!props.description) return null;
 	return <p class="text-xs text-gray-400 mt-1.5">{props.description}</p>;
 };
 
-export type BaseInputProps = {
+export type FormInputProps = {
 	label: string;
 	required?: boolean;
 	labelLink?: {
@@ -52,15 +52,15 @@ export const useFieldHasError = <T,>() => {
 	return () => errors().length > 0 && isTouched();
 };
 
-export const BaseInput = (
-	props: BaseInputProps & { children: JSX.Element },
+export const FormInput = (
+	props: FormInputProps & { children: JSX.Element },
 ) => {
 	const field = useFieldContext<string>();
 	const errors = useStore(field().store, (state) => state.meta.errors);
 	const hasError = useFieldHasError();
 	return (
 		<div>
-			<InputLabel
+			<FormLabel
 				for={sluggify(props.label)}
 				label={props.label}
 				required={props.required}
@@ -72,7 +72,7 @@ export const BaseInput = (
 					{formatErrors(errors()[0]).message}
 				</em>
 			)}
-			<InputDescription description={props.description} />
+			<FormDescription description={props.description} />
 		</div>
 	);
 };

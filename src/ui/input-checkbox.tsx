@@ -4,7 +4,7 @@ import { For, type JSX } from "solid-js";
 import { useFieldContext } from "@/screens/_components/form/context";
 import { formatErrors } from "@/screens/_components/form/format-errors";
 import { sluggify } from "@/utils/strings";
-import { useFieldHasError } from "./input-shared";
+import { useFieldHasError } from "./input-form";
 
 const Checkbox = (props: {
 	id: string;

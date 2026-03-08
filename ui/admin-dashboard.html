@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — MarketBay</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#eef4ff',
+              100: '#dae6ff',
+              200: '#bdd4ff',
+              300: '#90b8ff',
+              400: '#5b90ff',
+              500: '#3568fc',
+              600: '#1d44f2',
+              700: '#1633de',
+              800: '#182cb4',
+              900: '#1a2b8e',
+              950: '#141c56',
+            },
+            accent: {
+              50:  '#fffbeb',
+              100: '#fff3c6',
+              200: '#ffe588',
+              300: '#ffd24a',
+              400: '#ffbf20',
+              500: '#f99b07',
+              600: '#dd7302',
+              700: '#b75006',
+              800: '#943d0c',
+              900: '#7a330d',
+              950: '#461902',
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    html { scroll-behavior: smooth; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .sidebar-link.active {
+      background-color: #eef4ff;
+      color: #1d44f2;
+      border-right: 3px solid #1d44f2;
+    }
+    .chart-bar { transition: height 0.6s cubic-bezier(.4,0,.2,1); }
+    .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+    .stat-card { transition: transform 0.2s, box-shadow 0.2s; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+  <!-- ========== TOP BAR ========== -->
+  <div class="bg-brand-950 text-brand-200 text-xs py-1.5">
+    <div class="max-w-[1440px] mx-auto px-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-red-500/20 text-red-300 text-[10px] font-bold rounded-full uppercase">
+          <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>
+          Admin Mode
+        </span>
+        <span class="text-brand-400">&bull;</span>
+        <span class="text-brand-300">Full system access</span>
+      </div>
+      <div class="hidden sm:flex items-center gap-4">
+        <a href="home.html" class="hover:text-white transition">View Marketplace</a>
+        <a href="#" class="hover:text-white transition">Docs</a>
+        <a href="#" class="hover:text-white transition">System Status</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100 shadow-sm">
+    <div class="max-w-[1440px] mx-auto px-4 py-3 flex items-center gap-4">
+      <a href="home.html" class="flex-shrink-0 flex items-center gap-2">
+        <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <div>
+          <span class="text-xl font-extrabold text-brand-950 tracking-tight">Market<span class="text-brand-600">Bay</span></span>
+          <span class="ml-1.5 px-1.5 py-0.5 bg-red-100 text-red-600 text-[9px] font-bold rounded uppercase tracking-wide">Admin</span>
+        </div>
+      </a>
+
+      <div class="flex-1 max-w-xl mx-auto hidden sm:block">
+        <div class="relative">
+          <input type="text" placeholder="Search users, stores, orders, products…" class="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <kbd class="absolute right-3.5 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] text-gray-400 border border-gray-200 rounded">⌘K</kbd>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Alerts -->
+        <button class="relative p-2 rounded-full hover:bg-gray-100 transition" aria-label="Alerts">
+          <svg class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+          <span class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">7</span>
+        </button>
+        <!-- Admin User -->
+        <div class="hidden sm:flex items-center gap-2 pl-2 border-l border-gray-200 ml-1">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center text-xs font-bold">SA</div>
+          <div class="text-left">
+            <p class="text-sm font-semibold text-gray-900 leading-tight">Super Admin</p>
+            <p class="text-[10px] text-gray-400 leading-tight">admin@marketbay.com</p>
+          </div>
+          <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== MAIN LAYOUT ========== -->
+  <div class="max-w-[1440px] mx-auto px-4 py-8 lg:py-10">
+    <div class="grid lg:grid-cols-[220px_1fr] gap-8">
+
+      <!-- ===== SIDEBAR ===== -->
+      <aside class="lg:col-span-1">
+        <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden sticky top-24">
+          <div class="p-4 border-b border-gray-100 bg-gradient-to-br from-brand-950 to-brand-900">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white flex-shrink-0">
+                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-white">Control Panel</p>
+                <p class="text-[10px] text-brand-300">Marketplace Admin</p>
+              </div>
+            </div>
+          </div>
+
+          <nav class="py-2">
+            <!-- Overview -->
+            <p class="px-5 pt-3 pb-1 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Overview</p>
+            <a href="#" class="sidebar-link active flex items-center gap-3 px-5 py-2.5 text-sm font-medium transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+              Dashboard
+            </a>
+            <a href="admin-analytics.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+              Analytics
+            </a>
+
+            <!-- Marketplace -->
+            <p class="px-5 pt-4 pb-1 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Marketplace</p>
+            <a href="admin-users.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+              Users
+              <span class="ml-auto px-1.5 py-0.5 bg-gray-100 text-gray-500 text-[10px] font-bold rounded-full">48.2k</span>
+            </a>
+            <a href="admin-stores.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"/></svg>
+              Stores
+              <span class="ml-auto px-1.5 py-0.5 bg-amber-50 text-amber-600 text-[10px] font-bold rounded-full">3 pending</span>
+            </a>
+            <a href="admin-products.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"/></svg>
+              Products
+              <span class="ml-auto px-1.5 py-0.5 bg-red-50 text-red-500 text-[10px] font-bold rounded-full">12 flagged</span>
+            </a>
+            <a href="admin-orders.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+              Orders
+            </a>
+            <a href="admin-categories.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/></svg>
+              Categories
+            </a>
+            <a href="admin-reviews.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+              Reviews
+            </a>
+
+            <!-- Finance -->
+            <p class="px-5 pt-4 pb-1 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Finance</p>
+            <a href="admin-payouts.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+              Payouts
+              <span class="ml-auto px-1.5 py-0.5 bg-brand-50 text-brand-600 text-[10px] font-bold rounded-full">5 due</span>
+            </a>
+            <a href="admin-disputes.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+              Disputes
+              <span class="ml-auto px-1.5 py-0.5 bg-red-50 text-red-500 text-[10px] font-bold rounded-full">2 open</span>
+            </a>
+            <a href="admin-promotions.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+              Promotions
+            </a>
+
+            <!-- Platform -->
+            <p class="px-5 pt-4 pb-1 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Platform</p>
+            <a href="admin-content.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"/></svg>
+              Content &amp; Banners
+            </a>
+            <a href="admin-reports.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5"/></svg>
+              Reports &amp; Logs
+            </a>
+            <hr class="my-2 border-gray-100" />
+            <a href="admin-settings.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              Platform Settings
+            </a>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- ===== MAIN CONTENT ===== -->
+      <main class="space-y-6 min-w-0">
+
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-2xl font-extrabold text-gray-900">Admin Dashboard</h1>
+            <p class="text-sm text-gray-500 mt-0.5">Platform overview — <span class="font-medium text-gray-700">March 7, 2026</span></p>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="flex items-center bg-gray-100 rounded-xl p-0.5">
+              <button class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white text-gray-900 shadow-sm">Today</button>
+              <button class="px-3 py-1.5 text-xs font-semibold rounded-lg text-gray-500 hover:text-gray-700 transition">7 Days</button>
+              <button class="px-3 py-1.5 text-xs font-semibold rounded-lg text-gray-500 hover:text-gray-700 transition">30 Days</button>
+              <button class="px-3 py-1.5 text-xs font-semibold rounded-lg text-gray-500 hover:text-gray-700 transition">Year</button>
+            </div>
+            <button class="px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold rounded-xl transition flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+              Export
+            </button>
+          </div>
+        </div>
+
+        <!-- ===== CRITICAL ALERTS BANNER ===== -->
+        <div class="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-start gap-3">
+          <div class="w-8 h-8 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg class="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-bold text-red-700">Action Required — 7 items need your attention</p>
+            <div class="mt-2 flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-red-200 text-red-600 text-xs font-semibold rounded-lg cursor-pointer hover:bg-red-50 transition">
+                <span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+                2 open disputes
+              </span>
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-amber-200 text-amber-600 text-xs font-semibold rounded-lg cursor-pointer hover:bg-amber-50 transition">
+                <span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+                3 stores pending approval
+              </span>
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-orange-200 text-orange-600 text-xs font-semibold rounded-lg cursor-pointer hover:bg-orange-50 transition">
+                <span class="w-1.5 h-1.5 bg-orange-500 rounded-full"></span>
+                12 flagged products
+              </span>
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-brand-200 text-brand-600 text-xs font-semibold rounded-lg cursor-pointer hover:bg-brand-50 transition">
+                <span class="w-1.5 h-1.5 bg-brand-500 rounded-full"></span>
+                5 payouts due
+              </span>
+            </div>
+          </div>
+          <button class="text-red-400 hover:text-red-600 transition flex-shrink-0">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <!-- ===== TOP KPI GRID ===== -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- GMV -->
+          <div class="stat-card bg-white rounded-2xl border border-gray-100 p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded-full">
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+                +31.2%
+              </span>
+            </div>
+            <p class="text-2xl font-extrabold text-gray-900">$2.84M</p>
+            <p class="text-xs text-gray-500 mt-0.5">Gross Merchandise Value</p>
+            <p class="text-[10px] text-gray-400 mt-1">vs $2.17M last period</p>
+          </div>
+
+          <!-- Platform Revenue -->
+          <div class="stat-card bg-white rounded-2xl border border-gray-100 p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+              </div>
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded-full">
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+                +28.4%
+              </span>
+            </div>
+            <p class="text-2xl font-extrabold text-gray-900">$284k</p>
+            <p class="text-xs text-gray-500 mt-0.5">Platform Revenue (10%)</p>
+            <p class="text-[10px] text-gray-400 mt-1">Commission + fees</p>
+          </div>
+
+          <!-- Active Users -->
+          <div class="stat-card bg-white rounded-2xl border border-gray-100 p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+              </div>
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded-full">
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+                +4,210
+              </span>
+            </div>
+            <p class="text-2xl font-extrabold text-gray-900">48,291</p>
+            <p class="text-xs text-gray-500 mt-0.5">Registered Users</p>
+            <p class="text-[10px] text-gray-400 mt-1">1,834 active today</p>
+          </div>
+
+          <!-- Total Orders -->
+          <div class="stat-card bg-white rounded-2xl border border-gray-100 p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+              </div>
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded-full">
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg>
+                +22.1%
+              </span>
+            </div>
+            <p class="text-2xl font-extrabold text-gray-900">34,182</p>
+            <p class="text-xs text-gray-500 mt-0.5">Total Orders</p>
+            <p class="text-[10px] text-gray-400 mt-1">247 placed today</p>
+          </div>
+        </div>
+
+        <!-- ===== SECOND ROW KPIs ===== -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="stat-card bg-white rounded-2xl border border-gray-100 p-5">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-teal-50 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"/></svg>
+              </div>
+              <div>
+                <p class="text-lg font-extrabold text-gray-900">3,841</p>
+                <p class="text-xs text-gray-500">Active Stores</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-gray-400">
+              <span class="text-amber-500 font-semibold">3 pending review</span>
+              <span>+89 this month</span>
+            </div>
+          </div>
+
+          <div class="stat-card bg-white rounded-2xl border border-gray-100 p-5">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-cyan-50 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"/></svg>
+              </div>
+              <div>
+                <p class="text-lg font-extrabold text-gray-900">214,590</p>
+                <p class="text-xs text-gray-500">Listed Products</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-gray-400">
+              <span class="text-red-500 font-semibold">12 flagged</span>
+              <span>+1,203 this month</span>
+            </div>
+          </div>
+
+          <div class="stat-card bg-white rounded-2xl border border-gray-100 p-5">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-rose-50 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+              </div>
+              <div>
+                <p class="text-lg font-extrabold text-gray-900">2</p>
+                <p class="text-xs text-gray-500">Open Disputes</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-gray-400">
+              <span class="text-emerald-500 font-semibold">0.006% dispute rate</span>
+              <span>18 resolved total</span>
+            </div>
+          </div>
+
+          <div class="stat-card bg-white rounded-2xl border border-gray-100 p-5">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
+              </div>
+              <div>
+                <p class="text-lg font-extrabold text-gray-900">3.7%</p>
+                <p class="text-xs text-gray-500">Platform Conversion</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-gray-400">
+              <span class="text-emerald-500 font-semibold">+0.4% vs last period</span>
+              <span>Industry avg: 2.1%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== GMV CHART + PLATFORM MIX ===== -->
+        <div class="grid lg:grid-cols-3 gap-6">
+
+          <!-- GMV Chart -->
+          <div class="lg:col-span-2 bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+              <div>
+                <h2 class="text-base font-bold text-gray-900">GMV Overview</h2>
+                <p class="text-xs text-gray-400 mt-0.5">Daily gross merchandise value — last 30 days</p>
+              </div>
+              <div class="flex items-center gap-4 text-xs text-gray-500">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>This period</span>
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-200"></span>Previous</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-end justify-between gap-1 h-44">
+                <!-- 14 chart bars -->
+                <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:72px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:55px"></div></div><span class="text-[9px] text-gray-400">1</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:90px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:60px"></div></div><span class="text-[9px] text-gray-400">2</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:58px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:42px"></div></div><span class="text-[9px] text-gray-400">3</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:110px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:70px"></div></div><span class="text-[9px] text-gray-400">4</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:130px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:80px"></div></div><span class="text-[9px] text-gray-400">5</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:95px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:65px"></div></div><span class="text-[9px] text-gray-400">6</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:148px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:90px"></div></div><span class="text-[9px] text-gray-400">7</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1 hidden sm:flex"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:80px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:50px"></div></div><span class="text-[9px] text-gray-400">8</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1 hidden sm:flex"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:120px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:75px"></div></div><span class="text-[9px] text-gray-400">9</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1 hidden sm:flex"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:100px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:68px"></div></div><span class="text-[9px] text-gray-400">10</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1 hidden md:flex"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:160px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:85px"></div></div><span class="text-[9px] text-gray-400">11</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1 hidden md:flex"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:135px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:78px"></div></div><span class="text-[9px] text-gray-400">12</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1 hidden lg:flex"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-brand-500 rounded-t-md chart-bar" style="height:175px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:95px"></div></div><span class="text-[9px] text-gray-400">13</span></div>
+                <div class="flex-1 flex flex-col items-center gap-1 hidden lg:flex"><div class="w-full flex flex-col items-center gap-0.5"><div class="w-full max-w-[18px] bg-accent-400 rounded-t-md chart-bar" style="height:150px"></div><div class="w-full max-w-[18px] bg-brand-100 rounded-t-md chart-bar" style="height:88px"></div></div><span class="text-[9px] text-gray-400">Today</span></div>
+              </div>
+              <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100 text-xs text-gray-400">
+                <span>Feb 7</span>
+                <span class="text-brand-600 font-semibold">$94,700 today (projected)</span>
+                <span>Mar 7</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Revenue Breakdown -->
+          <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-50">
+              <h2 class="text-base font-bold text-gray-900">Revenue Mix</h2>
+              <p class="text-xs text-gray-400 mt-0.5">Platform income sources</p>
+            </div>
+            <div class="p-6 space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-brand-500 flex-shrink-0"></span>
+                    <span class="text-sm font-medium text-gray-700">Seller Commission</span>
+                  </div>
+                  <span class="text-sm font-bold text-gray-900">68%</span>
+                </div>
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-brand-500 rounded-full" style="width:68%"></div>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-1">$193,120 this period</p>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-accent-500 flex-shrink-0"></span>
+                    <span class="text-sm font-medium text-gray-700">Featured Listings</span>
+                  </div>
+                  <span class="text-sm font-bold text-gray-900">18%</span>
+                </div>
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-accent-500 rounded-full" style="width:18%"></div>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-1">$51,120 this period</p>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-violet-500 flex-shrink-0"></span>
+                    <span class="text-sm font-medium text-gray-700">Subscription Plans</span>
+                  </div>
+                  <span class="text-sm font-bold text-gray-900">9%</span>
+                </div>
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-violet-500 rounded-full" style="width:9%"></div>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-1">$25,560 this period</p>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-teal-500 flex-shrink-0"></span>
+                    <span class="text-sm font-medium text-gray-700">Payment Processing</span>
+                  </div>
+                  <span class="text-sm font-bold text-gray-900">5%</span>
+                </div>
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-teal-500 rounded-full" style="width:5%"></div>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-1">$14,200 this period</p>
+              </div>
+              <div class="pt-2 border-t border-gray-100">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm font-bold text-gray-900">Total Platform Revenue</span>
+                  <span class="text-base font-extrabold text-emerald-600">$284,000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== STORES PENDING APPROVAL + FLAGGED PRODUCTS ===== -->
+        <div class="grid lg:grid-cols-2 gap-6">
+
+          <!-- Stores Pending Approval -->
+          <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-amber-400 rounded-full"></span>
+                <h2 class="text-base font-bold text-gray-900">Stores Pending Approval</h2>
+              </div>
+              <a href="admin-stores.html" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">View All &rarr;</a>
+            </div>
+            <div class="divide-y divide-gray-50">
+              <!-- Store Row -->
+              <div class="px-5 py-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-400 to-rose-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm">BF</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">BeautyForward</p>
+                  <p class="text-xs text-gray-400">Sarah K. &bull; Beauty &amp; Skincare &bull; Applied 2h ago</p>
+                </div>
+                <div class="flex items-center gap-2 flex-shrink-0">
+                  <button class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 text-xs font-semibold rounded-lg transition">Approve</button>
+                  <button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-semibold rounded-lg transition">Review</button>
+                </div>
+              </div>
+              <div class="px-5 py-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-cyan-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm">OG</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">OrganicGrains</p>
+                  <p class="text-xs text-gray-400">Marcus T. &bull; Food &amp; Grocery &bull; Applied 5h ago</p>
+                </div>
+                <div class="flex items-center gap-2 flex-shrink-0">
+                  <button class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 text-xs font-semibold rounded-lg transition">Approve</button>
+                  <button class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-semibold rounded-lg transition">Review</button>
+                </div>
+              </div>
+              <div class="px-5 py-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-400 to-purple-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm">PX</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">PixelPerfect</p>
+                  <p class="text-xs text-gray-400">Ava M. &bull; Electronics &bull; Applied 1d ago</p>
+                </div>
+                <div class="flex items-center gap-2 flex-shrink-0">
+                  <button class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 text-xs font-semibold rounded-lg transition">Approve</button>
+                  <button class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-500 text-xs font-semibold rounded-lg transition">Reject</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flagged Products -->
+          <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                <h2 class="text-base font-bold text-gray-900">Flagged Products</h2>
+              </div>
+              <a href="admin-products.html" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">View All 12 &rarr;</a>
+            </div>
+            <div class="divide-y divide-gray-50">
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-900 truncate">Counterfeit Designer Watch</p>
+                  <p class="text-xs text-gray-400">LuxeTime Store &bull; <span class="text-red-500 font-semibold">Trademark violation</span></p>
+                </div>
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                  <button class="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-500 text-xs font-semibold rounded-lg transition">Remove</button>
+                </div>
+              </div>
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-900 truncate">Unauthorized Supplement</p>
+                  <p class="text-xs text-gray-400">NutriMax &bull; <span class="text-amber-500 font-semibold">Missing certifications</span></p>
+                </div>
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                  <button class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-600 text-xs font-semibold rounded-lg transition">Review</button>
+                </div>
+              </div>
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/></svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-gray-900 truncate">Recalled Electronic Toy</p>
+                  <p class="text-xs text-gray-400">KidsFirst &bull; <span class="text-red-500 font-semibold">Safety recall</span></p>
+                </div>
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                  <button class="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-500 text-xs font-semibold rounded-lg transition">Remove</button>
+                </div>
+              </div>
+              <div class="px-5 py-3 text-center">
+                <a href="admin-products.html" class="text-xs font-semibold text-gray-400 hover:text-brand-600 transition">+ 9 more flagged products</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== RECENT ORDERS + OPEN DISPUTES ===== -->
+        <div class="grid lg:grid-cols-3 gap-6">
+
+          <!-- Recent Orders (Platform-wide) -->
+          <div class="lg:col-span-2 bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+              <h2 class="text-base font-bold text-gray-900">Recent Platform Orders</h2>
+              <a href="admin-orders.html" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">View All &rarr;</a>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-gray-50 bg-gray-50/50">
+                    <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Order</th>
+                    <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider hidden sm:table-cell">Store</th>
+                    <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Buyer</th>
+                    <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Amount</th>
+                    <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-50">
+                  <tr class="hover:bg-gray-50/50 transition">
+                    <td class="px-5 py-3.5"><span class="font-semibold text-gray-900">#MB-30418</span><p class="text-[11px] text-gray-400 mt-0.5">Just now</p></td>
+                    <td class="px-5 py-3.5 hidden sm:table-cell"><span class="text-xs font-medium text-brand-600">TechVault</span></td>
+                    <td class="px-5 py-3.5"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-[10px] font-bold">EM</div><span class="text-gray-700 text-xs">Emily M.</span></div></td>
+                    <td class="px-5 py-3.5 font-semibold text-gray-900">$59.99</td>
+                    <td class="px-5 py-3.5"><span class="inline-flex items-center px-2 py-0.5 bg-amber-50 text-amber-600 text-[11px] font-semibold rounded-full">Pending</span></td>
+                  </tr>
+                  <tr class="hover:bg-gray-50/50 transition">
+                    <td class="px-5 py-3.5"><span class="font-semibold text-gray-900">#MB-30417</span><p class="text-[11px] text-gray-400 mt-0.5">4m ago</p></td>
+                    <td class="px-5 py-3.5 hidden sm:table-cell"><span class="text-xs font-medium text-brand-600">StyleHouse</span></td>
+                    <td class="px-5 py-3.5"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-[10px] font-bold">JR</div><span class="text-gray-700 text-xs">Jake R.</span></div></td>
+                    <td class="px-5 py-3.5 font-semibold text-gray-900">$134.50</td>
+                    <td class="px-5 py-3.5"><span class="inline-flex items-center px-2 py-0.5 bg-blue-50 text-blue-600 text-[11px] font-semibold rounded-full">Processing</span></td>
+                  </tr>
+                  <tr class="hover:bg-gray-50/50 transition">
+                    <td class="px-5 py-3.5"><span class="font-semibold text-gray-900">#MB-30416</span><p class="text-[11px] text-gray-400 mt-0.5">12m ago</p></td>
+                    <td class="px-5 py-3.5 hidden sm:table-cell"><span class="text-xs font-medium text-brand-600">HomeNest</span></td>
+                    <td class="px-5 py-3.5"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold">SL</div><span class="text-gray-700 text-xs">Sarah L.</span></div></td>
+                    <td class="px-5 py-3.5 font-semibold text-gray-900">$299.00</td>
+                    <td class="px-5 py-3.5"><span class="inline-flex items-center px-2 py-0.5 bg-emerald-50 text-emerald-600 text-[11px] font-semibold rounded-full">Shipped</span></td>
+                  </tr>
+                  <tr class="hover:bg-gray-50/50 transition">
+                    <td class="px-5 py-3.5"><span class="font-semibold text-gray-900">#MB-30415</span><p class="text-[11px] text-gray-400 mt-0.5">28m ago</p></td>
+                    <td class="px-5 py-3.5 hidden sm:table-cell"><span class="text-xs font-medium text-brand-600">GadgetZone</span></td>
+                    <td class="px-5 py-3.5"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center text-[10px] font-bold">AK</div><span class="text-gray-700 text-xs">Alex K.</span></div></td>
+                    <td class="px-5 py-3.5 font-semibold text-gray-900">$89.95</td>
+                    <td class="px-5 py-3.5"><span class="inline-flex items-center px-2 py-0.5 bg-emerald-50 text-emerald-600 text-[11px] font-semibold rounded-full">Delivered</span></td>
+                  </tr>
+                  <tr class="hover:bg-gray-50/50 transition">
+                    <td class="px-5 py-3.5"><span class="font-semibold text-gray-900">#MB-30414</span><p class="text-[11px] text-gray-400 mt-0.5">45m ago</p></td>
+                    <td class="px-5 py-3.5 hidden sm:table-cell"><span class="text-xs font-medium text-brand-600">FreshFarm</span></td>
+                    <td class="px-5 py-3.5"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-[10px] font-bold">MW</div><span class="text-gray-700 text-xs">Mary W.</span></div></td>
+                    <td class="px-5 py-3.5 font-semibold text-gray-900">$42.80</td>
+                    <td class="px-5 py-3.5"><span class="inline-flex items-center px-2 py-0.5 bg-red-50 text-red-500 text-[11px] font-semibold rounded-full">Disputed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Open Disputes -->
+          <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+                <h2 class="text-base font-bold text-gray-900">Open Disputes</h2>
+              </div>
+              <a href="admin-disputes.html" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">View All &rarr;</a>
+            </div>
+            <div class="divide-y divide-gray-50">
+              <!-- Dispute 1 -->
+              <div class="p-5">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-gray-900">#DISP-0041</span>
+                  <span class="inline-flex items-center px-2 py-0.5 bg-red-50 text-red-500 text-[10px] font-semibold rounded-full">High Priority</span>
+                </div>
+                <p class="text-xs text-gray-700 font-medium">Item not as described</p>
+                <p class="text-[11px] text-gray-400 mt-0.5">Order #MB-30414 &bull; FreshFarm &bull; $42.80</p>
+                <div class="flex items-center gap-2 mt-3">
+                  <div class="flex items-center gap-1 flex-1">
+                    <div class="w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-[9px] font-bold">MW</div>
+                    <span class="text-[10px] text-gray-500">Mary W. (buyer)</span>
+                  </div>
+                  <button class="px-2.5 py-1 bg-brand-600 hover:bg-brand-700 text-white text-[10px] font-semibold rounded-lg transition">Resolve</button>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-2">Opened 2 hours ago</p>
+              </div>
+              <!-- Dispute 2 -->
+              <div class="p-5">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-gray-900">#DISP-0040</span>
+                  <span class="inline-flex items-center px-2 py-0.5 bg-amber-50 text-amber-600 text-[10px] font-semibold rounded-full">In Review</span>
+                </div>
+                <p class="text-xs text-gray-700 font-medium">Non-delivery claim</p>
+                <p class="text-[11px] text-gray-400 mt-0.5">Order #MB-30389 &bull; TechVault &bull; $189.00</p>
+                <div class="flex items-center gap-2 mt-3">
+                  <div class="flex items-center gap-1 flex-1">
+                    <div class="w-5 h-5 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center text-[9px] font-bold">ND</div>
+                    <span class="text-[10px] text-gray-500">Nina D. (buyer)</span>
+                  </div>
+                  <button class="px-2.5 py-1 bg-brand-600 hover:bg-brand-700 text-white text-[10px] font-semibold rounded-lg transition">Resolve</button>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-2">Opened 1 day ago</p>
+              </div>
+            </div>
+            <!-- Quick Actions -->
+            <div class="p-4 bg-gray-50/50 border-t border-gray-100">
+              <p class="text-xs font-semibold text-gray-500 mb-3">Quick Actions</p>
+              <div class="space-y-2">
+                <button class="w-full flex items-center gap-2 px-3 py-2 rounded-xl border border-gray-200 hover:border-brand-200 hover:bg-brand-50/30 transition text-sm font-medium text-gray-700">
+                  <svg class="w-3.5 h-3.5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                  Suspend Store
+                </button>
+                <button class="w-full flex items-center gap-2 px-3 py-2 rounded-xl border border-gray-200 hover:border-red-200 hover:bg-red-50/30 transition text-sm font-medium text-gray-700">
+                  <svg class="w-3.5 h-3.5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                  Ban User
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== TOP STORES + USER GROWTH ===== -->
+        <div class="grid lg:grid-cols-2 gap-6">
+
+          <!-- Top Performing Stores -->
+          <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+              <h2 class="text-base font-bold text-gray-900">Top Performing Stores</h2>
+              <a href="admin-stores.html" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">View All &rarr;</a>
+            </div>
+            <div class="divide-y divide-gray-50">
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <span class="w-6 h-6 rounded-lg bg-accent-50 text-accent-600 text-[10px] font-bold flex items-center justify-center flex-shrink-0">1</span>
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm">TV</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">TechVault</p>
+                  <p class="text-xs text-gray-400">Electronics &bull; 4.9★ &bull; 2,147 reviews</p>
+                </div>
+                <div class="text-right flex-shrink-0">
+                  <p class="text-sm font-bold text-gray-900">$312k</p>
+                  <p class="text-[10px] text-emerald-500 font-medium">+24% GMV</p>
+                </div>
+              </div>
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <span class="w-6 h-6 rounded-lg bg-gray-100 text-gray-500 text-[10px] font-bold flex items-center justify-center flex-shrink-0">2</span>
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-pink-400 to-rose-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm">SH</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">StyleHouse</p>
+                  <p class="text-xs text-gray-400">Fashion &bull; 4.8★ &bull; 3,891 reviews</p>
+                </div>
+                <div class="text-right flex-shrink-0">
+                  <p class="text-sm font-bold text-gray-900">$287k</p>
+                  <p class="text-[10px] text-emerald-500 font-medium">+18% GMV</p>
+                </div>
+              </div>
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <span class="w-6 h-6 rounded-lg bg-gray-100 text-gray-500 text-[10px] font-bold flex items-center justify-center flex-shrink-0">3</span>
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm">HN</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">HomeNest</p>
+                  <p class="text-xs text-gray-400">Home & Garden &bull; 4.7★ &bull; 1,204 reviews</p>
+                </div>
+                <div class="text-right flex-shrink-0">
+                  <p class="text-sm font-bold text-gray-900">$198k</p>
+                  <p class="text-[10px] text-emerald-500 font-medium">+31% GMV</p>
+                </div>
+              </div>
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <span class="w-6 h-6 rounded-lg bg-gray-100 text-gray-500 text-[10px] font-bold flex items-center justify-center flex-shrink-0">4</span>
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-400 to-amber-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm">FF</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">FreshFarm</p>
+                  <p class="text-xs text-gray-400">Food &bull; 4.6★ &bull; 892 reviews</p>
+                </div>
+                <div class="text-right flex-shrink-0">
+                  <p class="text-sm font-bold text-gray-900">$142k</p>
+                  <p class="text-[10px] text-red-400 font-medium">-4% GMV</p>
+                </div>
+              </div>
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <span class="w-6 h-6 rounded-lg bg-gray-100 text-gray-500 text-[10px] font-bold flex items-center justify-center flex-shrink-0">5</span>
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-400 to-purple-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm">GZ</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">GadgetZone</p>
+                  <p class="text-xs text-gray-400">Electronics &bull; 4.5★ &bull; 608 reviews</p>
+                </div>
+                <div class="text-right flex-shrink-0">
+                  <p class="text-sm font-bold text-gray-900">$118k</p>
+                  <p class="text-[10px] text-emerald-500 font-medium">+9% GMV</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Growth + Platform Health -->
+          <div class="space-y-6">
+
+            <!-- New User Signups -->
+            <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+              <div class="px-6 py-4 border-b border-gray-50">
+                <h2 class="text-base font-bold text-gray-900">User Growth</h2>
+                <p class="text-xs text-gray-400 mt-0.5">New signups this period</p>
+              </div>
+              <div class="p-5 space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-brand-50 flex items-center justify-center">
+                      <svg class="w-4 h-4 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold text-gray-900">New Buyers</p>
+                      <p class="text-[10px] text-gray-400">Total: 44,450</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-base font-extrabold text-gray-900">+3,912</p>
+                    <p class="text-[10px] text-emerald-500 font-medium">+10.2%</p>
+                  </div>
+                </div>
+                <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-brand-500 rounded-full" style="width:80%"></div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-teal-50 flex items-center justify-center">
+                      <svg class="w-4 h-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"/></svg>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold text-gray-900">New Sellers</p>
+                      <p class="text-[10px] text-gray-400">Total: 3,841</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-base font-extrabold text-gray-900">+298</p>
+                    <p class="text-[10px] text-emerald-500 font-medium">+8.4%</p>
+                  </div>
+                </div>
+                <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-teal-500 rounded-full" style="width:65%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Platform Health -->
+            <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+              <div class="px-6 py-4 border-b border-gray-50">
+                <h2 class="text-base font-bold text-gray-900">Platform Health</h2>
+              </div>
+              <div class="p-5 space-y-3.5">
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-sm font-medium text-gray-700">Fulfillment Rate</span>
+                    <span class="text-sm font-bold text-gray-900">97.8%</span>
+                  </div>
+                  <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-500 rounded-full" style="width:97.8%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-sm font-medium text-gray-700">On-time Delivery</span>
+                    <span class="text-sm font-bold text-gray-900">94.2%</span>
+                  </div>
+                  <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-brand-500 rounded-full" style="width:94.2%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-sm font-medium text-gray-700">Avg. Seller Rating</span>
+                    <span class="text-sm font-bold text-gray-900">4.7 / 5</span>
+                  </div>
+                  <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-accent-500 rounded-full" style="width:94%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-sm font-medium text-gray-700">Support Response</span>
+                    <span class="text-sm font-bold text-gray-900">98.1%</span>
+                  </div>
+                  <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-violet-500 rounded-full" style="width:98.1%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PENDING PAYOUTS + RECENT SIGNUPS ===== -->
+        <div class="grid lg:grid-cols-2 gap-6">
+
+          <!-- Pending Payouts -->
+          <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+                <h2 class="text-base font-bold text-gray-900">Pending Payouts</h2>
+                <span class="px-1.5 py-0.5 bg-brand-50 text-brand-600 text-[10px] font-bold rounded-full">5 due</span>
+              </div>
+              <a href="admin-payouts.html" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">Manage &rarr;</a>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-gray-50 bg-gray-50/50">
+                    <th class="text-left px-5 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Store</th>
+                    <th class="text-left px-5 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Amount</th>
+                    <th class="text-left px-5 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Due</th>
+                    <th class="text-right px-5 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-50">
+                  <tr class="hover:bg-gray-50/50 transition">
+                    <td class="px-5 py-3"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-[9px] font-bold">TV</div><span class="font-medium text-gray-800">TechVault</span></div></td>
+                    <td class="px-5 py-3 font-semibold text-gray-900">$24,180</td>
+                    <td class="px-5 py-3"><span class="text-xs text-red-500 font-medium">Today</span></td>
+                    <td class="px-5 py-3 text-right"><button class="px-2.5 py-1 bg-brand-600 hover:bg-brand-700 text-white text-[10px] font-semibold rounded-lg transition">Pay Now</button></td>
+                  </tr>
+                  <tr class="hover:bg-gray-50/50 transition">
+                    <td class="px-5 py-3"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center text-[9px] font-bold">SH</div><span class="font-medium text-gray-800">StyleHouse</span></div></td>
+                    <td class="px-5 py-3 font-semibold text-gray-900">$21,350</td>
+                    <td class="px-5 py-3"><span class="text-xs text-amber-500 font-medium">Tomorrow</span></td>
+                    <td class="px-5 py-3 text-right"><button class="px-2.5 py-1 bg-brand-600 hover:bg-brand-700 text-white text-[10px] font-semibold rounded-lg transition">Pay Now</button></td>
+                  </tr>
+                  <tr class="hover:bg-gray-50/50 transition">
+                    <td class="px-5 py-3"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center text-[9px] font-bold">HN</div><span class="font-medium text-gray-800">HomeNest</span></div></td>
+                    <td class="px-5 py-3 font-semibold text-gray-900">$16,920</td>
+                    <td class="px-5 py-3"><span class="text-xs text-gray-500 font-medium">Mar 9</span></td>
+                    <td class="px-5 py-3 text-right"><button class="px-2.5 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 text-[10px] font-semibold rounded-lg transition">Schedule</button></td>
+                  </tr>
+                  <tr class="hover:bg-gray-50/50 transition">
+                    <td class="px-5 py-3"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center text-[9px] font-bold">FF</div><span class="font-medium text-gray-800">FreshFarm</span></div></td>
+                    <td class="px-5 py-3 font-semibold text-gray-900">$11,740</td>
+                    <td class="px-5 py-3"><span class="text-xs text-gray-500 font-medium">Mar 10</span></td>
+                    <td class="px-5 py-3 text-right"><button class="px-2.5 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 text-[10px] font-semibold rounded-lg transition">Schedule</button></td>
+                  </tr>
+                  <tr class="hover:bg-gray-50/50 transition">
+                    <td class="px-5 py-3"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-lg bg-violet-100 text-violet-600 flex items-center justify-center text-[9px] font-bold">GZ</div><span class="font-medium text-gray-800">GadgetZone</span></div></td>
+                    <td class="px-5 py-3 font-semibold text-gray-900">$9,430</td>
+                    <td class="px-5 py-3"><span class="text-xs text-gray-500 font-medium">Mar 12</span></td>
+                    <td class="px-5 py-3 text-right"><button class="px-2.5 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 text-[10px] font-semibold rounded-lg transition">Schedule</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="px-5 py-3 bg-gray-50/50 border-t border-gray-100 flex items-center justify-between">
+              <span class="text-xs text-gray-500">Total pending: <span class="font-bold text-gray-900">$83,620</span></span>
+              <button class="px-3 py-1.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl transition">Process All</button>
+            </div>
+          </div>
+
+          <!-- Recent New Users -->
+          <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+              <h2 class="text-base font-bold text-gray-900">Recent Signups</h2>
+              <a href="admin-users.html" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">View All &rarr;</a>
+            </div>
+            <div class="divide-y divide-gray-50">
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">CJ</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">Clara Johnson</p>
+                  <p class="text-xs text-gray-400">clara.j@email.com &bull; Buyer &bull; 2m ago</p>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 bg-brand-50 text-brand-600 text-[10px] font-semibold rounded-full flex-shrink-0">Buyer</span>
+              </div>
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-teal-400 to-cyan-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">MR</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">Marcus Rivera</p>
+                  <p class="text-xs text-gray-400">mrivera@shop.com &bull; Seller &bull; 14m ago</p>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 bg-teal-50 text-teal-600 text-[10px] font-semibold rounded-full flex-shrink-0">Seller</span>
+              </div>
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-violet-400 to-purple-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">PK</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">Priya Kumar</p>
+                  <p class="text-xs text-gray-400">p.kumar@me.com &bull; Buyer &bull; 31m ago</p>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 bg-brand-50 text-brand-600 text-[10px] font-semibold rounded-full flex-shrink-0">Buyer</span>
+              </div>
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">DL</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">Daniel Lee</p>
+                  <p class="text-xs text-gray-400">dlee@store.io &bull; Seller &bull; 58m ago</p>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 bg-teal-50 text-teal-600 text-[10px] font-semibold rounded-full flex-shrink-0">Seller</span>
+              </div>
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-400 to-indigo-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">NA</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">Nina Alvarez</p>
+                  <p class="text-xs text-gray-400">nina.a@gmail.com &bull; Buyer &bull; 1h ago</p>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 bg-brand-50 text-brand-600 text-[10px] font-semibold rounded-full flex-shrink-0">Buyer</span>
+              </div>
+              <div class="px-5 py-3.5 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-green-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">TO</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-900">Tom O'Brien</p>
+                  <p class="text-xs text-gray-400">tom.ob@biz.com &bull; Seller &bull; 1h ago</p>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 bg-teal-50 text-teal-600 text-[10px] font-semibold rounded-full flex-shrink-0">Seller</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== CATEGORIES BREAKDOWN + SYSTEM LOG ===== -->
+        <div class="grid lg:grid-cols-3 gap-6">
+
+          <!-- Top Categories -->
+          <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+              <h2 class="text-base font-bold text-gray-900">Top Categories</h2>
+              <a href="admin-categories.html" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">Manage &rarr;</a>
+            </div>
+            <div class="p-5 space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-lg bg-blue-50 flex items-center justify-center"><svg class="w-3 h-3 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+                    <span class="text-xs font-medium text-gray-700">Electronics</span>
+                  </div>
+                  <span class="text-xs font-bold text-gray-900">34%</span>
+                </div>
+                <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-blue-500 rounded-full" style="width:34%"></div></div>
+                <p class="text-[10px] text-gray-400 mt-0.5">$966k GMV &bull; 41,203 orders</p>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-lg bg-pink-50 flex items-center justify-center"><svg class="w-3 h-3 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"/></svg></div>
+                    <span class="text-xs font-medium text-gray-700">Fashion</span>
+                  </div>
+                  <span class="text-xs font-bold text-gray-900">24%</span>
+                </div>
+                <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-pink-500 rounded-full" style="width:24%"></div></div>
+                <p class="text-[10px] text-gray-400 mt-0.5">$682k GMV &bull; 28,840 orders</p>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-lg bg-emerald-50 flex items-center justify-center"><svg class="w-3 h-3 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg></div>
+                    <span class="text-xs font-medium text-gray-700">Home & Garden</span>
+                  </div>
+                  <span class="text-xs font-bold text-gray-900">18%</span>
+                </div>
+                <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-emerald-500 rounded-full" style="width:18%"></div></div>
+                <p class="text-[10px] text-gray-400 mt-0.5">$511k GMV &bull; 17,420 orders</p>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-lg bg-orange-50 flex items-center justify-center"><svg class="w-3 h-3 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg></div>
+                    <span class="text-xs font-medium text-gray-700">Food & Grocery</span>
+                  </div>
+                  <span class="text-xs font-bold text-gray-900">14%</span>
+                </div>
+                <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-orange-500 rounded-full" style="width:14%"></div></div>
+                <p class="text-[10px] text-gray-400 mt-0.5">$398k GMV &bull; 22,109 orders</p>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1.5">
+                  <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center"><svg class="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg></div>
+                    <span class="text-xs font-medium text-gray-700">Other</span>
+                  </div>
+                  <span class="text-xs font-bold text-gray-900">10%</span>
+                </div>
+                <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gray-400 rounded-full" style="width:10%"></div></div>
+                <p class="text-[10px] text-gray-400 mt-0.5">$284k GMV &bull; 9,612 orders</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- System Activity Log -->
+          <div class="lg:col-span-2 bg-white rounded-2xl border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+              <h2 class="text-base font-bold text-gray-900">System Activity Log</h2>
+              <a href="admin-reports.html" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">Full Log &rarr;</a>
+            </div>
+            <div class="divide-y divide-gray-50">
+              <div class="px-5 py-3.5 flex items-start gap-3">
+                <div class="w-7 h-7 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold text-gray-900">Store approved: <span class="text-brand-600">NaturaCo</span></p>
+                  <p class="text-[11px] text-gray-400 mt-0.5">Admin approved store registration. Category: Wellness.</p>
+                </div>
+                <span class="text-[10px] text-gray-400 flex-shrink-0">2m ago</span>
+              </div>
+              <div class="px-5 py-3.5 flex items-start gap-3">
+                <div class="w-7 h-7 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-3.5 h-3.5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold text-gray-900">Product removed: <span class="text-red-600">Counterfeit Watch SKU-4821</span></span></p>
+                  <p class="text-[11px] text-gray-400 mt-0.5">Removed for trademark violation. Seller notified.</p>
+                </div>
+                <span class="text-[10px] text-gray-400 flex-shrink-0">18m ago</span>
+              </div>
+              <div class="px-5 py-3.5 flex items-start gap-3">
+                <div class="w-7 h-7 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-3.5 h-3.5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg></div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold text-gray-900">Payout processed: <span class="text-emerald-600">$24,180 → TechVault</span></p>
+                  <p class="text-[11px] text-gray-400 mt-0.5">March settlement completed. Bank transfer initiated.</p>
+                </div>
+                <span class="text-[10px] text-gray-400 flex-shrink-0">1h ago</span>
+              </div>
+              <div class="px-5 py-3.5 flex items-start gap-3">
+                <div class="w-7 h-7 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-3.5 h-3.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg></div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold text-gray-900">Dispute opened: <span class="text-amber-600">#DISP-0041 — FreshFarm</span></p>
+                  <p class="text-[11px] text-gray-400 mt-0.5">Buyer Mary W. filed item not as described dispute.</p>
+                </div>
+                <span class="text-[10px] text-gray-400 flex-shrink-0">2h ago</span>
+              </div>
+              <div class="px-5 py-3.5 flex items-start gap-3">
+                <div class="w-7 h-7 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-3.5 h-3.5 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg></div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold text-gray-900">User suspended: <span class="text-violet-600">spammer_account_9182</span></p>
+                  <p class="text-[11px] text-gray-400 mt-0.5">Automated fraud detection triggered. Account locked.</p>
+                </div>
+                <span class="text-[10px] text-gray-400 flex-shrink-0">3h ago</span>
+              </div>
+              <div class="px-5 py-3.5 flex items-start gap-3">
+                <div class="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-3.5 h-3.5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/></svg></div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold text-gray-900">Platform settings updated: Commission rate adjusted</p>
+                  <p class="text-[11px] text-gray-400 mt-0.5">Electronics commission changed from 8% to 9%. Effective immediately.</p>
+                </div>
+                <span class="text-[10px] text-gray-400 flex-shrink-0">5h ago</span>
+              </div>
+              <div class="px-5 py-3.5 flex items-start gap-3">
+                <div class="w-7 h-7 rounded-lg bg-teal-50 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-3.5 h-3.5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-semibold text-gray-900">Sitewide promotion launched: <span class="text-teal-600">Spring Sale 2026</span></p>
+                  <p class="text-[11px] text-gray-400 mt-0.5">Homepage banner and email campaign activated to 48k subscribers.</p>
+                </div>
+                <span class="text-[10px] text-gray-400 flex-shrink-0">8h ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-brand-950 text-brand-200 mt-10">
+    <div class="max-w-[1440px] mx-auto px-4 py-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <span class="text-lg font-extrabold text-white tracking-tight">Market<span class="text-brand-400">Bay</span></span>
+          <span class="text-xs text-brand-400 ml-2 px-2 py-0.5 bg-red-900/50 text-red-300 rounded-full">Admin Panel</span>
+        </div>
+        <div class="flex items-center gap-6 text-xs text-brand-300">
+          <a href="#" class="hover:text-white transition">Documentation</a>
+          <a href="#" class="hover:text-white transition">API Status</a>
+          <a href="#" class="hover:text-white transition">Audit Log</a>
+          <a href="#" class="hover:text-white transition">Privacy</a>
+        </div>
+        <p class="text-xs text-brand-400">&copy; 2026 MarketBay &mdash; v2.4.1</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

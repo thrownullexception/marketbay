@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team — TechVault — MarketBay</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#eef4ff',
+              100: '#dae6ff',
+              200: '#bdd4ff',
+              300: '#90b8ff',
+              400: '#5b90ff',
+              500: '#3568fc',
+              600: '#1d44f2',
+              700: '#1633de',
+              800: '#182cb4',
+              900: '#1a2b8e',
+              950: '#141c56',
+            },
+            accent: {
+              50:  '#fffbeb',
+              100: '#fff3c6',
+              200: '#ffe588',
+              300: '#ffd24a',
+              400: '#ffbf20',
+              500: '#f99b07',
+              600: '#dd7302',
+              700: '#b75006',
+              800: '#943d0c',
+              900: '#7a330d',
+              950: '#461902',
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    html { scroll-behavior: smooth; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .sidebar-link.active { background-color: #eef4ff; color: #1d44f2; border-right: 3px solid #1d44f2; }
+
+    /* Modal backdrop */
+    .modal-backdrop { display: none; }
+    .modal-backdrop.open { display: flex; }
+
+    /* Permission toggle */
+    .perm-toggle input:checked ~ .perm-track { background-color: #1d44f2; }
+    .perm-toggle input:checked ~ .perm-track .perm-thumb { transform: translateX(16px); }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+  <!-- ========== TOP BAR ========== -->
+  <div class="bg-brand-950 text-brand-200 text-xs py-1.5">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-accent-500/20 text-accent-300 text-[10px] font-bold rounded-full uppercase">Seller Mode</span>
+        <a href="home.html" class="hover:text-white transition">Switch to Buyer</a>
+      </div>
+      <div class="hidden sm:flex items-center gap-4">
+        <a href="#" class="hover:text-white transition">Help Center</a>
+        <a href="#" class="hover:text-white transition">Seller Policies</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
+      <a href="home.html" class="flex-shrink-0 flex items-center gap-2">
+        <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <span class="text-xl font-extrabold text-brand-950 tracking-tight">Market<span class="text-brand-600">Bay</span></span>
+      </a>
+
+      <div class="flex-1 max-w-xl mx-auto hidden sm:block">
+        <div class="relative">
+          <input type="text" placeholder="Search orders, products, customers..." class="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button class="relative p-2 rounded-full hover:bg-gray-100 transition" aria-label="Notifications">
+          <svg class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+          <span class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">4</span>
+        </button>
+        <a href="messages.html" class="relative p-2 rounded-full hover:bg-gray-100 transition" aria-label="Messages">
+          <svg class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          <span class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-brand-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">6</span>
+        </a>
+        <div class="hidden sm:flex items-center gap-2 pl-2 border-l border-gray-200 ml-1">
+          <div class="w-8 h-8 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center text-xs font-bold">TV</div>
+          <div class="text-left">
+            <p class="text-sm font-semibold text-gray-900 leading-tight">TechVault</p>
+            <p class="text-[10px] text-gray-400 leading-tight">Seller Account</p>
+          </div>
+          <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== DASHBOARD CONTENT ========== -->
+  <main class="max-w-7xl mx-auto px-4 py-8 lg:py-10">
+    <div class="grid lg:grid-cols-5 gap-8">
+
+      <!-- ===== LEFT SIDEBAR ===== -->
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden sticky top-24">
+          <!-- Store Header -->
+          <div class="p-5 border-b border-gray-100">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-md shadow-blue-500/20">TV</div>
+              <div class="min-w-0">
+                <h2 class="text-sm font-bold text-gray-900 truncate">TechVault</h2>
+                <div class="flex items-center gap-1 mt-0.5">
+                  <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-semibold rounded-full border border-blue-100">
+                    <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    Verified
+                  </span>
+                </div>
+              </div>
+            </div>
+            <a href="store.html" class="mt-3 flex items-center gap-1.5 text-xs font-medium text-brand-600 hover:text-brand-700 transition">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+              View Storefront
+            </a>
+          </div>
+
+          <!-- Navigation -->
+          <nav class="py-2">
+            <a href="store-dashboard.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+              Dashboard
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+              Orders
+              <span class="ml-auto px-1.5 py-0.5 bg-accent-50 text-accent-600 text-[10px] font-bold rounded-full">8</span>
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"/></svg>
+              Products
+              <span class="ml-auto px-1.5 py-0.5 bg-gray-100 text-gray-500 text-[10px] font-bold rounded-full">342</span>
+            </a>
+            <a href="messages.html" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              Messages
+              <span class="ml-auto px-1.5 py-0.5 bg-red-50 text-red-500 text-[10px] font-bold rounded-full">6</span>
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+              Analytics
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/></svg>
+              Promotions
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+              Reviews
+            </a>
+            <hr class="my-2 border-gray-100" />
+            <a href="#" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+              Payouts
+            </a>
+            <a href="store-team.html" class="sidebar-link active flex items-center gap-3 px-5 py-2.5 text-sm font-medium transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+              Team
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:bg-gray-50">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              Store Settings
+            </a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- ===== RIGHT: MAIN CONTENT ===== -->
+      <div class="lg:col-span-4 space-y-6">
+
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h1 class="text-2xl font-extrabold text-gray-900">Team</h1>
+            <p class="text-sm text-gray-500 mt-0.5">Manage who has access to your store and what they can do.</p>
+          </div>
+          <button onclick="openInviteModal()" class="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-xl transition shadow-sm flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            Invite Member
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-white rounded-2xl border border-gray-100 p-5">
+            <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-3">
+              <svg class="w-5 h-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+            </div>
+            <p class="text-2xl font-extrabold text-gray-900">4</p>
+            <p class="text-xs text-gray-500 mt-0.5">Active Members</p>
+          </div>
+          <div class="bg-white rounded-2xl border border-gray-100 p-5">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center mb-3">
+              <svg class="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+            </div>
+            <p class="text-2xl font-extrabold text-gray-900">2</p>
+            <p class="text-xs text-gray-500 mt-0.5">Pending Invites</p>
+          </div>
+          <div class="bg-white rounded-2xl border border-gray-100 p-5">
+            <div class="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center mb-3">
+              <svg class="w-5 h-5 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+            </div>
+            <p class="text-2xl font-extrabold text-gray-900">3</p>
+            <p class="text-xs text-gray-500 mt-0.5">Roles Defined</p>
+          </div>
+        </div>
+
+        <!-- Members Table -->
+        <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+          <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+            <h2 class="text-base font-bold text-gray-900">Members</h2>
+            <!-- Search + Filter -->
+            <div class="flex items-center gap-2">
+              <div class="relative hidden sm:block">
+                <input type="text" placeholder="Search members…" class="pl-8 pr-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-xs focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition w-44" />
+                <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <select class="px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-xs text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-400 transition">
+                <option>All Roles</option>
+                <option>Owner</option>
+                <option>Manager</option>
+                <option>Staff</option>
+              </select>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-gray-50 bg-gray-50/50">
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Member</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider hidden sm:table-cell">Role</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider hidden md:table-cell">Last Active</th>
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                  <th class="text-right px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-50">
+
+                <!-- Owner row -->
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3.5">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">TV</div>
+                      <div>
+                        <p class="font-semibold text-gray-900 text-sm leading-tight">Marcus Chen</p>
+                        <p class="text-[11px] text-gray-400 mt-0.5">marcus@techvault.io</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-5 py-3.5 hidden sm:table-cell">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-brand-50 text-brand-700 text-xs font-semibold rounded-full border border-brand-100">
+                      <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd"/></svg>
+                      Owner
+                    </span>
+                  </td>
+                  <td class="px-5 py-3.5 text-xs text-gray-500 hidden md:table-cell">Just now</td>
+                  <td class="px-5 py-3.5">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-600 text-[11px] font-semibold rounded-full">
+                      <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                      Active
+                    </span>
+                  </td>
+                  <td class="px-5 py-3.5 text-right">
+                    <span class="text-xs text-gray-400 font-medium">You</span>
+                  </td>
+                </tr>
+
+                <!-- Manager row -->
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3.5">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-xl bg-violet-100 text-violet-600 flex items-center justify-center text-xs font-bold flex-shrink-0">SL</div>
+                      <div>
+                        <p class="font-semibold text-gray-900 text-sm leading-tight">Sofia Larsson</p>
+                        <p class="text-[11px] text-gray-400 mt-0.5">sofia.l@techvault.io</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-5 py-3.5 hidden sm:table-cell">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-violet-50 text-violet-700 text-xs font-semibold rounded-full border border-violet-100">
+                      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/></svg>
+                      Manager
+                    </span>
+                  </td>
+                  <td class="px-5 py-3.5 text-xs text-gray-500 hidden md:table-cell">2 hours ago</td>
+                  <td class="px-5 py-3.5">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-600 text-[11px] font-semibold rounded-full">
+                      <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                      Active
+                    </span>
+                  </td>
+                  <td class="px-5 py-3.5 text-right">
+                    <div class="flex items-center justify-end gap-2">
+                      <button onclick="openPermissionsModal('Sofia Larsson', 'Manager')" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">Permissions</button>
+                      <span class="text-gray-200">|</span>
+                      <button onclick="openRoleModal('Sofia Larsson')" class="text-xs font-semibold text-gray-500 hover:text-gray-700 transition">Change Role</button>
+                      <span class="text-gray-200">|</span>
+                      <button onclick="openRemoveModal('Sofia Larsson')" class="text-xs font-semibold text-red-400 hover:text-red-600 transition">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Staff row -->
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3.5">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold flex-shrink-0">JK</div>
+                      <div>
+                        <p class="font-semibold text-gray-900 text-sm leading-tight">James Kim</p>
+                        <p class="text-[11px] text-gray-400 mt-0.5">james.k@techvault.io</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-5 py-3.5 hidden sm:table-cell">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full border border-gray-200">
+                      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                      Staff
+                    </span>
+                  </td>
+                  <td class="px-5 py-3.5 text-xs text-gray-500 hidden md:table-cell">Yesterday</td>
+                  <td class="px-5 py-3.5">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-600 text-[11px] font-semibold rounded-full">
+                      <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                      Active
+                    </span>
+                  </td>
+                  <td class="px-5 py-3.5 text-right">
+                    <div class="flex items-center justify-end gap-2">
+                      <button onclick="openPermissionsModal('James Kim', 'Staff')" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">Permissions</button>
+                      <span class="text-gray-200">|</span>
+                      <button onclick="openRoleModal('James Kim')" class="text-xs font-semibold text-gray-500 hover:text-gray-700 transition">Change Role</button>
+                      <span class="text-gray-200">|</span>
+                      <button onclick="openRemoveModal('James Kim')" class="text-xs font-semibold text-red-400 hover:text-red-600 transition">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Staff row 2 -->
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3.5">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-xs font-bold flex-shrink-0">AP</div>
+                      <div>
+                        <p class="font-semibold text-gray-900 text-sm leading-tight">Aisha Patel</p>
+                        <p class="text-[11px] text-gray-400 mt-0.5">aisha.p@techvault.io</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-5 py-3.5 hidden sm:table-cell">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full border border-gray-200">
+                      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                      Staff
+                    </span>
+                  </td>
+                  <td class="px-5 py-3.5 text-xs text-gray-500 hidden md:table-cell">3 days ago</td>
+                  <td class="px-5 py-3.5">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-100 text-gray-500 text-[11px] font-semibold rounded-full">
+                      <span class="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
+                      Away
+                    </span>
+                  </td>
+                  <td class="px-5 py-3.5 text-right">
+                    <div class="flex items-center justify-end gap-2">
+                      <button onclick="openPermissionsModal('Aisha Patel', 'Staff')" class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">Permissions</button>
+                      <span class="text-gray-200">|</span>
+                      <button onclick="openRoleModal('Aisha Patel')" class="text-xs font-semibold text-gray-500 hover:text-gray-700 transition">Change Role</button>
+                      <span class="text-gray-200">|</span>
+                      <button onclick="openRemoveModal('Aisha Patel')" class="text-xs font-semibold text-red-400 hover:text-red-600 transition">Remove</button>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pending Invitations -->
+        <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+          <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <h2 class="text-base font-bold text-gray-900">Pending Invitations</h2>
+              <span class="px-2 py-0.5 bg-amber-50 text-amber-600 text-[11px] font-bold rounded-full">2</span>
+            </div>
+          </div>
+          <div class="divide-y divide-gray-50">
+
+            <!-- Invite 1 -->
+            <div class="px-5 py-4 flex items-center gap-4">
+              <div class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900">daniel.wr@gmail.com</p>
+                <p class="text-[11px] text-gray-400 mt-0.5">Invited as <span class="font-semibold text-gray-600">Staff</span> &bull; Sent 1 day ago</p>
+              </div>
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-50 text-amber-600 text-[11px] font-semibold rounded-full">
+                  <span class="w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
+                  Pending
+                </span>
+                <button class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">Resend</button>
+                <button class="text-xs font-semibold text-red-400 hover:text-red-600 transition">Revoke</button>
+              </div>
+            </div>
+
+            <!-- Invite 2 -->
+            <div class="px-5 py-4 flex items-center gap-4">
+              <div class="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900">priya.n@outlook.com</p>
+                <p class="text-[11px] text-gray-400 mt-0.5">Invited as <span class="font-semibold text-gray-600">Manager</span> &bull; Sent 3 days ago</p>
+              </div>
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-50 text-amber-600 text-[11px] font-semibold rounded-full">
+                  <span class="w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
+                  Pending
+                </span>
+                <button class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition">Resend</button>
+                <button class="text-xs font-semibold text-red-400 hover:text-red-600 transition">Revoke</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Role Definitions -->
+        <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+          <div class="px-6 py-4 border-b border-gray-50">
+            <h2 class="text-base font-bold text-gray-900">Role Permissions Overview</h2>
+            <p class="text-xs text-gray-500 mt-0.5">A summary of what each role can access. Fine-tune individual permissions per member.</p>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-gray-50 bg-gray-50/50">
+                  <th class="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Permission</th>
+                  <th class="text-center px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-brand-50 text-brand-700 rounded-full">Owner</span>
+                  </th>
+                  <th class="text-center px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-violet-50 text-violet-700 rounded-full">Manager</span>
+                  </th>
+                  <th class="text-center px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">Staff</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-50">
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3 text-sm text-gray-700">View orders</td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                </tr>
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3 text-sm text-gray-700">Process & fulfil orders</td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                </tr>
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3 text-sm text-gray-700">Manage products</td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                </tr>
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3 text-sm text-gray-700">View analytics</td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                </tr>
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3 text-sm text-gray-700">Manage promotions</td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                </tr>
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3 text-sm text-gray-700">View payouts</td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                </tr>
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3 text-sm text-gray-700">Manage team members</td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                </tr>
+                <tr class="hover:bg-gray-50/50 transition">
+                  <td class="px-5 py-3 text-sm text-gray-700">Edit store settings</td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-emerald-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                  <td class="px-5 py-3 text-center"><svg class="w-4 h-4 text-gray-300 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-brand-950 text-brand-200">
+    <div class="max-w-7xl mx-auto px-4 py-10">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <span class="text-lg font-extrabold text-white tracking-tight">Market<span class="text-brand-400">Bay</span></span>
+          <span class="text-xs text-brand-400 ml-2 px-2 py-0.5 bg-brand-800 rounded-full">Seller Center</span>
+        </div>
+        <div class="flex items-center gap-6 text-xs text-brand-300">
+          <a href="#" class="hover:text-white transition">Help Center</a>
+          <a href="#" class="hover:text-white transition">Seller Policies</a>
+          <a href="#" class="hover:text-white transition">Privacy</a>
+          <a href="#" class="hover:text-white transition">Terms</a>
+        </div>
+        <p class="text-xs text-brand-400">&copy; 2026 MarketBay</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== INVITE MEMBER MODAL ========== -->
+  <div id="inviteModal" class="modal-backdrop fixed inset-0 z-50 items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+      <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-bold text-gray-900">Invite Team Member</h3>
+          <p class="text-xs text-gray-500 mt-0.5">They'll receive an email to join your store.</p>
+        </div>
+        <button onclick="closeModal('inviteModal')" class="p-1.5 rounded-lg hover:bg-gray-100 transition text-gray-400 hover:text-gray-600">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="px-6 py-5 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1.5">Email address</label>
+          <input type="email" placeholder="colleague@example.com" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1.5">Role</label>
+          <select class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition">
+            <option value="">Select a role…</option>
+            <option value="manager">Manager — full access except billing &amp; team</option>
+            <option value="staff">Staff — order fulfilment &amp; messages only</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 mb-1.5">Personal message <span class="font-normal text-gray-400">(optional)</span></label>
+          <textarea rows="3" placeholder="Hey, I'd like you to help manage our TechVault store…" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"></textarea>
+        </div>
+      </div>
+      <div class="px-6 py-4 bg-gray-50 rounded-b-2xl flex items-center justify-end gap-3">
+        <button onclick="closeModal('inviteModal')" class="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-gray-800 transition">Cancel</button>
+        <button class="px-5 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-xl transition shadow-sm flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+          Send Invite
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PERMISSIONS MODAL ========== -->
+  <div id="permissionsModal" class="modal-backdrop fixed inset-0 z-50 items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+      <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-bold text-gray-900" id="permModalTitle">Edit Permissions</h3>
+          <p class="text-xs text-gray-500 mt-0.5" id="permModalSubtitle">Override the default role permissions for this member.</p>
+        </div>
+        <button onclick="closeModal('permissionsModal')" class="p-1.5 rounded-lg hover:bg-gray-100 transition text-gray-400 hover:text-gray-600">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="px-6 py-5 space-y-3">
+
+        <!-- Permission toggle item -->
+        <div class="flex items-center justify-between py-2.5 border-b border-gray-50">
+          <div>
+            <p class="text-sm font-medium text-gray-800">View orders</p>
+            <p class="text-xs text-gray-400 mt-0.5">Access the orders list and order details</p>
+          </div>
+          <label class="perm-toggle relative flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only" checked />
+            <div class="perm-track w-9 h-5 bg-brand-600 rounded-full transition-colors duration-200 relative">
+              <div class="perm-thumb w-3.5 h-3.5 bg-white rounded-full absolute top-0.5 left-0.5 transition-transform duration-200 translate-x-4 shadow-sm"></div>
+            </div>
+          </label>
+        </div>
+
+        <div class="flex items-center justify-between py-2.5 border-b border-gray-50">
+          <div>
+            <p class="text-sm font-medium text-gray-800">Process orders</p>
+            <p class="text-xs text-gray-400 mt-0.5">Mark orders as shipped or delivered</p>
+          </div>
+          <label class="perm-toggle relative flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only" checked />
+            <div class="perm-track w-9 h-5 bg-brand-600 rounded-full transition-colors duration-200 relative">
+              <div class="perm-thumb w-3.5 h-3.5 bg-white rounded-full absolute top-0.5 left-0.5 transition-transform duration-200 translate-x-4 shadow-sm"></div>
+            </div>
+          </label>
+        </div>
+
+        <div class="flex items-center justify-between py-2.5 border-b border-gray-50">
+          <div>
+            <p class="text-sm font-medium text-gray-800">Manage products</p>
+            <p class="text-xs text-gray-400 mt-0.5">Create, edit and delete product listings</p>
+          </div>
+          <label class="perm-toggle relative flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only" />
+            <div class="perm-track w-9 h-5 bg-gray-200 rounded-full transition-colors duration-200 relative">
+              <div class="perm-thumb w-3.5 h-3.5 bg-white rounded-full absolute top-0.5 left-0.5 transition-transform duration-200 shadow-sm"></div>
+            </div>
+          </label>
+        </div>
+
+        <div class="flex items-center justify-between py-2.5 border-b border-gray-50">
+          <div>
+            <p class="text-sm font-medium text-gray-800">View analytics</p>
+            <p class="text-xs text-gray-400 mt-0.5">Access store performance reports</p>
+          </div>
+          <label class="perm-toggle relative flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only" />
+            <div class="perm-track w-9 h-5 bg-gray-200 rounded-full transition-colors duration-200 relative">
+              <div class="perm-thumb w-3.5 h-3.5 bg-white rounded-full absolute top-0.5 left-0.5 transition-transform duration-200 shadow-sm"></div>
+            </div>
+          </label>
+        </div>
+
+        <div class="flex items-center justify-between py-2.5 border-b border-gray-50">
+          <div>
+            <p class="text-sm font-medium text-gray-800">Respond to messages</p>
+            <p class="text-xs text-gray-400 mt-0.5">Read and reply to customer messages</p>
+          </div>
+          <label class="perm-toggle relative flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only" checked />
+            <div class="perm-track w-9 h-5 bg-brand-600 rounded-full transition-colors duration-200 relative">
+              <div class="perm-thumb w-3.5 h-3.5 bg-white rounded-full absolute top-0.5 left-0.5 transition-transform duration-200 translate-x-4 shadow-sm"></div>
+            </div>
+          </label>
+        </div>
+
+        <div class="flex items-center justify-between py-2.5">
+          <div>
+            <p class="text-sm font-medium text-gray-800">Manage promotions</p>
+            <p class="text-xs text-gray-400 mt-0.5">Create and manage discount codes</p>
+          </div>
+          <label class="perm-toggle relative flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only" />
+            <div class="perm-track w-9 h-5 bg-gray-200 rounded-full transition-colors duration-200 relative">
+              <div class="perm-thumb w-3.5 h-3.5 bg-white rounded-full absolute top-0.5 left-0.5 transition-transform duration-200 shadow-sm"></div>
+            </div>
+          </label>
+        </div>
+
+      </div>
+      <div class="px-6 py-4 bg-gray-50 rounded-b-2xl flex items-center justify-end gap-3">
+        <button onclick="closeModal('permissionsModal')" class="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-gray-800 transition">Cancel</button>
+        <button onclick="closeModal('permissionsModal')" class="px-5 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-xl transition shadow-sm">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== CHANGE ROLE MODAL ========== -->
+  <div id="roleModal" class="modal-backdrop fixed inset-0 z-50 items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm">
+      <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-bold text-gray-900" id="roleModalTitle">Change Role</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Select a new role for this member.</p>
+        </div>
+        <button onclick="closeModal('roleModal')" class="p-1.5 rounded-lg hover:bg-gray-100 transition text-gray-400 hover:text-gray-600">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="px-6 py-5 space-y-3">
+
+        <label class="flex items-start gap-3 p-3.5 rounded-xl border-2 border-brand-200 bg-brand-50/40 cursor-pointer">
+          <input type="radio" name="role" value="manager" class="mt-0.5 accent-brand-600" checked />
+          <div>
+            <p class="text-sm font-semibold text-gray-900">Manager</p>
+            <p class="text-xs text-gray-500 mt-0.5">Full access to orders, products, analytics and promotions. Cannot manage team or billing.</p>
+          </div>
+        </label>
+
+        <label class="flex items-start gap-3 p-3.5 rounded-xl border border-gray-200 hover:border-gray-300 cursor-pointer transition">
+          <input type="radio" name="role" value="staff" class="mt-0.5 accent-brand-600" />
+          <div>
+            <p class="text-sm font-semibold text-gray-900">Staff</p>
+            <p class="text-xs text-gray-500 mt-0.5">Can view and process orders and respond to customer messages only.</p>
+          </div>
+        </label>
+
+      </div>
+      <div class="px-6 py-4 bg-gray-50 rounded-b-2xl flex items-center justify-end gap-3">
+        <button onclick="closeModal('roleModal')" class="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-gray-800 transition">Cancel</button>
+        <button onclick="closeModal('roleModal')" class="px-5 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-xl transition shadow-sm">Update Role</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== REMOVE MEMBER MODAL ========== -->
+  <div id="removeModal" class="modal-backdrop fixed inset-0 z-50 items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm">
+      <div class="px-6 pt-6 pb-5">
+        <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"/></svg>
+        </div>
+        <h3 class="text-base font-bold text-gray-900" id="removeModalTitle">Remove member?</h3>
+        <p class="text-sm text-gray-500 mt-1.5" id="removeModalBody">This person will immediately lose access to your store. You can re-invite them at any time.</p>
+      </div>
+      <div class="px-6 py-4 bg-gray-50 rounded-b-2xl flex items-center justify-end gap-3">
+        <button onclick="closeModal('removeModal')" class="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-gray-800 transition">Cancel</button>
+        <button onclick="closeModal('removeModal')" class="px-5 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-xl transition shadow-sm">Remove Member</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openInviteModal() {
+      document.getElementById('inviteModal').classList.add('open');
+    }
+
+    function openPermissionsModal(name, role) {
+      document.getElementById('permModalTitle').textContent = name + ' — Permissions';
+      document.getElementById('permModalSubtitle').textContent = 'Current role: ' + role + '. Overrides apply to this member only.';
+      document.getElementById('permissionsModal').classList.add('open');
+    }
+
+    function openRoleModal(name) {
+      document.getElementById('roleModalTitle').textContent = 'Change Role — ' + name;
+      document.getElementById('roleModal').classList.add('open');
+    }
+
+    function openRemoveModal(name) {
+      document.getElementById('removeModalTitle').textContent = 'Remove ' + name + '?';
+      document.getElementById('removeModalBody').textContent = name + ' will immediately lose access to your store. You can re-invite them at any time.';
+      document.getElementById('removeModal').classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    // Close on backdrop click
+    document.querySelectorAll('.modal-backdrop').forEach(function(modal) {
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal(modal.id);
+      });
+    });
+
+    // Permission toggle interactivity
+    document.querySelectorAll('.perm-toggle input[type="checkbox"]').forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
+        var track = this.nextElementSibling;
+        var thumb = track.querySelector('.perm-thumb');
+        if (this.checked) {
+          track.classList.remove('bg-gray-200');
+          track.classList.add('bg-brand-600');
+          thumb.classList.add('translate-x-4');
+        } else {
+          track.classList.add('bg-gray-200');
+          track.classList.remove('bg-brand-600');
+          thumb.classList.remove('translate-x-4');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
