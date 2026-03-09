@@ -1,3 +1,4 @@
+// Use a single “default” variant for products without options
 ================================================================================
   MarketBay – Shop API Spec  (buyer-facing)
 ================================================================================

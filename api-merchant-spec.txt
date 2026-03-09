@@ -131,9 +131,21 @@ GET /stores/:storeId/shipping-zones
         regions: string[],
         handlingTime: string,
         shipFrom: string | null,
-        flatRate: string | null,
         freeShippingThreshold: string | null,
-        isActive: boolean
+        isActive: boolean,
+        rates: [
+          {
+            id: string,
+            method: "standard" | "express" | "overnight",
+            flatRate: string | null,
+            perLbRate: string | null,
+            minWeightLb: number | null,
+            maxWeightLb: number | null,
+            minOrderValue: string | null,
+            maxOrderValue: string | null,
+            sortOrder: number
+          }
+        ]
       }
     ]
   }
@@ -145,8 +157,19 @@ POST /stores/:storeId/shipping-zones
     regions?: string[],
     handlingTime?: string,
     shipFrom?: string,
-    flatRate?: string,
-    freeShippingThreshold?: string
+    freeShippingThreshold?: string,
+    rates?: [
+      {
+        method: "standard" | "express" | "overnight",
+        flatRate?: string,
+        perLbRate?: string,
+        minWeightLb?: number,
+        maxWeightLb?: number,
+        minOrderValue?: string,
+        maxOrderValue?: string,
+        sortOrder?: number
+      }
+    ]
   }
   → 201  { id: string }
 
@@ -157,13 +180,35 @@ PATCH /stores/:storeId/shipping-zones/:zoneId
     regions?: string[],
     handlingTime?: string,
     shipFrom?: string,
-    flatRate?: string,
     freeShippingThreshold?: string,
-    isActive?: boolean
+    isActive?: boolean,
+    rates?: [ { method, flatRate?, perLbRate?, minWeightLb?, maxWeightLb?, minOrderValue?, maxOrderValue?, sortOrder? } ]
+    -- when rates provided, replaces all rates for zone
   }
   → 204
 
 DELETE /stores/:storeId/shipping-zones/:zoneId
+  → 204
+
+-- Shipping rates (nested under zones, or managed separately)
+POST /stores/:storeId/shipping-zones/:zoneId/rates
+  {
+    method: "standard" | "express" | "overnight",
+    flatRate?: string,
+    perLbRate?: string,
+    minWeightLb?: number,
+    maxWeightLb?: number,
+    minOrderValue?: string,
+    maxOrderValue?: string,
+    sortOrder?: number
+  }
+  → 201  { id: string }
+
+PATCH /stores/:storeId/shipping-zones/:zoneId/rates/:rateId
+  { flatRate?, perLbRate?, minWeightLb?, maxWeightLb?, minOrderValue?, maxOrderValue?, sortOrder? }
+  → 204
+
+DELETE /stores/:storeId/shipping-zones/:zoneId/rates/:rateId
   → 204
 
 

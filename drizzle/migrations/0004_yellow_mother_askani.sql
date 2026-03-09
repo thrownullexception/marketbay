@@ -1,1 +1,0 @@
-ALTER TABLE "stores" ADD COLUMN "brand_color" varchar(7);
