@@ -1,0 +1,32 @@
+{
+  "name": "@marketbat/shop",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_ENV=development bun --bun --watch run dev.ts",
+    "build": "NODE_ENV=production bun run build:frontend && bun run build:api",
+    "build:frontend": "bun --bun vite build",
+    "build:api": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile dist/app prod.ts",
+    "start": "NODE_ENV=production ./dist/app",
+    
+
+    
+    "format": "biome format",
+    "lint": "biome lint",
+    "check": "biome check",
+    "check:ci": "biome ci",
+    "type:check": "tsc --noEmit",
+
+
+
+    "test": "bun --filter '*' test",
+    "lint:fix:all": "bun --filter '*' lint:fix",
+    "lint:check": "bun --filter '*' lint:check",
+    "format:fix": "prettier --write",
+    "format:fix:all": "prettier --write \"**/*.(ts|tsx)\"",
+    "format:check": "prettier --check \"**/*.(ts|tsx)\"",
+    "type:check-v2": "bun --filter '*' type:check",
+    "verify": "bun run type:check && bun run lint:check && bun run format:check && bun --filter '*' circular"
+  }
+}

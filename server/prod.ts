@@ -1,8 +1,8 @@
 import Elysia from "elysia";
-import { serverApp } from "packages/api/merchant";
-import { initializeStaticRoutes, log } from "./utils";
+import { initializeStaticRoutes, log } from "../packages/start/src/prod-utils";
+import { merchantServerApp } from "@/api/merchant";
 
-const app = new Elysia().use(serverApp);
+const app = new Elysia().use(merchantServerApp);
 
 const PORT = Number(process.env.PORT ?? 3000);
 const CLIENT_DIRECTORY = "./dist/client";

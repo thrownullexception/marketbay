@@ -1,9 +1,6 @@
 import { linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import {
-	ProductCard,
-	type ProductCardData,
-} from "@/components/product/card";
+import { ProductCard, type ProductCardData } from "@/components/product/card";
 import { ScreenSectionCard } from "@/components/screen-section-card";
 import { Grid5 } from "@/ui/grid";
 

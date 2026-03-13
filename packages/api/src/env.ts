@@ -2,7 +2,7 @@ import { createEnv } from "@t3-oss/env-core";
 import { config } from "dotenv";
 import * as v from "valibot";
 
-config({ path: ["../.env.local", "../.env"] });
+config({ path: ["./.env.local", "./.env"] });
 
 export const serverEnv = createEnv({
 	server: {

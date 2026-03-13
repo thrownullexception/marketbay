@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useFieldContext } from "@/components/form/context";
-import { sluggify } from "@/utils/strings";
+import { sluggify } from "@/shared/utils/strings";
 import { FormInput, type FormInputProps, useFieldHasError } from "./input-form";
 
 export const InputTextarea = (

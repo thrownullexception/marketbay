@@ -1,6 +1,6 @@
-import NotificationEmail from "@/server/emails/notification";
-import ResetPasswordEmail from "@/server/emails/password-reset";
-import VerifyAccountEmail from "@/server/emails/verify-account";
+import NotificationEmail from "@/api/emails/notification";
+import ResetPasswordEmail from "@/api/emails/password-reset";
+import VerifyAccountEmail from "@/api/emails/verify-account";
 
 type ExtractProps<T> = T extends React.ComponentType<infer P> ? P : never;
 

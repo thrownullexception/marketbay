@@ -11,5 +11,4 @@ export const merchantServerApp = new Elysia({
 	// .use(helmetMiddleware)
 	.use(healthcheckMiddleware)
 	.use(openapiMiddleware)
-	.use(loggerMiddleware)
-	
+	.use(loggerMiddleware);

@@ -3,7 +3,7 @@ import { and, desc, eq, isNull } from "drizzle-orm";
 // import { OAuth2Client } from "google-auth-library";
 import * as DisposableMailchecker from "mailchecker";
 import ms from "ms";
-import type * as v from "valibot"
+import type * as v from "valibot";
 import normalizeEmail from "validator/es/lib/normalizeEmail";
 import type { Database } from "@/api/database";
 import type { UsersService } from "@/api/modules/identity/users/service";
@@ -13,7 +13,7 @@ import type { RandomService } from "@/api/services/random";
 import { BadRequestError } from "@/api/shared/errors";
 import {
 	type LoginRequestSchema,
-    OTP_LENGTH,
+	OTP_LENGTH,
 	type RegisterRequestSchema,
 	type ResetPasswordRequestSchema,
 	type VerifyEmailRequestSchema,
@@ -22,7 +22,12 @@ import type { UserId } from "@/schemas/users";
 import { AuthSessionEntity } from "../auth-session/entity";
 import { OtpVerificationEntity } from "../otp-verifications/entity";
 import { OtpScopes } from "../otp-verifications/types";
-import { AUTH_COOKIE_NAME, IN_ACTIVE_SESSION_EXPIRATION_TIME, OTP_EXPIRATION_TIME, SESSION_UPDATE_AGE } from "./constants";
+import {
+	AUTH_COOKIE_NAME,
+	IN_ACTIVE_SESSION_EXPIRATION_TIME,
+	OTP_EXPIRATION_TIME,
+	SESSION_UPDATE_AGE,
+} from "./constants";
 import {
 	constantTimeEqual,
 	hashPassword,
@@ -50,7 +55,7 @@ export class AuthService {
 
 	async signup(input: v.InferOutput<typeof RegisterRequestSchema>) {
 		if (!DisposableMailchecker.isValid(input.email)) {
-            throw new BadRequestError("Invalid email");
+			throw new BadRequestError("Invalid email");
 		}
 
 		const hashedPassword = await hashPassword(input.password);
@@ -63,7 +68,7 @@ export class AuthService {
 		});
 
 		if (existingUserId) {
-            	throw new BadRequestError("Email already exists");
+			throw new BadRequestError("Email already exists");
 		}
 
 		await this.usersService.createUser({
@@ -207,7 +212,7 @@ export class AuthService {
 		}
 
 		const cookieToken = input.headers.get(AUTH_COOKIE_NAME);
-	
+
 		if (!cookieToken) {
 			return "not-authorized";
 		}
@@ -333,14 +338,14 @@ export class AuthService {
 		const otp = otpResult[0];
 
 		if (!constantTimeEqual(otp.hash, await hashSecret(input.otp))) {
-			  throw new BadRequestError("OTP expired")
+			throw new BadRequestError("OTP expired");
 		}
 
 		if (
 			differenceInMilliseconds(new Date(), otp.createdAt) >=
 			ms(OTP_EXPIRATION_TIME)
 		) {
-            throw new BadRequestError("OTP expired")
+			throw new BadRequestError("OTP expired");
 		}
 
 		await this.db
@@ -428,8 +433,7 @@ export class AuthService {
 		});
 
 		if (!isValidPassword) {
-		
-              throw new BadRequestError("Invalid password")
+			throw new BadRequestError("Invalid password");
 		}
 
 		const newPasswordHash = await hashPassword(input.newPassword);

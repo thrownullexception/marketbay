@@ -5,11 +5,10 @@ import { loggerMiddleware } from "./middlewares/logger";
 import { openapiMiddleware } from "./middlewares/openapi";
 
 export const adminServerApp = new Elysia({
-    prefix: "/api",
+	prefix: "/api",
 })
-    .use(csrfMiddleware)
-    // .use(helmetMiddleware)
-    .use(healthcheckMiddleware)
-    .use(openapiMiddleware)
-    .use(loggerMiddleware)
-    
+	.use(csrfMiddleware)
+	// .use(helmetMiddleware)
+	.use(healthcheckMiddleware)
+	.use(openapiMiddleware)
+	.use(loggerMiddleware);

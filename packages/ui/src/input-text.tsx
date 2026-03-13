@@ -3,7 +3,7 @@ import type { LucideIcon } from "lucide-solid";
 import { EyeIcon, EyeOffIcon } from "lucide-solid";
 import { createSignal, type JSX } from "solid-js";
 import { useFieldContext } from "@/components/form/context";
-import { sluggify } from "@/utils/strings";
+import { sluggify } from "@/shared/utils/strings";
 import { FormInput, type FormInputProps, useFieldHasError } from "./input-form";
 
 type FormInputTextProps = {

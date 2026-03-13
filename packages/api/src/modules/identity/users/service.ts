@@ -1,7 +1,7 @@
 import { eq, type InferInsertModel, type InferSelectModel } from "drizzle-orm";
-import { NotFoundRequestError } from "packages/api/constants/errors";
-import type { Database } from "packages/api/database";
-import type { UserId } from "../../../../../schemas/src/schemas";
+import type { Database } from "@/api/database";
+import { NotFoundRequestError } from "@/api/shared/errors";
+import type { UserId } from "@/schemas/users";
 import { UserEntity } from "./entity";
 
 export class UsersService {
@@ -28,10 +28,10 @@ export class UsersService {
 			.limit(1);
 
 		if (user.length === 0) {
-                throw new NotFoundRequestError("User not found", {
-             	field: input.field,
-					value: input.value,
-            })
+			throw new NotFoundRequestError("User not found", {
+				field: input.field,
+				value: input.value,
+			});
 		}
 
 		return user[0].id;
@@ -62,9 +62,9 @@ export class UsersService {
 			.limit(1);
 
 		if (user.length === 0) {
-            throw new NotFoundRequestError("User not found", {
-                userId: input.userId,
-            })
+			throw new NotFoundRequestError("User not found", {
+				userId: input.userId,
+			});
 		}
 
 		return user[0] as unknown as Pick<InferSelectModel<typeof UserEntity>, T>;

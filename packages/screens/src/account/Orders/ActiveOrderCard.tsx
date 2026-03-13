@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { StatusBadge } from "@/screens/_components/status-badge";
+import { StatusBadge } from "@/components/status-badge";
 import { OrderStatusConfig } from "@/screens/merchant/orders/config";
 import { TrackingProgress } from "./TrackingProgress";
 import type { Order } from "./types";
@@ -52,7 +52,7 @@ export const ActiveOrderCard = (props: { order: Order }) => {
 			{(props.order.status === "processing" ||
 				props.order.status === "shipped" ||
 				props.order.status === "in_transit") && (
-				<div class="mt-4 ml-0 sm:ml-[68px]">
+				<div class="mt-4 ml-0 sm:ml-17">
 					<TrackingProgress status={props.order.status} />
 					{props.order.estimatedDelivery && (
 						<p class="text-xs text-gray-500 mt-2.5">

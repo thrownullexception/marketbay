@@ -7,7 +7,7 @@ import {
 	TriangleAlertIcon,
 } from "lucide-solid";
 import { Show } from "solid-js";
-import { sanitizeHtml } from "@/utils/strings";
+import { sanitizeHtml } from "@/shared/utils/strings";
 
 const VariantConfig = {
 	info: {

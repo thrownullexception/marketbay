@@ -10,7 +10,9 @@ import {
 import type { UserId } from "@/schemas/users";
 import { IdentityModule } from "..";
 
-export const userAdressesShopController = new Elysia({ prefix: "/user-adresses" })
+export const userAdressesShopController = new Elysia({
+	prefix: "/user-adresses",
+})
 	.use(authenticatedMiddleware)
 	.get(
 		"/",

@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { For, type JSX } from "solid-js";
 import { useFieldContext } from "@/components/form/context";
 import { formatErrors } from "@/components/form/format-errors";
-import { sluggify } from "@/utils/strings";
+import { sluggify } from "@/shared/utils/strings";
 import { useFieldHasError } from "./input-form";
 
 const Checkbox = (props: {

@@ -5,8 +5,8 @@ import {
 	type UpdateDeleteAction,
 	unique,
 } from "drizzle-orm/pg-core";
-import { baseDbSchema, idField } from "packages/api/database/base-schema";
-import { UserId } from "../../../../../schemas/src/schemas";
+import { baseDbSchema, idField } from "@/api/database/base-schema";
+import { UserId } from "@/schemas/users";
 
 export const UserEntity = pgTable(
 	"users",

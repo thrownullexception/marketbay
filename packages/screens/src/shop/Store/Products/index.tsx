@@ -1,7 +1,7 @@
 import {
 	type FilterConfig,
 	ProductListing,
-} from "@/screens/_components/product/listing";
+} from "@/components/product/listing";
 
 const STORE_FILTERS: FilterConfig[] = [
 	{

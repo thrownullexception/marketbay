@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { ImageIcon } from "lucide-solid";
 import { useFieldContext } from "@/components/form/context";
-import { sluggify } from "@/utils/strings";
+import { sluggify } from "@/shared/utils/strings";
 import { FormInput, type FormInputProps, useFieldHasError } from "./input-form";
 
 type Accept = "image" | "video";

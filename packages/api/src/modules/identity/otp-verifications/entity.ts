@@ -1,6 +1,6 @@
 import { index, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
-import { baseDbSchema } from "packages/api/database/base-schema";
-import { getEnumValues } from "packages/api/database/enums";
+import { baseDbSchema } from "@/api/database/base-schema";
+import { getEnumValues } from "@/api/database/enums";
 import { OtpVerificationId } from "./schemas";
 import { OtpScopes } from "./types";
 

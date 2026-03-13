@@ -1,10 +1,7 @@
 import { linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
 import { ScreenSectionCard } from "@/components/screen-section-card";
-import {
-	StoreCard,
-	type StoreCardData,
-} from "@/components/store-card";
+import { StoreCard, type StoreCardData } from "@/components/store-card";
 import { Grid4 } from "@/ui/grid";
 
 const POPULAR_STORES: StoreCardData[] = [

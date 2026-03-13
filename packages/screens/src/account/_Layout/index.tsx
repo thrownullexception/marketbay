@@ -3,7 +3,7 @@ import {
 	MainNav,
 	SidebarLayout,
 	TopBar,
-} from "@/screens/_components/layout";
+} from "@/components/layout";
 import { NavSection } from "./NavSection";
 
 export const AccountLayout = () => {

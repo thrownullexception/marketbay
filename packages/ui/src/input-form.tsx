@@ -3,7 +3,7 @@ import type { LinkOptions } from "@tanstack/solid-router";
 import type { JSX } from "solid-js";
 import { useFieldContext } from "@/components/form/context";
 import { formatErrors } from "@/components/form/format-errors";
-import { sluggify } from "@/utils/strings";
+import { sluggify } from "@/shared/utils/strings";
 import { TextLink } from "./link";
 
 export const FormLabel = (props: {

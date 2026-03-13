@@ -12,7 +12,7 @@ import {
 import {
 	NavItems,
 	type NavLinkItemProps,
-} from "@/screens/_components/layout/nav-items";
+} from "@/components/layout/nav-items";
 
 const merchantSidebarPrimaryItems: NavLinkItemProps[] = [
 	{

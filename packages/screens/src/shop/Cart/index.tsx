@@ -6,10 +6,7 @@ import {
 	Trash2Icon,
 } from "lucide-solid";
 import { For } from "solid-js";
-import {
-	ProductCard,
-	type ProductCardData,
-} from "@/components/product/card";
+import { ProductCard, type ProductCardData } from "@/components/product/card";
 import { ScreenHeader } from "@/components/screen-header";
 import { ScreenSectionCard } from "@/components/screen-section-card";
 import { Breadcrumb } from "@/ui/breadcrumb";
