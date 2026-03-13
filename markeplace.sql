@@ -10,8 +10,6 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 -- ENUMS
 -- =============================================================================
 
-CREATE TYPE user_gender AS ENUM ('male', 'female', 'non_binary', 'prefer_not_to_say');
-
 CREATE TYPE order_status AS ENUM ('pending', 'processing', 'shipped', 'in_transit', 'delivered', 'cancelled', 'refunded');
 
 CREATE TYPE product_status AS ENUM ('active', 'draft', 'archived');
@@ -64,21 +62,19 @@ CREATE TYPE handling_time_type AS ENUM ('same_day', '1_business_day', '2_busines
 -- USERS
 -- =============================================================================
 
-CREATE TABLE users (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    email           TEXT NOT NULL UNIQUE,
-    password_hash   TEXT,                           -- NULL when using OAuth only
-    first_name      TEXT NOT NULL,
-    last_name       TEXT NOT NULL,
-    phone           TEXT,
-    date_of_birth   DATE,
-    gender          user_gender,
-    profile_photo   TEXT,                           -- URL / storage path
-    email_verified  BOOLEAN NOT NULL DEFAULT FALSE,
-    deleted_at      TIMESTAMPTZ,
-    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE users (
+--     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     email           TEXT NOT NULL UNIQUE,
+--     password_hash   TEXT,                           -- NULL when using OAuth only
+--     first_name      TEXT NOT NULL,
+--     last_name       TEXT NOT NULL,
+--     phone           TEXT,
+--     profile_photo   TEXT,                           -- URL / storage path
+--     email_verified  BOOLEAN NOT NULL DEFAULT FALSE,
+--     deleted_at      TIMESTAMPTZ,
+--     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- Social / OAuth logins
 CREATE TABLE user_social_accounts (
@@ -106,59 +102,50 @@ CREATE TABLE user_notification_preferences (
 -- USER SESSIONS
 -- =============================================================================
 
-CREATE TABLE user_sessions (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id         UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    token_hash      TEXT NOT NULL,                  -- hashed session token
-    device_info     TEXT,                           -- user agent / device name
-    ip_address      INET,
-    expires_at      TIMESTAMPTZ NOT NULL,
-    last_active_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE user_sessions (
+--     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     user_id         UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     token_hash      TEXT NOT NULL,                  -- hashed session token
+--     device_info     TEXT,                           -- user agent / device name
+--     ip_address      INET,
+--     expires_at      TIMESTAMPTZ NOT NULL,
+--     last_active_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- =============================================================================
 -- PASSWORD RESET & EMAIL VERIFICATION TOKENS
 -- =============================================================================
 
-CREATE TABLE password_reset_tokens (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id         UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    token_hash      TEXT NOT NULL UNIQUE,           -- hashed secure token
-    expires_at      TIMESTAMPTZ NOT NULL,
-    used_at         TIMESTAMPTZ,                    -- when the token was consumed
-    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
-
-CREATE TABLE email_verification_tokens (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id         UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    email           TEXT NOT NULL,                  -- the email being verified
-    token_hash      TEXT NOT NULL UNIQUE,
-    expires_at      TIMESTAMPTZ NOT NULL,
-    verified_at     TIMESTAMPTZ,                    -- when verified
-    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE auth_tokens (
+--     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     user_id         UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     type            auth_token_type NOT NULL,
+--     token_hash      TEXT NOT NULL UNIQUE,           -- hashed secure token
+--     expires_at      TIMESTAMPTZ NOT NULL,
+--     used_at         TIMESTAMPTZ,                    -- when the token was consumed
+--     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- =============================================================================
 -- ADDRESSES
 -- =============================================================================
 
-CREATE TABLE addresses (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    first_name  TEXT NOT NULL,
-    last_name   TEXT NOT NULL,
-    street      TEXT NOT NULL,
-    apartment   TEXT,
-    city        TEXT NOT NULL,
-    state       TEXT NOT NULL,
-    zip         TEXT NOT NULL,
-    country     TEXT NOT NULL DEFAULT 'US',
-    is_default  BOOLEAN NOT NULL DEFAULT FALSE,
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE addresses (
+--     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     user_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     first_name  TEXT NOT NULL,
+--     last_name   TEXT NOT NULL,
+--     street      TEXT NOT NULL,
+--     apartment   TEXT,
+--     city        TEXT NOT NULL,
+--     state       TEXT NOT NULL,
+--     zip         TEXT NOT NULL,
+--     country     TEXT NOT NULL DEFAULT 'NG',
+--     is_default  BOOLEAN NOT NULL DEFAULT FALSE,
+--     created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- =============================================================================
 -- PAYMENT METHODS
@@ -173,6 +160,8 @@ CREATE TABLE payment_methods (
     card_brand      card_brand,
     expiry_month    SMALLINT,                       -- 1–12
     expiry_year     SMALLINT,                       -- e.g. 2028
+    provider_token  TEXT,                           -- tokenized by payment provider (e.g. Stripe)
+    provider_customer_id TEXT,
     is_default      BOOLEAN NOT NULL DEFAULT FALSE,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -208,6 +197,7 @@ CREATE TABLE stores (
     cover_image_url         TEXT,
     status                  store_status NOT NULL DEFAULT 'active',
     primary_category_id     UUID REFERENCES categories(id) ON DELETE SET NULL,
+    secondary_category_id   UUID REFERENCES categories(id) ON DELETE SET NULL,
     country                 TEXT,
     city                    TEXT,
     contact_email           TEXT,
@@ -232,7 +222,7 @@ CREATE TABLE stores (
     total_sales             INT NOT NULL DEFAULT 0, -- cached for credibility
     -- Meta
     is_verified             BOOLEAN NOT NULL DEFAULT FALSE,
-    joined_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    created_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at              TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -276,7 +266,7 @@ CREATE TABLE store_follows (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     store_id    UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
-    followed_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- Seller-only notification preferences. Queried via GET /stores/:storeId/notification-preferences.
@@ -285,12 +275,12 @@ CREATE TABLE store_follows (
 -- A user who owns multiple stores gets one row per store.
 CREATE TABLE store_notification_preferences (
     store_id                UUID PRIMARY KEY REFERENCES stores(id) ON DELETE CASCADE,
+    user_id                 UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     new_orders              BOOLEAN NOT NULL DEFAULT TRUE,
     low_stock_alerts        BOOLEAN NOT NULL DEFAULT TRUE,
     new_reviews             BOOLEAN NOT NULL DEFAULT TRUE,
     payout_notifications    BOOLEAN NOT NULL DEFAULT TRUE,
     platform_updates        BOOLEAN NOT NULL DEFAULT TRUE,
-    updated_at              TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- =============================================================================
@@ -307,6 +297,11 @@ CREATE TABLE store_roles (
     UNIQUE (store_id, name)
 );
 
+CREATE TABLE store_permissions (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    label TEXT
+);
+
 -- Permissions granted to a role (one row per permission).
 -- Possible values: view_orders, process_orders, manage_products,
 --   view_analytics, manage_promotions, view_payouts,
@@ -314,7 +309,7 @@ CREATE TABLE store_roles (
 CREATE TABLE store_role_permissions (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     role_id     UUID NOT NULL REFERENCES store_roles(id) ON DELETE CASCADE,
-    permission  TEXT NOT NULL,
+    permission_id  UUID NOT NULL REFERENCES store_permissions(id) ON DELETE CASCADE,
     UNIQUE (role_id, permission)
 );
 
@@ -458,7 +453,7 @@ CREATE TABLE cart_items (
     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     cart_id         UUID NOT NULL REFERENCES carts(id) ON DELETE CASCADE,
     product_id      UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-    variant_id      UUID REFERENCES product_variants(id) ON DELETE SET NULL,
+    variant_id      UUID NOT NULL REFERENCES product_variants(id) ON DELETE CASCADE,
     quantity        INT NOT NULL DEFAULT 1 CHECK (quantity > 0),
     unit_price      NUMERIC(12, 2) NOT NULL,        -- price at time of add
     added_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -885,24 +880,11 @@ CREATE TYPE inventory_adjustment_status AS ENUM ('pending', 'approved', 'rejecte
 
 CREATE TYPE purchase_order_status AS ENUM ('draft', 'sent', 'partial', 'received', 'cancelled');
 
--- One inventory record per (product, variant, location).
--- When a store has no warehouses the location_id is NULL (single-location store).
-CREATE TABLE inventory_locations (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    store_id    UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
-    name        TEXT NOT NULL,              -- e.g. "Main Warehouse", "NYC Fulfillment"
-    address     TEXT,
-    is_default  BOOLEAN NOT NULL DEFAULT FALSE,
-    is_active   BOOLEAN NOT NULL DEFAULT TRUE,
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
-
 -- Current on-hand quantities (source of truth via movements)
 CREATE TABLE inventory (
     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     product_id      UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
     variant_id      UUID REFERENCES product_variants(id) ON DELETE CASCADE,
-    location_id     UUID REFERENCES inventory_locations(id) ON DELETE SET NULL,
     quantity_on_hand        INT NOT NULL DEFAULT 0 CHECK (quantity_on_hand >= 0),
     quantity_reserved       INT NOT NULL DEFAULT 0 CHECK (quantity_reserved >= 0),  -- held for open orders
     quantity_available      INT GENERATED ALWAYS AS (quantity_on_hand - quantity_reserved) STORED,
@@ -910,95 +892,11 @@ CREATE TABLE inventory (
     reorder_point           INT NOT NULL DEFAULT 10,    -- suggested reorder level
     reorder_quantity        INT NOT NULL DEFAULT 50,    -- suggested qty to reorder
     updated_at              TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    UNIQUE (product_id, variant_id, location_id),
+    UNIQUE (product_id, variant_id),
     -- Prevents a race condition where reservations could exceed on-hand stock,
     -- which would make quantity_available go negative in the generated column.
     CONSTRAINT inventory_reserved_lte_on_hand CHECK (quantity_reserved <= quantity_on_hand)
 );
-
--- Immutable ledger of every stock movement
--- CREATE TABLE inventory_movements (
---     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
---     inventory_id    UUID NOT NULL REFERENCES inventory(id),
---     reason          inventory_movement_reason NOT NULL,
---     quantity_delta  INT NOT NULL,               -- positive = in, negative = out
---     quantity_before INT NOT NULL,
---     quantity_after  INT NOT NULL,
---     -- Optional references for traceability
---     order_id        UUID REFERENCES orders(id) ON DELETE SET NULL,
---     return_id       UUID REFERENCES returns(id) ON DELETE SET NULL,
---     purchase_order_id UUID,                     -- FK added after purchase_orders table
---     adjustment_id   UUID,                       -- FK added after inventory_adjustments table
---     note            TEXT,
---     performed_by    UUID REFERENCES users(id) ON DELETE SET NULL,
---     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
--- );
-
--- Manual stock adjustment requests (require approval for accountability)
--- CREATE TABLE inventory_adjustments (
---     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
---     inventory_id    UUID NOT NULL REFERENCES inventory(id),
---     requested_by    UUID NOT NULL REFERENCES users(id),
---     approved_by     UUID REFERENCES users(id),
---     reason          TEXT NOT NULL,
---     quantity_delta  INT NOT NULL,               -- what the requester wants to add/remove
---     status          inventory_adjustment_status NOT NULL DEFAULT 'pending',
---     reviewed_at     TIMESTAMPTZ,
---     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
--- );
-
--- Close FK loop for inventory_movements.adjustment_id
--- ALTER TABLE inventory_movements
---     ADD CONSTRAINT inventory_movements_adjustment_id_fkey
---     FOREIGN KEY (adjustment_id) REFERENCES inventory_adjustments(id) ON DELETE SET NULL;
-
--- Suppliers for purchase orders
--- CREATE TABLE suppliers (
---     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
---     store_id        UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
---     name            TEXT NOT NULL,
---     contact_name    TEXT,
---     email           TEXT,
---     phone           TEXT,
---     website         TEXT,
---     address         TEXT,
---     notes           TEXT,
---     is_active       BOOLEAN NOT NULL DEFAULT TRUE,
---     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
--- );
-
--- Purchase orders sent to suppliers to restock inventory
--- CREATE TABLE purchase_orders (
---     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
---     store_id        UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
---     supplier_id     UUID REFERENCES suppliers(id) ON DELETE SET NULL,
---     location_id     UUID REFERENCES inventory_locations(id) ON DELETE SET NULL,  -- destination
---     po_number       TEXT NOT NULL,              -- e.g. "PO-2026-0042"
---     status          purchase_order_status NOT NULL DEFAULT 'draft',
---     notes           TEXT,
---     expected_at     DATE,
---     received_at     TIMESTAMPTZ,
---     created_by      UUID REFERENCES users(id) ON DELETE SET NULL,
---     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
---     updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
---     UNIQUE (store_id, po_number)
--- );
-
--- CREATE TABLE purchase_order_items (
---     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
---     purchase_order_id   UUID NOT NULL REFERENCES purchase_orders(id) ON DELETE CASCADE,
---     product_id          UUID NOT NULL REFERENCES products(id),
---     variant_id          UUID REFERENCES product_variants(id),
---     quantity_ordered    INT NOT NULL CHECK (quantity_ordered > 0),
---     quantity_received   INT NOT NULL DEFAULT 0,
---     unit_cost           NUMERIC(12, 2),
---     note                TEXT
--- );
-
--- Close FK loop for inventory_movements.purchase_order_id
--- ALTER TABLE inventory_movements
---     ADD CONSTRAINT inventory_movements_purchase_order_id_fkey
---     FOREIGN KEY (purchase_order_id) REFERENCES purchase_orders(id) ON DELETE SET NULL;
 
 -- Stock reservations: inventory held while an order is in pending/processing state
 CREATE TABLE inventory_reservations (
@@ -1016,23 +914,18 @@ CREATE TABLE inventory_reservations (
 -- =============================================================================
 
 -- Users
-CREATE INDEX idx_users_email ON users(email);
+-- CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_user_social_accounts_user_id ON user_social_accounts(user_id);
 
 -- User sessions
-CREATE INDEX idx_user_sessions_user_id ON user_sessions(user_id);
-CREATE INDEX idx_user_sessions_token ON user_sessions(token_hash);
-CREATE INDEX idx_user_sessions_expires ON user_sessions(expires_at) WHERE expires_at > NOW();
+-- CREATE INDEX idx_user_sessions_user_id ON user_sessions(user_id);
 
 -- Password reset tokens
 CREATE INDEX idx_password_reset_tokens_user_id ON password_reset_tokens(user_id);
-CREATE INDEX idx_password_reset_tokens_token ON password_reset_tokens(token_hash);
-CREATE INDEX idx_password_reset_tokens_expires ON password_reset_tokens(expires_at) WHERE used_at IS NULL;
 
 -- Email verification tokens
 CREATE INDEX idx_email_verification_tokens_user_id ON email_verification_tokens(user_id);
 CREATE INDEX idx_email_verification_tokens_token ON email_verification_tokens(token_hash);
-CREATE INDEX idx_email_verification_tokens_expires ON email_verification_tokens(expires_at) WHERE verified_at IS NULL;
 
 -- Addresses
 CREATE INDEX idx_addresses_user_id ON addresses(user_id);
@@ -1048,12 +941,13 @@ CREATE INDEX idx_categories_parent_id ON categories(parent_id) WHERE parent_id I
 -- Stores
 CREATE INDEX idx_stores_owner_id ON stores(owner_id);
 CREATE INDEX idx_stores_slug ON stores(slug);
+CREATE INDEX idx_stores_slug ON stores(slug);
 CREATE INDEX idx_stores_primary_category ON stores(primary_category_id);
 CREATE INDEX idx_stores_avg_rating ON stores(avg_rating) WHERE avg_rating IS NOT NULL;
 
 -- Store shipping / follows / team / invitations
 CREATE INDEX idx_store_shipping_zones_store_id ON store_shipping_zones(store_id);
-REATE INDEX idx_store_shipping_rates_zone_method ON store_shipping_rates(zone_id, method);
+CREATE INDEX idx_store_shipping_rates_zone_method ON store_shipping_rates(zone_id, method);
 CREATE UNIQUE INDEX uq_store_follows_user_store ON store_follows(user_id, store_id);
 CREATE INDEX idx_store_follows_store_id ON store_follows(store_id);
 CREATE INDEX idx_store_roles_store_id ON store_roles(store_id);
@@ -1065,7 +959,8 @@ CREATE UNIQUE INDEX uq_store_invitations_store_email ON store_invitations(store_
 -- Products
 CREATE INDEX idx_products_store_id ON products(store_id);
 CREATE INDEX idx_products_category_id ON products(category_id);
-CREATE INDEX idx_products_subcategory_id ON products(subcategory_id) WHERE subcategory_id IS NOT NULL;
+CREATE INDEX idx_products_subcategory_id ON products(secondary_category_id) WHERE subcategory_id IS NOT NULL;
+CREATE INDEX idx_products_tertiary_category_id ON products(tertiary_category_id) WHERE tertiary_category_id IS NOT NULL;
 CREATE INDEX idx_products_status ON products(status);
 CREATE INDEX idx_products_price ON products(price);
 CREATE INDEX idx_products_store_status ON products(store_id, status);
@@ -1085,7 +980,6 @@ CREATE INDEX idx_product_variants_product_id ON product_variants(product_id);
 CREATE INDEX idx_product_variants_sku ON product_variants(sku) WHERE sku IS NOT NULL;
 CREATE INDEX idx_product_variants_barcode ON product_variants(barcode) WHERE barcode IS NOT NULL;
 CREATE UNIQUE INDEX uq_product_variant_options ON product_variant_options(variant_id, option_value_id);
-CREATE UNIQUE INDEX uq_product_categories ON product_categories(product_id, category_id);
 
 -- Cart
 CREATE INDEX idx_carts_user_id ON carts(user_id) WHERE user_id IS NOT NULL;
@@ -1187,14 +1081,6 @@ CREATE INDEX idx_inventory_product_id ON inventory(product_id);
 CREATE INDEX idx_inventory_variant_id ON inventory(variant_id) WHERE variant_id IS NOT NULL;
 CREATE INDEX idx_inventory_location_id ON inventory(location_id) WHERE location_id IS NOT NULL;
 CREATE INDEX idx_inventory_low_stock ON inventory(product_id) WHERE quantity_available <= low_stock_threshold;
-CREATE INDEX idx_inventory_movements_inventory_id ON inventory_movements(inventory_id);
-CREATE INDEX idx_inventory_movements_order_id ON inventory_movements(order_id) WHERE order_id IS NOT NULL;
-CREATE INDEX idx_inventory_movements_created_at ON inventory_movements(created_at DESC);
-CREATE INDEX idx_inventory_adjustments_inventory_id ON inventory_adjustments(inventory_id);
-CREATE INDEX idx_inventory_adjustments_status ON inventory_adjustments(status) WHERE status = 'pending';
-CREATE INDEX idx_purchase_orders_store_id ON purchase_orders(store_id);
-CREATE INDEX idx_purchase_orders_supplier_id ON purchase_orders(supplier_id) WHERE supplier_id IS NOT NULL;
-CREATE INDEX idx_purchase_orders_status ON purchase_orders(status);
 CREATE INDEX idx_purchase_order_items_po_id ON purchase_order_items(purchase_order_id);
 CREATE INDEX idx_purchase_order_items_product_id ON purchase_order_items(product_id);
 CREATE INDEX idx_purchase_order_items_variant_id ON purchase_order_items(variant_id) WHERE variant_id IS NOT NULL;

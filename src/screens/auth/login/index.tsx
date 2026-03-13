@@ -1,5 +1,5 @@
 import { LockIcon, LogInIcon, MailIcon } from "lucide-solid";
-import * as v from "valibot";
+import type * as v from "valibot";
 import { useAppForm } from "@/screens/_components/form";
 import {
 	FormCard,
@@ -7,15 +7,10 @@ import {
 	FormRoot,
 	FormText,
 } from "@/screens/_components/form/card";
+import { LoginRequestSchema } from "@/server/modules/identity/auth/schemas";
 import { DividerText } from "@/ui/divider";
 import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../SocialAuth";
-
-const LoginRequestSchema = v.object({
-	email: v.pipe(v.string(), v.minLength(1), v.email()),
-	password: v.pipe(v.string(), v.minLength(1)),
-	remember: v.optional(v.boolean()),
-});
 
 export function LoginScreen() {
 	const form = useAppForm(() => ({

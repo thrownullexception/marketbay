@@ -1,5 +1,5 @@
 import { LockIcon, MailIcon, UserIcon, UserPlusIcon } from "lucide-solid";
-import * as v from "valibot";
+import type * as v from "valibot";
 import { useAppForm } from "@/screens/_components/form";
 import {
 	FormCard,
@@ -7,28 +7,11 @@ import {
 	FormRoot,
 	FormText,
 } from "@/screens/_components/form/card";
+import { RegisterRequestSchema } from "@/server/modules/identity/auth/schemas";
 import { DividerText } from "@/ui/divider";
 import { Grid2 } from "@/ui/grid";
 import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../SocialAuth";
-
-const RegisterRequestSchema = v.object({
-	firstName: v.pipe(v.string(), v.minLength(1)),
-	lastName: v.pipe(v.string(), v.minLength(1)),
-	email: v.pipe(v.string(), v.minLength(1), v.email()),
-	password: v.pipe(
-		v.string(),
-		v.minLength(8, "Must be at least 8 characters"),
-		v.check((value) => /[A-Z]/.test(value), "Must contain an uppercase letter"),
-		v.check((value) => /[a-z]/.test(value), "Must contain a lowercase letter"),
-		v.check((value) => /\d/.test(value), "Must contain a number"),
-		v.check((value) => /[^A-Za-z0-9]/.test(value), "Must contain a symbol"),
-	),
-	agreed: v.pipe(
-		v.boolean(),
-		v.check((value) => value, "You must agree to the terms and privacy policy"),
-	),
-});
 
 export function RegisterScreen() {
 	const form = useAppForm(() => ({

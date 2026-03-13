@@ -1,7 +1,7 @@
 import Elysia from "elysia";
 import { createServer } from "vite";
 import { connect } from "elysia-connect-middleware";
-import { serverApp } from "@/server/main";
+import { serverApp } from "@/server/merchant";
 
 const app = new Elysia().use(serverApp);
 

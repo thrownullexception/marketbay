@@ -10,10 +10,10 @@ export const systemIdField = () => varchar({ length: 2 });
 
 const primaryKey = idField().$defaultFn(createEntityId).primaryKey().notNull();
 
-type ExtractBrand<U> = U extends v.Brand<infer I> ? I : never;
+type ExtractBrand<U> = U extends v.CustomSchema<infer I, undefined> ? I : never;
 
 export const baseDbSchema = <
-	U extends string & v.Brand<string>,
+	U extends v.CustomSchema<string, undefined>,
 	T extends Record<string, PgColumnBuilderBase>,
 >(
 	_: U,

@@ -1,5 +1,5 @@
 import Elysia from "elysia";
-import { serverApp } from "@/server/main";
+import { serverApp } from "@/server/merchant";
 import { initializeStaticRoutes, log } from "./utils";
 
 const app = new Elysia().use(serverApp);

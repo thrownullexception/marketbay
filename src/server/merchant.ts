@@ -6,7 +6,7 @@ import { helmetMiddleware } from "@/server/middlewares/helmet";
 import { loggerMiddleware } from "@/server/middlewares/logger";
 import { openapiMiddleware } from "@/server/middlewares/openapi";
 
-export const serverApp = new Elysia({
+export const merchantServerApp = new Elysia({
 	prefix: "/api",
 })
 	.use(csrfMiddleware)
