@@ -1,0 +1,29 @@
+{
+  "include": ["**/*.ts", "**/*.tsx"],
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "target": "ES2022",
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/ui/*": ["./packages/ui/src/*"],
+      "@/screens/*": ["./packages/screens/src/*"],
+      "@/api/*": ["./packages/api/src/*"],
+      "@/components/*": ["./packages/components/src/*"],
+      "@/start/*": ["./packages/start/src/*"],
+      "@/shared/*": ["./packages/shared/src/*"],
+      "@/schemas/*": ["./packages/schemas/src/*"],
+    },
+    "noEmit": true
+  }
+}

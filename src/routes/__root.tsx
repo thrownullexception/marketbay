@@ -3,10 +3,11 @@ import { createRootRoute, HeadContent, Scripts } from "@tanstack/solid-router";
 import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import type * as Solid from "solid-js";
 import { HydrationScript } from "solid-js/web";
-import { DefaultCatchBoundary } from "@/components/DefaultCatchBoundary";
-import { NotFound } from "@/components/NotFound";
+import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
+import { NotFound } from "@/components/not-found";
 import appCss from "@/styles/app.css?url";
-import { seo } from "@/utils/seo";
+import { seo } from "@/start/seo";
+
 
 export const Route = createRootRoute({
 	head: () => ({
@@ -20,8 +21,8 @@ export const Route = createRootRoute({
 			},
 			...seo({
 				title:
-					"TanStack Start | Type-Safe, Client-First, Full-Stack React Framework",
-				description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
+					"Marketbay.ng",
+				description: `Built for sellers, loved by buyers`,
 			}),
 		],
 		links: [

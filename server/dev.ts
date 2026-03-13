@@ -1,9 +1,9 @@
 import Elysia from "elysia";
 import { createServer } from "vite";
 import { connect } from "elysia-connect-middleware";
-import { serverApp } from "@/server/merchant";
+import { merchantServerApp } from "@/api/merchant";
 
-const app = new Elysia().use(serverApp);
+const app = new Elysia().use(merchantServerApp);
 
 const viteDevServer = await createServer({
   server: { middlewareMode: true },

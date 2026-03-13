@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/solid-router";
 import ms from "ms";
 import { HomeScreen } from "@/screens/shop/Home";
-import { getTreaty } from "@/treaty";
+
 
 export const Route = createFileRoute("/(app)/")({
 	component: HomeScreen,

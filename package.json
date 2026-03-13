@@ -17,8 +17,21 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "valibot:generate": "bun ./cli/gen-valibot-schemas/index.ts"
+    "valibot:generate": "bun ./cli/gen-valibot-schemas/index.ts",
+
+
+    "test": "bun --filter '*' test",
+    "lint:fix:all": "bun --filter '*' lint:fix",
+    "lint:check": "bun --filter '*' lint:check",
+    "format:fix": "prettier --write",
+    "format:fix:all": "prettier --write \"**/*.(ts|tsx)\"",
+    "format:check": "prettier --check \"**/*.(ts|tsx)\"",
+    "type:check-v2": "bun --filter '*' type:check",
+    "verify": "bun run type:check && bun run lint:check && bun run format:check && bun --filter '*' circular"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.1.10",
     "@elysiajs/eden": "^1.4.8",

@@ -1,0 +1,120 @@
+import { MailIcon } from "lucide-solid";
+import { createSignal, Show } from "solid-js";
+import * as v from "valibot";
+import { useAppForm } from "@/components/form";
+import { FormCard, FormHeader } from "@/components/form/card";
+import { Alert } from "@/ui/alert";
+import { Button, LinkButton } from "@/ui/button";
+import { TextLink } from "@/ui/link";
+
+const ForgotPasswordRequestSchema = v.object({
+	email: v.pipe(v.string(), v.minLength(1), v.email()),
+});
+
+export function ForgotPasswordScreen() {
+	const [isSubmitted, setIsSubmitted] = createSignal(false);
+
+	const form = useAppForm(() => ({
+		defaultValues: {
+			email: "",
+			password: "",
+		} as v.InferInput<typeof ForgotPasswordRequestSchema>,
+		validators: {
+			onChange: ForgotPasswordRequestSchema,
+		},
+		onSubmit: ({ value }) => {
+			console.log(value);
+			setIsSubmitted(true);
+		},
+	}));
+
+	return (
+		<>
+			<Show when={!isSubmitted()}>
+				<div class="space-y-8">
+					<FormHeader
+						title="Reset your password"
+						description="Enter the email address linked to your account and we'll send you a reset link."
+					/>
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+							form.handleSubmit();
+						}}
+					>
+						<FormCard>
+							<form.AppField name="email">
+								{(field) => (
+									<field.InputText
+										label="Email address"
+										placeholder="you@example.com"
+										Icon={MailIcon}
+									/>
+								)}
+							</form.AppField>
+
+							<form.AppForm>
+								<form.SubmitButton label="Send Reset Link" />
+							</form.AppForm>
+						</FormCard>
+					</form>
+
+					<p class="text-center text-sm text-gray-500 mt-6">
+						Remember your password? <TextLink to="/login" label="Sign in" />
+					</p>
+				</div>
+			</Show>
+			<Show when={isSubmitted()}>
+				<div class="space-y-8">
+					<div class="text-center fade-in">
+						<div class="w-16 h-16 rounded-2xl bg-emerald-50 flex items-center justify-center mx-auto mb-5">
+							<MailIcon class="w-8 h-8 text-emerald-600" />
+						</div>
+						<FormHeader
+							title="Check your email"
+							description="We've sent a password reset link to"
+						/>
+						<p class="text-sm font-semibold text-gray-900 mt-1">todo</p>
+					</div>
+
+					<FormCard>
+						<div class="space-y-4">
+							<Alert
+								variant="info"
+								title="Email sent"
+								description="Click the link in the email to create a new password. The link expires in <b>60 minutes</b>."
+							/>
+							<Alert
+								variant="default"
+								title="Don't see the email?"
+								description=" Check your spam folder or make sure you entered the correct address."
+							/>
+						</div>
+
+						<div class="mt-6 flex flex-col gap-3">
+							<Button
+								onClick={() => setIsSubmitted(false)}
+								label="Resend Email"
+								variant="default"
+								fullWidth
+							/>
+							<LinkButton
+								link={{
+									to: "/login",
+								}}
+								label="Back to Sign In"
+								variant="primary"
+								fullWidth
+							/>
+						</div>
+					</FormCard>
+
+					<p class="text-center text-sm text-gray-500">
+						Need help? <TextLink to="/help" label="Contact Support" />
+					</p>
+				</div>
+			</Show>
+		</>
+	);
+}

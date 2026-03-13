@@ -9,8 +9,7 @@
 		"ignoreUnknown": false,
 		"includes": [
 			"cli/**/*",
-			"**/src/**/*",
-			"**/.vscode/**/*",
+			"**/packages/**/*",
 			"**/index.html",
 			"**/vite.config.ts",
 			"!**/src/routeTree.gen.ts",

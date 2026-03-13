@@ -1,6 +1,6 @@
 import { createFileRoute, stripSearchParams } from "@tanstack/solid-router";
 import * as v from "valibot";
-import { DefaultCatchBoundary } from "@/components/DefaultCatchBoundary";
+import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
 import { StoresScreen } from "@/screens/shop/Stores";
 
 const defaultValues = {
