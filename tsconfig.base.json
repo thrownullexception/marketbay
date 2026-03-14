@@ -16,13 +16,12 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/ui/*": ["./packages/ui/src/*"],
+      "@/ui/*": ["./packages/screens/src/ui/*"],
+      "@/components/*": ["./packages/screens/src/components/*"],
       "@/screens/*": ["./packages/screens/src/*"],
       "@/api/*": ["./packages/api/src/*"],
-      "@/components/*": ["./packages/components/src/*"],
-      "@/start/*": ["./packages/start/src/*"],
+      "@/schemas/*": ["./packages/shared/src/schemas/*"],
       "@/shared/*": ["./packages/shared/src/*"],
-      "@/schemas/*": ["./packages/schemas/src/*"],
     },
     "noEmit": true
   }

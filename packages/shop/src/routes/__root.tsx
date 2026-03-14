@@ -5,7 +5,7 @@ import type * as Solid from "solid-js";
 import { HydrationScript } from "solid-js/web";
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
 import { NotFound } from "@/components/not-found";
-import { seo } from "@/start/seo";
+import { seo } from "@/shared/solid-start/seo";
 import appCss from "@/ui/app.css?url";
 
 

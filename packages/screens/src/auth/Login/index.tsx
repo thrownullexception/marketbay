@@ -7,7 +7,7 @@ import {
 	FormRoot,
 	FormText,
 } from "@/components/form/card";
-import { LoginRequestSchema } from "@/schemas/auth";
+import { LoginRequestSchema } from "@/shared/schemas/auth";
 import { DividerText } from "@/ui/divider";
 import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../SocialAuth";

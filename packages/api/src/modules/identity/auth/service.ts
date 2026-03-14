@@ -17,8 +17,8 @@ import {
 	type RegisterRequestSchema,
 	type ResetPasswordRequestSchema,
 	type VerifyEmailRequestSchema,
-} from "@/schemas/auth";
-import type { UserId } from "@/schemas/users";
+} from "@/shared/schemas/auth";
+import type { UserId } from "@/shared/schemas/users";
 import { AuthSessionEntity } from "../auth-session/entity";
 import { OtpVerificationEntity } from "../otp-verifications/entity";
 import { OtpScopes } from "../otp-verifications/types";

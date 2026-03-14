@@ -7,7 +7,7 @@ import {
 	FormRoot,
 	FormText,
 } from "@/components/form/card";
-import { RegisterRequestSchema } from "@/schemas/auth";
+import { RegisterRequestSchema } from "@/shared/schemas/auth";
 import { DividerText } from "@/ui/divider";
 import { Grid2 } from "@/ui/grid";
 import { TextLink } from "@/ui/link";

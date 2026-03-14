@@ -6,8 +6,8 @@ import {
 	ListUserAddressesResponseSchema,
 	UpdateAddressRequestSchema,
 	UserAddressIdSchema,
-} from "@/schemas/user-addresses";
-import type { UserId } from "@/schemas/users";
+} from "@/shared/schemas/user-addresses";
+import type { UserId } from "@/shared/schemas/users";
 import { IdentityModule } from "..";
 
 export const userAdressesShopController = new Elysia({

@@ -1,4 +1,4 @@
 import { shopServerApp } from "@/api/shop";
-import { createProdServer } from "@/start/prod";
+import { createProdServer } from "@/shared/solid-start/prod";
 
 createProdServer(shopServerApp, import.meta.url)

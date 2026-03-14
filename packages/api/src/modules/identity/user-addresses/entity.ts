@@ -1,6 +1,6 @@
 import { boolean, index, pgTable, text } from "drizzle-orm/pg-core";
 import { baseDbSchema } from "@/api/database/base-schema";
-import { UserAddressId } from "@/schemas/user-addresses";
+import { UserAddressId } from "@/shared/schemas/user-addresses";
 import { referencesUserEntity } from "../users/entity";
 
 export const UserAddressEntity = pgTable(

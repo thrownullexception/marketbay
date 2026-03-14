@@ -14,7 +14,7 @@ import "./styles.css";
 import type * as v from "valibot";
 import { useAppForm } from "@/components/form";
 import { FormCard, FormHeader, FormRoot } from "@/components/form/card";
-import { CreateStoreRequestSchema } from "@/schemas/store";
+import { CreateStoreRequestSchema } from "@/shared/schemas/store";
 import { Grid2 } from "@/ui/grid";
 
 export const CreateStoreScreen = () => {

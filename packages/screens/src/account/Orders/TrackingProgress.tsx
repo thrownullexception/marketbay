@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { CheckIcon } from "lucide-solid";
 import { For } from "solid-js";
-import type { OrderStatus } from "./types";
+import type { OrderStatus } from "@/schemas/orders";
 
 const STEPS = ["Ordered", "Shipped", "In Transit", "Delivered"] as const;
 

@@ -1,3 +1,3 @@
-import { solidStartServerEntry } from "@/start/entry";
+import { solidStartServerEntry } from "@/shared/solid-start/entry";
 
 export default solidStartServerEntry;

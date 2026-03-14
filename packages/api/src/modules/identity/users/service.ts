@@ -1,7 +1,7 @@
 import { eq, type InferInsertModel, type InferSelectModel } from "drizzle-orm";
 import type { Database } from "@/api/database";
 import { NotFoundRequestError } from "@/api/shared/errors";
-import type { UserId } from "@/schemas/users";
+import type { UserId } from "@/shared/schemas/users";
 import { UserEntity } from "./entity";
 
 export class UsersService {
