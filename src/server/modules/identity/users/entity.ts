@@ -6,7 +6,7 @@ import {
 	unique,
 } from "drizzle-orm/pg-core";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
-import { UserId } from "./schemas";
+import { UserId } from "../../../../schemas/user";
 
 export const UserEntity = pgTable(
 	"users",

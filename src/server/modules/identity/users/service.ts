@@ -1,8 +1,8 @@
 import { eq, type InferInsertModel, type InferSelectModel } from "drizzle-orm";
-import { NotFoundRequestError } from "@/server/constants/errors";
 import type { Database } from "@/server/database";
+import { NotFoundRequestError } from "@/server/shared/errors";
+import type { UserId } from "../../../../schemas/user";
 import { UserEntity } from "./entity";
-import type { UserId } from "./schemas";
 
 export class UsersService {
 	constructor(private readonly db: Database) {}

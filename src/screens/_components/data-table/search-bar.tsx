@@ -17,11 +17,11 @@ export const DataTableSearchBar = (props: {
 			<SimpleInputText
 				placeholder={props.placeholder ?? "Search..."}
 				Icon={SearchIcon}
-				label="Search"
+		
 			/>
 			<div class="flex items-center gap-2 shrink-0">
 				<For each={props.filters ?? []}>
-					{(filter) => <SimpleSelect options={filter.options} />}
+					{(filter) => <SimpleSelect options={filter.options} placeholder="" />}
 				</For>
 			</div>
 		</div>

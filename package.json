@@ -7,7 +7,8 @@
     "dev": "NODE_ENV=development bun --bun --watch run server/dev.ts",
     "build": "NODE_ENV=production bun run build:frontend && bun run build:server",
     "build:frontend": "bun --bun vite build",
-    "build:server": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile dist/app server/elysia.ts",
+    "dev-vite": "bun --bun vite dev",
+    "build:server": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile dist/app server/prod.ts",
     "start": "NODE_ENV=production ./dist/app",
     "format": "biome format",
     "lint": "biome lint",
@@ -51,7 +52,8 @@
     "resend": "^6.9.2",
     "solid-js": "^1.9.10",
     "typebox": "^1.1.6",
-    "valibot": "^1.2.0"
+    "valibot": "^1.2.0",
+    "validator": "^13.15.26"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4",

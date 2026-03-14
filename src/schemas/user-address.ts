@@ -4,7 +4,7 @@ import {
 	nameSchema,
 	shortStringSchema,
 	zipSchema,
-} from "@/server/constants/validations";
+} from "@/schemas/base";
 
 export const UserAddressIdSchema = v.pipe(
 	v.string(),

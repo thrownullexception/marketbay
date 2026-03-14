@@ -1,5 +1,6 @@
 import { LockIcon, MailIcon, UserIcon, UserPlusIcon } from "lucide-solid";
 import type * as v from "valibot";
+import { RegisterRequestSchema } from "@/schemas/auth";
 import { useAppForm } from "@/screens/_components/form";
 import {
 	FormCard,
@@ -7,7 +8,6 @@ import {
 	FormRoot,
 	FormText,
 } from "@/screens/_components/form/card";
-import { RegisterRequestSchema } from "@/server/modules/identity/auth/schemas";
 import { DividerText } from "@/ui/divider";
 import { Grid2 } from "@/ui/grid";
 import { TextLink } from "@/ui/link";

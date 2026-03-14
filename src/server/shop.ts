@@ -1,17 +1,18 @@
 import Elysia from "elysia";
-import { csrfMiddleware } from "@/server/middlewares/csrf";
-import { healthcheckMiddleware } from "@/server/middlewares/health";
-import { helmetMiddleware } from "@/server/middlewares/helmet";
-import { loggerMiddleware } from "@/server/middlewares/logger";
 import { openapiMiddleware } from "@/server/middlewares/openapi";
 import { userAdressesShopController } from "./modules/identity/user-addresses/shop.controller";
 
 export const shopServerApp = new Elysia({
-    prefix: "/api",
+	prefix: "/api/shop",
 })
-    .use(csrfMiddleware)
-    // .use(helmetMiddleware)
-    .use(healthcheckMiddleware)
-    .use(openapiMiddleware)
-    .use(loggerMiddleware)
-   .use(userAdressesShopController)
+	.use(openapiMiddleware)
+	.use(userAdressesShopController);
+
+import { treaty } from "@elysiajs/eden";
+import { createIsomorphicFn } from "@tanstack/solid-start";
+
+export const getShopTreaty = createIsomorphicFn()
+	.server(() => treaty(shopServerApp).api.shop)
+	.client(() => treaty<typeof shopServerApp>("localhost:3000").api.shop);
+
+// https://github.com/xkelxmc/eden-tanstack-query

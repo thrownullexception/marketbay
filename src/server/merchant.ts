@@ -1,19 +1,11 @@
+import { treaty } from "@elysiajs/eden";
+import { createIsomorphicFn } from "@tanstack/solid-start";
 import Elysia from "elysia";
 import * as v from "valibot";
-import { csrfMiddleware } from "@/server/middlewares/csrf";
-import { healthcheckMiddleware } from "@/server/middlewares/health";
-import { helmetMiddleware } from "@/server/middlewares/helmet";
-import { loggerMiddleware } from "@/server/middlewares/logger";
-import { openapiMiddleware } from "@/server/middlewares/openapi";
 
 export const merchantServerApp = new Elysia({
-	prefix: "/api",
+	prefix: "/api/merchant",
 })
-	.use(csrfMiddleware)
-	// .use(helmetMiddleware)
-	.use(healthcheckMiddleware)
-	.use(openapiMiddleware)
-	.use(loggerMiddleware)
 	.get("/", () => ({ message: "Hello Elysia!" }))
 	.get("/products", () => [{ id: 1, name: "Product 1" }])
 	.get("/stores", () => [{ id: 1, name: "Store 1" }])
@@ -32,3 +24,9 @@ export const merchantServerApp = new Elysia({
 	})
 	.get("/foo/bar", () => ({ message: "Hello World" }))
 	.get("/notifications", () => ({ count: 10 }));
+
+export const getMerchantTreaty = createIsomorphicFn()
+	.server(() => treaty(merchantServerApp).api.merchant)
+	.client(
+		() => treaty<typeof merchantServerApp>("localhost:3000").api.merchant,
+	);

@@ -5,7 +5,7 @@ import { sluggify } from "@/utils/strings";
 import { FormInput, type FormInputProps, useFieldHasError } from "./input-form";
 
 type FormInputSelectProps = {
-	placeholder: string;
+	placeholder?: string;
 	options: { label: string; value: string }[];
 	id?: string;
 };

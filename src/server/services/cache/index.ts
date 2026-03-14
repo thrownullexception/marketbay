@@ -3,12 +3,12 @@ import { BentoCache, bentostore } from "bentocache";
 import { memoryDriver } from "bentocache/drivers/memory";
 import { redisBusDriver, redisDriver } from "bentocache/drivers/redis";
 import type { StringValue } from "ms";
-import type { ENV } from "@/env";
+import type { SERVER_ENV } from "@/env/server";
 
 export class CacheService {
 	// biome-ignore lint/complexity/noBannedTypes: idk
 	private readonly bento: BentoCache<{}>;
-	constructor(env: ENV) {
+	constructor(env: SERVER_ENV) {
 		this.bento = new BentoCache({
 			default: "multitier",
 			stores: {

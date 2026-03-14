@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { emailSchema, nameSchema, nonEmptyStringSchema } from "@/server/constants/validations";
+import { emailSchema, nameSchema, nonEmptyStringSchema } from "@/schemas/base";
 
 export const OTP_LENGTH = 6;
 

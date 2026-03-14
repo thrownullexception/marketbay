@@ -1,7 +1,7 @@
 import { index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { AuthSessionId } from "@/schemas/auth-session";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesUserEntity } from "../users/entity";
-import { AuthSessionId } from "./schemas";
 
 export const AuthSessionEntity = pgTable(
 	"auth_sessions",

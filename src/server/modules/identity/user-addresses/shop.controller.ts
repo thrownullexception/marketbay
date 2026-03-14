@@ -1,14 +1,14 @@
 import { Elysia } from "elysia";
 import * as v from "valibot";
 import { authenticatedMiddleware } from "@/server/middlewares/auth";
-import { IdentityModule } from "..";
-import type { UserId } from "../users/schemas";
+import type { UserId } from "../../../../schemas/user";
 import {
 	CreateAddressRequestSchema,
 	ListUserAddressesResponseSchema,
 	UpdateAddressRequestSchema,
 	UserAddressIdSchema,
-} from "./schemas";
+} from "../../../../schemas/user-address";
+import { IdentityModule } from "..";
 
 export const userAdressesShopController = new Elysia({ prefix: "/user-adresses" })
 	.use(authenticatedMiddleware)

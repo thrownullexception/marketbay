@@ -1,4 +1,4 @@
-import type { OrderStatus } from "@/screens/merchant/orders/types";
+import type { OrderStatus } from "@/schemas/orders";
 
 export interface OrderItem {
 	name: string;

@@ -1,16 +1,5 @@
 import type { LucideIcon } from "lucide-solid";
-
-export type OrderStatus =
-	| "pending"
-	| "processing"
-	| "shipped"
-	| "in_transit"
-	| "delivered"
-	| "cancelled"
-	| "return"
-	| "refunded";
-
-export type PaymentStatus = "paid" | "refund_pending";
+import type { OrderStatus, PaymentStatus } from "@/schemas/orders";
 
 export type OrderItemSingle = {
 	kind: "single";

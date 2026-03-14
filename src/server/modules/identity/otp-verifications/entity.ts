@@ -1,7 +1,7 @@
 import { index, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
+import { OtpVerificationId } from "@/schemas/otp-verification";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { getEnumValues } from "@/server/database/enums";
-import { OtpVerificationId } from "./schemas";
 import { OtpScopes } from "./types";
 
 export const otpScopes = pgEnum("otp_scopes", getEnumValues(OtpScopes));

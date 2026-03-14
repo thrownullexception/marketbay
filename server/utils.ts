@@ -19,7 +19,6 @@ export const log = {
     },
   };
   
-
 // Preloading configuration from environment variables
 const MAX_PRELOAD_BYTES = Number(
     process.env.ASSET_PRELOAD_MAX_SIZE ?? 5 * 1024 * 1024, // 5MB default
