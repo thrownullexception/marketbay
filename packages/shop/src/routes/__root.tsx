@@ -5,8 +5,8 @@ import type * as Solid from "solid-js";
 import { HydrationScript } from "solid-js/web";
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
 import { NotFound } from "@/components/not-found";
-import appCss from "@/styles/app.css?url";
 import { seo } from "@/start/seo";
+import appCss from "@/ui/app.css?url";
 
 
 export const Route = createRootRoute({

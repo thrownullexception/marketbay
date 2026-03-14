@@ -1,7 +1,7 @@
 import { Link, type LinkOptions } from "@tanstack/solid-router";
 import clsx from "clsx";
-import { Container } from "packages/ui/layout";
 import type { JSX } from "solid-js";
+import { Container } from "@/ui/layout";
 
 export const ScreenSectionCard = (props: {
 	title: string;

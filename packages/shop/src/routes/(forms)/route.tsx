@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/solid-router";
-import { MinimalLayout } from "@/screens/layout/light";
+import { MinimalLayout } from "@/screens/layout";
 
 export const Route = createFileRoute("/(forms)")({
 	component: MinimalLayout,

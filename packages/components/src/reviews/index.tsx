@@ -1,6 +1,6 @@
 import { StarIcon } from "lucide-solid";
-import { Button } from "packages/ui/button";
 import { For } from "solid-js";
+import { Button } from "@/ui/button";
 
 export interface Review {
 	initials: string;

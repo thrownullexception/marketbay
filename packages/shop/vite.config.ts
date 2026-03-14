@@ -8,22 +8,22 @@ import tsConfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
 	resolve: {
 		alias: {
-			"@/ui/*": fileURLToPath(new URL("../packages/ui/src", import.meta.url)),
-			"@/screens/*": fileURLToPath(
-				new URL("../packages/screens/src", import.meta.url),
+			"@/ui": fileURLToPath(new URL("../ui/src", import.meta.url)),
+			"@/screens": fileURLToPath(
+				new URL("../screens/src", import.meta.url),
 			),
-			"@/api/*": fileURLToPath(new URL("../packages/api/src", import.meta.url)),
-			"@/components/*": fileURLToPath(
-				new URL("../packages/components/src", import.meta.url),
+			"@/api": fileURLToPath(new URL("../api/src", import.meta.url)),
+			"@/components": fileURLToPath(
+				new URL("../components/src", import.meta.url),
 			),
-			"@/start/*": fileURLToPath(
-				new URL("../packages/start/src", import.meta.url),
+			"@/start": fileURLToPath(
+				new URL("../start/src", import.meta.url),
 			),
-			"@/shared/*": fileURLToPath(
-				new URL("../packages/shared/src", import.meta.url),
+			"@/shared": fileURLToPath(
+				new URL("../shared/src", import.meta.url),
 			),
-			"@/schemas/*": fileURLToPath(
-				new URL("../packages/schemas/src", import.meta.url),
+			"@/schemas": fileURLToPath(
+				new URL("../schemas/src", import.meta.url),
 			),
 		},
 	},

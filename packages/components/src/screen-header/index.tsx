@@ -1,5 +1,5 @@
-import { Container } from "packages/ui/layout";
 import type { JSX } from "solid-js";
+import { Container } from "@/ui/layout";
 
 export const ScreenHeader = (props: {
 	title: string;

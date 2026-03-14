@@ -39,7 +39,7 @@ export const MainNav = (props: {
 				<div class="flex items-center gap-3">
 					{props.variant === "seller" ? (
 						<>
-							<Link
+							{/*<Link
 								to="/notifications"
 								class="relative p-2 rounded-full hover:bg-gray-100 transition"
 								aria-label="Notifications"
@@ -48,7 +48,7 @@ export const MainNav = (props: {
 								<span class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">
 									4
 								</span>
-							</Link>
+							</Link> */}
 							<Link
 								to="/chat"
 								class="relative p-2 rounded-full hover:bg-gray-100 transition"

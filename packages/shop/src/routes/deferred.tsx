@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/correctness/noChildrenProp: <> */
 import { Await, createFileRoute } from "@tanstack/solid-router";
 import { createServerFn } from "@tanstack/solid-start";
 import { createSignal, Suspense } from "solid-js";
