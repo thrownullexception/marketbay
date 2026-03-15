@@ -1,9 +1,9 @@
 import Elysia from "elysia";
 import { createServer } from "vite";
 import { connect } from "elysia-connect-middleware";
-import { merchantServerApp } from "@/server/merchant.server";
-import { adminServerApp } from "@/server/admin.server";
-import { shopServerApp } from "@/server/shop.server";
+import { merchantServerApp } from "@/server/merchant.app";
+import { adminServerApp } from "@/server/admin.app";
+import { shopServerApp } from "@/server/shop.app";
 import { csrfMiddleware } from "@/server/middlewares/csrf";
 import { healthcheckMiddleware } from "@/server/middlewares/health";
 import { helmetMiddleware } from "@/server/middlewares/helmet";

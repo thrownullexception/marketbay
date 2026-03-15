@@ -1,5 +1,3 @@
-import { treaty } from "@elysiajs/eden";
-import { createIsomorphicFn } from "@tanstack/solid-start";
 import Elysia from "elysia";
 import * as v from "valibot";
 
@@ -25,8 +23,3 @@ export const merchantServerApp = new Elysia({
 	.get("/foo/bar", () => ({ message: "Hello World" }))
 	.get("/notifications", () => ({ count: 10 }));
 
-export const getMerchantTreaty = createIsomorphicFn()
-	.server(() => treaty(merchantServerApp).api.merchant)
-	.client(
-		() => treaty<typeof merchantServerApp>("localhost:3000").api.merchant,
-	);
