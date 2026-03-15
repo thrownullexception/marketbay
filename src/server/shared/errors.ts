@@ -33,3 +33,21 @@ export class NotFoundRequestError extends Error {
 		})
 	}
 }
+
+export class UnAuthorizedRequestError extends Error {
+	status = 401
+
+	constructor(public message = "Not Found", public data: Record<string, unknown>) {
+		super(message)
+	}
+
+	toResponse() {
+		return Response.json({
+			error: this.message,
+			code: this.status,
+			data: this.data,
+		}, {
+			status: this.status
+		})
+	}
+}

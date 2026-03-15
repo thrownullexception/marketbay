@@ -31,8 +31,6 @@ export function getRouter() {
 		queryClient,
 	  })
 
-
-
 	return router;
 }
 

@@ -1,5 +1,7 @@
+import { queryOptions, useQuery } from "@tanstack/solid-query";
 import { linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
+import { getShopTreaty } from "@/solid-start/shop.treaty";
 import { Grid5 } from "@/ui/grid";
 import {
 	ProductCard,
@@ -45,7 +47,14 @@ const newArrivals: ProductCardData[] = [
 	},
 ];
 
+export const newArrivalsQuery = queryOptions({
+	queryKey: ['todays-deals'],
+	queryFn: () => getShopTreaty()["user-adresses"].get().then((res) => res.data),
+  })
+
 export const NewArrivals = () => {
+	const { data } = useQuery(() => newArrivalsQuery)	
+
 	return (
 		<ScreenSectionCard
 			title="New Arrivals"
@@ -56,6 +65,7 @@ export const NewArrivals = () => {
 				search: { newArrivals: true },
 			})}
 		>
+				{/* {JSON.stringify(data)} */}
 			<Grid5>
 				<For each={newArrivals}>
 					{(product) => <ProductCard product={product} />}

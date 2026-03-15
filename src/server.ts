@@ -16,6 +16,21 @@ export default createServerEntry({
 			`SSR: ${url.pathname} ${duration}ms`,
 		);
 
-		return response;
+		const acceptEncoding = request.headers.get("accept-encoding") ?? "";
+		if (!acceptEncoding.includes("gzip") || !response.body) {
+			return response;
+		}
+
+		const body = await response.arrayBuffer();
+		const compressed = Bun.gzipSync(new Uint8Array(body));
+		const headers = new Headers(response.headers);
+		headers.set("content-encoding", "gzip");
+		headers.set("content-length", String(compressed.byteLength));
+
+		return new Response(compressed, {
+			status: response.status,
+			statusText: response.statusText,
+			headers,
+		});
 	},
 });

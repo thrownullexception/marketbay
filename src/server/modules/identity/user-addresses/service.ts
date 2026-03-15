@@ -1,14 +1,15 @@
 import { eq, sql } from "drizzle-orm";
 import type * as v from "valibot";
+import type { UserId } from "@/schemas/user";
+import type { CreateAddressRequestSchema, UserAddressId } from "@/schemas/user-address";
 import type { Database } from "@/server/database";
-import type { UserId } from "../../../../schemas/user";
-import type { CreateAddressRequestSchema, UserAddressId } from "../../../../schemas/user-address";
 import { UserAddressEntity } from "./entity";
 
 export class UserAddressService {
 	constructor(private readonly db: Database) {}
 
 	async getUserAddresses(userId: UserId) {
+		console.log("getUserAddresses", userId);
 		return await this.db
 			.select({
 				firstName: UserAddressEntity.firstName,

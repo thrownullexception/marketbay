@@ -20,6 +20,14 @@ export const userAdressesShopController = new Elysia({ prefix: "/user-adresses" 
 			response: ListUserAddressesResponseSchema,
 		},
 	)
+	.get(
+		"/:userAddressId",
+		({ authenticatedUserId }) =>
+			IdentityModule.services.userAddress.getUserAddresses(authenticatedUserId),
+		{
+			response: ListUserAddressesResponseSchema,
+		},
+	)
 	.post(
 		"/",
 		({ body }) =>
