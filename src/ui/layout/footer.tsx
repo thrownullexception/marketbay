@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/solid-router";
-import { CONSTANTS } from "@/env/client";
+import { APP_CONSTANTS } from "@/shared/app.constants";
 import { Container } from "@/ui/container";
 import { Grid5 } from "@/ui/grid";
 import { LogoFooter } from "./logo";
@@ -48,7 +48,7 @@ export const Footer = (props: { variant: FooterVariant }) => {
 						</p>
 						<div class="flex gap-3 mt-5">
 							<a
-								href={CONSTANTS.SOCIAL_LINKS.TWITTER}
+								href={APP_CONSTANTS.SOCIAL_LINKS.TWITTER}
 								class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
 								aria-label="Twitter"
 							>
@@ -58,7 +58,7 @@ export const Footer = (props: { variant: FooterVariant }) => {
 								</svg>
 							</a>
 							<a
-								href={CONSTANTS.SOCIAL_LINKS.INSTAGRAM}
+								href={APP_CONSTANTS.SOCIAL_LINKS.INSTAGRAM}
 								class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
 								aria-label="Instagram"
 							>
@@ -68,7 +68,7 @@ export const Footer = (props: { variant: FooterVariant }) => {
 								</svg>
 							</a>
 							<a
-								href={CONSTANTS.SOCIAL_LINKS.FACEBOOK}
+								href={APP_CONSTANTS.SOCIAL_LINKS.FACEBOOK}
 								class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition"
 								aria-label="Facebook"
 							>

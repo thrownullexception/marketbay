@@ -4,9 +4,9 @@ import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import type * as Solid from "solid-js";
 import { HydrationScript } from "solid-js/web";
 import { NotFound } from "@/screens/not-found";
+import { seo } from "@/shared/utils/seo";
 import appCss from "@/ui/app.css?url";
 import { DefaultCatchBoundary } from "@/ui/error";
-import { seo } from "@/utils/seo";
 
 export const Route = createRootRoute({
 	head: () => ({

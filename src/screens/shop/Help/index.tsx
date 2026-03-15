@@ -12,7 +12,7 @@ import {
 	SearchIcon,
 	StarIcon,
 } from "lucide-solid";
-import { CONSTANTS } from "@/env/client";
+import { APP_CONSTANTS } from "@/shared/app.constants";
 import { AnchorLink, LinkButton } from "@/ui/button";
 import { Container } from "@/ui/container";
 import { Grid4 } from "@/ui/grid";
@@ -117,13 +117,13 @@ export function HelpScreen() {
 								hours.
 							</p>
 							<AnchorLink
-								href={CONSTANTS.SUPPORT.EMAIL}
+								href={APP_CONSTANTS.SUPPORT.EMAIL}
 								label="Send Email"
 								variant="default"
 								Icon={MailIcon}
 							/>
 							<p class="text-[11px] text-gray-400 mt-3">
-								{CONSTANTS.SUPPORT.EMAIL}
+								{APP_CONSTANTS.SUPPORT.EMAIL}
 							</p>
 						</div>
 
@@ -138,13 +138,13 @@ export function HelpScreen() {
 								Talk to a human. Available Mon-Fri, 8 AM - 8 PM.
 							</p>
 							<AnchorLink
-								href={CONSTANTS.SUPPORT.PHONE}
+								href={APP_CONSTANTS.SUPPORT.PHONE}
 								label="Call Us"
 								variant="default"
 								Icon={PhoneIcon}
 							/>
 							<p class="text-[11px] text-gray-400 mt-3">
-								{CONSTANTS.SUPPORT.PHONE}
+								{APP_CONSTANTS.SUPPORT.PHONE}
 							</p>
 						</div>
 					</div>

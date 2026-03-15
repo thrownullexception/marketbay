@@ -1,6 +1,6 @@
 import { ChevronDownIcon } from "lucide-solid";
 import { createSignal } from "solid-js";
-import { sanitizeHtml } from "@/utils/strings";
+import { sanitizeHtml } from "@/shared/utils/strings";
 import "./styles.css";
 
 export const AccordionItem = ({

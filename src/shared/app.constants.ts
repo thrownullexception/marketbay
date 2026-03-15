@@ -1,4 +1,4 @@
-export const CONSTANTS = {
+export const APP_CONSTANTS = {
 	SUPPORT: {
 		EMAIL: "support@marketbay.com",
 		PHONE: "+18001234567",
