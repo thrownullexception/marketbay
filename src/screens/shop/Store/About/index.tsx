@@ -1,4 +1,4 @@
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 export const ShopStoreAbout = () => {
 	return (

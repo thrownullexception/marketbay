@@ -1,5 +1,5 @@
 import { Outlet } from "@tanstack/solid-router";
-import { Footer, MainNav, TopBar } from "@/screens/_components/layout";
+import { Footer, MainNav, TopBar } from "@/ui/layout";
 
 export const ShopLayout = () => {
 	return (

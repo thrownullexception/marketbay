@@ -1,10 +1,10 @@
 import { Link, linkOptions } from "@tanstack/solid-router";
+import { Breadcrumb } from "@/ui/breadcrumb";
+import { Container } from "@/ui/container";
 import {
 	type FilterConfig,
 	ProductListing,
-} from "@/screens/_components/product/listing";
-import { Breadcrumb } from "@/ui/breadcrumb";
-import { Container } from "@/ui/layout";
+} from "@/ui/product/listing";
 
 const CATEGORY_FILTERS: FilterConfig[] = [
 	{

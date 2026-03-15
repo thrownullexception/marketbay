@@ -11,7 +11,7 @@ import {
 	UsersIcon,
 } from "lucide-solid";
 import { AnchorLink, Button, LinkButton } from "@/ui/button";
-import { Container } from "@/ui/layout";
+import { Container } from "@/ui/container";
 
 export const StoreHero = () => {
 	return (

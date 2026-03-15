@@ -1,10 +1,10 @@
 import { MailIcon } from "lucide-solid";
 import { createSignal, Show } from "solid-js";
 import * as v from "valibot";
-import { useAppForm } from "@/screens/_components/form";
-import { FormCard, FormHeader } from "@/screens/_components/form/card";
 import { Alert } from "@/ui/alert";
 import { Button, LinkButton } from "@/ui/button";
+import { useAppForm } from "@/ui/form";
+import { FormCard, FormHeader } from "@/ui/form/card";
 import { TextLink } from "@/ui/link";
 
 const ForgotPasswordRequestSchema = v.object({

@@ -2,8 +2,8 @@ import {
 	type RatingBar,
 	type Review,
 	ReviewsList,
-} from "@/screens/_components/reviews";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
+} from "@/ui/reviews";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 const RATING_BARS: RatingBar[] = [
 	{ stars: 5, count: 1762, width: "82%" },

@@ -1,7 +1,7 @@
 import { Outlet } from "@tanstack/solid-router";
 import type { JSX } from "solid-js";
+import { Container } from "@/ui/container";
 import { Grid5 } from "@/ui/grid";
-import { Container } from "@/ui/layout";
 
 type SidebarLayoutProps = {
 	sidebar: JSX.Element;

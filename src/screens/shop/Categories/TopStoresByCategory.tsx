@@ -1,7 +1,7 @@
 import { Link, linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Grid4 } from "@/ui/grid";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 interface StoreEntry {
 	initials: string;

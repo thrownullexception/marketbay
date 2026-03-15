@@ -3,7 +3,7 @@ import { BentoCache, bentostore } from "bentocache";
 import { memoryDriver } from "bentocache/drivers/memory";
 import { redisBusDriver, redisDriver } from "bentocache/drivers/redis";
 import type { StringValue } from "ms";
-import type { SERVER_ENV } from "@/env/server";
+import type { SERVER_ENV } from "@/server/env";
 
 export class CacheService {
 	// biome-ignore lint/complexity/noBannedTypes: idk

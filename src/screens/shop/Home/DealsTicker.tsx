@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/solid-router";
 import { ArrowRightIcon } from "lucide-solid";
 import { For } from "solid-js";
-import { Container } from "@/ui/layout";
+import { Container } from "@/ui/container";
 
 interface Promo {
 	store: string;

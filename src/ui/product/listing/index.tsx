@@ -1,17 +1,17 @@
 import { For, Match, Switch } from "solid-js";
+import { Container, SideBar } from "@/ui/container";
+import { Grid3 } from "@/ui/grid";
+import { Pagination } from "@/ui/pagination";
 import {
 	ProductCard,
 	type ProductCardData,
-} from "@/screens/_components/product/card";
+} from "@/ui/product/card";
 import {
 	ActiveFilters,
 	FilterOptions,
 	PriceRangeFilter,
 	RatingFilter,
-} from "@/screens/_components/product/filters";
-import { Grid3 } from "@/ui/grid";
-import { Container, SideBar } from "@/ui/layout";
-import { Pagination } from "@/ui/pagination";
+} from "@/ui/product/filters";
 import { SearchToolbar } from "./toolbar";
 
 type FilterOption = {

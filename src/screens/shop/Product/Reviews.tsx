@@ -2,8 +2,8 @@ import {
 	type RatingBar,
 	type Review,
 	ReviewsList,
-} from "@/screens/_components/reviews";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
+} from "@/ui/reviews";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 const REVIEWS: Review[] = [
 	{

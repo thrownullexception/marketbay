@@ -1,11 +1,11 @@
 import { linkOptions, useLoaderData } from "@tanstack/solid-router";
 import { For } from "solid-js";
+import { Grid4 } from "@/ui/grid";
 import {
 	ProductCard,
 	type ProductCardData,
-} from "@/screens/_components/product/card";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
-import { Grid4 } from "@/ui/grid";
+} from "@/ui/product/card";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 const TODAYS_DEALS: ProductCardData[] = [
 	{

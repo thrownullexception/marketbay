@@ -6,15 +6,15 @@ import {
 	Trash2Icon,
 } from "lucide-solid";
 import { For } from "solid-js";
+import { Breadcrumb } from "@/ui/breadcrumb";
+import { Button } from "@/ui/button";
+import { Container } from "@/ui/container";
 import {
 	ProductCard,
 	type ProductCardData,
-} from "@/screens/_components/product/card";
-import { ScreenHeader } from "@/screens/_components/screen-header";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
-import { Breadcrumb } from "@/ui/breadcrumb";
-import { Button } from "@/ui/button";
-import { Container } from "@/ui/layout";
+} from "@/ui/product/card";
+import { ScreenHeader } from "@/ui/screen-header";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 import { CartBenefits } from "./CartBenefits";
 import { CartItem } from "./CartItem";
 import { OrderSummary } from "./OrderSummary";

@@ -1,8 +1,8 @@
 import type { LucideIcon } from "lucide-solid";
 import { RefreshCcwIcon, ShieldCheckIcon } from "lucide-solid";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Alert } from "@/ui/alert";
 import { Grid2 } from "@/ui/grid";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 const POLICIES: PolicyCardProps[] = [
 	// TODO

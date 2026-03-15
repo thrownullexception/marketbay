@@ -41,9 +41,9 @@ const faqs = [
 	},
 ];
 
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { AccordionItem } from "@/ui/accordion";
 import { Grid2 } from "@/ui/grid";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 export function Faq() {
 	return (

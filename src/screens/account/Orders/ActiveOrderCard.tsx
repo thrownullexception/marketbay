@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { StatusBadge } from "@/screens/_components/status-badge";
 import { OrderStatusConfig } from "@/screens/merchant/orders/config";
+import { StatusBadge } from "@/ui/status-badge";
 import { TrackingProgress } from "./TrackingProgress";
 import type { Order } from "./types";
 

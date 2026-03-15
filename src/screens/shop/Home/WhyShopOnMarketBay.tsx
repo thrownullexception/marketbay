@@ -7,8 +7,8 @@ import {
 	StarIcon,
 } from "lucide-solid";
 import { For, type JSX } from "solid-js";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Grid3 } from "@/ui/grid";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 const REASONS: {
 	icon: () => JSX.Element;

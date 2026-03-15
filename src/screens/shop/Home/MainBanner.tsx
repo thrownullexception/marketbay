@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/solid-router";
 import { ArrowRightIcon } from "lucide-solid";
+import { Container } from "@/ui/container";
 import { Grid3 } from "@/ui/grid";
-import { Container } from "@/ui/layout";
 
 export const MainBanner = () => {
 	return (

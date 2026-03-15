@@ -5,7 +5,7 @@ import {
 	MainNav,
 	SidebarLayout,
 	TopBar,
-} from "@/screens/_components/layout";
+} from "@/ui/layout";
 import { NavSection } from "./NavSection";
 
 const MerchantSidebarCard = () => {

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/solid-router";
 import { CONSTANTS } from "@/env/client";
+import { Container } from "@/ui/container";
 import { Grid5 } from "@/ui/grid";
-import { Container } from "@/ui/layout";
 import { LogoFooter } from "./logo";
 
 type FooterVariant = "simple" | "full";

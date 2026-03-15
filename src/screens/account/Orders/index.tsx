@@ -1,9 +1,9 @@
 import { PackageIcon, ShoppingBagIcon, TruckIcon } from "lucide-solid";
 import { createSignal, For, Show } from "solid-js";
-import { AdminHeader } from "@/screens/_components/admin-header";
-import { StatCard } from "@/screens/_components/stat-card";
+import { AdminHeader } from "@/ui/admin-header";
 import { Grid3 } from "@/ui/grid";
 import { Pagination } from "@/ui/pagination";
+import { StatCard } from "@/ui/stat-card";
 import { ActiveOrderCard } from "./ActiveOrderCard";
 import { OrderFilters, type OrderFilterTab } from "./OrderFilters";
 import { PastOrderRow } from "./PastOrderRow";

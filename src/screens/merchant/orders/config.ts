@@ -7,7 +7,7 @@ import {
 	TruckIcon,
 } from "lucide-solid";
 import type { OrderStatus, PaymentStatus } from "@/schemas/orders";
-import type { StatusBadgeProps } from "@/screens/_components/status-badge";
+import type { StatusBadgeProps } from "@/ui/status-badge";
 
 export const OrderStatusConfig: Record<OrderStatus, StatusBadgeProps> = {
 	pending: {

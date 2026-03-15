@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { createSignal, For, type JSX } from "solid-js";
-import { useFieldContext } from "@/screens/_components/form/context";
+import { useFieldContext } from "@/ui/form/context";
 import { sluggify } from "@/utils/strings";
 import { FormInput, type FormInputProps, useFieldHasError } from "./input-form";
 

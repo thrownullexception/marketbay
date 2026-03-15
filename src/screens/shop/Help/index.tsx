@@ -13,10 +13,10 @@ import {
 	StarIcon,
 } from "lucide-solid";
 import { CONSTANTS } from "@/env/client";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { AnchorLink, LinkButton } from "@/ui/button";
+import { Container } from "@/ui/container";
 import { Grid4 } from "@/ui/grid";
-import { Container } from "@/ui/layout";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 import { Faq } from "./Faq";
 
 export function HelpScreen() {

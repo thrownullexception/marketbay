@@ -1,7 +1,7 @@
 import Elysia from "elysia";
-import { merchantServerApp } from "@/server/merchant";
-import { adminServerApp } from "@/server/admin";
-import { shopServerApp } from "@/server/shop";
+import { merchantServerApp } from "@/server/merchant.server";
+import { adminServerApp } from "@/server/admin.server";
+import { shopServerApp } from "@/server/shop.server";
 import { initializeStaticRoutes, log } from "./utils";
 import { csrfMiddleware } from "@/server/middlewares/csrf";
 import { healthcheckMiddleware } from "@/server/middlewares/health";

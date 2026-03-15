@@ -1,8 +1,8 @@
 import { useStore } from "@tanstack/solid-form";
 import type { LinkOptions } from "@tanstack/solid-router";
 import type { JSX } from "solid-js";
-import { useFieldContext } from "@/screens/_components/form/context";
-import { formatErrors } from "@/screens/_components/form/format-errors";
+import { useFieldContext } from "@/ui/form/context";
+import { formatErrors } from "@/ui/form/format-errors";
 import { sluggify } from "@/utils/strings";
 import { TextLink } from "./link";
 

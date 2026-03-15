@@ -15,15 +15,15 @@ import {
 	ZapIcon,
 } from "lucide-solid";
 import { createSignal, For } from "solid-js";
-import { AdminHeader } from "@/screens/_components/admin-header";
-import { DataTableBulkBar } from "@/screens/_components/data-table/bulk-bar";
-import { DataTableFooter } from "@/screens/_components/data-table/footer";
-import { DataTableRoot } from "@/screens/_components/data-table/root";
-import { DataTableSearchBar } from "@/screens/_components/data-table/search-bar";
-import { DataTableStatusTabs } from "@/screens/_components/data-table/status-tabs";
-import { DataTable } from "@/screens/_components/data-table/table";
-import { StatCard } from "@/screens/_components/stat-card";
+import { AdminHeader } from "@/ui/admin-header";
+import { DataTableBulkBar } from "@/ui/data-table/bulk-bar";
+import { DataTableFooter } from "@/ui/data-table/footer";
+import { DataTableRoot } from "@/ui/data-table/root";
+import { DataTableSearchBar } from "@/ui/data-table/search-bar";
+import { DataTableStatusTabs } from "@/ui/data-table/status-tabs";
+import { DataTable } from "@/ui/data-table/table";
 import { Grid4 } from "@/ui/grid";
+import { StatCard } from "@/ui/stat-card";
 import { ProductRow } from "./ProductRow";
 import type { MerchantProduct } from "./types";
 

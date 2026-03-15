@@ -1,9 +1,9 @@
 import Elysia from "elysia";
 import { createServer } from "vite";
 import { connect } from "elysia-connect-middleware";
-import { merchantServerApp } from "@/server/merchant";
-import { adminServerApp } from "@/server/admin";
-import { shopServerApp } from "@/server/shop";
+import { merchantServerApp } from "@/server/merchant.server";
+import { adminServerApp } from "@/server/admin.server";
+import { shopServerApp } from "@/server/shop.server";
 import { csrfMiddleware } from "@/server/middlewares/csrf";
 import { healthcheckMiddleware } from "@/server/middlewares/health";
 import { helmetMiddleware } from "@/server/middlewares/helmet";
@@ -14,9 +14,9 @@ const app = new Elysia()
   // .use(helmetMiddleware)
   .use(healthcheckMiddleware)
   .use(loggerMiddleware)
-.use(merchantServerApp)
-.use(adminServerApp)
-.use(shopServerApp);
+  .use(merchantServerApp)
+  .use(adminServerApp)
+  .use(shopServerApp);
 
 const viteDevServer = await createServer({
   server: { middlewareMode: true },

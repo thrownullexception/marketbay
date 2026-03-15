@@ -1,6 +1,6 @@
 import { Link, linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 interface Category {
 	label: string;

@@ -1,7 +1,7 @@
 import { linkOptions } from "@tanstack/solid-router";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { Container } from "@/ui/container";
 import { Divider } from "@/ui/divider";
-import { Container } from "@/ui/layout";
 import { ProductActions } from "./Actions";
 import { ProductDescription } from "./Description";
 import { ProductGallery } from "./Gallery";

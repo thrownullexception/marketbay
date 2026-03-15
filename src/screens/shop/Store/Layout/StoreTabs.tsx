@@ -1,5 +1,5 @@
 import { getRouteApi, Link, linkOptions } from "@tanstack/solid-router";
-import { Container } from "@/ui/layout";
+import { Container } from "@/ui/container";
 
 const tabs = (storeSlug: string) => [
 	{

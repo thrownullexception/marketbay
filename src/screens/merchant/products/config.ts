@@ -1,4 +1,4 @@
-import type { StatusBadgeProps } from "@/screens/_components/status-badge";
+import type { StatusBadgeProps } from "@/ui/status-badge";
 import type { ProductStatus } from "./types";
 
 export const ProductStatusConfig: Record<ProductStatus, StatusBadgeProps> = {

@@ -1,9 +1,9 @@
 import { For } from "solid-js";
+import { Container } from "@/ui/container";
 import {
 	StoreCard,
 	type StoreCardData,
-} from "@/screens/_components/store-card";
-import { Container } from "@/ui/layout";
+} from "@/ui/store-card";
 
 const MATCHING_STORES: StoreCardData[] = [
 	{

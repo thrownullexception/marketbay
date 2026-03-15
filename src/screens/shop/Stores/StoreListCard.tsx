@@ -1,5 +1,5 @@
 import { BadgeCheckIcon, StarIcon } from "lucide-solid";
-import { StoreCardActions } from "@/screens/_components/store-card/actions";
+import { StoreCardActions } from "@/ui/store-card/actions";
 
 interface StoreListCardProps {
 	bannerGradient: string;

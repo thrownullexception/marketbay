@@ -8,16 +8,16 @@ import {
 	PhoneIcon,
 } from "lucide-solid";
 import { Button } from "@/ui/button";
-import { Container } from "@/ui/layout";
+import { Container } from "@/ui/container";
 import { TextLink } from "@/ui/link";
 import "./styles.css";
 import * as v from "valibot";
-import { useAppForm } from "@/screens/_components/form";
+import { useAppForm } from "@/ui/form";
 import {
 	FormCard,
 	FormHeader,
 	FormRoot,
-} from "@/screens/_components/form/card";
+} from "@/ui/form/card";
 import { Grid2 } from "@/ui/grid";
 
 const CreateStoreRequestSchema = v.object({

@@ -1,7 +1,7 @@
 import "./styles.css";
 import { linkOptions, Outlet } from "@tanstack/solid-router";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 import { ChatConversations } from "./Conversations";
 
 export function ChatLayout() {

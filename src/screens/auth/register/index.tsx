@@ -1,17 +1,17 @@
 import { LockIcon, MailIcon, UserIcon, UserPlusIcon } from "lucide-solid";
 import type * as v from "valibot";
 import { RegisterRequestSchema } from "@/schemas/auth";
-import { useAppForm } from "@/screens/_components/form";
+import { DividerText } from "@/ui/divider";
+import { useAppForm } from "@/ui/form";
 import {
 	FormCard,
 	FormHeader,
 	FormRoot,
 	FormText,
-} from "@/screens/_components/form/card";
-import { DividerText } from "@/ui/divider";
+} from "@/ui/form/card";
 import { Grid2 } from "@/ui/grid";
 import { TextLink } from "@/ui/link";
-import { SocialAuth } from "../SocialAuth";
+import { SocialAuth } from "../social-auth";
 
 export function RegisterScreen() {
 	const form = useAppForm(() => ({

@@ -9,7 +9,7 @@ import {
 	StarIcon,
 	TagIcon,
 } from "lucide-solid";
-import { NavItems } from "@/screens/_components/layout/nav-items";
+import { NavItems } from "@/ui/layout/nav-items";
 
 export const NavSection = (props: { storeId: string }) => {
 	const storeId = props.storeId;

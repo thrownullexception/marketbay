@@ -1,9 +1,9 @@
 import { linkOptions } from "@tanstack/solid-router";
+import { Breadcrumb } from "@/ui/breadcrumb";
 import {
 	type FilterConfig,
 	ProductListing,
-} from "@/screens/_components/product/listing";
-import { Breadcrumb } from "@/ui/breadcrumb";
+} from "@/ui/product/listing";
 import { MatchingStores } from "./MatchingStores";
 import { SearchHeader } from "./SearchHeader";
 

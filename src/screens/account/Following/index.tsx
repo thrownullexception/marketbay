@@ -1,5 +1,5 @@
-import { AdminHeader } from "@/screens/_components/admin-header";
 import { StoreListCard } from "@/screens/shop/Stores/StoreListCard";
+import { AdminHeader } from "@/ui/admin-header";
 import { Grid3 } from "@/ui/grid";
 import { Pagination } from "@/ui/pagination";
 // TODO: show stores updates

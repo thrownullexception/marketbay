@@ -1,6 +1,6 @@
 import { Link, type LinkOptions } from "@tanstack/solid-router";
 import { ChevronRight } from "lucide-solid";
-import { Container } from "./layout";
+import { Container } from "./container";
 
 export type BreadcrumbItem = {
 	label: string;

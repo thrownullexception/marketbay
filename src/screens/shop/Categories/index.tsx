@@ -1,6 +1,6 @@
 import { linkOptions } from "@tanstack/solid-router";
-import { ScreenHeader } from "@/screens/_components/screen-header";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { ScreenHeader } from "@/ui/screen-header";
 import { BrowseAllCategories } from "./BrowseAllCategories";
 import { FeaturedCategories } from "./FeaturedCategories";
 import { MoreToExplore } from "./MoreToExplore";

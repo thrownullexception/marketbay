@@ -1,4 +1,4 @@
-import { ScreenHeader } from "@/screens/_components/screen-header";
+import { ScreenHeader } from "@/ui/screen-header";
 
 export const StoresHeader = () => {
 	return (

@@ -1,5 +1,5 @@
 import { TagIcon } from "lucide-solid";
-import { Container } from "@/ui/layout";
+import { Container } from "@/ui/container";
 
 export const StorePromo = () => {
 	return (

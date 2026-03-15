@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { EyeIcon, TruckIcon } from "lucide-solid";
 import { Match, Switch } from "solid-js";
-import { StatusBadge } from "@/screens/_components/status-badge";
+import { StatusBadge } from "@/ui/status-badge";
 import { OrderStatusConfig, PaymentStatusConfig } from "./config";
 import type { MerchantOrder } from "./types";
 

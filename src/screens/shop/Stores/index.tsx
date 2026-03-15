@@ -1,9 +1,9 @@
 import { linkOptions } from "@tanstack/solid-router";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Breadcrumb } from "@/ui/breadcrumb";
+import { Container } from "@/ui/container";
 import { Grid3 } from "@/ui/grid";
-import { Container } from "@/ui/layout";
 import { Pagination } from "@/ui/pagination";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 import { FeaturedStoreCard } from "./FeaturedStoreCard";
 import { SellCTA } from "./SellCTA";
 import { StoreListCard } from "./StoreListCard";

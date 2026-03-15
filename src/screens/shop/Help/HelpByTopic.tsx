@@ -6,8 +6,8 @@ import {
 	ShoppingBagIcon,
 	Undo2Icon,
 } from "lucide-solid";
-import { ScreenSectionCard } from "@/screens/_components/screen-section-card";
 import { Grid3 } from "@/ui/grid";
+import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 const helpByTopic = [
 	{

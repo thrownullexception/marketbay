@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import type { SERVER_ENV } from "@/server/env";
 // import { MAIL_TEMPLATES, type TemplateProps } from "./config";
 
 // TODO: Silent failures in email operations
@@ -6,7 +7,7 @@ import { Resend } from "resend";
 export class MailService {
 	private readonly resend: Resend;
 
-	constructor(private readonly env: ENV) {
+	constructor(private readonly env: SERVER_ENV) {
 		this.resend = new Resend(env.RESEND_SECRET);
 	}
 

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { CopyIcon, Pencil, Trash2Icon } from "lucide-solid";
 import { Show } from "solid-js";
-import { StatusBadge } from "@/screens/_components/status-badge";
+import { StatusBadge } from "@/ui/status-badge";
 import { ProductStatusConfig } from "./config";
 import type { MerchantProduct } from "./types";
 
