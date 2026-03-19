@@ -10,8 +10,6 @@
 // export * from "@/server/app/commerce/wishlist-items/entity";
 // export * from "@/server/app/commerce/wishlists/entity";
 // export * from "@/server/app/inventory/inventory-items/entity";
-// export * from "@/server/app/inventory/inventory-locations/entity";
-// export * from "@/server/app/inventory/inventory-movements/entity";
 // export * from "@/server/app/notifications/notification-preferences/entity";
 // export * from "@/server/app/notifications/notifications/entity";
 // export * from "@/server/app/orders/order-items/entity";
@@ -20,16 +18,15 @@
 // export * from "@/server/app/orders/return-requests/entity";
 // export * from "@/server/app/products/collection-products/entity";
 // export * from "@/server/app/products/collections/entity";
-// export * from "@/server/app/products/product-categories/entity";
-export * from "@/server/modules/identity/auth-session/entity";
-// export * from "@/server/app/products/product-category-links/entity";
-// export * from "@/server/app/products/product-media/entity";
-// export * from "@/server/app/products/product-tag-links/entity";
-// export * from "@/server/app/products/product-tags/entity";
-// export * from "@/server/app/products/product-variants/entity";
-// export * from "@/server/app/products/products/entity";
-// export * from "@/server/app/stores/store-contacts/entity";
-// export * from "@/server/app/stores/store-members/entity";
+
+export * from "@/server/modules/catalog/categories/entity";
+export * from "@/server/modules/catalog/product-images/entity";
+export * from "@/server/modules/catalog/product-option-groups/entity";
+export * from "@/server/modules/catalog/product-option-values/entity";
+export * from "@/server/modules/catalog/product-tags/entity";
+export * from "@/server/modules/catalog/products/entity";
+export * from "@/server/modules/catalog/tags/entity";
+
 // export * from "@/server/app/promotions/promotion-bids/entity";
 // export * from "@/server/app/promotions/promotion-campaigns/entity";
 // export * from "@/server/app/promotions/promotion-events/entity";
@@ -37,8 +34,14 @@ export * from "@/server/modules/identity/auth-session/entity";
 // export * from "@/server/app/reviews/seller-reviews/entity";
 // export * from "@/server/app/search/saved-searches/entity";
 // export * from "@/server/app/stores/store-team-members/entity";
-// export * from "@/server/app/stores/stores/entity";
+export * from "@/server/modules/identity/auth-session/entity";
 export * from "@/server/modules/identity/otp-verifications/entity";
 export * from "@/server/modules/identity/user-addresses/entity";
 export * from "@/server/modules/identity/users/entity";
+
+export * from "@/server/modules/stores/followings/entity";
+export * from "@/server/modules/stores/store-permissions/entity";
+export * from "@/server/modules/stores/store-role-permissions/entity";
+export * from "@/server/modules/stores/store-roles/entity";
+export * from "@/server/modules/stores/stores/entity";
 // export * from "@/server/app/subscriptions/seller-subscriptions/entity";

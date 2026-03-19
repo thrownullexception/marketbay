@@ -8,8 +8,6 @@ export const idField = () => varchar({ length: 24 });
 
 export const systemIdField = () => varchar({ length: 2 });
 
-const primaryKey = idField().$defaultFn(createEntityId).primaryKey().notNull();
-
 type ExtractBrand<U> = U extends v.CustomSchema<infer I, undefined> ? I : never;
 
 export const baseDbSchema = <
@@ -19,7 +17,7 @@ export const baseDbSchema = <
 	_: U,
 	columns: T,
 ) => ({
-	id: primaryKey.$type<ExtractBrand<U>>(),
+	id: idField().$defaultFn(createEntityId).primaryKey().notNull().$type<ExtractBrand<U>>(),
 	...columns,
 	createdAt: timestamp().defaultNow().notNull(),
 	updatedAt: timestamp({
@@ -31,13 +29,12 @@ export const baseDbSchema = <
 });
 
 export const systemValueDbSchema = <
-	T extends Record<string, PgColumnBuilderBase>,
+	U,
 >(
-	columns: T,
+	_: U,
 ) => ({
-	id: systemIdField().primaryKey().notNull(),
+	id: systemIdField().primaryKey().notNull().$type<U>(),
 	label: varchar({ length: 128 }).notNull(),
-	...columns,
 	order: integer().notNull().default(0),
 	active: boolean().notNull().default(true),
 	createdAt: timestamp().defaultNow().notNull(),

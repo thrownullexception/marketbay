@@ -12,23 +12,21 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 CREATE TYPE order_status AS ENUM ('pending', 'processing', 'shipped', 'in_transit', 'delivered', 'cancelled', 'refunded');
 
-CREATE TYPE product_status AS ENUM ('active', 'draft', 'archived');
+-- CREATE TYPE product_status AS ENUM ('active', 'draft', 'archived');
 
-CREATE TYPE product_visibility AS ENUM ('visible', 'hidden', 'scheduled');
+-- CREATE TYPE product_visibility AS ENUM ('visible', 'hidden', 'scheduled');
 
-CREATE TYPE product_condition AS ENUM ('new', 'refurbished', 'used');
+-- CREATE TYPE product_condition AS ENUM ('new', 'refurbished', 'used');
 
 CREATE TYPE promotion_type AS ENUM ('percentage_off', 'fixed_amount', 'free_shipping', 'buy_x_get_y');
 
 CREATE TYPE promotion_status AS ENUM ('active', 'scheduled', 'expired', 'disabled');
 
-CREATE TYPE store_status AS ENUM ('active', 'inactive', 'suspended', 'deleted');
+-- CREATE TYPE store_status AS ENUM ('active', 'inactive', 'suspended', 'deleted');
 
 CREATE TYPE promotion_applies_to AS ENUM ('all', 'specific_products', 'specific_categories');
 
 CREATE TYPE promotion_customer_eligibility AS ENUM ('all', 'new', 'returning');
-
-CREATE TYPE team_member_status AS ENUM ('active', 'away', 'inactive');
 
 CREATE TYPE invitation_status AS ENUM ('pending', 'accepted', 'declined', 'revoked', 'expired');
 
@@ -170,60 +168,60 @@ CREATE TABLE payment_methods (
 -- CATEGORIES
 -- =============================================================================
 
-CREATE TABLE categories (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    parent_id       UUID REFERENCES categories(id) ON DELETE SET NULL,
-    name            TEXT NOT NULL,
-    slug            TEXT NOT NULL UNIQUE,
-    description     TEXT,
-    image_url       TEXT,
-    sort_order      INT NOT NULL DEFAULT 0,
-    is_active       BOOLEAN NOT NULL DEFAULT TRUE,
-    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE categories (
+--     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     parent_id       UUID REFERENCES categories(id) ON DELETE SET NULL,
+--     name            TEXT NOT NULL,
+--     slug            TEXT NOT NULL UNIQUE,
+--     description     TEXT,
+--     image_url       TEXT,
+--     sort_order      INT NOT NULL DEFAULT 0,
+--     is_active       BOOLEAN NOT NULL DEFAULT TRUE,
+--     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- =============================================================================
 -- STORES
 -- =============================================================================
 
 CREATE TABLE stores (
-    id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    -- id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     owner_id                UUID NOT NULL REFERENCES users(id),
-    name                    TEXT NOT NULL,
-    slug                    TEXT NOT NULL UNIQUE,   -- marketbay.com/store/{slug}
-    tagline                 TEXT,                   -- max 60 chars
-    description             TEXT,                   -- max 500 chars
-    logo_url                TEXT,
-    cover_image_url         TEXT,
-    status                  store_status NOT NULL DEFAULT 'active',
-    primary_category_id     UUID REFERENCES categories(id) ON DELETE SET NULL,
-    secondary_category_id   UUID REFERENCES categories(id) ON DELETE SET NULL,
-    country                 TEXT,
-    city                    TEXT,
-    contact_email           TEXT,
-    phone                   TEXT,
-    website                 TEXT,
-    instagram_url           TEXT,
-    twitter_url             TEXT,
+    -- name                    TEXT NOT NULL,
+    -- slug                    TEXT NOT NULL UNIQUE,   -- marketbay.com/store/{slug}
+    -- tagline                 TEXT,                   -- max 60 chars
+    -- description             TEXT,                   -- max 500 chars
+    -- logo_url                TEXT,
+    -- cover_image_url         TEXT,
+    -- status                  store_status NOT NULL DEFAULT 'active',
+    -- primary_category_id     UUID REFERENCES categories(id) ON DELETE SET NULL,
+    -- secondary_category_id   UUID REFERENCES categories(id) ON DELETE SET NULL,
+    -- country                 TEXT,
+    -- city                    TEXT,
+    -- contact_email           TEXT,
+    -- phone                   TEXT,
+    -- website                 TEXT,
+    -- instagram_url           TEXT,
+    -- twitter_url             TEXT,
     -- Legal / billing
     legal_business_name     TEXT,
     tax_id_ein              TEXT,
-    business_address_street TEXT,
-    business_address_city   TEXT,
-    business_address_state  TEXT,
-    business_address_zip    TEXT,
-    business_address_country TEXT,
+    -- business_address_street TEXT,
+    -- business_address_city   TEXT,
+    -- business_address_state  TEXT,
+    -- business_address_zip    TEXT,
+    -- business_address_country TEXT,
     -- Shipping defaults
     return_policy           return_policy_type NOT NULL DEFAULT '30_day',
     handling_time           handling_time_type NOT NULL DEFAULT '3_5_business_days',
     -- Cached metrics (denormalized for performance)
-    avg_rating              NUMERIC(2,1),           -- cached average from store_reviews
-    review_count            INT NOT NULL DEFAULT 0, -- cached count
-    total_sales             INT NOT NULL DEFAULT 0, -- cached for credibility
+    -- avg_rating              NUMERIC(2,1),           -- cached average from store_reviews
+    -- review_count            INT NOT NULL DEFAULT 0, -- cached count
+    -- total_sales             INT NOT NULL DEFAULT 0, -- cached for credibility
     -- Meta
-    is_verified             BOOLEAN NOT NULL DEFAULT FALSE,
-    created_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at              TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    -- is_verified             BOOLEAN NOT NULL DEFAULT FALSE,
+    -- created_at               TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- updated_at              TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 -- Shipping zones per store (zone defines geographic coverage; rates are in store_shipping_rates)
@@ -262,12 +260,12 @@ CREATE TABLE store_shipping_rates (
 );
 
 -- Buyers following stores
-CREATE TABLE store_follows (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    store_id    UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE store_follows (
+--     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     user_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     store_id    UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
+--     created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- Seller-only notification preferences. Queried via GET /stores/:storeId/notification-preferences.
 -- Kept separate from user_notification_preferences because the context, actor, and API route differ:
@@ -286,43 +284,44 @@ CREATE TABLE store_notification_preferences (
 -- =============================================================================
 -- STORE TEAM
 -- =============================================================================
-CREATE TABLE store_roles (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    store_id    UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
-    name        TEXT NOT NULL,          -- e.g. "Manager", "Warehouse Staff"
-    description TEXT,
-    is_system   BOOLEAN NOT NULL DEFAULT FALSE,  -- TRUE for owner / manager / staff; cannot be deleted
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    UNIQUE (store_id, name)
-);
+-- CREATE TABLE store_roles (
+--     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     store_id    UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
+--     name        TEXT NOT NULL,          -- e.g. "Manager", "Warehouse Staff"
+--     description TEXT,
+--     is_system   BOOLEAN NOT NULL DEFAULT FALSE,  -- TRUE for owner / manager / staff; cannot be deleted
+--     created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     UNIQUE (store_id, name)
+-- );
 
-CREATE TABLE store_permissions (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    label TEXT
-);
+-- CREATE TABLE store_permissions (
+--     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     label TEXT
+-- );
 
 -- Permissions granted to a role (one row per permission).
 -- Possible values: view_orders, process_orders, manage_products,
 --   view_analytics, manage_promotions, view_payouts,
 --   manage_team, edit_store, respond_to_messages
-CREATE TABLE store_role_permissions (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    role_id     UUID NOT NULL REFERENCES store_roles(id) ON DELETE CASCADE,
-    permission_id  UUID NOT NULL REFERENCES store_permissions(id) ON DELETE CASCADE,
-    UNIQUE (role_id, permission)
-);
+-- CREATE TABLE store_role_permissions (
+--     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     role_id     UUID NOT NULL REFERENCES store_roles(id) ON DELETE CASCADE,
+--     permission_id  UUID NOT NULL REFERENCES store_permissions(id) ON DELETE CASCADE,
+--     UNIQUE (role_id, permission)
+-- );
 
-CREATE TABLE store_team_members (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    store_id    UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
-    user_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    role_id     UUID NOT NULL REFERENCES store_roles(id),
-    status      team_member_status NOT NULL DEFAULT 'active',
-    last_active TIMESTAMPTZ,
-    joined_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    UNIQUE (store_id, user_id)
-);
+-- CREATE TABLE store_team_members (
+--     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     store_id    UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
+--     user_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     role_id     UUID NOT NULL REFERENCES store_roles(id),
+
+--     status      team_member_status NOT NULL DEFAULT 'active',
+--     last_active TIMESTAMPTZ,
+    -- joined_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     UNIQUE (store_id, user_id)
+-- );
 
 CREATE TABLE store_invitations (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -342,67 +341,66 @@ CREATE TABLE store_invitations (
 -- =============================================================================
 
 CREATE TABLE products (
-    id                              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    store_id                        UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
-    category_id                     UUID REFERENCES categories(id) ON DELETE SET NULL,
-    secondary_category_id           UUID REFERENCES categories(id) ON DELETE SET NULL,
-    tertiary_category_id            UUID REFERENCES categories(id) ON DELETE SET NULL,
-    title                           TEXT NOT NULL,          -- max 120 chars
-    description                     TEXT,                   -- rich text / HTML
-    price                           NUMERIC(12, 2) NOT NULL,
-    compare_at_price                NUMERIC(12, 2),         -- original / struck-through price
-    cost_per_item                   NUMERIC(12, 2),         -- internal only
-    sku                             TEXT,
-    barcode                         TEXT,                   -- UPC / EAN
-    track_inventory                 BOOLEAN NOT NULL DEFAULT TRUE,
-    continue_selling_when_out_of_stock BOOLEAN NOT NULL DEFAULT FALSE,
-    weight_lb                       NUMERIC(8, 3),
-    length_in                       NUMERIC(8, 3),
-    width_in                        NUMERIC(8, 3),
-    height_in                       NUMERIC(8, 3),
-    requires_shipping               BOOLEAN NOT NULL DEFAULT TRUE,
-    condition                       product_condition NOT NULL DEFAULT 'new',
-    tags                            TEXT[],                 -- up to 10 tags
-    status                          product_status NOT NULL DEFAULT 'draft',
-    visibility                      product_visibility NOT NULL DEFAULT 'visible',
-    scheduled_publish_at            TIMESTAMPTZ,
-    meta_title                      TEXT,
-    meta_description                TEXT,
-    url_handle                      TEXT,                   -- SEO slug
-    view_count                      INT NOT NULL DEFAULT 0,   -- for popularity sorting
-    sold_count                      INT NOT NULL DEFAULT 0,
+    -- id                              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    -- store_id                        UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
+    -- category_id                     UUID REFERENCES categories(id) ON DELETE SET NULL,
+    -- secondary_category_id           UUID REFERENCES categories(id) ON DELETE SET NULL,
+    -- tertiary_category_id            UUID REFERENCES categories(id) ON DELETE SET NULL,
+    -- title                           TEXT NOT NULL,          -- max 120 chars
+    -- description                     TEXT,                   -- rich text / HTML
+    -- price                           NUMERIC(12, 2) NOT NULL,
+    -- compare_at_price                NUMERIC(12, 2),         -- original / struck-through price
+    -- cost_per_item                   NUMERIC(12, 2),         -- internal only
+    -- sku                             TEXT,
+    -- barcode                         TEXT,                   -- UPC / EAN
+    -- track_inventory                 BOOLEAN NOT NULL DEFAULT TRUE,
+    -- continue_selling_when_out_of_stock BOOLEAN NOT NULL DEFAULT FALSE,
+    -- weight_lb                       NUMERIC(8, 3),
+    -- length_in                       NUMERIC(8, 3),
+    -- width_in                        NUMERIC(8, 3),
+    -- height_in                       NUMERIC(8, 3),
+    -- requires_shipping               BOOLEAN NOT NULL DEFAULT TRUE,
+    -- condition                       product_condition NOT NULL DEFAULT 'new',
+    -- tags                            TEXT[],                 -- up to 10 tags
+    -- status                          product_status NOT NULL DEFAULT 'draft',
+    -- scheduled_publish_at            TIMESTAMPTZ,
+    -- meta_title                      TEXT,
+    -- meta_description                TEXT,
+    -- url_handle                      TEXT,                   -- SEO slug
+    -- view_count                      INT NOT NULL DEFAULT 0,   -- for popularity sorting
+    -- sold_count                      INT NOT NULL DEFAULT 0,
     featured                        BOOLEAN NOT NULL DEFAULT FALSE,  -- for promoted products
-    created_at                      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at                      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    -- created_at                      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- updated_at                      TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE product_images (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    product_id  UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-    url         TEXT NOT NULL,
-    alt_text    TEXT,
-    sort_order  SMALLINT NOT NULL DEFAULT 0,
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE product_images (
+--     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     product_id  UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+--     url         TEXT NOT NULL,
+--     alt_text    TEXT,
+--     sort_order  SMALLINT NOT NULL DEFAULT 0,
+--     created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- Variant option groups (e.g. "Color", "Size")
-CREATE TABLE product_option_groups (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    product_id  UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-    name        TEXT NOT NULL,                      -- e.g. "Color", "Size"
-    sort_order  SMALLINT NOT NULL DEFAULT 0,
-    updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE product_option_groups (
+--     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     product_id  UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+--     name        TEXT NOT NULL,                      -- e.g. "Color", "Size"
+--     sort_order  SMALLINT NOT NULL DEFAULT 0,
+--     updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- Individual option values (e.g. "Matte Black", "M", "L")
-CREATE TABLE product_option_values (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    option_group_id UUID NOT NULL REFERENCES product_option_groups(id) ON DELETE CASCADE,
-    value           TEXT NOT NULL,
-    sort_order      SMALLINT NOT NULL DEFAULT 0,
-    updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE product_option_values (
+--     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     option_group_id UUID NOT NULL REFERENCES product_option_groups(id) ON DELETE CASCADE,
+--     value           TEXT NOT NULL,
+--     sort_order      SMALLINT NOT NULL DEFAULT 0,
+--     updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- Concrete variants (combination of option values)
 CREATE TABLE product_variants (
@@ -864,23 +862,6 @@ CREATE TABLE platform_settings (
 -- INVENTORY MANAGEMENT
 -- =============================================================================
 
-CREATE TYPE inventory_movement_reason AS ENUM (
-    'initial_stock',        -- first stock entry
-    'restock',              -- manual stock addition
-    'sale',                 -- deducted by a placed order
-    'return',               -- added back from a return
-    'adjustment',           -- manual correction (e.g. damage, count discrepancy)
-    'transfer_in',          -- received from another location
-    'transfer_out',         -- sent to another location
-    'reserved',             -- held for a pending order
-    'reservation_released'  -- reservation cancelled / expired
-);
-
-CREATE TYPE inventory_adjustment_status AS ENUM ('pending', 'approved', 'rejected');
-
-CREATE TYPE purchase_order_status AS ENUM ('draft', 'sent', 'partial', 'received', 'cancelled');
-
--- Current on-hand quantities (source of truth via movements)
 CREATE TABLE inventory (
     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     product_id      UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
@@ -890,7 +871,6 @@ CREATE TABLE inventory (
     quantity_available      INT GENERATED ALWAYS AS (quantity_on_hand - quantity_reserved) STORED,
     low_stock_threshold     INT NOT NULL DEFAULT 5,     -- triggers low_stock notification
     reorder_point           INT NOT NULL DEFAULT 10,    -- suggested reorder level
-    reorder_quantity        INT NOT NULL DEFAULT 50,    -- suggested qty to reorder
     updated_at              TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     UNIQUE (product_id, variant_id),
     -- Prevents a race condition where reservations could exceed on-hand stock,
@@ -936,7 +916,7 @@ CREATE INDEX idx_payment_methods_user_id ON payment_methods(user_id);
 CREATE UNIQUE INDEX uq_payment_methods_user_default ON payment_methods(user_id) WHERE is_default = TRUE;
 
 -- Categories
-CREATE INDEX idx_categories_parent_id ON categories(parent_id) WHERE parent_id IS NOT NULL;
+-- CREATE INDEX idx_categories_parent_id ON categories(parent_id) WHERE parent_id IS NOT NULL;
 
 -- Stores
 CREATE INDEX idx_stores_owner_id ON stores(owner_id);

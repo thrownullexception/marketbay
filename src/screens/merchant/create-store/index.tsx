@@ -11,7 +11,8 @@ import { Button } from "@/ui/button";
 import { Container } from "@/ui/container";
 import { TextLink } from "@/ui/link";
 import "./styles.css";
-import * as v from "valibot";
+import type * as v from "valibot";
+import { CreateStoreRequestSchema } from "@/schemas/store";
 import { useAppForm } from "@/ui/form";
 import {
 	FormCard,
@@ -19,70 +20,6 @@ import {
 	FormRoot,
 } from "@/ui/form/card";
 import { Grid2 } from "@/ui/grid";
-
-const CreateStoreRequestSchema = v.object({
-	name: v.pipe(
-		v.string(),
-		v.minLength(1),
-		v.regex(/[A-za-z0-9-_ ]+$/, "Special characters are not allowed"),
-	),
-	handle: v.pipe(
-		v.string(),
-		v.minLength(1),
-		v.regex(
-			v.SLUG_REGEX,
-			"Only lowercase letters, numbers, and hyphens are allowed",
-		),
-	),
-	description: v.pipe(v.string(), v.minLength(1)),
-	primaryCategory: v.pipe(v.string(), v.minLength(1)),
-	state: v.pipe(v.string(), v.minLength(1)),
-	city: v.pipe(v.string()),
-	// logo: v.pipe(v.file(), v.maxSize(2 * 1024 * 1024)),
-	// coverImage: v.pipe(v.file(), v.maxSize(2 * 1024 * 1024)), // TODO: add to 5MB
-	businessEmail: v.pipe(v.string(), v.minLength(1), v.email()),
-	phoneNumber: v.pipe(v.string(), v.minLength(1)),
-	websiteURL: v.union([v.literal(""), v.pipe(v.string(), v.url())]),
-	instagramURL: v.union([
-		v.literal(""),
-		v.pipe(
-			v.string(),
-			v.regex(
-				v.SLUG_REGEX,
-				"Only lowercase letters, numbers, and hyphens are allowed",
-			),
-		),
-	]),
-	xURL: v.union([
-		v.literal(""),
-		v.pipe(
-			v.string(),
-			v.regex(
-				v.SLUG_REGEX,
-				"Only lowercase letters, numbers, and hyphens are allowed",
-			),
-		),
-	]),
-	warranty: v.pipe(v.string()),
-	returnPolicy: v.pipe(v.string()),
-	agreed: v.pipe(
-		v.boolean(),
-		v.check((value) => value, "Required"),
-	),
-	// minimumOrderAmount: v.pipe(v.number(), v.min(0)),
-
-	// freeShippingThreshold: v.pipe(v.number(), v.min(0)),
-	// standardShippingDays: v.pipe(v.number(), v.min(0)),
-	// expressShippingDays: v.pipe(v.number(), v.min(0)),
-	// freeShipping: v.pipe(
-	// 	v.boolean(),
-	// 	v.transform((value) => value === true),
-	// ),
-	// standardShipping: v.pipe(
-	// 	v.boolean(),
-	// 	v.transform((value) => value === true),
-	// ),
-});
 
 export const CreateStoreScreen = () => {
 	const router = useRouter();

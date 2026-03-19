@@ -80,3 +80,20 @@ Cart Duplication: A user can theoretically generate multiple active carts becaus
 
 Fix: Make it a unique index: CREATE UNIQUE INDEX uq_carts_user_id ON carts(user_id) WHERE user_id IS NOT NULL; 4. Tables You Could Safely Remove (If simplifying)
 
+
+The modules I'll group into are:
+
+Identity — users, sessions, auth tokens, addresses, payment methods, social accounts, notification prefs
+Catalog — categories, products, images, variants, options, product views
+Store — stores, shipping zones/rates, follows, notification prefs, roles, permissions, team members, invitations
+Cart & Wishlist — carts, cart items, abandoned cart, wishlist
+Promotions — promotions, promotion products/categories/usages
+Orders — orders, order items, order status history
+Inventory — inventory, reservations
+Returns & Disputes — returns, return items, disputes
+Reviews — product reviews, store reviews, helpful votes
+Messaging — conversations, messages
+Notifications — notifications
+Payouts — payout accounts, payouts, payout items
+Analytics — store analytics daily
+Admin & Platform — admin users, audit log, platform settings

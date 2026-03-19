@@ -6,7 +6,7 @@ import { referencesUserEntity } from "../users/entity";
 export const AuthSessionEntity = pgTable(
 	"auth_sessions",
 	baseDbSchema(AuthSessionId, {
-        userId: referencesUserEntity("cascade"),
+        userId: referencesUserEntity("cascade").notNull(),
 		lastVerifiedAt: timestamp().notNull(),
 		secretHash: text().notNull(),
 		sessionId: text().notNull(),

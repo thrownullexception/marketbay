@@ -1,0 +1,103 @@
+import {
+	boolean,
+	integer,
+	numeric,
+	pgEnum,
+	pgTable,
+	text,
+	timestamp,
+	type UpdateDeleteAction,
+	unique,
+	varchar,
+} from "drizzle-orm/pg-core";
+import { ProductCondition, ProductId, ProductStatus } from "@/schemas/product";
+import { baseDbSchema, idField } from "@/server/database/base-schema";
+import { getEnumValues } from "@/server/database/enums";
+import {
+	referencesCategoryEntity,
+	referencesStoreEntity,
+} from "@/server/database/schemas";
+
+export const productStatus = pgEnum(
+	"product_status",
+	getEnumValues(ProductStatus),
+);
+export const productCondition = pgEnum(
+	"product_condition",
+	getEnumValues(ProductCondition),
+);
+
+export const ProductEntity = pgTable(
+	"products",
+	baseDbSchema(ProductId, {
+		storeId: referencesStoreEntity().notNull(),
+		categoryId: referencesCategoryEntity().notNull(),
+		secondaryCategoryId: referencesCategoryEntity().notNull(),
+		tertiaryCategoryId: referencesCategoryEntity().notNull(),
+
+		status: productStatus()
+			.notNull()
+			.$default(() => ProductStatus.Draft),
+		condition: productCondition().notNull(),
+
+		title: text().notNull(),
+		slug: text().notNull(),
+		description: varchar({
+			length: 500,
+		}),
+
+		price: numeric({
+			scale: 12,
+			precision: 2,
+		}).notNull(),
+		compareAtPrice: numeric({
+			scale: 12,
+			precision: 2,
+		}),
+		costPerPrice: numeric({
+			scale: 12,
+			precision: 2,
+		}),
+
+		sku: text(),
+
+		trackInventory: boolean().default(true),
+		continueSellingWhenOutOfStock: boolean().default(false),
+
+		viewsCount: integer().notNull().default(0),
+		soldCount: integer().notNull().default(0),
+
+		seoTitle: text(),
+		seoDescription: text(),
+
+		scheduledPublishedAt: timestamp(),
+
+		requiresShipping: boolean().default(true),
+		weightKg: numeric({
+			scale: 8,
+			precision: 3,
+		}),
+		lengthCm: numeric({
+			scale: 8,
+			precision: 3,
+		}),
+		widthCm: numeric({
+			scale: 8,
+			precision: 3,
+		}),
+		heightCm: numeric({
+			scale: 8,
+			precision: 3,
+		}),
+	}),
+	(t) => [unique().on(t.slug)],
+);
+
+
+export const referencesProductEntity = (constraint?: UpdateDeleteAction) => {
+	return idField()
+		.references(() => ProductEntity.id, {
+			onDelete: constraint || "restrict",
+		})
+		.$type<ProductId>();
+};

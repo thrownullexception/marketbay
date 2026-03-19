@@ -1,12 +1,12 @@
 import { boolean, index, pgTable, text } from "drizzle-orm/pg-core";
+import { UserAddressId } from "@/schemas/user-address";
 import { baseDbSchema } from "@/server/database/base-schema";
-import { UserAddressId } from "../../../../schemas/user-address";
 import { referencesUserEntity } from "../users/entity";
 
 export const UserAddressEntity = pgTable(
 	"user_addresses",
 	baseDbSchema(UserAddressId, {
-		userId: referencesUserEntity("cascade"),
+		userId: referencesUserEntity("cascade").notNull(),
 		firstName: text().notNull(),
 		lastName: text().notNull(),
 		street: text().notNull(),

@@ -5,8 +5,8 @@ import {
 	type UpdateDeleteAction,
 	unique,
 } from "drizzle-orm/pg-core";
+import { UserId } from "@/schemas/user";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
-import { UserId } from "../../../../schemas/user";
 
 export const UserEntity = pgTable(
 	"users",
@@ -30,5 +30,4 @@ export const referencesUserEntity = (constraint?: UpdateDeleteAction) => {
 			onDelete: constraint || "restrict",
 		})
 		.$type<UserId>()
-		.notNull();
 };
