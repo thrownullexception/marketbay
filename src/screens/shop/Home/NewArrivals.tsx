@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/solid-query";
 import { linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { getShopTreaty } from "@/solid-start/shop.treaty";
-import { createTreatyQueryOptions } from "@/solid-start/treaty-key";
+import { getShopTreaty } from "@/shared/treaty/shop.treaty";
+import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
 import { Grid5 } from "@/ui/grid";
 import {
 	ProductCard,

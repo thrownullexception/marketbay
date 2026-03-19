@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-const TagIdSchema = v.pipe(v.string(), v.cuid2(), v.brand("TagId"));
+const TagIdSchema = v.pipe(v.number(), v.brand("TagId"));
 export const TagId = v.custom<TagId>((val) => {
     return v.safeParse(TagIdSchema, val).success;
 });

@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-const ProductIdSchema = v.pipe(v.string(), v.cuid2(), v.brand("ProductId"));
+const ProductIdSchema = v.pipe(v.number(), v.brand("ProductId"));
 export const ProductId = v.custom<ProductId>((val) => {
 	return v.safeParse(ProductIdSchema, val).success;
 });

@@ -6,9 +6,10 @@ config({ path: ["../../.env.local", "../../.env"] });
 
 export const serverEnv = createEnv({
 	server: {
-		DATABASE_URL: v.pipe(v.string(), v.url()),
-		REDIS_HOST: v.string(),
-		RESEND_SECRET: v.string(),
+		DATABASE_URL: v.pipe(v.string(), v.minLength(1), v.url()),
+		REDIS_HOST: v.pipe(v.string(), v.minLength(1)),
+		RESEND_SECRET: v.pipe(v.string(), v.minLength(1)),
+		SQIDS_ALPHABET:  v.pipe(v.string(), v.length(62)),
 		ENV: v.picklist(["local", "dev", "staging", "prod", "test"]),
 	},
 	runtimeEnv: process.env,

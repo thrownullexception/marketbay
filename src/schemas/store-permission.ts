@@ -24,5 +24,20 @@ export const STORE_PERMISSION_CONFIG: Record<StorePermissions, {
     },
     [StorePermissions.ManageTeam]: {
         label: "Can Manage Team"
+    },
+    [StorePermissions.ViewOrders]: {
+        label: "Can View Orders"
+    },
+    [StorePermissions.ProcessOrders]: {
+        label: "Can Process Orders"
+    },
+    [StorePermissions.ViewAnalytics]: {
+        label: "Can View Analytics"
+    },
+    [StorePermissions.ViewPayouts]: {
+        label: "Can View Payouts"
+    },
+    [StorePermissions.RespondToMessages]: {
+        label: "Can Respond to Messages"
     }
 }

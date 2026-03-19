@@ -5,7 +5,7 @@ export const OTP_LENGTH = 6;
 
 const otpSchema = v.pipe(
         v.string(),
-        v.minLength(OTP_LENGTH),
+        v.length(OTP_LENGTH),
         v.check((value) => /[0-9]/.test(value), `Valid OTPs contain only numbers`),
     )
 

@@ -1,8 +1,7 @@
 import * as v from "valibot";
 
 const OtpVerificationIdSchema = v.pipe(
-	v.string(),
-	v.cuid2(),
+	v.number(),
 	v.brand("OtpVerificationId"),
 );
 export const OtpVerificationId = v.custom<OtpVerificationId>((val) => {

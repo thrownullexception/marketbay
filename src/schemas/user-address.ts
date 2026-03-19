@@ -6,11 +6,7 @@ import {
 	zipSchema,
 } from "@/schemas/base";
 
-export const UserAddressIdSchema = v.pipe(
-	v.string(),
-	v.cuid2(),
-	v.brand("UserAddressId"),
-);
+export const UserAddressIdSchema = v.pipe(v.number(), v.brand("UserAddressId"));
 export const UserAddressId = v.custom<UserAddressId>((val) => {
 	return v.safeParse(UserAddressIdSchema, val).success;
 });
@@ -39,11 +35,11 @@ const UserAddressResponseSchema = v.object({
 	zip: v.string(),
 	isDefault: v.boolean(),
 	// country: v.enum(SupportedCountries),
-})
+});
 
 export const CreateAddressRequestSchema = UserAddressRequestSchema;
 export const UpdateAddressRequestSchema = UserAddressRequestSchema;
 
 export const ListUserAddressesResponseSchema = v.array(
-	UserAddressResponseSchema
-)
+	UserAddressResponseSchema,
+);
