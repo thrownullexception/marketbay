@@ -5,10 +5,8 @@ import {
 } from "drizzle-orm/pg-core";
 import { StoreFollowingId } from "@/schemas/store-following";
 import { baseDbSchema } from "@/server/database/base-schema";
-import {
-	referencesStoreEntity,
-    referencesUserEntity,
-} from "@/server/database/schemas";
+import { referencesUserEntity } from "../../identity/users/entity";
+import { referencesStoreEntity } from "../stores/entity";
 
 export const StoreFollowingEntity = pgTable(
 	"store_followings",

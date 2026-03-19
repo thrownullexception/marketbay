@@ -12,7 +12,7 @@ import {
 import { StoreId, StoreStatus } from "@/schemas/store";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { getEnumValues } from "@/server/database/enums";
-import { referencesCategoryEntity } from "@/server/database/schemas";
+import { referencesCategoryEntity } from "../../catalog/categories/entity";
 
 export const storeStatus = pgEnum("store_status", getEnumValues(StoreStatus));
 

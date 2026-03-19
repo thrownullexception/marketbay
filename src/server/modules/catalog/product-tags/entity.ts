@@ -5,10 +5,8 @@ import {
 } from "drizzle-orm/pg-core";
 import { ProductTagId } from "@/schemas/product-tag";
 import { baseDbSchema } from "@/server/database/base-schema";
-import {
-	referencesProductEntity,
-    referencesTagEntity,
-} from "@/server/database/schemas";
+import { referencesProductEntity } from "../products/entity";
+import { referencesTagEntity } from "../tags/entity";
 
 export const ProductTagEntity = pgTable(
 	"product_tags",

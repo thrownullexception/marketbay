@@ -13,10 +13,8 @@ import {
 import { ProductCondition, ProductId, ProductStatus } from "@/schemas/product";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { getEnumValues } from "@/server/database/enums";
-import {
-	referencesCategoryEntity,
-	referencesStoreEntity,
-} from "@/server/database/schemas";
+import { referencesStoreEntity } from "../../stores/stores/entity";
+import { referencesCategoryEntity } from "../categories/entity";
 
 export const productStatus = pgEnum(
 	"product_status",

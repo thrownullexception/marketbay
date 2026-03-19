@@ -15,6 +15,7 @@ export const TagEntity = pgTable(
 	baseDbSchema(TagId, {
 		categoryId: referencesCategoryEntity("cascade"),
 		name: text().notNull(),
+		slug: text().notNull(),
 		sortOrder: smallint().notNull().default(0),
 		isActive: boolean(),
 	}),

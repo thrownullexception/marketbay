@@ -186,7 +186,7 @@ CREATE TABLE payment_methods (
 
 CREATE TABLE stores (
     -- id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    owner_id                UUID NOT NULL REFERENCES users(id),
+    -- owner_id                UUID NOT NULL REFERENCES users(id),
     -- name                    TEXT NOT NULL,
     -- slug                    TEXT NOT NULL UNIQUE,   -- marketbay.com/store/{slug}
     -- tagline                 TEXT,                   -- max 60 chars
@@ -403,16 +403,16 @@ CREATE TABLE products (
 -- );
 
 -- Concrete variants (combination of option values)
-CREATE TABLE product_variants (
-    id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    product_id       UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-    sku              TEXT,
-    barcode          TEXT,                          -- variant-specific UPC / EAN
-    price            NUMERIC(12, 2),               -- overrides product price if set
-    compare_at_price NUMERIC(12, 2),               -- variant-specific struck-through price
-    created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE product_variants (
+--     id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     product_id       UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+--     sku              TEXT,
+--     barcode          TEXT,                          -- variant-specific UPC / EAN
+--     price            NUMERIC(12, 2),               -- overrides product price if set
+--     compare_at_price NUMERIC(12, 2),               -- variant-specific struck-through price
+--     created_at       TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- Junction: which option values make up a variant
 CREATE TABLE product_variant_options (
@@ -423,40 +423,40 @@ CREATE TABLE product_variant_options (
 );
 
 -- Product views for analytics and recommendations
-CREATE TABLE product_views (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    product_id      UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-    user_id         UUID REFERENCES users(id) ON DELETE SET NULL,  -- NULL = guest
-    session_id      TEXT,                                           -- for guest tracking
-    ip_address      INET,
-    device_info     TEXT,                                           -- user agent
-    referrer        TEXT,                                           -- where user came from
-    viewed_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE product_views (
+--     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     product_id      UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+--     user_id         UUID REFERENCES users(id) ON DELETE SET NULL,  -- NULL = guest
+--     session_id      TEXT,                                           -- for guest tracking
+--     ip_address      INET,
+--     device_info     TEXT,                                           -- user agent
+--     referrer        TEXT,                                           -- where user came from
+--     viewed_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- =============================================================================
 -- CART
 -- =============================================================================
 
-CREATE TABLE carts (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id     UUID REFERENCES users(id) ON DELETE CASCADE,   -- NULL = guest
-    session_id  TEXT,                                          -- for guest carts
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    CONSTRAINT cart_has_owner CHECK (user_id IS NOT NULL OR session_id IS NOT NULL)
-);
+-- CREATE TABLE carts (
+--     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     user_id     UUID REFERENCES users(id) ON DELETE CASCADE,   -- NULL = guest
+--     session_id  TEXT,                                          -- for guest carts
+--     created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     CONSTRAINT cart_has_owner CHECK (user_id IS NOT NULL OR session_id IS NOT NULL)
+-- );
 
-CREATE TABLE cart_items (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    cart_id         UUID NOT NULL REFERENCES carts(id) ON DELETE CASCADE,
-    product_id      UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-    variant_id      UUID NOT NULL REFERENCES product_variants(id) ON DELETE CASCADE,
-    quantity        INT NOT NULL DEFAULT 1 CHECK (quantity > 0),
-    unit_price      NUMERIC(12, 2) NOT NULL,        -- price at time of add
-    added_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    UNIQUE (cart_id, product_id, variant_id)
-);
+-- CREATE TABLE cart_items (
+--     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     cart_id         UUID NOT NULL REFERENCES carts(id) ON DELETE CASCADE,
+--     product_id      UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+--     variant_id      UUID NOT NULL REFERENCES product_variants(id) ON DELETE CASCADE,
+--     quantity        INT NOT NULL DEFAULT 1 CHECK (quantity > 0),
+--     unit_price      NUMERIC(12, 2) NOT NULL,        -- price at time of add
+--     added_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+--     UNIQUE (cart_id, product_id, variant_id)
+-- );
 
 -- Abandoned cart recovery tracking
 CREATE TABLE abandoned_cart_recovery (
@@ -972,8 +972,8 @@ CREATE INDEX idx_abandoned_cart_recovery_cart_id ON abandoned_cart_recovery(cart
 CREATE INDEX idx_abandoned_cart_recovery_user_id ON abandoned_cart_recovery(user_id) WHERE user_id IS NOT NULL;
 
 -- Product views
-CREATE INDEX idx_product_views_product_id ON product_views(product_id);
-CREATE INDEX idx_product_views_user_id ON product_views(user_id) WHERE user_id IS NOT NULL;
+-- CREATE INDEX idx_product_views_product_id ON product_views(product_id);
+-- CREATE INDEX idx_product_views_user_id ON product_views(user_id) WHERE user_id IS NOT NULL;
 
 -- Orders
 CREATE INDEX idx_orders_buyer_id ON orders(buyer_id);

@@ -4,10 +4,8 @@ import {
 } from "drizzle-orm/pg-core";
 import { StoreRolePermissionId } from "@/schemas/store-role-permission";
 import { baseDbSchema } from "@/server/database/base-schema";
-import {
-	referencesStorePermissionEntity,
-    referencesStoreRoleEntity,
-} from "@/server/database/schemas";
+import { referencesStorePermissionEntity } from "../store-permissions/entity";
+import { referencesStoreRoleEntity } from "../store-roles/entity";
 
 export const StoreRolePermissionsEntity = pgTable(
 	"store_role_permissions",
