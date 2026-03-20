@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-solid";
-import type { OrderStatus, PaymentStatus } from "@/schemas/orders";
+import type { OrderStatus, PaymentStatus } from "@/schemas/order";
 
 export type OrderItemSingle = {
 	kind: "single";

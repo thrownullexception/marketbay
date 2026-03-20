@@ -1,4 +1,4 @@
-import type { OrderStatus } from "@/schemas/orders";
+import type { OrderStatus } from "@/schemas/order";
 
 export interface OrderItem {
 	name: string;

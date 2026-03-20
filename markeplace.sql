@@ -28,7 +28,7 @@ CREATE TYPE promotion_applies_to AS ENUM ('all', 'specific_products', 'specific_
 
 CREATE TYPE promotion_customer_eligibility AS ENUM ('all', 'new', 'returning');
 
-CREATE TYPE invitation_status AS ENUM ('pending', 'accepted', 'declined', 'revoked', 'expired');
+-- CREATE TYPE invitation_status AS ENUM ('pending', 'accepted', 'declined', 'revoked', 'expired');
 
 -- CREATE TYPE message_sender_type AS ENUM ('buyer', 'store');
 
@@ -323,18 +323,18 @@ CREATE TABLE store_shipping_rates (
 --     UNIQUE (store_id, user_id)
 -- );
 
-CREATE TABLE store_invitations (
-    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    store_id            UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
-    role_id             UUID NOT NULL REFERENCES store_roles(id),
-    email               TEXT NOT NULL,
-    personal_message    TEXT,
-    token               TEXT NOT NULL UNIQUE,       -- secure random token in email link
-    status              invitation_status NOT NULL DEFAULT 'pending',
-    sent_at             TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    expires_at          TIMESTAMPTZ NOT NULL DEFAULT NOW() + INTERVAL '7 days',
-    accepted_at         TIMESTAMPTZ
-);
+-- CREATE TABLE store_invitations (
+    -- id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    -- store_id            UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
+    -- role_id             UUID NOT NULL REFERENCES store_roles(id),
+    -- email               TEXT NOT NULL,
+    -- personal_message    TEXT,
+    -- token               TEXT NOT NULL UNIQUE,       -- secure random token in email link
+    -- status              invitation_status NOT NULL DEFAULT 'pending',
+    -- sent_at             TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- expires_at          TIMESTAMPTZ NOT NULL DEFAULT NOW() + INTERVAL '7 days',
+    -- accepted_at         TIMESTAMPTZ
+-- );
 
 -- =============================================================================
 -- PRODUCTS
@@ -553,11 +553,11 @@ CREATE TABLE promotion_usages (
 -- =============================================================================
 
 CREATE TABLE orders (
-    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    -- id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     -- order_number        TEXT NOT NULL UNIQUE,           -- e.g. MB-30247
     -- buyer_id            UUID NOT NULL REFERENCES users(id),
     -- store_id            UUID NOT NULL REFERENCES stores(id),
-    status              order_status NOT NULL DEFAULT 'pending',
+    -- status              order_status NOT NULL DEFAULT 'pending',
     -- Pricing
     -- subtotal            NUMERIC(12, 2) NOT NULL,
     -- discount_amount     NUMERIC(12, 2) NOT NULL DEFAULT 0,
@@ -594,37 +594,37 @@ CREATE TABLE orders (
     gift_message        TEXT,
     ip_address          INET,                           -- for fraud detection
     -- Dates
-    placed_at           TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- placed_at           TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     estimated_delivery  DATE,
     shipped_at          TIMESTAMPTZ,
     delivered_at        TIMESTAMPTZ,
-    updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    -- updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE order_items (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    order_id        UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
-    product_id      UUID NOT NULL REFERENCES products(id),
-    variant_id      UUID REFERENCES product_variants(id) ON DELETE SET NULL,
-    -- Snapshot of product details at time of order
-    product_title   TEXT NOT NULL,
-    variant_label   TEXT,                           -- e.g. "Matte Black / M"
-    image_url       TEXT,
-    quantity        INT NOT NULL CHECK (quantity > 0),
-    unit_price      NUMERIC(12, 2) NOT NULL,
-    line_total      NUMERIC(12, 2) NOT NULL
-);
+-- CREATE TABLE order_items (
+--     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     order_id        UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+--     product_id      UUID NOT NULL REFERENCES products(id),
+--     variant_id      UUID REFERENCES product_variants(id) ON DELETE SET NULL,
+--     -- Snapshot of product details at time of order
+--     product_title   TEXT NOT NULL,
+--     variant_label   TEXT,                           -- e.g. "Matte Black / M"
+--     image_url       TEXT,
+--     quantity        INT NOT NULL CHECK (quantity > 0),
+--     unit_price      NUMERIC(12, 2) NOT NULL,
+--     line_total      NUMERIC(12, 2) NOT NULL
+-- );
 
 -- Immutable audit trail of every order status transition
-CREATE TABLE order_status_history (
-    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    order_id    UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
-    from_status order_status,                       -- NULL on initial 'pending' insert
-    to_status   order_status NOT NULL,
-    changed_by  UUID REFERENCES users(id) ON DELETE SET NULL,  -- NULL = system / automation
-    note        TEXT,                               -- e.g. tracking number added, cancellation reason
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE order_status_history (
+    -- id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    -- order_id    UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+    -- from_status order_status,                       -- NULL on initial 'pending' insert
+    -- to_status   order_status NOT NULL,
+    -- changed_by  UUID REFERENCES users(id) ON DELETE SET NULL,  -- NULL = system / automation
+    -- note        TEXT,                              
+    -- created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- Close the FK loop for promotion_usages.order_id
 ALTER TABLE promotion_usages
@@ -757,18 +757,18 @@ CREATE TABLE store_reviews (
 -- NOTIFICATIONS
 -- =============================================================================
 
-CREATE TABLE notifications (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id         UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    type            notification_type NOT NULL,
-    title           TEXT NOT NULL,
-    description     TEXT,
-    is_read         BOOLEAN NOT NULL DEFAULT FALSE,
+-- CREATE TABLE notifications (
+    -- id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    -- user_id         UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    -- type            notification_type NOT NULL,
+    -- title           TEXT NOT NULL,
+    -- description     TEXT,
+    -- is_read         BOOLEAN NOT NULL DEFAULT FALSE,
     -- Polymorphic reference to related entity
-    related_entity_type TEXT,                       -- 'order', 'product', 'review', etc.
-    related_entity_id   UUID,
-    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+    -- related_entity_type TEXT,                       -- 'order', 'product', 'review', etc.
+    -- related_entity_id   UUID,
+    -- created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- =============================================================================
 -- PAYOUTS
@@ -1063,9 +1063,9 @@ CREATE INDEX idx_admin_audit_log_performed_at ON admin_audit_log(performed_at DE
 CREATE INDEX idx_inventory_reservations_inventory_id ON inventory_reservations(inventory_id);
 CREATE INDEX idx_inventory_reservations_order_id ON inventory_reservations(order_id);
 CREATE INDEX idx_inventory_reservations_active ON inventory_reservations(inventory_id) WHERE released_at IS NULL;
-CREATE INDEX idx_suppliers_store_id ON suppliers(store_id);
-CREATE INDEX idx_inventory_locations_store_id ON inventory_locations(store_id);
-CREATE UNIQUE INDEX uq_inventory_locations_store_default ON inventory_locations(store_id) WHERE is_default = TRUE;
+-- CREATE INDEX idx_suppliers_store_id ON suppliers(store_id);
+-- CREATE INDEX idx_inventory_locations_store_id ON inventory_locations(store_id);
+-- CREATE UNIQUE INDEX uq_inventory_locations_store_default ON inventory_locations(store_id) WHERE is_default = TRUE;
 
 -- =============================================================================
 -- SEED: default platform settings

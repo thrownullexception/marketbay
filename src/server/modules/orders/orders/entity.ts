@@ -4,7 +4,7 @@ import {
 	pgTable,
 	type UpdateDeleteAction,
 } from "drizzle-orm/pg-core";
-import { OrderId, OrderStatus, PaymentStatus } from "@/schemas/orders";
+import { OrderId, OrderStatus, PaymentStatus } from "@/schemas/order";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { getEnumValues } from "@/server/database/enums";
 import { referencesUserEntity } from "@/server/database/schemas";
@@ -24,6 +24,8 @@ export const OrderEntity = pgTable(
 	baseDbSchema(OrderId, {
 		storeId: referencesStoreEntity().notNull(),
         userId: referencesUserEntity().notNull(),
+
+        status: orderStatus().notNull(),
 
         subTotal: numeric({
 			precision: 12,

@@ -34,14 +34,14 @@ export const StoreEntity = pgTable(
 		primaryCategory: referencesCategoryEntity().notNull(),
 		secondaryCategory: referencesCategoryEntity(),
 
-        legalBusinessName: text(),
+        legalBusinessName: text().notNull(),
         businessId: text(),
 
-        street: text(),
-        city: text(),
+        street: text().notNull(),
+        city: text().notNull(),
 		state: text().notNull(),
 		country: text().notNull(),
-		zip: text(),
+		zip: text().notNull(),
 
 		email: text(),
 		phone: text(),

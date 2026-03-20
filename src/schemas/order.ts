@@ -1,3 +1,11 @@
+import * as v from "valibot";
+
+const OrderIdSchema = v.pipe(v.number(), v.brand("OrderId"));
+export const OrderId = v.custom<OrderId>((val) => {
+	return v.safeParse(OrderIdSchema, val).success;
+});
+export type OrderId = v.InferOutput<typeof OrderIdSchema>;
+
 export enum OrderStatus {
 	Pending = "pending",
 	Processing = "processing",
@@ -14,10 +22,4 @@ export enum PaymentStatus {
 	Refunded = "refund_pending",
 }
 
-import * as v from "valibot";
 
-const OrderIdSchema = v.pipe(v.number(), v.brand("OrderId"));
-export const OrderId = v.custom<OrderId>((val) => {
-	return v.safeParse(OrderIdSchema, val).success;
-});
-export type OrderId = v.InferOutput<typeof OrderIdSchema>;

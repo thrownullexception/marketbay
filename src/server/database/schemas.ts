@@ -43,11 +43,15 @@ export * from "@/server/modules/messaging/conversations/entity";
 export * from "@/server/modules/messaging/messages/entity";
 //
 export * from "@/server/modules/notifications/notification-types/entity";
+export * from "@/server/modules/notifications/notifications/entity";
 export * from "@/server/modules/notifications/user-notification-preferences/entity";
 //
+export * from "@/server/modules/orders/order-items/entity";
+export * from "@/server/modules/orders/order-status-history/entity";
 export * from "@/server/modules/orders/orders/entity";
 //
 export * from "@/server/modules/stores/followings/entity";
+export * from "@/server/modules/stores/store-invitations/entity";
 export * from "@/server/modules/stores/store-permissions/entity";
 export * from "@/server/modules/stores/store-role-permissions/entity";
 export * from "@/server/modules/stores/store-roles/entity";

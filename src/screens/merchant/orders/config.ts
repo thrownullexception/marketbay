@@ -6,7 +6,7 @@ import {
 	RotateCcwIcon,
 	TruckIcon,
 } from "lucide-solid";
-import type { OrderStatus, PaymentStatus } from "@/schemas/orders";
+import type { OrderStatus, PaymentStatus } from "@/schemas/order";
 import type { StatusBadgeProps } from "@/ui/status-badge";
 
 export const OrderStatusConfig: Record<OrderStatus, StatusBadgeProps> = {
