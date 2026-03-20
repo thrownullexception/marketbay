@@ -51,8 +51,8 @@ export const StoreEntity = pgTable(
 
 		// Cached metrics (denormalized for performance)
 		avgRating: numeric({
-			scale: 2,
 			precision: 2,
+			scale: 2,
 		}).default("0.0"),
 		reviewCount: integer().default(0),
 		totalSales: integer().default(0),

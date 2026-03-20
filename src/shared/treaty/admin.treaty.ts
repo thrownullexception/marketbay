@@ -1,6 +1,6 @@
 import { treaty } from "@elysiajs/eden";
 import { createIsomorphicFn } from "@tanstack/solid-start";
-import { adminServerApp } from "@/server/admin.app";
+import { adminServerApp } from "@/server/apps/admin";
 
 export const getAdminTreaty = createIsomorphicFn()
 	.server(() => treaty(adminServerApp).api.admin)

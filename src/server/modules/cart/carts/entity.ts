@@ -1,5 +1,5 @@
-import { isNotNull, sql } from "drizzle-orm";
-import { check, index, pgTable, type UpdateDeleteAction } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import { check, pgTable, type UpdateDeleteAction, unique } from "drizzle-orm/pg-core";
 import { CartId } from "@/schemas/cart";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesGuestEntity } from "../../identity/guests/entity";
@@ -12,8 +12,8 @@ export const CartEntity = pgTable(
 		guestId: referencesGuestEntity("cascade"),
 	}),
 	(t) => [
-		index().on(t.userId).where(isNotNull(t.userId)),
-		index().on(t.guestId).where(isNotNull(t.guestId)),
+		unique().on(t.userId).nullsNotDistinct(),
+		unique().on(t.guestId).nullsNotDistinct(),
 		check(
 			"cart_has_owner",
 			sql`user_id IS NOT NULL OR guest_id IS NOT NULL`,

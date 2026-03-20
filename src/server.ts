@@ -1,7 +1,14 @@
 import handler, { createServerEntry } from "@tanstack/solid-start/server-entry";
 import pino from "pino";
+import { runMigrations } from "./server/database/migrate";
+import { runSeeds } from "./server/database/seeds";
 
 const logger = pino();
+
+await (async () => {
+  await runMigrations();
+  await runSeeds();
+})();
 
 export default createServerEntry({
 	async fetch(request) {

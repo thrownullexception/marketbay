@@ -6,33 +6,6 @@ Proof of address
 Success Metrics
 95% verified seller rate
 
-Requirements
-Add product:
-
-Title
-
-Description
-
-Category
-
-Price
-
-Discount
-
-SKU
-
-Images
-
-Variants (size, color, etc.)
-
-Product status:
-
-Active
-
-Out of stock
-
-Draft
-
 4.4 Inventory Management
 Description
 Sellers manage stock levels.
@@ -269,27 +242,8 @@ Promotion performance
 
 Fraud detection rules
 
-🔟 DevOps & CI/CD
-CI/CD Pipeline
-GitHub Actions / GitLab CI
-
-Automated tests
-
-Docker builds
-
-Blue-green deployments
-
 Payment success → Order updated Inventory decremented
 
-Field Type Notes
-id (PK) UUID Primary key
-email VARCHAR (unique) Indexed
-password_hash TEXT
-role ENUM('buyer','seller','admin')
-is_active BOOLEAN
-created_at TIMESTAMP
-updated_at TIMESTAMP 2. seller_profiles
-Extra data for sellers.
 
 Field Type
 id (PK) UUID
@@ -315,23 +269,6 @@ created_at TIMESTAMP
 reviewed_at TIMESTAMP
 Relationship:
 
-8. product_variants
-   Field Type
-   id (PK) UUID
-   product_id (FK → products.id) UUID
-   variant_name VARCHAR
-   variant_value VARCHAR
-   price_override DECIMAL
-   created_at TIMESTAMP
-   5️⃣ INVENTORY
-9. inventory
-   Field Type
-   id (PK) UUID
-   product_id (FK → products.id) UUID
-   variant_id (FK → product_variants.id) UUID (nullable)
-   quantity INT
-   low_stock_threshold INT
-   updated_at TIMESTAMP
 10. inventory_logs
     Field Type
     id (PK) UUID

@@ -15,8 +15,8 @@ export const CartItemEntity = pgTable(
 		productVariantId: referencesProductVariantEntity("cascade").notNull(),
 		quantity: integer().notNull().default(1),
 		unitPrice: numeric({
-			scale: 12,
-			precision: 2,
+			precision: 12,
+			scale: 2,
 		}).notNull(),
 	}),
 	(t) => [

@@ -4,25 +4,6 @@
 - Bulk inventory adjustments
   SELL-007 Product status P1 - Draft, Active, Out of Stock, Discontinued
 - Seasonal collections
-  "variants": [
-  {
-  "sku": "string",
-  "attributes": {"color": "blue", "size": "M"},
-  "price": "decimal",
-  "compare_at_price": "decimal",
-  "inventory_quantity": "integer"
-  }
-  ],
-  "categories": ["path"],
-  "tags": ["string"],
-  "status": "enum",
-  "seo": {
-  "meta_title": "string",
-  "meta_description": "string"
-  },
-  "shipping_profile": "uuid",
-  "created_at": "timestamp"
-  }
   4.1.3 Inventory Management
   Table
   Copy
@@ -162,33 +143,16 @@
   BUY-007 Store policies P1 - Shipping info prominently displayed
 - Return policy summary
 - Response time indicator
-  4.2.3 Shopping Cart
-  Table
-  Copy
-  Requirement ID Description Priority Acceptance Criteria
-  BUY-008 Cart management P0 - Add/remove items
-- Quantity adjustment
-- Persistent cart (cross-device)
-- Save for later
   BUY-009 Multi-store cart P0 - Grouped by seller
 - Separate checkout per seller
 - Combined shipping estimates
-- Store-specific promo codes
-  BUY-010 Cart analytics P2 - Abandoned cart recovery emails
 - Price drop notifications for saved items
-  BUY-011 Wishlist P1 - Multiple wishlists
-- Share wishlist
 - Move to cart
   Cart Architecture:
   Cart stored in Redis for performance
   30-day persistence for anonymous users
   Real-time inventory validation
   Price change alerts
-  4.2.4 Seller Rating System
-  Table
-  Copy
-  Requirement ID Description Priority Acceptance Criteria
-  BUY-012 Rating components P0 - 1-5 star rating
 - Multi-criteria: Product quality, Shipping speed, Communication, Accuracy
 - Written review optional
   BUY-013 Review features P1 - Photo/video attachments

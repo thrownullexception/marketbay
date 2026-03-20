@@ -10,12 +10,12 @@ export const ProductVariantEntity = pgTable(
 		sku: text(),
 		barcode: text(),
 		price: numeric({
-			scale: 12,
-			precision: 2,
+			precision: 12,
+			scale: 2,
 		}),
         compareAtPrice: numeric({
-			scale: 12,
-			precision: 2,
+			precision: 12,
+			scale: 2,
 		}),
 	}),
 	(t) => [index().on(t.productId)],

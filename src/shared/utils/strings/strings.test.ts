@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { sanitizeHtml } from "./strings";
+import { sanitizeHtml } from ".";
 
 describe("sanitizeHtml", () => {
 	test("preserves <strong> tags", () => {

@@ -1,6 +1,6 @@
 import { treaty } from "@elysiajs/eden";
 import { createIsomorphicFn } from "@tanstack/solid-start";
-import { shopServerApp } from "@/server/shop.app";
+import { shopServerApp } from "@/server/apps/shop";
 
 export const getShopTreaty = createIsomorphicFn()
 	.server(() => treaty(shopServerApp).api.shop)

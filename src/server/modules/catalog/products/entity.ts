@@ -44,20 +44,21 @@ export const ProductEntity = pgTable(
 			length: 500,
 		}),
 
+// move to variant
+		sku: text(), 
+
 		price: numeric({
-			scale: 12,
-			precision: 2,
+			precision: 12,
+			scale: 2,
 		}).notNull(),
 		compareAtPrice: numeric({
-			scale: 12,
-			precision: 2,
+			precision: 12,
+			scale: 2,
 		}),
 		costPerPrice: numeric({
-			scale: 12,
-			precision: 2,
+			precision: 12,
+			scale: 2,
 		}),
-
-		sku: text(),
 
 		trackInventory: boolean().default(true),
 		continueSellingWhenOutOfStock: boolean().default(false),
@@ -72,20 +73,20 @@ export const ProductEntity = pgTable(
 
 		requiresShipping: boolean().default(true),
 		weightKg: numeric({
-			scale: 8,
-			precision: 3,
+			precision: 8,
+			scale: 2,
 		}),
 		lengthCm: numeric({
-			scale: 8,
-			precision: 3,
+			precision: 8,
+			scale: 2,
 		}),
 		widthCm: numeric({
-			scale: 8,
-			precision: 3,
+			precision: 8,
+			scale: 2,
 		}),
 		heightCm: numeric({
-			scale: 8,
-			precision: 3,
+			precision: 8,
+			scale: 2,
 		}),
 	}),
 	(t) => [unique().on(t.slug)],

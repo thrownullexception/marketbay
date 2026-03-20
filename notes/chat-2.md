@@ -30,48 +30,8 @@ Success Criteria
 
 Fraud rate under defined threshold
 
-
-4.3 Product Management
-Description
-Sellers add and manage products within each store.
-
-Functional Requirements
-Create product:
-
-Product name
-
-Description
-
-Category
-
-SKU
-
-Price
-
-Discount price
-
-Images (multiple)
-
-Variants (size, color, etc.)
-
-Stock quantity
-
-Edit product
-
-Delete product
-
-Activate/Deactivate product
-
 Bulk upload (CSV) – Phase 2
 
-4.4 Inventory Management
-Description
-Track stock levels and manage availability.
-
-Functional Requirements
-Auto reduce inventory after purchase
-
-Low-stock alerts
 
 Out-of-stock visibility toggle
 
@@ -80,9 +40,6 @@ Manual stock adjustment
 Inventory history log
 
 Metrics
-Prevent overselling
-
-Stock sync accuracy ≥ 99%
 
 4.5 Seller-Buyer Chat
 Description
@@ -694,35 +651,6 @@ idx(variant_id, status)
 
 idx(expires_at) for cleanup jobs
 
-Cart
-carts
-id (PK, uuid)
-
-buyer_user_id (unique FK → users.id)
-
-status (enum: active, converted, abandoned)
-
-created_at, updated_at
-
-cart_items
-id (PK, uuid)
-
-cart_id (FK → carts.id)
-
-store_id (FK → stores.id) (denormalized for speed; can be derived via variant→product→store)
-
-variant_id (FK → product_variants.id)
-
-quantity (int)
-
-price_snapshot (numeric(12,2)) (optional but recommended)
-
-created_at, updated_at
-
-Constraints
-
-unique(cart_id, variant_id) to avoid duplicates
-
 Orders (split by store)
 orders
 Represents the buyer checkout.
@@ -899,45 +827,6 @@ notify_promotions (bool default true)
 notify_discounts (bool default true)
 
 updated_at
-
-notifications
-id (PK, uuid)
-
-buyer_user_id (FK → users.id)
-
-type (enum: new_product, promotion, discount, order_update, message)
-
-title
-
-body
-
-data (jsonb) (links to product/store/promo ids)
-
-status (enum: queued, sent, failed, read)
-
-channel (enum: in_app, email)
-
-created_at, sent_at (nullable), read_at (nullable)
-
-Indexes: idx(buyer_user_id, status, created_at)
-
-Helpful supporting tables
-audit_logs (admin + sensitive actions)
-id (PK, uuid)
-
-actor_user_id (FK → users.id)
-
-action (text)
-
-entity_type (text)
-
-entity_id (uuid)
-
-before (jsonb, nullable)
-
-after (jsonb, nullable)
-
-created_at
 
 moderation_reports (chat/reviews/products)
 id (PK, uuid)
