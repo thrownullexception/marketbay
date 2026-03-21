@@ -1,9 +1,4 @@
-import {
-	integer,
-	pgTable,
- timestamp,
-	unique,
-} from "drizzle-orm/pg-core";
+import { integer, pgTable, timestamp, unique } from "drizzle-orm/pg-core";
 import { InventoryReservationId } from "@/schemas/inventory-reservation";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesOrderEntity } from "../../orders/orders/entity";
@@ -18,7 +13,5 @@ export const InventoryReservationEntity = pgTable(
 		quantity: integer(),
 		releasedAt: timestamp(),
 	}),
-	(t) => [
-		unique().on(t.orderId, t.inventoryId),
-	],
+	(t) => [unique().on(t.orderId, t.inventoryId)],
 );

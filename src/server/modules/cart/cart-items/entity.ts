@@ -6,7 +6,6 @@ import { referencesProductVariantEntity } from "../../catalog/product-variants/e
 import { referencesProductEntity } from "../../catalog/products/entity";
 import { referencesCartEntity } from "../carts/entity";
 
-
 export const CartItemEntity = pgTable(
 	"cart_items",
 	baseDbSchema(CartItemId, {

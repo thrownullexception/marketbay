@@ -5,10 +5,12 @@ import { runSeeds } from "./server/database/seeds";
 
 const logger = pino();
 
-await (async () => {
-  await runMigrations();
-  await runSeeds();
-})();
+// await (async () => {
+//   await runMigrations();
+//   await runSeeds();
+// })();
+
+console.log("Hello started start server");
 
 export default createServerEntry({
 	async fetch(request) {

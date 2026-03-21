@@ -6,29 +6,29 @@ import { migrate } from "drizzle-orm/bun-sql/migrator";
 const client = new SQL(process.env.DATABASE_URL!);
 
 const db = drizzle({
-  client,
-  casing: "snake_case",
+	client,
+	casing: "snake_case",
 });
 
 export const runMigrations = async () => {
-  try {
-    console.log("🔄 Running database migrations...");
+	try {
+		console.log("🔄 Running database migrations...");
 
-    await migrate(db, {
-      migrationsFolder: "./migrations",
-    });
+		await migrate(db, {
+			migrationsFolder: "./migrations",
+		});
 
-    console.log("🟢 Migrations ran successfully");
-  } catch (error) {
-    console.error("🔴 Migration failed:", error);
-  } finally {
-    await client.close();
-  }
+		console.log("🟢 Migrations ran successfully");
+	} catch (error) {
+		console.error("🔴 Migration failed:", error);
+	} finally {
+		await client.close();
+	}
 };
 
 if (import.meta.main) {
-  void (async () => {
-    await runMigrations();
-    process.exit(0);
-  })();
+	void (async () => {
+		await runMigrations();
+		process.exit(0);
+	})();
 }

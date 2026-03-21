@@ -44,7 +44,7 @@ CREATE TYPE return_status AS ENUM ('requested', 'pending_review', 'approved', 'r
 
 CREATE TYPE dispute_status AS ENUM ('open', 'under_review', 'resolved', 'closed');
 
-CREATE TYPE review_status AS ENUM ('published', 'hidden', 'flagged');
+-- CREATE TYPE review_status AS ENUM ('published', 'hidden', 'flagged');
 
 CREATE TYPE shipping_method AS ENUM ('standard', 'express', 'overnight');
 
@@ -415,12 +415,12 @@ CREATE TABLE products (
 -- );
 
 -- Junction: which option values make up a variant
-CREATE TABLE product_variant_options (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    variant_id      UUID NOT NULL REFERENCES product_variants(id) ON DELETE CASCADE,
-    option_value_id UUID NOT NULL REFERENCES product_option_values(id) ON DELETE CASCADE,
-    updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE product_variant_options (
+--     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     variant_id      UUID NOT NULL REFERENCES product_variants(id) ON DELETE CASCADE,
+--     option_value_id UUID NOT NULL REFERENCES product_option_values(id) ON DELETE CASCADE,
+--     updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- Product views for analytics and recommendations
 -- CREATE TABLE product_views (
@@ -679,48 +679,48 @@ CREATE TABLE disputes (
 -- =============================================================================
 -- status (enum: published, hidden, flagged)
 
-CREATE TABLE reviews (
-    id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    product_id          UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
-    order_item_id       UUID REFERENCES order_items(id) ON DELETE SET NULL,  -- ensures purchase
-    buyer_id            UUID NOT NULL REFERENCES users(id),
-    store_id            UUID NOT NULL REFERENCES stores(id),
-    rating              SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
-    title               TEXT,
-    body                TEXT,
-    helpful_votes       INT NOT NULL DEFAULT 0,
-    verified_purchase   BOOLEAN NOT NULL DEFAULT FALSE,
-    status              review_status NOT NULL DEFAULT 'published',
-    seller_reply        TEXT,
-    seller_reply_at     TIMESTAMPTZ,
-    created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    UNIQUE (order_item_id, buyer_id)    -- one review per order line item per buyer
-);
+-- CREATE TABLE reviews (
+    -- id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    -- product_id          UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+    -- order_item_id       UUID REFERENCES order_items(id) ON DELETE SET NULL,  -- ensures purchase
+    -- buyer_id            UUID NOT NULL REFERENCES users(id),
+    -- store_id            UUID NOT NULL REFERENCES stores(id),
+    -- rating              SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    -- title               TEXT,
+    -- body                TEXT,
+    -- helpful_votes       INT NOT NULL DEFAULT 0,
+    -- verified_purchase   BOOLEAN NOT NULL DEFAULT FALSE,
+    -- status              review_status NOT NULL DEFAULT 'published',
+    -- seller_reply        TEXT,
+    -- seller_reply_at     TIMESTAMPTZ,
+    -- created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- UNIQUE (order_item_id, buyer_id)    -- one review per order line item per buyer
+-- );
 
-CREATE TABLE review_helpful_votes (
-    id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    review_id UUID NOT NULL REFERENCES reviews(id) ON DELETE CASCADE,
-    user_id   UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    voted_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- CREATE TABLE review_helpful_votes (
+--     id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     review_id UUID NOT NULL REFERENCES reviews(id) ON DELETE CASCADE,
+--     user_id   UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--     voted_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+-- );
 
 -- Store reviews (buyers rating stores, separate from product reviews)
-CREATE TABLE store_reviews (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    store_id        UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
-    order_id        UUID REFERENCES orders(id) ON DELETE SET NULL,   -- ensures purchase
-    buyer_id        UUID NOT NULL REFERENCES users(id),
-    rating          SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
-    title           TEXT,
-    body            TEXT,
-    status          review_status NOT NULL DEFAULT 'published',
-    seller_reply    TEXT,
-    seller_reply_at TIMESTAMPTZ,
-    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    UNIQUE (order_id, buyer_id)  -- one store review per order per buyer
-);
+-- CREATE TABLE store_reviews (
+    -- id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    -- store_id        UUID NOT NULL REFERENCES stores(id) ON DELETE CASCADE,
+    -- order_id        UUID REFERENCES orders(id) ON DELETE SET NULL,   -- ensures purchase
+    -- buyer_id        UUID NOT NULL REFERENCES users(id),
+    -- rating          SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    -- title           TEXT,
+    -- body            TEXT,
+    -- status          review_status NOT NULL DEFAULT 'published',
+    -- seller_reply    TEXT,
+    -- seller_reply_at TIMESTAMPTZ,
+    -- created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    -- UNIQUE (order_id, buyer_id)  -- one store review per order per buyer
+-- );
 
 -- =============================================================================
 -- MESSAGES / CONVERSATIONS

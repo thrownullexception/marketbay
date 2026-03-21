@@ -1,11 +1,8 @@
+import { pgEnum, pgTable, text, timestamp, unique } from "drizzle-orm/pg-core";
 import {
-    pgEnum,
-	pgTable,
-	text,
-	timestamp,
-	unique,
-} from "drizzle-orm/pg-core";
-import { InvitationStatus, StoreInvitationId } from "@/schemas/store-invitation";
+	InvitationStatus,
+	StoreInvitationId,
+} from "@/schemas/store-invitation";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { getEnumValues } from "@/server/database/enums";
 import { referencesStoreRoleEntity } from "../store-roles/entity";
@@ -23,14 +20,13 @@ export const StoreInvitationEntity = pgTable(
 		roleId: referencesStoreRoleEntity("restrict").notNull(),
 		email: text().notNull(),
 
-        personalMessage: text(),
+		personalMessage: text(),
 
-        status: invitationStatus().notNull().default(InvitationStatus.Pending),
+		status: invitationStatus().notNull().default(InvitationStatus.Pending),
 
-        sentAt: timestamp().defaultNow(), 
-        expiresAt: timestamp(), // + 7 days
-        acceptedAt: timestamp(),
+		sentAt: timestamp().defaultNow(),
+		expiresAt: timestamp(), // + 7 days
+		acceptedAt: timestamp(),
 	}),
 	(t) => [unique().on(t.storeId, t.email)],
 );
-

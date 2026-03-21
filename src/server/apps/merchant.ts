@@ -22,4 +22,3 @@ export const merchantServerApp = new Elysia({
 	})
 	.get("/foo/bar", () => ({ message: "Hello World" }))
 	.get("/notifications", () => ({ count: 10 }));
-

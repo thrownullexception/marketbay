@@ -1,7 +1,10 @@
 import { eq, sql } from "drizzle-orm";
 import type * as v from "valibot";
 import type { UserId } from "@/schemas/user";
-import type { CreateAddressRequestSchema, UserAddressId } from "@/schemas/user-address";
+import type {
+	CreateAddressRequestSchema,
+	UserAddressId,
+} from "@/schemas/user-address";
 import type { Database } from "@/server/database";
 import { UserAddressEntity } from "./entity";
 

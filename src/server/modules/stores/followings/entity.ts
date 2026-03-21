@@ -1,8 +1,4 @@
-import {
-	index,
-	pgTable,
-	unique,
-} from "drizzle-orm/pg-core";
+import { index, pgTable, unique } from "drizzle-orm/pg-core";
 import { StoreFollowingId } from "@/schemas/store-following";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesUserEntity } from "../../identity/users/entity";

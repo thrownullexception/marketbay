@@ -1,7 +1,4 @@
-import {
-	pgTable,
-	unique,
-} from "drizzle-orm/pg-core";
+import { pgTable, unique } from "drizzle-orm/pg-core";
 import { StoreRolePermissionId } from "@/schemas/store-role-permission";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesStorePermissionEntity } from "../store-permissions/entity";
@@ -15,4 +12,3 @@ export const StoreRolePermissionsEntity = pgTable(
 	}),
 	(t) => [unique().on(t.roleId, t.permissionId)],
 );
-

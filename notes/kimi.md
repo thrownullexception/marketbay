@@ -11,10 +11,6 @@
   SELL-008 Real-time inventory tracking P0 - Automatic decrement on order
 - Low stock alerts (configurable threshold)
 - Out-of-stock auto-pause
-  SELL-009 Multi-location inventory P1 - Support for multiple warehouses
-- Location-based availability
-- Transfer between locations
-  SELL-010 Inventory analytics P2 - Stock turnover rate
 - Dead stock identification
 - Demand forecasting (basic)
   SELL-011 Inventory history P2 - Audit log of all changes
@@ -191,10 +187,6 @@
   Buyer subscribes → System tracks seller activity → Triggers notification rules →
   Delivers via preferred channel → Tracks engagement → Seller sees subscriber analytics
 
-  5.2 Database Schema (Simplified)
-  sellers (KYC status, verification level)
-  subscriptions (buyer-seller relationships)
-
 6. User Interface Requirements
    Revenue graph (7/30/90 days)
    Low stock alerts widget
@@ -222,7 +214,6 @@
    KYC completion rate: >80%
    Active seller rate (list products): >60%
    Seller NPS: >50
-   9.2 Buyer Metrics
 9. Open Questions
    Should we allow individual sellers (not just businesses) with lighter KYC?
    What's the policy for counterfeit claims—immediate suspension or investigation?
@@ -262,9 +253,6 @@ quantity_available INT NOT NULL DEFAULT 0,
 quantity_reserved INT NOT NULL DEFAULT 0, -- for pending orders
 quantity_sold INT NOT NULL DEFAULT 0,
 low_stock_threshold INT DEFAULT 10,
-location_id UUID, -- for multi-location support
-last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-version INT DEFAULT 1, -- optimistic locking
 UNIQUE(product_id, variant_sku, location_id)
 );
 

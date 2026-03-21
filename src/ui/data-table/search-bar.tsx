@@ -17,7 +17,6 @@ export const DataTableSearchBar = (props: {
 			<SimpleInputText
 				placeholder={props.placeholder ?? "Search..."}
 				Icon={SearchIcon}
-		
 			/>
 			<div class="flex items-center gap-2 shrink-0">
 				<For each={props.filters ?? []}>

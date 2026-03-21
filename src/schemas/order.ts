@@ -21,5 +21,3 @@ export enum PaymentStatus {
 	Paid = "paid",
 	Refunded = "refund_pending",
 }
-
-

@@ -9,11 +9,9 @@ import {
 } from "drizzle-orm/pg-core";
 import { OrderItemId } from "@/schemas/order-item";
 import { baseDbSchema } from "@/server/database/base-schema";
-import {
-	referencesOrderEntity,
-	referencesProductEntity,
-	referencesProductVariantEntity,
-} from "@/server/database/schemas";
+import { referencesProductVariantEntity } from "@/server/modules/catalog/product-variants/entity";
+import { referencesProductEntity } from "@/server/modules/catalog/products/entity";
+import { referencesOrderEntity } from "@/server/modules/orders/orders/entity";
 
 export const OrderItemEntity = pgTable(
 	"order_items",

@@ -4,10 +4,7 @@ import { For } from "solid-js";
 import { getShopTreaty } from "@/shared/treaty/shop.treaty";
 import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
 import { Grid5 } from "@/ui/grid";
-import {
-	ProductCard,
-	type ProductCardData,
-} from "@/ui/product/card";
+import { ProductCard, type ProductCardData } from "@/ui/product/card";
 import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 const newArrivals: ProductCardData[] = [
@@ -55,7 +52,7 @@ export const newArrivalsQuery = createTreatyQueryOptions(
 );
 
 export const NewArrivals = () => {
-	const { data } = useQuery(() => newArrivalsQuery)	
+	const { data } = useQuery(() => newArrivalsQuery);
 
 	return (
 		<ScreenSectionCard
@@ -67,8 +64,8 @@ export const NewArrivals = () => {
 				search: { newArrivals: true },
 			})}
 		>
-{JSON.stringify(newArrivalsQuery.queryKey)}
-				{/* {JSON.stringify(data)} */}
+			{JSON.stringify(newArrivalsQuery.queryKey)}
+			{/* {JSON.stringify(data)} */}
 			<Grid5>
 				<For each={newArrivals}>
 					{(product) => <ProductCard product={product} />}

@@ -78,7 +78,9 @@ function createQueryKeyChain(segments: QueryKeySegment[]): unknown {
 		},
 		apply(_target, _this, args) {
 			const params = args[0] as Record<string, Primitive> | undefined;
-			return createQueryKeyChain(params != null ? [...segments, params] : segments);
+			return createQueryKeyChain(
+				params != null ? [...segments, params] : segments,
+			);
 		},
 	});
 }
@@ -123,8 +125,12 @@ type WithoutKeyAndFn<T> = Omit<T, "queryKey" | "queryFn">;
  * );
  */
 type TreatyQueryResult<TData> =
-	| (ReturnType<DefinedInitialDataOptions<TData>> & { queryKey: TreatyQueryKey })
-	| (ReturnType<UndefinedInitialDataOptions<TData>> & { queryKey: TreatyQueryKey });
+	| (ReturnType<DefinedInitialDataOptions<TData>> & {
+			queryKey: TreatyQueryKey;
+	  })
+	| (ReturnType<UndefinedInitialDataOptions<TData>> & {
+			queryKey: TreatyQueryKey;
+	  });
 
 export function createTreatyQueryOptions<TTreaty, TData>(
 	getTreaty: () => TTreaty,
@@ -136,7 +142,9 @@ export function createTreatyQueryOptions<TTreaty, TData>(
 	getTreaty: () => TTreaty,
 	selector: (treaty: TTreaty) => EdenResponse<TData>,
 	options?: WithoutKeyAndFn<ReturnType<UndefinedInitialDataOptions<TData>>>,
-): ReturnType<UndefinedInitialDataOptions<TData>> & { queryKey: TreatyQueryKey };
+): ReturnType<UndefinedInitialDataOptions<TData>> & {
+	queryKey: TreatyQueryKey;
+};
 
 export function createTreatyQueryOptions<TTreaty, TData>(
 	getTreaty: () => TTreaty,
@@ -145,7 +153,9 @@ export function createTreatyQueryOptions<TTreaty, TData>(
 	options?: any,
 ): TreatyQueryResult<TData> {
 	const keyProxy = createQueryKeyChain([]) as TTreaty;
-	const keyResult = selector(keyProxy) as unknown as { queryKey: TreatyQueryKey };
+	const keyResult = selector(keyProxy) as unknown as {
+		queryKey: TreatyQueryKey;
+	};
 
 	return queryOptions({
 		...(options as object),
@@ -153,4 +163,3 @@ export function createTreatyQueryOptions<TTreaty, TData>(
 		queryFn: () => selector(getTreaty()).then((res) => res.data as TData),
 	}) as TreatyQueryResult<TData>;
 }
-

@@ -78,5 +78,5 @@ export const NOTIFICATION_TYPES_CONFIG: Record<
 	[NotificationTypes.PlatformUpdate]: {
 		label: "Platform Update",
 		type: "store",
-	},	
+	},
 };

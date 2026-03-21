@@ -1,6 +1,6 @@
 import {
-    boolean,
-    pgTable,
+	boolean,
+	pgTable,
 	text,
 	type UpdateDeleteAction,
 	unique,

@@ -28,10 +28,10 @@ export class UsersService {
 			.limit(1);
 
 		if (user.length === 0) {
-                throw new NotFoundRequestError("User not found", {
-             	field: input.field,
-					value: input.value,
-            })
+			throw new NotFoundRequestError("User not found", {
+				field: input.field,
+				value: input.value,
+			});
 		}
 
 		return user[0].id;
@@ -62,9 +62,9 @@ export class UsersService {
 			.limit(1);
 
 		if (user.length === 0) {
-            throw new NotFoundRequestError("User not found", {
-                userId: input.userId,
-            })
+			throw new NotFoundRequestError("User not found", {
+				userId: input.userId,
+			});
 		}
 
 		return user[0] as unknown as Pick<InferSelectModel<typeof UserEntity>, T>;

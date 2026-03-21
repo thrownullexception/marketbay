@@ -78,7 +78,6 @@ Fix: Change the constraint to UNIQUE (product_id, buyer_id) to ensure a user can
 
 
 Promotions — promotions, promotion products/categories/usages
-Orders — orders, order items, order status history
 Returns & Disputes — returns, return items, disputes
 Reviews — product reviews, store reviews, helpful votes
 Payouts — payout accounts, payouts, payout items

@@ -1,53 +1,68 @@
 // :eyes
 export class BadRequestError extends Error {
-	status = 400
+	status = 400;
 
 	constructor(public message = "Bad Request") {
-		super(message)
+		super(message);
 	}
 
 	toResponse() {
-		return Response.json({
-			error: this.message,
-			code: this.status
-		}, {
-			status: this.status
-		})
+		return Response.json(
+			{
+				error: this.message,
+				code: this.status,
+			},
+			{
+				status: this.status,
+			},
+		);
 	}
 }
 
 export class NotFoundRequestError extends Error {
-	status = 400
+	status = 400;
 
-	constructor(public message = "Not Found", public data: Record<string, unknown>) {
-		super(message)
+	constructor(
+		public message = "Not Found",
+		public data: Record<string, unknown>,
+	) {
+		super(message);
 	}
 
 	toResponse() {
-		return Response.json({
-			error: this.message,
-			code: this.status,
-			data: this.data,
-		}, {
-			status: this.status
-		})
+		return Response.json(
+			{
+				error: this.message,
+				code: this.status,
+				data: this.data,
+			},
+			{
+				status: this.status,
+			},
+		);
 	}
 }
 
 export class UnAuthorizedRequestError extends Error {
-	status = 401
+	status = 401;
 
-	constructor(public message = "Not Found", public data: Record<string, unknown>) {
-		super(message)
+	constructor(
+		public message = "Not Found",
+		public data: Record<string, unknown>,
+	) {
+		super(message);
 	}
 
 	toResponse() {
-		return Response.json({
-			error: this.message,
-			code: this.status,
-			data: this.data,
-		}, {
-			status: this.status
-		})
+		return Response.json(
+			{
+				error: this.message,
+				code: this.status,
+				data: this.data,
+			},
+			{
+				status: this.status,
+			},
+		);
 	}
 }

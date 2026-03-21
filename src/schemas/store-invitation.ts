@@ -1,6 +1,9 @@
 import * as v from "valibot";
 
-const StoreInvitationIdSchema = v.pipe(v.number(), v.brand("StoreInvitationId"));
+const StoreInvitationIdSchema = v.pipe(
+	v.number(),
+	v.brand("StoreInvitationId"),
+);
 export const StoreInvitationId = v.custom<StoreInvitationId>((val) => {
 	return v.safeParse(StoreInvitationIdSchema, val).success;
 });
@@ -11,5 +14,5 @@ export enum InvitationStatus {
 	Accepted = "accepted",
 	Declined = "declined",
 	Revoked = "revoked",
-	Expired = "expired"
+	Expired = "expired",
 }

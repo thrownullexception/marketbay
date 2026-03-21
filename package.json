@@ -17,8 +17,7 @@
     "type:check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio",
-    "valibot:generate": "bun ./cli/gen-valibot-schemas/index.ts"
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.1.10",

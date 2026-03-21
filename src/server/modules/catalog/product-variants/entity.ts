@@ -1,4 +1,10 @@
-import { index, numeric, pgTable, text, type UpdateDeleteAction } from "drizzle-orm/pg-core";
+import {
+	index,
+	numeric,
+	pgTable,
+	text,
+	type UpdateDeleteAction,
+} from "drizzle-orm/pg-core";
 import { ProductVariantId } from "@/schemas/product-variant";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesProductEntity } from "../products/entity";
@@ -13,7 +19,7 @@ export const ProductVariantEntity = pgTable(
 			precision: 12,
 			scale: 2,
 		}),
-        compareAtPrice: numeric({
+		compareAtPrice: numeric({
 			precision: 12,
 			scale: 2,
 		}),
@@ -22,8 +28,9 @@ export const ProductVariantEntity = pgTable(
 );
 // TOOD: unique(sku) (or unique(store_id, sku) via join with product->store; if you want per-store uniqueness)
 
-
-export const referencesProductVariantEntity = (constraint?: UpdateDeleteAction) => {
+export const referencesProductVariantEntity = (
+	constraint?: UpdateDeleteAction,
+) => {
 	return idField()
 		.references(() => ProductVariantEntity.id, {
 			onDelete: constraint || "restrict",

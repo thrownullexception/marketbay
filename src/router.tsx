@@ -1,11 +1,10 @@
-import { QueryClient } from '@tanstack/solid-query'
+import { QueryClient } from "@tanstack/solid-query";
 import { createRouter } from "@tanstack/solid-router";
-import { setupRouterSsrQueryIntegration } from '@tanstack/solid-router-ssr-query'
+import { setupRouterSsrQueryIntegration } from "@tanstack/solid-router-ssr-query";
 import ms from "ms";
 import { routeTree } from "./routeTree.gen";
 import { NotFound } from "./screens/not-found";
 import { DefaultCatchBoundary } from "./ui/error";
-
 
 export function getRouter() {
 	const queryClient = new QueryClient({
@@ -29,14 +28,13 @@ export function getRouter() {
 	setupRouterSsrQueryIntegration({
 		router,
 		queryClient,
-	  })
+	});
 
 	return router;
 }
 
-
-declare module '@tanstack/solid-router' {
+declare module "@tanstack/solid-router" {
 	interface Register {
-	  router: Awaited<ReturnType<typeof getRouter>>
+		router: Awaited<ReturnType<typeof getRouter>>;
 	}
-  }
+}

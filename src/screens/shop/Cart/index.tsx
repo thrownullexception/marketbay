@@ -9,10 +9,7 @@ import { For } from "solid-js";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { Button } from "@/ui/button";
 import { Container } from "@/ui/container";
-import {
-	ProductCard,
-	type ProductCardData,
-} from "@/ui/product/card";
+import { ProductCard, type ProductCardData } from "@/ui/product/card";
 import { ScreenHeader } from "@/ui/screen-header";
 import { ScreenSectionCard } from "@/ui/screen-section-card";
 import { CartBenefits } from "./CartBenefits";

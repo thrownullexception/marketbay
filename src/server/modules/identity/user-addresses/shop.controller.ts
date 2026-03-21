@@ -10,7 +10,9 @@ import {
 import { authenticatedMiddleware } from "@/server/middlewares/auth";
 import { IdentityModule } from "..";
 
-export const userAdressesShopController = new Elysia({ prefix: "/user-adresses" })
+export const userAdressesShopController = new Elysia({
+	prefix: "/user-adresses",
+})
 	.use(authenticatedMiddleware)
 	.get(
 		"/",
@@ -32,7 +34,7 @@ export const userAdressesShopController = new Elysia({ prefix: "/user-adresses" 
 		"/",
 		({ body }) =>
 			IdentityModule.services.userAddress.createAddress(
-				"userId" as UserId,
+				1 as UserId,
 				body,
 			),
 		{

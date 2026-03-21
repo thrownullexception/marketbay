@@ -1,9 +1,4 @@
-import {
-	index,
-	pgTable,
-    smallint,
-	text,
-} from "drizzle-orm/pg-core";
+import { index, pgTable, smallint, text } from "drizzle-orm/pg-core";
 import { ProductTagId } from "@/schemas/product-tag";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesProductEntity } from "../products/entity";

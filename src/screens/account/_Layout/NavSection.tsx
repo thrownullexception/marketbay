@@ -9,10 +9,7 @@ import {
 	StarIcon,
 	Store,
 } from "lucide-solid";
-import {
-	NavItems,
-	type NavLinkItemProps,
-} from "@/ui/layout/nav-items";
+import { NavItems, type NavLinkItemProps } from "@/ui/layout/nav-items";
 
 const merchantSidebarPrimaryItems: NavLinkItemProps[] = [
 	{

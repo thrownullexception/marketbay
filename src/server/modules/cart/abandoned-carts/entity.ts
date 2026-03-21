@@ -10,13 +10,11 @@ export const AbandonedCartEntity = pgTable(
 		cartId: referencesCartEntity("cascade").notNull(),
 		userId: referencesUserEntity("cascade").notNull(),
 
-        firstReminderSentAt: timestamp(),
-        lastReminderSentAt: timestamp(),
-        reminderCount: integer(),
+		firstReminderSentAt: timestamp(),
+		lastReminderSentAt: timestamp(),
+		reminderCount: integer(),
 
-        convertedAt: timestamp(),
+		convertedAt: timestamp(),
 	}),
-	(t) => [
-      index().on(t.userId)
-	],
+	(t) => [index().on(t.userId)],
 );

@@ -1,7 +1,4 @@
-import {
-	type FilterConfig,
-	ProductListing,
-} from "@/ui/product/listing";
+import { type FilterConfig, ProductListing } from "@/ui/product/listing";
 
 const STORE_FILTERS: FilterConfig[] = [
 	{

@@ -1,9 +1,4 @@
-import {
-	Footer,
-	MainNav,
-	SidebarLayout,
-	TopBar,
-} from "@/ui/layout";
+import { Footer, MainNav, SidebarLayout, TopBar } from "@/ui/layout";
 import { NavSection } from "./NavSection";
 
 export const AccountLayout = () => {

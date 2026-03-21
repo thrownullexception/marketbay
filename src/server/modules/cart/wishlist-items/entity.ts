@@ -12,7 +12,5 @@ export const WishListItemEntity = pgTable(
 		productId: referencesProductEntity("cascade").notNull(),
 		productVariantId: referencesProductVariantEntity("cascade").notNull(),
 	}),
-	(t) => [
-		unique().on(t.userId, t.productId, t.productVariantId),
-	],
+	(t) => [unique().on(t.userId, t.productId, t.productVariantId)],
 );

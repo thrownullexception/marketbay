@@ -44,8 +44,8 @@ export const ProductEntity = pgTable(
 			length: 500,
 		}),
 
-// move to variant
-		sku: text(), 
+		// move to variant
+		sku: text(),
 
 		price: numeric({
 			precision: 12,
@@ -91,7 +91,6 @@ export const ProductEntity = pgTable(
 	}),
 	(t) => [unique().on(t.slug)],
 );
-
 
 export const referencesProductEntity = (constraint?: UpdateDeleteAction) => {
 	return idField()

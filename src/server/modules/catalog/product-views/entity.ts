@@ -17,9 +17,9 @@ export const ProductViewEntity = pgTable(
 		index().on(t.productId),
 		index().on(t.userId).where(isNotNull(t.userId)),
 		index().on(t.guestId).where(isNotNull(t.guestId)),
-        check(
+		check(
 			"product_view_has_owner",
-			sql`(user_id IS NOT NULL OR guest_id IS NOT NULL)`,
+			sql`user_id IS NOT NULL OR guest_id IS NOT NULL`,
 		),
 	],
 );

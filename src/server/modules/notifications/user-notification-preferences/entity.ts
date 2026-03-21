@@ -1,8 +1,4 @@
-import {
-	pgTable,
-	text,
-	unique,
-} from "drizzle-orm/pg-core";
+import { pgTable, text, unique } from "drizzle-orm/pg-core";
 import { UserNotificationPreferenceId } from "@/schemas/user-notification-preference";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesUserEntity } from "../../identity/users/entity";

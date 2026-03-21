@@ -6,14 +6,14 @@ import { referencesUserEntity } from "../users/entity";
 export const AuthSessionEntity = pgTable(
 	"auth_sessions",
 	baseDbSchema(AuthSessionId, {
-        userId: referencesUserEntity("cascade").notNull(),
+		userId: referencesUserEntity("cascade").notNull(),
 		lastVerifiedAt: timestamp().notNull(),
 		secretHash: text().notNull(),
 		sessionId: text().notNull(),
 		deletedAt: timestamp(),
 		// TODO
-	// 	    device_info     TEXT,                           -- user agent / device name
-    // ip_address      INET,
+		// 	    device_info     TEXT,                           -- user agent / device name
+		// ip_address      INET,
 	}),
 	(t) => [index().on(t.userId)],
 );

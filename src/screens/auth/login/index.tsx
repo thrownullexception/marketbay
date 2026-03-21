@@ -3,12 +3,7 @@ import type * as v from "valibot";
 import { LoginRequestSchema } from "@/schemas/auth";
 import { DividerText } from "@/ui/divider";
 import { useAppForm } from "@/ui/form";
-import {
-	FormCard,
-	FormHeader,
-	FormRoot,
-	FormText,
-} from "@/ui/form/card";
+import { FormCard, FormHeader, FormRoot, FormText } from "@/ui/form/card";
 import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../social-auth";
 

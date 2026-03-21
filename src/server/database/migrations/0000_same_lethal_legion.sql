@@ -2,6 +2,10 @@ CREATE TYPE "public"."product_condition" AS ENUM('new', 'refurbished', 'used');-
 CREATE TYPE "public"."product_status" AS ENUM('active', 'draft', 'archived');--> statement-breakpoint
 CREATE TYPE "public"."otp_scopes" AS ENUM('reset-password', 'email-verification');--> statement-breakpoint
 CREATE TYPE "public"."message_sender_type" AS ENUM('buyer', 'store');--> statement-breakpoint
+CREATE TYPE "public"."order_status" AS ENUM('pending', 'processing', 'shipped', 'in_transit', 'delivered', 'cancelled', 'return', 'refunded');--> statement-breakpoint
+CREATE TYPE "public"."payment_status" AS ENUM('paid', 'refund_pending');--> statement-breakpoint
+CREATE TYPE "public"."review_status" AS ENUM('published', 'hidden', 'flagged');--> statement-breakpoint
+CREATE TYPE "public"."invitation_status" AS ENUM('pending', 'accepted', 'declined', 'revoked', 'expired');--> statement-breakpoint
 CREATE TYPE "public"."store_status" AS ENUM('active', 'in-active', 'suspended', 'closed');--> statement-breakpoint
 CREATE TABLE "abandoned_carts" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "abandoned_carts_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
@@ -21,7 +25,7 @@ CREATE TABLE "cart_items" (
 	"product_id" integer NOT NULL,
 	"product_variant_id" integer NOT NULL,
 	"quantity" integer DEFAULT 1 NOT NULL,
-	"unit_price" numeric(2, 12) NOT NULL,
+	"unit_price" numeric(12, 2) NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "cart_items_cartId_productId_productVariantId_unique" UNIQUE("cart_id","product_id","product_variant_id"),
@@ -90,13 +94,21 @@ CREATE TABLE "product_option_values" (
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE "product_variant_option" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "product_variant_option_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"product_variant_id" integer,
+	"option_value_id" integer,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE "product_variants" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "product_variants_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"product_id" integer NOT NULL,
 	"sku" text,
 	"barcode" text,
-	"price" numeric(2, 12),
-	"compare_at_price" numeric(2, 12),
+	"price" numeric(12, 2),
+	"compare_at_price" numeric(12, 2),
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
@@ -123,9 +135,9 @@ CREATE TABLE "products" (
 	"slug" text NOT NULL,
 	"description" varchar(500),
 	"sku" text,
-	"price" numeric(2, 12) NOT NULL,
-	"compare_at_price" numeric(2, 12),
-	"cost_per_price" numeric(2, 12),
+	"price" numeric(12, 2) NOT NULL,
+	"compare_at_price" numeric(12, 2),
+	"cost_per_price" numeric(12, 2),
 	"track_inventory" boolean DEFAULT true,
 	"continue_selling_when_out_of_stock" boolean DEFAULT false,
 	"views_count" integer DEFAULT 0 NOT NULL,
@@ -134,10 +146,10 @@ CREATE TABLE "products" (
 	"seo_description" text,
 	"scheduled_published_at" timestamp,
 	"requires_shipping" boolean DEFAULT true,
-	"weight_kg" numeric(3, 8),
-	"length_cm" numeric(3, 8),
-	"width_cm" numeric(3, 8),
-	"height_cm" numeric(3, 8),
+	"weight_kg" numeric(8, 2),
+	"length_cm" numeric(8, 2),
+	"width_cm" numeric(8, 2),
+	"height_cm" numeric(8, 2),
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "products_slug_unique" UNIQUE("slug")
@@ -257,6 +269,18 @@ CREATE TABLE "notification_types" (
 	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE "notifications" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "notifications_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"user_id" integer NOT NULL,
+	"type" varchar(2) NOT NULL,
+	"title" text NOT NULL,
+	"description" text NOT NULL,
+	"is_read" boolean DEFAULT false NOT NULL,
+	"related_entity_id" integer,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE "user_notification_preferences" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "user_notification_preferences_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"user_id" integer NOT NULL,
@@ -268,6 +292,76 @@ CREATE TABLE "user_notification_preferences" (
 	CONSTRAINT "user_notification_preferences_userId_storeId_field_unique" UNIQUE("user_id","store_id","field")
 );
 --> statement-breakpoint
+CREATE TABLE "order_items" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "order_items_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"order_id" integer NOT NULL,
+	"product_id" integer NOT NULL,
+	"product_variant_id" integer NOT NULL,
+	"product_title" text NOT NULL,
+	"variant_label" text,
+	"image_url" text,
+	"quantity" integer,
+	"unit_price" numeric(12, 2) NOT NULL,
+	"line_total" numeric(12, 2) NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "order_items_orderId_productId_productVariantId_unique" UNIQUE("order_id","product_id","product_variant_id"),
+	CONSTRAINT "positive_quantity" CHECK (quantity > 0)
+);
+--> statement-breakpoint
+CREATE TABLE "order_status_history" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "order_status_history_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"order_id" integer NOT NULL,
+	"from_status" "order_status",
+	"to_status" "order_status" NOT NULL,
+	"changed_by_id" integer,
+	"note" text,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "orders" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "orders_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"store_id" integer NOT NULL,
+	"user_id" integer NOT NULL,
+	"status" "order_status" NOT NULL,
+	"sub_total" numeric(12, 2) NOT NULL,
+	"discount_amount" numeric(12, 2) DEFAULT '0.0' NOT NULL,
+	"shipping_cost" numeric(12, 2) DEFAULT '0.0' NOT NULL,
+	"tax_amount" numeric(12, 2) DEFAULT '0.0' NOT NULL,
+	"total" numeric(12, 2) NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "review_helpful_votes" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "review_helpful_votes_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"review_id" integer,
+	"user_id" integer NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "review_helpful_votes_reviewId_userId_unique" UNIQUE("review_id","user_id")
+);
+--> statement-breakpoint
+CREATE TABLE "reviews" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "reviews_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"product_id" integer,
+	"store_id" integer,
+	"status" "review_status" NOT NULL,
+	"title" text,
+	"body" text,
+	"user_id" integer NOT NULL,
+	"rating" smallint,
+	"helpful_votes" integer DEFAULT 0 NOT NULL,
+	"store_reply" text,
+	"store_reply_at" timestamp,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "reviews_productId_userId_unique" UNIQUE NULLS NOT DISTINCT("product_id","user_id"),
+	CONSTRAINT "reviews_storeId_userId_unique" UNIQUE NULLS NOT DISTINCT("store_id","user_id"),
+	CONSTRAINT "rating_in_range" CHECK (rating BETWEEN 1 AND 5)
+);
+--> statement-breakpoint
 CREATE TABLE "store_followings" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "store_followings_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"store_id" integer NOT NULL,
@@ -275,6 +369,21 @@ CREATE TABLE "store_followings" (
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "store_followings_userId_storeId_unique" UNIQUE("user_id","store_id")
+);
+--> statement-breakpoint
+CREATE TABLE "store_invitations" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "store_invitations_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"store_id" integer NOT NULL,
+	"role_id" integer NOT NULL,
+	"email" text NOT NULL,
+	"personal_message" text,
+	"status" "invitation_status" DEFAULT 'pending' NOT NULL,
+	"sent_at" timestamp DEFAULT now(),
+	"expires_at" timestamp,
+	"accepted_at" timestamp,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "store_invitations_storeId_email_unique" UNIQUE("store_id","email")
 );
 --> statement-breakpoint
 CREATE TABLE "store_permissions" (
@@ -327,13 +436,13 @@ CREATE TABLE "stores" (
 	"status" "store_status" NOT NULL,
 	"primary_category" integer NOT NULL,
 	"secondary_category" integer,
-	"legal_business_name" text,
+	"legal_business_name" text NOT NULL,
 	"business_id" text,
-	"street" text,
-	"city" text,
+	"street" text NOT NULL,
+	"city" text NOT NULL,
 	"state" text NOT NULL,
 	"country" text NOT NULL,
-	"zip" text,
+	"zip" text NOT NULL,
 	"email" text,
 	"phone" text,
 	"website" text,
@@ -363,6 +472,8 @@ ALTER TABLE "product_tags" ADD CONSTRAINT "product_tags_product_id_products_id_f
 ALTER TABLE "product_tags" ADD CONSTRAINT "product_tags_tag_id_tags_id_fk" FOREIGN KEY ("tag_id") REFERENCES "public"."tags"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "product_option_groups" ADD CONSTRAINT "product_option_groups_product_id_products_id_fk" FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "product_option_values" ADD CONSTRAINT "product_option_values_option_group_id_product_option_groups_id_fk" FOREIGN KEY ("option_group_id") REFERENCES "public"."product_option_groups"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "product_variant_option" ADD CONSTRAINT "product_variant_option_product_variant_id_product_variants_id_fk" FOREIGN KEY ("product_variant_id") REFERENCES "public"."product_variants"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "product_variant_option" ADD CONSTRAINT "product_variant_option_option_value_id_product_option_values_id_fk" FOREIGN KEY ("option_value_id") REFERENCES "public"."product_option_values"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "product_variants" ADD CONSTRAINT "product_variants_product_id_products_id_fk" FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "product_views" ADD CONSTRAINT "product_views_product_id_products_id_fk" FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "product_views" ADD CONSTRAINT "product_views_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
@@ -380,11 +491,27 @@ ALTER TABLE "conversations" ADD CONSTRAINT "conversations_user_id_users_id_fk" F
 ALTER TABLE "conversations" ADD CONSTRAINT "conversations_store_id_stores_id_fk" FOREIGN KEY ("store_id") REFERENCES "public"."stores"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "messages" ADD CONSTRAINT "messages_conversation_id_conversations_id_fk" FOREIGN KEY ("conversation_id") REFERENCES "public"."conversations"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "messages" ADD CONSTRAINT "messages_sender_id_users_id_fk" FOREIGN KEY ("sender_id") REFERENCES "public"."users"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "notifications" ADD CONSTRAINT "notifications_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "notifications" ADD CONSTRAINT "notifications_type_notification_types_id_fk" FOREIGN KEY ("type") REFERENCES "public"."notification_types"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_notification_preferences" ADD CONSTRAINT "user_notification_preferences_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_notification_preferences" ADD CONSTRAINT "user_notification_preferences_store_id_stores_id_fk" FOREIGN KEY ("store_id") REFERENCES "public"."stores"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_notification_preferences" ADD CONSTRAINT "user_notification_preferences_field_notification_types_id_fk" FOREIGN KEY ("field") REFERENCES "public"."notification_types"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "order_items" ADD CONSTRAINT "order_items_order_id_orders_id_fk" FOREIGN KEY ("order_id") REFERENCES "public"."orders"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "order_items" ADD CONSTRAINT "order_items_product_id_products_id_fk" FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "order_items" ADD CONSTRAINT "order_items_product_variant_id_product_variants_id_fk" FOREIGN KEY ("product_variant_id") REFERENCES "public"."product_variants"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "order_status_history" ADD CONSTRAINT "order_status_history_order_id_orders_id_fk" FOREIGN KEY ("order_id") REFERENCES "public"."orders"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "order_status_history" ADD CONSTRAINT "order_status_history_changed_by_id_users_id_fk" FOREIGN KEY ("changed_by_id") REFERENCES "public"."users"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "orders" ADD CONSTRAINT "orders_store_id_stores_id_fk" FOREIGN KEY ("store_id") REFERENCES "public"."stores"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "orders" ADD CONSTRAINT "orders_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "review_helpful_votes" ADD CONSTRAINT "review_helpful_votes_review_id_reviews_id_fk" FOREIGN KEY ("review_id") REFERENCES "public"."reviews"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "review_helpful_votes" ADD CONSTRAINT "review_helpful_votes_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_product_id_products_id_fk" FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_store_id_stores_id_fk" FOREIGN KEY ("store_id") REFERENCES "public"."stores"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "store_followings" ADD CONSTRAINT "store_followings_store_id_stores_id_fk" FOREIGN KEY ("store_id") REFERENCES "public"."stores"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "store_followings" ADD CONSTRAINT "store_followings_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "store_invitations" ADD CONSTRAINT "store_invitations_store_id_stores_id_fk" FOREIGN KEY ("store_id") REFERENCES "public"."stores"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "store_invitations" ADD CONSTRAINT "store_invitations_role_id_store_roles_id_fk" FOREIGN KEY ("role_id") REFERENCES "public"."store_roles"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "store_role_permissions" ADD CONSTRAINT "store_role_permissions_role_id_store_roles_id_fk" FOREIGN KEY ("role_id") REFERENCES "public"."store_roles"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "store_role_permissions" ADD CONSTRAINT "store_role_permissions_permission_id_store_permissions_id_fk" FOREIGN KEY ("permission_id") REFERENCES "public"."store_permissions"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "store_roles" ADD CONSTRAINT "store_roles_store_id_stores_id_fk" FOREIGN KEY ("store_id") REFERENCES "public"."stores"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
@@ -398,6 +525,7 @@ CREATE INDEX "categories_parent_id_index" ON "categories" USING btree ("parent_i
 CREATE INDEX "product_tags_tag_id_index" ON "product_tags" USING btree ("tag_id");--> statement-breakpoint
 CREATE INDEX "product_option_groups_product_id_index" ON "product_option_groups" USING btree ("product_id");--> statement-breakpoint
 CREATE INDEX "product_option_values_option_group_id_index" ON "product_option_values" USING btree ("option_group_id");--> statement-breakpoint
+CREATE INDEX "product_variant_option_product_variant_id_index" ON "product_variant_option" USING btree ("product_variant_id");--> statement-breakpoint
 CREATE INDEX "product_variants_product_id_index" ON "product_variants" USING btree ("product_id");--> statement-breakpoint
 CREATE INDEX "product_views_product_id_index" ON "product_views" USING btree ("product_id");--> statement-breakpoint
 CREATE INDEX "product_views_user_id_index" ON "product_views" USING btree ("user_id") WHERE "product_views"."user_id" is not null;--> statement-breakpoint
@@ -406,4 +534,7 @@ CREATE INDEX "auth_sessions_user_id_index" ON "auth_sessions" USING btree ("user
 CREATE INDEX "otp_verifications_email_index" ON "otp_verifications" USING btree ("email");--> statement-breakpoint
 CREATE INDEX "user_addresses_user_id_index" ON "user_addresses" USING btree ("user_id");--> statement-breakpoint
 CREATE INDEX "messages_conversation_id_index" ON "messages" USING btree ("conversation_id");--> statement-breakpoint
+CREATE INDEX "notifications_user_id_index" ON "notifications" USING btree ("user_id");--> statement-breakpoint
+CREATE INDEX "order_status_history_order_id_index" ON "order_status_history" USING btree ("order_id");--> statement-breakpoint
+CREATE INDEX "reviews_user_id_index" ON "reviews" USING btree ("user_id");--> statement-breakpoint
 CREATE INDEX "store_followings_store_id_index" ON "store_followings" USING btree ("store_id");

@@ -1,8 +1,4 @@
-import {
-	type RatingBar,
-	type Review,
-	ReviewsList,
-} from "@/ui/reviews";
+import { type RatingBar, type Review, ReviewsList } from "@/ui/reviews";
 import { ScreenSectionCard } from "@/ui/screen-section-card";
 
 const REVIEWS: Review[] = [

@@ -16,7 +16,11 @@ export const baseDbSchema = <
 	_: U,
 	columns: T,
 ) => ({
-	id: idField().primaryKey().generatedAlwaysAsIdentity().notNull().$type<ExtractBrand<U>>(),
+	id: idField()
+		.primaryKey()
+		.generatedAlwaysAsIdentity()
+		.notNull()
+		.$type<ExtractBrand<U>>(),
 	...columns,
 	createdAt: timestamp().defaultNow().notNull(),
 	updatedAt: timestamp({
@@ -27,11 +31,7 @@ export const baseDbSchema = <
 		.notNull(),
 });
 
-export const systemValueDbSchema = <
-	U,
->(
-	_: U,
-) => ({
+export const systemValueDbSchema = <U>(_: U) => ({
 	id: systemIdField().primaryKey().notNull().$type<U>(),
 	label: varchar({ length: 128 }).notNull(),
 	order: integer().notNull().default(0),

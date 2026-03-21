@@ -1,11 +1,6 @@
 import { getRouteApi, Link } from "@tanstack/solid-router";
 import { BadgeCheckIcon, ExternalLink } from "lucide-solid";
-import {
-	Footer,
-	MainNav,
-	SidebarLayout,
-	TopBar,
-} from "@/ui/layout";
+import { Footer, MainNav, SidebarLayout, TopBar } from "@/ui/layout";
 import { NavSection } from "./NavSection";
 
 const MerchantSidebarCard = () => {

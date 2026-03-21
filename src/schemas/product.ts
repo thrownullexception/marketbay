@@ -9,7 +9,7 @@ export type ProductId = v.InferOutput<typeof ProductIdSchema>;
 export enum ProductStatus {
 	Active = "active",
 	Draft = "draft",
-	Archived = "archived"
+	Archived = "archived",
 }
 
 export enum ProductCondition {

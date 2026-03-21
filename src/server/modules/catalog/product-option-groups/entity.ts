@@ -1,7 +1,7 @@
 import {
 	index,
 	pgTable,
-    smallint,
+	smallint,
 	text,
 	type UpdateDeleteAction,
 } from "drizzle-orm/pg-core";
@@ -22,7 +22,9 @@ export const ProductOptionGroupEntity = pgTable(
 	(t) => [index().on(t.productId)],
 );
 
-export const referencesProductOptionGroupEntity = (constraint?: UpdateDeleteAction) => {
+export const referencesProductOptionGroupEntity = (
+	constraint?: UpdateDeleteAction,
+) => {
 	return idField()
 		.references(() => ProductOptionGroupEntity.id, {
 			onDelete: constraint || "cascade",

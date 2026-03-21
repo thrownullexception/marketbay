@@ -1,8 +1,4 @@
-import {
-	pgTable,
-	timestamp,
-	unique,
-} from "drizzle-orm/pg-core";
+import { pgTable, timestamp, unique } from "drizzle-orm/pg-core";
 import { StoreTeamMemberId } from "@/schemas/store-team-member";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesUserEntity } from "../../identity/users/entity";
@@ -15,8 +11,7 @@ export const StoreTeamMemberEntity = pgTable(
 		storeId: referencesStoreEntity("cascade").notNull(),
 		userId: referencesUserEntity("cascade").notNull(),
 		roleId: referencesStoreRoleEntity("restrict").notNull(),
-        lastActive: timestamp().defaultNow()
+		lastActive: timestamp().defaultNow(),
 	}),
 	(t) => [unique().on(t.userId, t.storeId)],
 );
-

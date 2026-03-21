@@ -29,5 +29,5 @@ export const referencesUserEntity = (constraint?: UpdateDeleteAction) => {
 		.references(() => UserEntity.id, {
 			onDelete: constraint || "restrict",
 		})
-		.$type<UserId>()
+		.$type<UserId>();
 };
