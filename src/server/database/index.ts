@@ -3,6 +3,7 @@ import { SQL } from "bun";
 import { drizzle } from "drizzle-orm/bun-sql";
 
 import { serverEnv } from "@/server/env";
+import { DrizzleCache } from "./cache";
 import * as schema from "./schemas";
 
 export type Database = typeof db;
@@ -13,4 +14,8 @@ const pool = new SQL({
 	idleTimeout: 0,
 });
 
-export const db = drizzle(pool, { schema, casing: "snake_case" });
+export const db = drizzle(pool, {
+	schema,
+	casing: "snake_case",
+	cache: new DrizzleCache(),
+});

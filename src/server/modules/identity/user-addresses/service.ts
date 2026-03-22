@@ -12,9 +12,9 @@ export class UserAddressService {
 	constructor(private readonly db: Database) {}
 
 	async getUserAddresses(userId: UserId) {
-		console.log("getUserAddresses", userId);
 		return await this.db
 			.select({
+				id: UserAddressEntity.id,
 				firstName: UserAddressEntity.firstName,
 				lastName: UserAddressEntity.lastName,
 				street: UserAddressEntity.street,
@@ -32,6 +32,7 @@ export class UserAddressService {
 		return (
 			await this.db
 				.select({
+					id: UserAddressEntity.id,
 					firstName: UserAddressEntity.firstName,
 					lastName: UserAddressEntity.lastName,
 					street: UserAddressEntity.street,

@@ -22,7 +22,7 @@ export const CreateStoreScreen = () => {
 	const form = useAppForm(() => ({
 		defaultValues: {
 			name: "",
-			handle: "",
+			slug: "",
 			description: "",
 			primaryCategory: "",
 			state: "",
@@ -30,9 +30,13 @@ export const CreateStoreScreen = () => {
 			// logo: "",
 			// coverImage: "",
 			businessEmail: "",
-			password: "",
 			phoneNumber: "",
 			websiteURL: "",
+			email: "",
+			phone: "",
+			website: "",
+			instagram: "",
+			twitter: "",
 			instagramURL: "",
 			xURL: "",
 			warranty: "",

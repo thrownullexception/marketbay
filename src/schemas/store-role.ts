@@ -5,3 +5,9 @@ export const StoreRoleId = v.custom<StoreRoleId>((val) => {
 	return v.safeParse(StoreRoleIdSchema, val).success;
 });
 export type StoreRoleId = v.InferOutput<typeof StoreRoleIdSchema>;
+
+export enum StoreRole {
+	Owner = "owner",
+	Manager = "manager",
+	Staff = "staff",
+}

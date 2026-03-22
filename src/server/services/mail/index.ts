@@ -23,7 +23,7 @@ export class MailService {
 			return Promise.resolve(undefined);
 		}
 
-		// const html = renderToStaticMarkup(<OTPEmail otp={otp} />)
+		const html = renderToStaticMarkup(MAIL_TEMPLATES[input.type].template(input.params as any))
 
 		await this.resend.emails.send({
 			from: `${MAIL_TEMPLATES[input.type].from}@${APP_CONSTANTS.SITE.NAME}`,
@@ -31,7 +31,7 @@ export class MailService {
 			subject: input.overrideSubject ?? MAIL_TEMPLATES[input.type].subject,
 			// biome-ignore lint/suspicious/noExplicitAny: let it go
 			// react: MAIL_TEMPLATES[input.type].template(input.params as any),
-		    html: "",
+		    html: html,
 		});
 
 		console.log(

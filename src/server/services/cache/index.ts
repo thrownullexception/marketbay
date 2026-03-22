@@ -7,8 +7,12 @@ import type { SERVER_ENV } from "@/server/env";
 
 export class CacheService {
 	// biome-ignore lint/complexity/noBannedTypes: idk
-	private readonly bento: BentoCache<{}>;
+	private bento!: BentoCache<{}>;
 	constructor(env: SERVER_ENV) {
+		if(this.bento) {
+			return;
+		}
+		console.log("Creating BentoCache");
 		this.bento = new BentoCache({
 			default: "multitier",
 			stores: {
@@ -49,8 +53,39 @@ export class CacheService {
 			ttl,
 		});
 	}
+
+	async set<T>({
+		namespace,
+		key,
+		value,
+		ttl,
+	}: {
+		namespace: string;
+		key: string;
+		value: T;
+		ttl: number;
+	}): Promise<void> {
+		await this.bento?.namespace(namespace).set({
+			key,
+			value,
+			ttl,
+		});
+	}
+
+	async get<T>({
+		namespace,
+		key,
+	}: {
+		namespace: string;
+		key: string;
+	}): Promise<T | undefined> {
+		return this.bento?.namespace(namespace).get({
+			key,
+		});
+	}
+
 	async delete({ namespace, key }: { namespace: string; key: string }) {
-		return this.bento.namespace(namespace).delete({
+		return this.bento?.namespace(namespace).delete({
 			key,
 		});
 	}

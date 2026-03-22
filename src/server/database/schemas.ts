@@ -48,7 +48,7 @@ export * from "@/server/modules/orders/orders/entity";
 export * from "@/server/modules/reviews/review-helpful-votes/entity";
 export * from "@/server/modules/reviews/reviews/entity";
 //
-export * from "@/server/modules/stores/followings/entity";
+export * from "@/server/modules/stores/store-followings/entity";
 export * from "@/server/modules/stores/store-invitations/entity";
 export * from "@/server/modules/stores/store-permissions/entity";
 export * from "@/server/modules/stores/store-role-permissions/entity";

@@ -29,10 +29,10 @@ export const StoreEntity = pgTable(
     }),
     logoUrl: text(),
     coverUrl: text(),
-    status: storeStatus().notNull(),
+    status: storeStatus().notNull().default(StoreStatus.Active),
 
-    primaryCategory: referencesCategoryEntity().notNull(),
-    secondaryCategory: referencesCategoryEntity(),
+    primaryCategoryId: referencesCategoryEntity().notNull(),
+    secondaryCategoryId: referencesCategoryEntity(),
 
     legalBusinessName: text().notNull(),
     businessId: text(),
@@ -62,11 +62,11 @@ export const StoreEntity = pgTable(
     avgRating: numeric({
       precision: 2,
       scale: 2,
-    }).default("0.0"),
-    reviewCount: integer().default(0),
-    totalSales: integer().default(0),
+    }).notNull().default("0.0"),
+    reviewCount: integer().notNull().default(0),
+    totalSales: integer().notNull().default(0),
 
-    isVerified: boolean(),
+    isVerified: boolean().notNull().default(false),
   }),
   (t) => [unique().on(t.slug)],
 );

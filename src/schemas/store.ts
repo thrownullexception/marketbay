@@ -1,6 +1,8 @@
 import * as v from "valibot";
+import { encodeHashId } from "@/server/services/hashid";
+import type { CategoryId } from "./category";
 
-const StoreIdSchema = v.pipe(v.number(), v.brand("StoreId"));
+export const StoreIdSchema = v.pipe(v.number(), v.brand("StoreId"));
 export const StoreId = v.custom<StoreId>((val) => {
 	return v.safeParse(StoreIdSchema, val).success;
 });
@@ -31,10 +33,12 @@ export const CreateStoreRequestSchema = v.object({
 	),
 	tagline: v.optional(v.pipe(v.string(), v.maxLength(60))),
 	description: v.optional(v.pipe(v.string(), v.maxLength(500))),
-	primaryCategory: v.pipe(v.string(), v.minLength(1)),
-	secondaryCategory: v.optional(v.pipe(v.string())),
+	primaryCategoryId: v.pipe(v.string(), v.minLength(1)),
+	secondaryCategoryId: v.optional(v.pipe(v.string())),
 	state: v.pipe(v.string(), v.minLength(1)),
 	city: v.pipe(v.string()),
+	zip: v.pipe(v.string(), v.maxLength(7)),
+	country: v.pipe(v.string()),
 	// logo: v.pipe(v.file(), v.maxSize(2 * 1024 * 1024)),
 	// coverImage: v.pipe(v.file(), v.maxSize(2 * 1024 * 1024)), // TODO: add to 5MB
 	email: v.pipe(v.string(), v.minLength(1), v.email()),
@@ -80,3 +84,48 @@ export const CreateStoreRequestSchema = v.object({
 	// 	v.transform((value) => value === true),
 	// ),
 });
+
+export class StoreResponseTransformer {
+	id: string;
+	name: string;
+	slug: string;
+	logoUrl?: string | null;
+	coverUrl?: string | null;
+	status: StoreStatus;
+	primaryCategoryId: CategoryId;
+	secondaryCategoryId: CategoryId | null;
+	avgRating: string;
+	reviewCount: number;
+	totalSales: number;
+	isVerified: boolean;
+
+	constructor(
+		readonly store: {
+			id: number;
+			name: string;
+			slug: string;
+			logoUrl?: string | null;
+			coverUrl?: string | null;
+			status: StoreStatus;
+			primaryCategoryId: CategoryId;
+			secondaryCategoryId: CategoryId | null;
+			avgRating: string;
+			reviewCount: number;
+			totalSales: number;
+			isVerified: boolean;
+		},
+	) {
+		this.id = encodeHashId(store.id);
+		this.name = store.name;
+		this.slug = store.slug;
+		this.logoUrl = store.logoUrl;
+		this.coverUrl = store.coverUrl;
+		this.status = store.status;
+		this.primaryCategoryId = store.primaryCategoryId;
+		this.secondaryCategoryId = store.secondaryCategoryId;
+		this.avgRating = store.avgRating;
+		this.reviewCount = store.reviewCount;
+		this.isVerified = store.isVerified;
+		this.totalSales = store.totalSales;
+	}
+}

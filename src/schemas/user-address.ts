@@ -5,6 +5,7 @@ import {
 	shortStringSchema,
 	zipSchema,
 } from "@/schemas/base";
+import { encodeHashId } from "@/server/services/hashid";
 
 export const UserAddressIdSchema = v.pipe(v.number(), v.brand("UserAddressId"));
 export const UserAddressId = v.custom<UserAddressId>((val) => {
@@ -36,6 +37,37 @@ const UserAddressResponseSchema = v.object({
 	isDefault: v.boolean(),
 	// country: v.enum(SupportedCountries),
 });
+
+export class UserAddressResponseTransformer {
+	id: string;
+	firstName: string;
+	lastName: string;
+	street: string;
+	city: string;
+	state: string;
+	zip: string;
+	isDefault: boolean;
+
+	constructor(readonly address: {
+		id: number;
+		firstName: string;
+		lastName: string;
+		street: string;
+		city: string;
+		state: string;
+		zip: string;
+		isDefault: boolean;
+	}) {
+		this.id = encodeHashId(address.id);
+		this.firstName = address.firstName;
+		this.lastName = address.lastName;
+		this.street = address.street;
+		this.city = address.city;
+		this.state = address.state;
+		this.zip = address.zip;
+		this.isDefault = address.isDefault;
+	}
+}
 
 export const CreateAddressRequestSchema = UserAddressRequestSchema;
 export const UpdateAddressRequestSchema = UserAddressRequestSchema;
