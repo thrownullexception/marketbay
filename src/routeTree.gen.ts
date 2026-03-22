@@ -18,6 +18,7 @@ import { Route as AccountRouteRouteImport } from './routes/account/route'
 import { Route as formsRouteRouteImport } from './routes/(forms)/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as appRouteRouteImport } from './routes/(app)/route'
+import { Route as MerchantIndexRouteImport } from './routes/merchant/index'
 import { Route as AccountIndexRouteImport } from './routes/account/index'
 import { Route as appIndexRouteImport } from './routes/(app)/index'
 import { Route as AccountWishlistRouteImport } from './routes/account/wishlist'
@@ -98,6 +99,11 @@ const authRouteRoute = authRouteRouteImport.update({
 } as any)
 const appRouteRoute = appRouteRouteImport.update({
   id: '/(app)',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MerchantIndexRoute = MerchantIndexRouteImport.update({
+  id: '/merchant/',
+  path: '/merchant/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccountIndexRoute = AccountIndexRouteImport.update({
@@ -328,6 +334,7 @@ export interface FileRoutesByFullPath {
   '/account/wishlist': typeof AccountWishlistRoute
   '/': typeof appIndexRoute
   '/account/': typeof AccountIndexRoute
+  '/merchant/': typeof MerchantIndexRoute
   '/store/$storeSlug': typeof appStoreStoreSlugRouteRouteWithChildren
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/chat/$storeSlug': typeof appChatStoreSlugRoute
@@ -372,6 +379,7 @@ export interface FileRoutesByTo {
   '/account/wishlist': typeof AccountWishlistRoute
   '/': typeof appIndexRoute
   '/account': typeof AccountIndexRoute
+  '/merchant': typeof MerchantIndexRoute
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/product/$productSlug': typeof appProductProductSlugRoute
@@ -422,6 +430,7 @@ export interface FileRoutesById {
   '/account/wishlist': typeof AccountWishlistRoute
   '/(app)/': typeof appIndexRoute
   '/account/': typeof AccountIndexRoute
+  '/merchant/': typeof MerchantIndexRoute
   '/(app)/store/$storeSlug': typeof appStoreStoreSlugRouteRouteWithChildren
   '/(app)/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/(app)/chat/$storeSlug': typeof appChatStoreSlugRoute
@@ -471,6 +480,7 @@ export interface FileRouteTypes {
     | '/account/wishlist'
     | '/'
     | '/account/'
+    | '/merchant/'
     | '/store/$storeSlug'
     | '/category/$categorySlug'
     | '/chat/$storeSlug'
@@ -515,6 +525,7 @@ export interface FileRouteTypes {
     | '/account/wishlist'
     | '/'
     | '/account'
+    | '/merchant'
     | '/category/$categorySlug'
     | '/chat/$storeSlug'
     | '/product/$productSlug'
@@ -564,6 +575,7 @@ export interface FileRouteTypes {
     | '/account/wishlist'
     | '/(app)/'
     | '/account/'
+    | '/merchant/'
     | '/(app)/store/$storeSlug'
     | '/(app)/category/$categorySlug'
     | '/(app)/chat/$storeSlug'
@@ -596,6 +608,7 @@ export interface RootRouteChildren {
   StoreTermsOfServiceRoute: typeof StoreTermsOfServiceRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   MerchantStoreIdRouteRoute: typeof MerchantStoreIdRouteRouteWithChildren
+  MerchantIndexRoute: typeof MerchantIndexRoute
 }
 
 declare module '@tanstack/solid-router' {
@@ -661,6 +674,13 @@ declare module '@tanstack/solid-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof appRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/merchant/': {
+      id: '/merchant/'
+      path: '/merchant'
+      fullPath: '/merchant/'
+      preLoaderRoute: typeof MerchantIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/account/': {
@@ -1097,6 +1117,7 @@ const rootRouteChildren: RootRouteChildren = {
   StoreTermsOfServiceRoute: StoreTermsOfServiceRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
   MerchantStoreIdRouteRoute: MerchantStoreIdRouteRouteWithChildren,
+  MerchantIndexRoute: MerchantIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

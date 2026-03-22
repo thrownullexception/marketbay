@@ -1,4 +1,6 @@
-import NotificationEmail from "@/server/emails/notification";
+// import NotificationEmail from "@/server/emails/notification";
+
+import type * as React from "react";
 import ResetPasswordEmail from "@/server/emails/password-reset";
 import VerifyAccountEmail from "@/server/emails/verify-account";
 
@@ -15,11 +17,11 @@ export const MAIL_TEMPLATES = {
 		from: "support",
 		template: ResetPasswordEmail,
 	},
-	notification: {
-		subject: "New Notificaion",
-		from: "notifications",
-		template: NotificationEmail,
-	},
+	// notification: {
+	// 	subject: "New Notificaion",
+	// 	from: "notifications",
+	// 	template: NotificationEmail,
+	// },
 } as const;
 
 // Extract the template props types from the configuration

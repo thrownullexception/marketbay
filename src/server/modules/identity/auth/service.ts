@@ -60,16 +60,16 @@ export class AuthService {
 
 		const normalizedEmail = normalizeEmail(input.email) || "";
 
-		const existingUserId = await this.usersService.getUserIdFromFieldOrNull({
+		const existingUserId = await this.usersService.getUserIdFromField({
 			field: "normalizedEmail",
 			value: normalizedEmail,
 		});
 
-		if (existingUserId) {
+		if (existingUserId !== "null") {
 			throw new BadRequestError("Email already exists");
 		}
 
-		await this.usersService.createUser({
+		 await this.usersService.createUser({
 			email: input.email.toLowerCase(),
 			normalizedEmail,
 			firstName: input.firstName,
@@ -86,22 +86,22 @@ export class AuthService {
 
 		await this.mailService.send({
 			to: input.email,
-			params: { otp: otp, username: input.firstName },
+			params: { otp: otp, firstName: input.firstName },
 			type: "verification",
 		});
 	}
 
 	async signin(input: v.InferOutput<typeof LoginRequestSchema>) {
-		const userId = await this.usersService.getUserIdFromFieldOrNull({
+		const userId = await this.usersService.getUserIdFromField({
 			field: "email",
 			value: input.email.toLowerCase(),
 		});
 
-		if (!userId) {
+		if (userId === "null") {
 			throw new BadRequestError("Invalid login credentials");
 		}
 
-		const user = await this.usersService.getFieldsFromUserIdOrDie({
+		const user = await this.usersService.getFieldsFromUserIdOrFail({
 			userId: userId,
 			fields: ["password", "emailVerified", "id"],
 		});
@@ -378,7 +378,7 @@ export class AuthService {
 	}
 
 	async getAuthenticatedUser(input: { userId: UserId }) {
-		return await this.usersService.getFieldsFromUserIdOrDie({
+		return await this.usersService.getFieldsFromUserIdOrFail({
 			userId: input.userId,
 			fields: ["firstName", "lastName", "id", "image", "email"],
 		});
@@ -420,7 +420,7 @@ export class AuthService {
 		currentPassword: string;
 		newPassword: string;
 	}) {
-		const user = await this.usersService.getFieldsFromUserIdOrDie({
+		const user = await this.usersService.getFieldsFromUserIdOrFail({
 			userId: input.userId,
 			fields: ["password"],
 		});
@@ -443,14 +443,19 @@ export class AuthService {
 	}
 
 	async resendVerificationEmail(input: { email: string }) {
-		const userId = await this.usersService.getUserIdFromFieldOrNull({
+		const userId = await this.usersService.getUserIdFromField({
 			field: "email",
 			value: input.email,
 		});
 
-		if (!userId) {
+		if (userId === "null") {
 			return;
 		}
+
+		const user = await this.usersService.getFieldsFromUserIdOrFail({
+			userId,
+			fields: ['firstName']
+		})
 
 		const otp = await this.createOtp({
 			email: input.email,
@@ -459,20 +464,25 @@ export class AuthService {
 
 		await this.mailService.send({
 			to: input.email,
-			params: { otp: otp, username: input.email },
+			params: { otp: otp, firstName: user.firstName },
 			type: "verification",
 		});
 	}
 
 	async sendPasswordResetEmail(input: { email: string }) {
-		const userId = this.usersService.getUserIdFromFieldOrNull({
+		const userId = await this.usersService.getUserIdFromField({
 			field: "email",
 			value: input.email,
 		});
 
-		if (!userId) {
+		if (userId === "null") {
 			return;
 		}
+
+		const user = await this.usersService.getFieldsFromUserIdOrFail({
+			userId,
+			fields: ['firstName']
+		});
 
 		const otp = await this.createOtp({
 			email: input.email,
@@ -481,7 +491,7 @@ export class AuthService {
 
 		await this.mailService.send({
 			to: input.email,
-			params: { otp: otp, username: input.email },
+			params: { otp: otp, firstName: user.firstName },
 			type: "passwordReset",
 		});
 	}

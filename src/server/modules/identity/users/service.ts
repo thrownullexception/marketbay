@@ -37,18 +37,18 @@ export class UsersService {
 		return user[0].id;
 	}
 
-	async getUserIdFromFieldOrNull(input: {
+	async getUserIdFromField(input: {
 		field: keyof InferSelectModel<typeof UserEntity>;
 		value: string;
 	}) {
 		try {
 			return await this.getUserIdFromFieldOrFail(input);
 		} catch (_e) {
-			return null;
+			return "null";
 		}
 	}
 
-	async getFieldsFromUserIdOrDie<
+	async getFieldsFromUserIdOrFail<
 		T extends keyof InferSelectModel<typeof UserEntity>,
 	>(input: { userId: UserId; fields: T[] }) {
 		const user = await this.db
@@ -70,13 +70,13 @@ export class UsersService {
 		return user[0] as unknown as Pick<InferSelectModel<typeof UserEntity>, T>;
 	}
 
-	async getFieldsFromUserIdOrNull<
+	async getFieldsFromUserId<
 		T extends keyof InferSelectModel<typeof UserEntity>,
 	>(input: { userId: UserId; fields: T[] }) {
 		try {
-			return await this.getFieldsFromUserIdOrDie(input);
+			return await this.getFieldsFromUserIdOrFail(input);
 		} catch (_e) {
-			return null;
+			return "null";
 		}
 	}
 
