@@ -1,11 +1,11 @@
 import { boolean, index, pgTable, text } from "drizzle-orm/pg-core";
-import { UserAddressId } from "@/schemas/user-address";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesUserEntity } from "../users/entity";
+import { UserAddressIdTransformer } from "./types";
 
 export const UserAddressEntity = pgTable(
 	"user_addresses",
-	baseDbSchema(UserAddressId, {
+	baseDbSchema(UserAddressIdTransformer.unoPrivate, {
 		userId: referencesUserEntity("cascade").notNull(),
 		firstName: text().notNull(),
 		lastName: text().notNull(),

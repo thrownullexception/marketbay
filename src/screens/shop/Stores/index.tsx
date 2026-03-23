@@ -1,4 +1,7 @@
+import { createQuery } from "@tanstack/solid-query";
 import { linkOptions } from "@tanstack/solid-router";
+import { getShopTreaty } from "@/shared/treaty/shop.treaty";
+import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
 import { Breadcrumb } from "@/ui/breadcrumb";
 import { Container } from "@/ui/container";
 import { Grid3 } from "@/ui/grid";
@@ -10,7 +13,14 @@ import { StoreListCard } from "./StoreListCard";
 import { StoresHeader } from "./StoresHeader";
 import { StoresToolbar } from "./StoresToolbar";
 
+export const storesQuery = createTreatyQueryOptions(
+	getShopTreaty,
+	(t) => t.stores.get(),
+);
+
 export const StoresScreen = () => {
+	const storesResult = createQuery(() => storesQuery);
+
 	return (
 		<>
 			<Breadcrumb
@@ -25,6 +35,7 @@ export const StoresScreen = () => {
 				description="Follow talented independent sellers"
 				alternate
 			>
+				{JSON.stringify(storesResult.data)}
 				<Grid3>
 					<FeaturedStoreCard
 						slug="todo"

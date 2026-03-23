@@ -1,5 +1,8 @@
 /// <reference types="vite/client" />
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/solid-router";
+
+import type { QueryClient } from "@tanstack/solid-query";
+import { SolidQueryDevtools } from '@tanstack/solid-query-devtools'
+import { createRootRouteWithContext, HeadContent, Scripts } from "@tanstack/solid-router";
 import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
 import type * as Solid from "solid-js";
 import { HydrationScript } from "solid-js/web";
@@ -8,7 +11,7 @@ import { seo } from "@/shared/utils/seo";
 import appCss from "@/ui/app.css?url";
 import { DefaultCatchBoundary } from "@/ui/error";
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
 	head: () => ({
 		meta: [
 			{
@@ -67,6 +70,7 @@ function RootDocument({ children }: { children: Solid.JSX.Element }) {
 			<body class="bg-white text-gray-800 font-sans antialiased">
 				<HeadContent />
 				{children}
+				<SolidQueryDevtools buttonPosition="top-right" />
 				<TanStackRouterDevtools position="bottom-right" />
 				<Scripts />
 			</body>

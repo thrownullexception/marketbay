@@ -1,6 +1,6 @@
 import { createFileRoute, stripSearchParams } from "@tanstack/solid-router";
 import * as v from "valibot";
-import { StoresScreen } from "@/screens/shop/Stores";
+import { StoresScreen, storesQuery } from "@/screens/shop/Stores";
 import { DefaultCatchBoundary } from "@/ui/error";
 
 const defaultValues = {
@@ -14,9 +14,13 @@ const storesSearchSchema = v.object({
 export const Route = createFileRoute("/(app)/stores")({
 	component: StoresScreen,
 	loaderDeps: ({ search: { category } }) => ({ category }),
-	loader: async ({ deps }) => {
+	loader: async ({ deps, context }) => {
 		const category = deps.category;
-		return { category, foo: "bar" };
+		// return { category, foo: "bar" };
+
+		// console.log({context})
+
+		await context.queryClient.ensureQueryData(storesQuery);
 	},
 	errorComponent: DefaultCatchBoundary,
 	validateSearch: storesSearchSchema,

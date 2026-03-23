@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-export const InventoryReservationIdSchema = v.pipe(
+const InventoryReservationIdSchema = v.pipe(
 	v.number(),
 	v.brand("InventoryReservationId"),
 );

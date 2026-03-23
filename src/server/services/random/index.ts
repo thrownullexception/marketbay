@@ -38,3 +38,5 @@ export class RandomService {
 		return id;
 	}
 }
+
+export const randomService = new RandomService();

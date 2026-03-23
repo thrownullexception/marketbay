@@ -1,5 +1,5 @@
 import { eq, type InferInsertModel, type InferSelectModel } from "drizzle-orm";
-import type { Database } from "@/server/database";
+import { type Database, db } from "@/server/database";
 import { NotFoundRequestError } from "@/server/shared/errors";
 import type { UserId } from "../../../../schemas/user";
 import { UserEntity } from "./entity";
@@ -90,3 +90,5 @@ export class UsersService {
 			.where(eq(UserEntity.id, input.userId));
 	}
 }
+
+export const usersService = new UsersService(db);

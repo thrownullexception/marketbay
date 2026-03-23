@@ -44,8 +44,8 @@ function createChain(segments: QueryKeySegment[]): TreatyKeyChain<unknown> {
  * chain, without actually executing any HTTP requests.
  *
  * @example
- * treatyKey(getShopTreaty())["user-adresses"]({ userAddressId: id }).queryKey
- * // → ["user-adresses", { userAddressId: id }]
+ * treatyKey(getShopTreaty())["user-addresses"]({ userAddressId: id }).queryKey
+ * // → ["user-addresses", { userAddressId: id }]
  */
 export function treatyKey<T>(_treaty: T): TreatyKeyChain<T> {
 	return createChain([]) as TreatyKeyChain<T>;
@@ -114,13 +114,13 @@ type WithoutKeyAndFn<T> = Omit<T, "queryKey" | "queryFn">;
  * // List (no params)
  * export const addressesQuery = createTreatyQueryOptions(
  *   getShopTreaty,
- *   (t) => t["user-adresses"].get(),
+ *   (t) => t["user-addresses"].get(),
  * );
  *
  * // Single item (path param)
  * export const addressQuery = (id: string) => createTreatyQueryOptions(
  *   getShopTreaty,
- *   (t) => t["user-adresses"]({ userAddressId: id }).get(),
+ *   (t) => t["user-addresses"]({ userAddressId: id }).get(),
  *   { initialData: null },
  * );
  */

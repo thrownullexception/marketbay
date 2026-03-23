@@ -1,13 +1,9 @@
-import { db } from "@/server/database";
-import { StoreTeamMembersService } from "./store-team-members/service";
-import { StoresService } from "./stores/service";
-
-const storeTeamMembersService = new StoreTeamMembersService(db);
-
-const storesService = new StoresService(db, storeTeamMembersService);
+import { storeTeamMembersService } from "./store-team-members/service";
+import { storesService } from "./stores/service";
 
 export const StoresModule = {
 	services: {
+		storeTeamMembers: storeTeamMembersService,
 		stores: storesService,
 	},
 };

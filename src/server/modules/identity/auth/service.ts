@@ -12,16 +12,16 @@ import {
 	type ResetPasswordRequestSchema,
 	type VerifyEmailRequestSchema,
 } from "@/schemas/auth";
-import type { Database } from "@/server/database";
-import type { CacheService } from "@/server/services/cache";
-import type { MailService } from "@/server/services/mail";
-import type { RandomService } from "@/server/services/random";
+import { type Database, db } from "@/server/database";
+import { type CacheService, cacheService } from "@/server/services/cache";
+import { type MailService, mailService } from "@/server/services/mail";
+import { type RandomService, randomService } from "@/server/services/random";
 import { BadRequestError } from "@/server/shared/errors";
 import type { UserId } from "../../../../schemas/user";
 import { AuthSessionEntity } from "../auth-session/entity";
 import { OtpVerificationEntity } from "../otp-verifications/entity";
 import { OtpScopes } from "../otp-verifications/types";
-import type { UsersService } from "../users/service";
+import { type UsersService, usersService } from "../users/service";
 import { AUTH_COOKIE_NAME, OTP_EXPIRATION_TIME } from "./constants";
 import {
 	constantTimeEqual,
@@ -588,3 +588,12 @@ export class AuthService {
 		return userId;
 	}
 }
+
+
+export const authService = new AuthService(
+	db,
+	cacheService,
+	usersService,
+	mailService,
+	randomService,
+);

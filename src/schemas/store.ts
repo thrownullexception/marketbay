@@ -1,12 +1,6 @@
 import * as v from "valibot";
-import { encodeHashId } from "@/server/services/hashid";
+import { type PrivateStoreId, type PublicStoreId, StoreIdTransformer } from "@/server/modules/stores/stores/types";
 import type { CategoryId } from "./category";
-
-export const StoreIdSchema = v.pipe(v.number(), v.brand("StoreId"));
-export const StoreId = v.custom<StoreId>((val) => {
-	return v.safeParse(StoreIdSchema, val).success;
-});
-export type StoreId = v.InferOutput<typeof StoreIdSchema>;
 
 export enum StoreStatus {
 	Active = "active",
@@ -86,7 +80,7 @@ export const CreateStoreRequestSchema = v.object({
 });
 
 export class StoreResponseTransformer {
-	id: string;
+	id: PublicStoreId;
 	name: string;
 	slug: string;
 	logoUrl?: string | null;
@@ -101,7 +95,7 @@ export class StoreResponseTransformer {
 
 	constructor(
 		readonly store: {
-			id: number;
+			id: PrivateStoreId;
 			name: string;
 			slug: string;
 			logoUrl?: string | null;
@@ -115,7 +109,7 @@ export class StoreResponseTransformer {
 			isVerified: boolean;
 		},
 	) {
-		this.id = encodeHashId(store.id);
+		this.id = StoreIdTransformer.toPublic(store.id)
 		this.name = store.name;
 		this.slug = store.slug;
 		this.logoUrl = store.logoUrl;

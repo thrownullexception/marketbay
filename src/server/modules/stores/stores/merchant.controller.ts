@@ -1,8 +1,8 @@
 import { Elysia } from "elysia";
-import * as v from "valibot";
-import { CreateStoreRequestSchema, StoreIdSchema, StoreResponseTransformer } from "@/schemas/store";
+import { CreateStoreRequestSchema, StoreResponseTransformer } from "@/schemas/store";
 import { authenticatedMiddleware } from "@/server/middlewares/auth";
 import { StoresModule } from "..";
+import { StoreIdTransformer } from "./types";
 
 export const storesMerchantController = new Elysia({
 	prefix: "/stores",
@@ -18,7 +18,9 @@ export const storesMerchantController = new Elysia({
 	.get(
 		"/:storeId",
 		async ({ params: { storeId } }) =>
-			StoresModule.services.stores.getShortDetails(v.parse(StoreIdSchema, storeId)),
+			StoresModule.services.stores.getShortDetails(
+                StoreIdTransformer.toPrivate(storeId),
+            ),
 	)
 	.post(
 		"/",

@@ -5,7 +5,7 @@ import type {
 	CreateAddressRequestSchema,
 	UserAddressId,
 } from "@/schemas/user-address";
-import type { Database } from "@/server/database";
+import { type Database, db } from "@/server/database";
 import { UserAddressEntity } from "./entity";
 
 export class UserAddressService {
@@ -83,3 +83,5 @@ export class UserAddressService {
 			.where(eq(UserAddressEntity.id, addressId));
 	}
 }
+
+export const userAddressService = new UserAddressService(db);

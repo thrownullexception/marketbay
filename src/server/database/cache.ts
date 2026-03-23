@@ -13,7 +13,7 @@ export class DrizzleCache extends Cache {
 	// for a specific table, so we can later use it for invalidation.
 	//   private usedTablesPerKey: Record<string, string[]> = {};
 	// constructor(private kv: Keyv = new Keyv()) {
-	constructor(private cacheService: CacheService = new CacheService(serverEnv)) {
+	constructor(private cacheService: CacheService) {
 		super();
 	}
 	// For the strategy, we have two options:
@@ -31,6 +31,7 @@ export class DrizzleCache extends Cache {
 		isTag: boolean,
 		isAutoInvalidate?: boolean,
 	): Promise<any | undefined> {
+        console.log("From cache", { key, tables, isTag, isAutoInvalidate })
 		if (!isTag) {
 			return undefined;
 		}

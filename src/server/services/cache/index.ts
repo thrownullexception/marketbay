@@ -3,7 +3,7 @@ import { BentoCache, bentostore } from "bentocache";
 import { memoryDriver } from "bentocache/drivers/memory";
 import { redisBusDriver, redisDriver } from "bentocache/drivers/redis";
 import type { StringValue } from "ms";
-import type { SERVER_ENV } from "@/server/env";
+import { type SERVER_ENV, serverEnv } from "@/server/env";
 
 export class CacheService {
 	// biome-ignore lint/complexity/noBannedTypes: idk
@@ -65,7 +65,7 @@ export class CacheService {
 		value: T;
 		ttl: number;
 	}): Promise<void> {
-		await this.bento?.namespace(namespace).set({
+		await this.bento.namespace(namespace).set({
 			key,
 			value,
 			ttl,
@@ -79,14 +79,16 @@ export class CacheService {
 		namespace: string;
 		key: string;
 	}): Promise<T | undefined> {
-		return this.bento?.namespace(namespace).get({
+		return this.bento.namespace(namespace).get({
 			key,
 		});
 	}
 
 	async delete({ namespace, key }: { namespace: string; key: string }) {
-		return this.bento?.namespace(namespace).delete({
+		return this.bento.namespace(namespace).delete({
 			key,
 		});
 	}
 }
+
+export const cacheService = new CacheService(serverEnv);

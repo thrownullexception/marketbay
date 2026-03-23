@@ -1,7 +1,7 @@
 // import { MAIL_TEMPLATES, type TemplateProps } from "./config";
 import { renderToStaticMarkup } from 'react-dom/server'
 import { Resend } from "resend";
-import type { SERVER_ENV } from "@/server/env";
+import { type SERVER_ENV, serverEnv } from "@/server/env";
 import { APP_CONSTANTS } from "@/shared/app.constants";
 import { MAIL_TEMPLATES, type TemplateProps } from "./config";
 // TODO: Silent failures in email operations
@@ -47,3 +47,5 @@ export class MailService {
 	// 		to: input.to,
 	// 	}),
 }
+
+export const mailService = new MailService(serverEnv);

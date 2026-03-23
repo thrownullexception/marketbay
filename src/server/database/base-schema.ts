@@ -7,10 +7,8 @@ export const idField = () => integer();
 
 export const systemIdField = () => varchar({ length: 2 });
 
-type ExtractBrand<U> = U extends v.CustomSchema<infer I, undefined> ? I : never;
-
 export const baseDbSchema = <
-	U extends v.CustomSchema<number, undefined>,
+	U extends number & v.Brand<string>,
 	T extends Record<string, PgColumnBuilderBase>,
 >(
 	_: U,
@@ -20,7 +18,7 @@ export const baseDbSchema = <
 		.primaryKey()
 		.generatedAlwaysAsIdentity()
 		.notNull()
-		.$type<ExtractBrand<U>>(),
+		.$type<U>(),
 	...columns,
 	createdAt: timestamp().defaultNow().notNull(),
 	updatedAt: timestamp({

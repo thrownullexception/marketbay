@@ -5,7 +5,7 @@ import {
 	shortStringSchema,
 	zipSchema,
 } from "@/schemas/base";
-import { encodeHashId } from "@/server/services/hashid";
+import { type PrivateUserAddressId, type PublicUserAddressId, UserAddressIdTransformer } from "@/server/modules/identity/user-addresses/types";
 
 export const UserAddressIdSchema = v.pipe(v.number(), v.brand("UserAddressId"));
 export const UserAddressId = v.custom<UserAddressId>((val) => {
@@ -39,7 +39,7 @@ const UserAddressResponseSchema = v.object({
 });
 
 export class UserAddressResponseTransformer {
-	id: string;
+	id: PublicUserAddressId;
 	firstName: string;
 	lastName: string;
 	street: string;
@@ -49,7 +49,7 @@ export class UserAddressResponseTransformer {
 	isDefault: boolean;
 
 	constructor(readonly address: {
-		id: number;
+		id: PrivateUserAddressId;
 		firstName: string;
 		lastName: string;
 		street: string;
@@ -58,7 +58,7 @@ export class UserAddressResponseTransformer {
 		zip: string;
 		isDefault: boolean;
 	}) {
-		this.id = encodeHashId(address.id);
+		this.id = UserAddressIdTransformer.toPublic(address.id)
 		this.firstName = address.firstName;
 		this.lastName = address.lastName;
 		this.street = address.street;

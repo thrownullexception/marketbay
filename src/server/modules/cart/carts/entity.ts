@@ -5,14 +5,14 @@ import {
 	type UpdateDeleteAction,
 	unique,
 } from "drizzle-orm/pg-core";
-import { CartId } from "@/schemas/cart";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesGuestEntity } from "../../identity/guests/entity";
 import { referencesUserEntity } from "../../identity/users/entity";
+import { CartIdTransformer, type PrivateCartId } from "./types";
 
 export const CartEntity = pgTable(
 	"carts",
-	baseDbSchema(CartId, {
+	baseDbSchema(CartIdTransformer.unoPrivate, {
 		userId: referencesUserEntity("cascade"),
 		guestId: referencesGuestEntity("cascade"),
 	}),
@@ -28,5 +28,5 @@ export const referencesCartEntity = (constraint?: UpdateDeleteAction) => {
 		.references(() => CartEntity.id, {
 			onDelete: constraint || "restrict",
 		})
-		.$type<CartId>();
+		.$type<PrivateCartId>();
 };
