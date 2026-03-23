@@ -5,13 +5,13 @@ import {
 	text,
 	type UpdateDeleteAction,
 } from "drizzle-orm/pg-core";
-import { ProductOptionValueId } from "@/schemas/product-option-value";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesProductOptionGroupEntity } from "../product-option-groups/entity";
+import { type ProductOptionValueId, ProductOptionValueIdTransformer } from "./types";
 
 export const ProductOptionValueEntity = pgTable(
 	"product_option_values",
-	baseDbSchema(ProductOptionValueId, {
+	baseDbSchema(ProductOptionValueIdTransformer.unoPrivate, {
 		optionGroupId: referencesProductOptionGroupEntity("cascade"),
 		value: text().notNull(),
 		sortOrder: smallint().notNull().default(0),

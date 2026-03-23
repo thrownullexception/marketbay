@@ -1,12 +1,12 @@
 import { index, pgTable, unique } from "drizzle-orm/pg-core";
-import { ProductTagId } from "@/schemas/product-tag";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesProductEntity } from "../products/entity";
 import { referencesTagEntity } from "../tags/entity";
+import { ProductTagIdTransformer } from "./types";
 
 export const ProductTagEntity = pgTable(
 	"product_tags",
-	baseDbSchema(ProductTagId, {
+	baseDbSchema(ProductTagIdTransformer.unoPrivate, {
 		productId: referencesProductEntity("cascade").notNull(),
 		tagId: referencesTagEntity("cascade").notNull(),
 	}),

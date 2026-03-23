@@ -5,13 +5,13 @@ import {
 	type UpdateDeleteAction,
 	unique,
 } from "drizzle-orm/pg-core";
-import { StoreRoleId } from "@/schemas/store-role";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesStoreEntity } from "../stores/entity";
+import { type StoreRoleId, StoreRoleIdTransformer } from "./types";
 
 export const StoreRoleEntity = pgTable(
 	"store_roles",
-	baseDbSchema(StoreRoleId, {
+	baseDbSchema(StoreRoleIdTransformer.unoPrivate, {
 		storeId: referencesStoreEntity("cascade"),
 		name: text().notNull(),
 		description: text(),

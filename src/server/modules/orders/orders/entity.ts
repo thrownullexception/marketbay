@@ -4,11 +4,12 @@ import {
 	pgTable,
 	type UpdateDeleteAction,
 } from "drizzle-orm/pg-core";
-import { OrderId, OrderStatus, PaymentStatus } from "@/schemas/order";
+import { OrderStatus, PaymentStatus } from "@/schemas/order";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { getEnumValues } from "@/server/database/enums";
 import { referencesUserEntity } from "@/server/modules/identity/users/entity";
 import { referencesStoreEntity } from "@/server/modules/stores/stores/entity";
+import { type OrderId, OrderIdTransformer } from "./types";
 
 export const orderStatus = pgEnum("order_status", getEnumValues(OrderStatus));
 export const paymentStatus = pgEnum(
@@ -18,7 +19,7 @@ export const paymentStatus = pgEnum(
 
 export const OrderEntity = pgTable(
 	"orders",
-	baseDbSchema(OrderId, {
+	baseDbSchema(OrderIdTransformer.unoPrivate, {
 		storeId: referencesStoreEntity().notNull(),
 		userId: referencesUserEntity().notNull(),
 

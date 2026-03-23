@@ -1,5 +1,6 @@
 import { createQuery } from "@tanstack/solid-query";
 import { linkOptions } from "@tanstack/solid-router";
+import { For } from "solid-js";
 import { getShopTreaty } from "@/shared/treaty/shop.treaty";
 import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
 import { Breadcrumb } from "@/ui/breadcrumb";
@@ -35,7 +36,6 @@ export const StoresScreen = () => {
 				description="Follow talented independent sellers"
 				alternate
 			>
-				{JSON.stringify(storesResult.data)}
 				<Grid3>
 					<FeaturedStoreCard
 						slug="todo"
@@ -95,6 +95,24 @@ export const StoresScreen = () => {
 					</p>
 
 					<Grid3>
+						{/* <For each={storesResult.data}>
+							{(store) => (
+								<StoreListCard
+								bannerGradient="from-blue-500 to-indigo-600"
+								avatarGradient="from-blue-500 to-indigo-600"
+								initials="TV"
+								name={store.name}
+								slug={store.slug}
+								verified={store.isVerified}
+								categories={store.categories}
+								description={store.description}
+								rating={store.avgRating}
+								ratingCount={store.reviewCount}
+								productCount={store.productCount}
+								followers={store.followers}
+							/>
+							)}
+						</For> */}
 						<StoreListCard
 							bannerGradient="from-blue-500 to-indigo-600"
 							avatarGradient="from-blue-500 to-indigo-600"

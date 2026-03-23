@@ -1,6 +1,5 @@
 import Elysia from "elysia";
-import type { UserId } from "../../schemas/user";
-import { IdentityModule } from "../modules/identity";
+import type { UserId } from "../modules/identity/users/types";
 
 export const authenticatedMiddleware = new Elysia({
 	name: "authenticated-middleware",

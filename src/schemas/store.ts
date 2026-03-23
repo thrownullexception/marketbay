@@ -1,6 +1,4 @@
 import * as v from "valibot";
-import { type PrivateStoreId, type PublicStoreId, StoreIdTransformer } from "@/server/modules/stores/stores/types";
-import type { CategoryId } from "./category";
 
 export enum StoreStatus {
 	Active = "active",
@@ -79,47 +77,3 @@ export const CreateStoreRequestSchema = v.object({
 	// ),
 });
 
-export class StoreResponseTransformer {
-	id: PublicStoreId;
-	name: string;
-	slug: string;
-	logoUrl?: string | null;
-	coverUrl?: string | null;
-	status: StoreStatus;
-	primaryCategoryId: CategoryId;
-	secondaryCategoryId: CategoryId | null;
-	avgRating: string;
-	reviewCount: number;
-	totalSales: number;
-	isVerified: boolean;
-
-	constructor(
-		 store: {
-			id: PrivateStoreId;
-			name: string;
-			slug: string;
-			logoUrl?: string | null;
-			coverUrl?: string | null;
-			status: StoreStatus;
-			primaryCategoryId: CategoryId;
-			secondaryCategoryId: CategoryId | null;
-			avgRating: string;
-			reviewCount: number;
-			totalSales: number;
-			isVerified: boolean;
-		},
-	) {
-		this.id = StoreIdTransformer.toPublic(store.id)
-		this.name = store.name;
-		this.slug = store.slug;
-		this.logoUrl = store.logoUrl;
-		this.coverUrl = store.coverUrl;
-		this.status = store.status;
-		this.primaryCategoryId = store.primaryCategoryId;
-		this.secondaryCategoryId = store.secondaryCategoryId;
-		this.avgRating = store.avgRating;
-		this.reviewCount = store.reviewCount;
-		this.isVerified = store.isVerified;
-		this.totalSales = store.totalSales;
-	}
-}

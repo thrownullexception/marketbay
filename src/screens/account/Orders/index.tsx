@@ -1,5 +1,6 @@
 import { PackageIcon, ShoppingBagIcon, TruckIcon } from "lucide-solid";
 import { createSignal, For, Show } from "solid-js";
+import { OrderStatus } from "@/schemas/order";
 import { AdminHeader } from "@/ui/admin-header";
 import { Grid3 } from "@/ui/grid";
 import { Pagination } from "@/ui/pagination";
@@ -12,7 +13,7 @@ import type { Order } from "./types";
 const ACTIVE_ORDERS: Order[] = [
 	{
 		id: "MB-30247",
-		status: "in_transit",
+		status: OrderStatus.InTransit,
 		storeName: "TechVault",
 		storeSlug: "techvault",
 		storeInitials: "TV",
@@ -31,7 +32,7 @@ const ACTIVE_ORDERS: Order[] = [
 	},
 	{
 		id: "MB-30189",
-		status: "processing",
+		status: OrderStatus.Processing,
 		storeName: "GreenNest",
 		storeSlug: "greennest",
 		storeInitials: "GN",
@@ -53,7 +54,7 @@ const ACTIVE_ORDERS: Order[] = [
 const PAST_ORDERS: Order[] = [
 	{
 		id: "MB-30102",
-		status: "delivered",
+		status: OrderStatus.Delivered,
 		storeName: "TechVault",
 		storeSlug: "techvault",
 		storeInitials: "TV",
@@ -71,7 +72,7 @@ const PAST_ORDERS: Order[] = [
 	},
 	{
 		id: "MB-29847",
-		status: "delivered",
+		status: OrderStatus.Delivered,
 		storeName: "FitGear Pro",
 		storeSlug: "fitgear-pro",
 		storeInitials: "FG",
@@ -89,7 +90,7 @@ const PAST_ORDERS: Order[] = [
 	},
 	{
 		id: "MB-29650",
-		status: "delivered",
+		status: OrderStatus.Delivered,
 		storeName: "HomeHaven",
 		storeSlug: "homehaven",
 		storeInitials: "HH",
@@ -107,7 +108,7 @@ const PAST_ORDERS: Order[] = [
 	},
 	{
 		id: "MB-29320",
-		status: "delivered",
+		status: OrderStatus.Delivered,
 		storeName: "StyleHouse",
 		storeSlug: "stylehouse",
 		storeInitials: "SH",
@@ -125,7 +126,7 @@ const PAST_ORDERS: Order[] = [
 	},
 	{
 		id: "MB-29105",
-		status: "cancelled",
+		status: OrderStatus.Cancelled,
 		storeName: "TechVault",
 		storeSlug: "techvault",
 		storeInitials: "TV",
@@ -143,7 +144,7 @@ const PAST_ORDERS: Order[] = [
 	},
 	{
 		id: "MB-28930",
-		status: "refunded",
+		status: OrderStatus.Refunded,
 		storeName: "BookNook",
 		storeSlug: "booknook",
 		storeInitials: "BN",

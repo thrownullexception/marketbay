@@ -8,7 +8,7 @@ import {
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesGuestEntity } from "../../identity/guests/entity";
 import { referencesUserEntity } from "../../identity/users/entity";
-import { CartIdTransformer, type PrivateCartId } from "./types";
+import { type CartId, CartIdTransformer } from "./types";
 
 export const CartEntity = pgTable(
 	"carts",
@@ -28,5 +28,5 @@ export const referencesCartEntity = (constraint?: UpdateDeleteAction) => {
 		.references(() => CartEntity.id, {
 			onDelete: constraint || "restrict",
 		})
-		.$type<PrivateCartId>();
+		.$type<CartId>();
 };

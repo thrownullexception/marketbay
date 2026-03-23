@@ -1,7 +1,8 @@
 import handler, { createServerEntry } from "@tanstack/solid-start/server-entry";
 import pino from "pino";
-import { runMigrations } from "./server/database/migrate";
-import { runSeeds } from "./server/database/seeds";
+
+// import { runMigrations } from "./server/database/migrate";
+// import { runSeeds } from "./server/database/seeds";
 
 const logger = pino();
 
@@ -31,7 +32,14 @@ export default createServerEntry({
 		}
 
 		const body = await response.arrayBuffer();
+		const gzipStart = performance.now();	
 		const compressed = Bun.gzipSync(new Uint8Array(body));
+		const gzipDuration = Math.round(performance.now() - gzipStart);
+		logger.info(
+			{ path: url.pathname, gzipDuration },
+			`GZIP: ${url.pathname} ${gzipDuration}ms`,
+		);
+
 		const headers = new Headers(response.headers);
 		headers.set("content-encoding", "gzip");
 		headers.set("content-length", String(compressed.byteLength));

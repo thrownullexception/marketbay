@@ -1,12 +1,12 @@
 import { index, pgTable, text } from "drizzle-orm/pg-core";
-import { OrderStatusHistoryId } from "@/schemas/order-status-history";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesUserEntity } from "@/server/modules/identity/users/entity";
 import { orderStatus, referencesOrderEntity } from "../orders/entity";
+import { OrderStatusHistoryIdTransformer } from "./types";
 
 export const OrderStatusHistoryEntity = pgTable(
 	"order_status_history",
-	baseDbSchema(OrderStatusHistoryId, {
+	baseDbSchema(OrderStatusHistoryIdTransformer.unoPrivate, {
 		orderId: referencesOrderEntity("cascade").notNull(),
 
 		fromStatus: orderStatus(),

@@ -4,12 +4,12 @@ import {
 	text,
 	type UpdateDeleteAction,
 } from "drizzle-orm/pg-core";
-import { GuestId } from "@/schemas/guest";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
+import { type GuestId, GuestIdTransformer } from "./types";
 
 export const GuestEntity = pgTable(
 	"guests",
-	baseDbSchema(GuestId, {
+	baseDbSchema(GuestIdTransformer.unoPrivate, {
 		ipAddress: inet(),
 		deviceInfo: text(),
 		referrer: text(),

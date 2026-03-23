@@ -1,14 +1,14 @@
 import { sql } from "drizzle-orm";
 import { check, integer, numeric, pgTable, unique } from "drizzle-orm/pg-core";
-import { CartItemId } from "@/schemas/cart-item";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesProductVariantEntity } from "../../catalog/product-variants/entity";
 import { referencesProductEntity } from "../../catalog/products/entity";
 import { referencesCartEntity } from "../carts/entity";
+import { CartItemIdTransformer } from "./types";
 
 export const CartItemEntity = pgTable(
 	"cart_items",
-	baseDbSchema(CartItemId, {
+	baseDbSchema(CartItemIdTransformer.unoPrivate, {
 		cartId: referencesCartEntity("cascade").notNull(),
 		productId: referencesProductEntity("cascade").notNull(),
 		productVariantId: referencesProductVariantEntity("cascade").notNull(),

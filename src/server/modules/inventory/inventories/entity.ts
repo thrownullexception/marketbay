@@ -6,16 +6,15 @@ import {
 	type UpdateDeleteAction,
 	unique,
 } from "drizzle-orm/pg-core";
-import { InventoryId } from "@/schemas/inventory";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesProductVariantEntity } from "../../catalog/product-variants/entity";
 import { referencesProductEntity } from "../../catalog/products/entity";
-
+import { type InventoryId, InventoryIdTransformer } from "./types";
 // -- CREATE INDEX idx_inventory_low_stock ON inventory(product_id) WHERE quantity_available <= low_stock_threshold;
 
 export const InventoryEntity = pgTable(
 	"inventories",
-	baseDbSchema(InventoryId, {
+	baseDbSchema(InventoryIdTransformer.unoPrivate, {
 		productId: referencesProductEntity("cascade").notNull(),
 		productVariantId: referencesProductVariantEntity("cascade").notNull(),
 		quantityOnHand: integer().notNull().default(0),

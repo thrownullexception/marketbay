@@ -1,12 +1,12 @@
 import { eq, sql } from "drizzle-orm";
 import type * as v from "valibot";
-import type { UserId } from "@/schemas/user";
 import type {
 	CreateAddressRequestSchema,
-	UserAddressId,
 } from "@/schemas/user-address";
 import { type Database, db } from "@/server/database";
+import type { UserId } from "../users/types";
 import { UserAddressEntity } from "./entity";
+import type { UserAddressId } from "./types";
 
 export class UserAddressService {
 	constructor(private readonly db: Database) {}

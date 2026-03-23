@@ -1,11 +1,11 @@
 import { index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
-import { AuthSessionId } from "@/schemas/auth-session";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesUserEntity } from "../users/entity";
+import { AuthSessionIdTransformer } from "./types";
 
 export const AuthSessionEntity = pgTable(
 	"auth_sessions",
-	baseDbSchema(AuthSessionId, {
+	baseDbSchema(AuthSessionIdTransformer.unoPrivate, {
 		userId: referencesUserEntity("cascade").notNull(),
 		lastVerifiedAt: timestamp().notNull(),
 		secretHash: text().notNull(),

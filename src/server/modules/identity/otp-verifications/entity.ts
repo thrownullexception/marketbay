@@ -1,14 +1,13 @@
 import { index, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
-import { OtpVerificationId } from "@/schemas/otp-verification";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { getEnumValues } from "@/server/database/enums";
-import { OtpScopes } from "./types";
+import { OtpScopes, OtpVerificationIdTransformer } from "./types";
 
 export const otpScopes = pgEnum("otp_scopes", getEnumValues(OtpScopes));
 
 export const OtpVerificationEntity = pgTable(
 	"otp_verifications",
-	baseDbSchema(OtpVerificationId, {
+	baseDbSchema(OtpVerificationIdTransformer.unoPrivate, {
 		email: text().notNull(),
 		scope: otpScopes().notNull(),
 		hash: text().notNull(),

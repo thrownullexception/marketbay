@@ -2,8 +2,7 @@
 import { Cache } from "drizzle-orm/cache/core";
 import type { CacheConfig } from "drizzle-orm/cache/core/types";
 import ms from "ms";
-import { serverEnv } from "../env";
-import { CacheService } from "../services/cache";
+import type { CacheService } from "../services/cache";
 
 export class DrizzleCache extends Cache {
     private namespace: string = "dz";
@@ -30,8 +29,9 @@ export class DrizzleCache extends Cache {
 		tables: string[],
 		isTag: boolean,
 		isAutoInvalidate?: boolean,
+	// biome-ignore lint/suspicious/noExplicitAny: foo
 	): Promise<any | undefined> {
-        console.log("From cache", { key, tables, isTag, isAutoInvalidate })
+        console.log("DRIZZLE_CACHE:GET", { key, tables, isTag, isAutoInvalidate })
 		if (!isTag) {
 			return undefined;
 		}
@@ -55,6 +55,7 @@ export class DrizzleCache extends Cache {
         if (!isTag) {
             return;
         }
+        console.log("DRIZZLE_CACHE:PUT", { key, response, tables, isTag, config })
 		const ttl = config?.px ?? (config?.ex ? config.ex * 1000 : this.globalTtl);
 		await this.cacheService.set({ namespace: this.namespace, key, value: response, ttl});
 		// for (const table of tables) {
@@ -97,6 +98,7 @@ export class DrizzleCache extends Cache {
 		// }
 		// if (keysToDelete.size > 0 || tagsArray.length > 0) {
 		for (const tag of tagsArray) {
+            console.log("DRIZZLE_CACHE:ON_MUTATE", { tag })
 			await this.cacheService.delete({ namespace: this.namespace, key: tag });
 			//   }
 			//   for (const key of keysToDelete) {

@@ -8,12 +8,12 @@ import {
 	type UpdateDeleteAction,
 	unique,
 } from "drizzle-orm/pg-core";
-import { CategoryId } from "@/schemas/category";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
+import { CategoryId, CategoryIdTransformer } from "./types";
 
 export const CategoryEntity = pgTable(
 	"categories",
-	baseDbSchema(CategoryId, {
+	baseDbSchema(CategoryIdTransformer.unoPrivate, {
 		parentId: idField(),
 		name: text().notNull(),
 		slug: text().notNull(),

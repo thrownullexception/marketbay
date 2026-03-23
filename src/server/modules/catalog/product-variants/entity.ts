@@ -5,13 +5,13 @@ import {
 	text,
 	type UpdateDeleteAction,
 } from "drizzle-orm/pg-core";
-import { ProductVariantId } from "@/schemas/product-variant";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesProductEntity } from "../products/entity";
+import { type ProductVariantId, ProductVariantIdTransformer } from "./types";
 
 export const ProductVariantEntity = pgTable(
 	"product_variants",
-	baseDbSchema(ProductVariantId, {
+	baseDbSchema(ProductVariantIdTransformer.unoPrivate, {
 		productId: referencesProductEntity("cascade").notNull(),
 		sku: text(),
 		barcode: text(),

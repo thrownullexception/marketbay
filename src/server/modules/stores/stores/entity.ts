@@ -13,7 +13,7 @@ import { StoreStatus } from "@/schemas/store";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { getEnumValues } from "@/server/database/enums";
 import { referencesCategoryEntity } from "../../catalog/categories/entity";
-import { type PrivateStoreId, StoreIdTransformer } from "./types";
+import { type StoreId, StoreIdTransformer } from "./types";
 
 export const storeStatus = pgEnum("store_status", getEnumValues(StoreStatus));
 
@@ -77,5 +77,5 @@ export const referencesStoreEntity = (constraint?: UpdateDeleteAction) => {
     .references(() => StoreEntity.id, {
       onDelete: constraint || "restrict",
     })
-    .$type<PrivateStoreId>();
+    .$type<StoreId>();
 };

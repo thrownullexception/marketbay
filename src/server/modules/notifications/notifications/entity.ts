@@ -1,12 +1,12 @@
 import { boolean, index, pgTable, text } from "drizzle-orm/pg-core";
-import { NotificationId } from "@/schemas/notification";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesUserEntity } from "../../identity/users/entity";
 import { referencesNotificationTypeEntity } from "../notification-types/entity";
+import { NotificationIdTransformer } from "./types";
 
 export const NotificationEntity = pgTable(
 	"notifications",
-	baseDbSchema(NotificationId, {
+	baseDbSchema(NotificationIdTransformer.unoPrivate, {
 		userId: referencesUserEntity("cascade").notNull(),
 		type: referencesNotificationTypeEntity("cascade").notNull(),
 

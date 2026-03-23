@@ -1,12 +1,12 @@
 import { pgEnum, pgTable, text, timestamp, unique } from "drizzle-orm/pg-core";
 import {
 	InvitationStatus,
-	StoreInvitationId,
 } from "@/schemas/store-invitation";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { getEnumValues } from "@/server/database/enums";
 import { referencesStoreRoleEntity } from "../store-roles/entity";
 import { referencesStoreEntity } from "../stores/entity";
+import { StoreInvitationIdTransformer } from "./types";
 
 export const invitationStatus = pgEnum(
 	"invitation_status",
@@ -15,7 +15,7 @@ export const invitationStatus = pgEnum(
 
 export const StoreInvitationEntity = pgTable(
 	"store_invitations",
-	baseDbSchema(StoreInvitationId, {
+	baseDbSchema(StoreInvitationIdTransformer.unoPrivate, {
 		storeId: referencesStoreEntity("cascade").notNull(),
 		roleId: referencesStoreRoleEntity("restrict").notNull(),
 		email: text().notNull(),

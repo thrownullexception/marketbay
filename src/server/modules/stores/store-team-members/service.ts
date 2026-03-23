@@ -1,15 +1,15 @@
 import { and, eq, type InferInsertModel } from "drizzle-orm";
-import type { StoreRoleId } from "@/schemas/store-role";
-import type { UserId } from "@/schemas/user";
 import { type Database, db } from "@/server/database";
-import type { PrivateStoreId } from "../stores/types";
+import type { UserId } from "@/server/modules/identity/users/types";
+import type { StoreId } from "@/server/modules/stores/stores/types";
+import type { StoreRoleId } from "../store-roles/types";
 import { StoreTeamMemberEntity } from "./entity";
 
 const CACHE_PREFIX = "store_team_members";
 
 const CACHE_TAG = {
-	STORE: (storeId: PrivateStoreId) => `${CACHE_PREFIX}:store:${storeId}`,
-	USER: (userId: PrivateUserId) => `${CACHE_PREFIX}:user:${userId}`,
+	STORE: (storeId: StoreId) => `${CACHE_PREFIX}:store:${storeId}`,
+	USER: (userId: UserId) => `${CACHE_PREFIX}:user:${userId}`,
 };
 
 export class StoreTeamMembersService {
@@ -32,7 +32,7 @@ export class StoreTeamMembersService {
 		return storeTeamMember[0].id;
 	}
 
-	async removeStoreMember(input: { storeId: PrivateStoreId; userId: UserId }) {
+	async removeStoreMember(input: { storeId: StoreId; userId: UserId }) {
 		await this.db
 			.delete(StoreTeamMemberEntity)
 			.where(
@@ -48,7 +48,7 @@ export class StoreTeamMembersService {
 	}
 
 	async updateStoreMember(input: {
-		storeId: PrivateStoreId;
+		storeId: StoreId;
 		userId: UserId;
 		roleId: StoreRoleId;
 	}) {
@@ -80,7 +80,7 @@ export class StoreTeamMembersService {
 			});
 	}
 
-	async getStoreMembers(storeId: PrivateStoreId) {
+	async getStoreMembers(storeId: StoreId) {
 		return await this.db
 			.select({
 				userId: StoreTeamMemberEntity.userId,

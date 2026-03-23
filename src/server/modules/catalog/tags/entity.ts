@@ -6,13 +6,13 @@ import {
 	type UpdateDeleteAction,
 	unique,
 } from "drizzle-orm/pg-core";
-import { TagId } from "@/schemas/tag";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesCategoryEntity } from "../categories/entity";
+import { type TagId, TagIdTransformer } from "./types";
 
 export const TagEntity = pgTable(
 	"tags",
-	baseDbSchema(TagId, {
+	baseDbSchema(TagIdTransformer.unoPrivate, {
 		categoryId: referencesCategoryEntity("cascade"),
 		name: text().notNull(),
 		slug: text().notNull(),

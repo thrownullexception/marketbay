@@ -11,12 +11,13 @@ import {
 	type UpdateDeleteAction,
 	unique,
 } from "drizzle-orm/pg-core";
-import { ReviewId, ReviewStatus } from "@/schemas/review";
+import { ReviewStatus } from "@/schemas/review";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { getEnumValues } from "@/server/database/enums";
 import { referencesProductEntity } from "@/server/modules/catalog/products/entity";
 import { referencesUserEntity } from "@/server/modules/identity/users/entity";
 import { referencesStoreEntity } from "@/server/modules/stores/stores/entity";
+import { type ReviewId, ReviewIdTransformer } from "./types";
 
 export const reviewStatus = pgEnum(
 	"review_status",
@@ -25,7 +26,7 @@ export const reviewStatus = pgEnum(
 
 export const ReviewEntity = pgTable(
 	"reviews",
-	baseDbSchema(ReviewId, {
+	baseDbSchema(ReviewIdTransformer.unoPrivate, {
 		//
 		productId: referencesProductEntity("cascade"),
 		storeId: referencesStoreEntity("cascade"),

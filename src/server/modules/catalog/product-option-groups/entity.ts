@@ -5,16 +5,16 @@ import {
 	text,
 	type UpdateDeleteAction,
 } from "drizzle-orm/pg-core";
-import { ProductOptionGroupId } from "@/schemas/product-option-group";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesProductEntity } from "../products/entity";
+import { type ProductOptionGroupId, ProductOptionGroupIdTransformer } from "./types";
 
 // TODO: Could be general based on primary category just like tags
 // meaning product_option_values will now contain the productId
 
 export const ProductOptionGroupEntity = pgTable(
 	"product_option_groups",
-	baseDbSchema(ProductOptionGroupId, {
+	baseDbSchema(ProductOptionGroupIdTransformer.unoPrivate, {
 		productId: referencesProductEntity("cascade"),
 		name: text().notNull(),
 		sortOrder: smallint().notNull().default(0),

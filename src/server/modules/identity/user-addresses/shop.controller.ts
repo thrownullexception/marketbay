@@ -1,14 +1,12 @@
 import { Elysia } from "elysia";
-import * as v from "valibot";
-import type { UserId } from "@/schemas/user";
 import {
 	CreateAddressRequestSchema,
 	UpdateAddressRequestSchema,
-	UserAddressIdSchema,
-	UserAddressResponseTransformer,
 } from "@/schemas/user-address";
 import { authenticatedMiddleware } from "@/server/middlewares/auth";
 import { IdentityModule } from "..";
+import type { UserId } from "../users/types";
+import { UserAddressIdTransformer, UserAddressListItemTransformer } from "./types";
 
 export const userAddressesShopController = new Elysia({
 	prefix: "/user-addresses",
@@ -21,14 +19,14 @@ export const userAddressesShopController = new Elysia({
 			);
 
 		return userAddresses.map(
-			(address) => new UserAddressResponseTransformer(address),
+			(address) => new UserAddressListItemTransformer(address),
 		);
 	})
 	.get("/:userAddressId", async ({ params: { userAddressId } }) => {
 		const address = await IdentityModule.services.userAddress.getAddress(
-			v.parse(UserAddressIdSchema, userAddressId),
+			UserAddressIdTransformer.toDbId(userAddressId),
 		);
-		return new UserAddressResponseTransformer(address);
+		return new UserAddressListItemTransformer(address);
 	})
 	.post(
 		"/",
@@ -42,7 +40,7 @@ export const userAddressesShopController = new Elysia({
 		"/:userAddressId",
 		({ body, params }) =>
 			IdentityModule.services.userAddress.updateAddress(
-				v.parse(UserAddressIdSchema, params.userAddressId),
+				UserAddressIdTransformer.toDbId(params.userAddressId),
 				body,
 			),
 		{
@@ -51,6 +49,6 @@ export const userAddressesShopController = new Elysia({
 	)
 	.delete("/:userAddressId", ({ params }) =>
 		IdentityModule.services.userAddress.deleteAddress(
-			v.parse(UserAddressIdSchema, params.userAddressId),
+			UserAddressIdTransformer.toDbId(params.userAddressId),
 		),
 	);

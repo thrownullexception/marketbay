@@ -1,11 +1,11 @@
 import { index, pgTable, smallint, text } from "drizzle-orm/pg-core";
-import { ProductTagId } from "@/schemas/product-tag";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesProductEntity } from "../products/entity";
+import { ProductImageIdTransformer } from "./types";
 
 export const ProductImageEntity = pgTable(
-	"product_tags",
-	baseDbSchema(ProductTagId, {
+	"product_images",
+	baseDbSchema(ProductImageIdTransformer.unoPrivate, {
 		productId: referencesProductEntity("cascade").notNull(),
 		url: text().notNull(),
 		altText: text(),

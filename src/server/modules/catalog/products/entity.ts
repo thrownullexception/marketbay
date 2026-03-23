@@ -10,11 +10,12 @@ import {
 	unique,
 	varchar,
 } from "drizzle-orm/pg-core";
-import { ProductCondition, ProductId, ProductStatus } from "@/schemas/product";
+import { ProductCondition, ProductStatus } from "@/schemas/product";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { getEnumValues } from "@/server/database/enums";
 import { referencesStoreEntity } from "../../stores/stores/entity";
 import { referencesCategoryEntity } from "../categories/entity";
+import { type ProductId, ProductIdTransformer } from "./types";
 
 export const productStatus = pgEnum(
 	"product_status",
@@ -27,7 +28,7 @@ export const productCondition = pgEnum(
 
 export const ProductEntity = pgTable(
 	"products",
-	baseDbSchema(ProductId, {
+	baseDbSchema(ProductIdTransformer.unoPrivate, {
 		storeId: referencesStoreEntity().notNull(),
 		categoryId: referencesCategoryEntity().notNull(),
 		secondaryCategoryId: referencesCategoryEntity().notNull(),

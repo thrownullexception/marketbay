@@ -1,13 +1,13 @@
 import { pgTable, unique } from "drizzle-orm/pg-core";
-import { WishListItemId } from "@/schemas/wishlist-item";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesProductVariantEntity } from "../../catalog/product-variants/entity";
 import { referencesProductEntity } from "../../catalog/products/entity";
 import { referencesUserEntity } from "../../identity/users/entity";
+import { WishlistItemIdTransformer } from "./types";
 
 export const WishListItemEntity = pgTable(
 	"wishlist_items",
-	baseDbSchema(WishListItemId, {
+	baseDbSchema(WishlistItemIdTransformer.unoPrivate, {
 		userId: referencesUserEntity("cascade").notNull(),
 		productId: referencesProductEntity("cascade").notNull(),
 		productVariantId: referencesProductVariantEntity("cascade").notNull(),

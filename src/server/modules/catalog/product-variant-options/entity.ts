@@ -1,12 +1,12 @@
 import { index, pgTable } from "drizzle-orm/pg-core";
-import { ProductVariantOptionId } from "@/schemas/product-variant-option";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesProductOptionValueEntity } from "../product-option-values/entity";
 import { referencesProductVariantEntity } from "../product-variants/entity";
+import { ProductVariantOptionIdTransformer } from "./types";
 
 export const ProductVariantOptionEntity = pgTable(
 	"product_variant_option",
-	baseDbSchema(ProductVariantOptionId, {
+	baseDbSchema(ProductVariantOptionIdTransformer.unoPrivate, {
 		productVariantId: referencesProductVariantEntity("cascade"),
 		optionValueId: referencesProductOptionValueEntity("cascade"),
 	}),

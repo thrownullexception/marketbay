@@ -7,15 +7,15 @@ import {
 	text,
 	unique,
 } from "drizzle-orm/pg-core";
-import { OrderItemId } from "@/schemas/order-item";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesProductVariantEntity } from "@/server/modules/catalog/product-variants/entity";
 import { referencesProductEntity } from "@/server/modules/catalog/products/entity";
 import { referencesOrderEntity } from "@/server/modules/orders/orders/entity";
+import { OrderItemIdTransformer } from "./types";
 
 export const OrderItemEntity = pgTable(
 	"order_items",
-	baseDbSchema(OrderItemId, {
+	baseDbSchema(OrderItemIdTransformer.unoPrivate, {
 		orderId: referencesOrderEntity("cascade").notNull(),
 		productId: referencesProductEntity("restrict").notNull(),
 		productVariantId: referencesProductVariantEntity("restrict").notNull(),

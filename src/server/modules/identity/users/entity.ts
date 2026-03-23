@@ -5,12 +5,12 @@ import {
 	type UpdateDeleteAction,
 	unique,
 } from "drizzle-orm/pg-core";
-import { UserId } from "@/schemas/user";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
+import { type UserId, UserIdTransformer } from "./types";
 
 export const UserEntity = pgTable(
 	"users",
-	baseDbSchema(UserId, {
+	baseDbSchema(UserIdTransformer.unoPrivate, {
 		firstName: text().notNull(),
 		lastName: text().notNull(),
 		email: text().notNull(),

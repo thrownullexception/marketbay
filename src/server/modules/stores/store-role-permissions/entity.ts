@@ -1,12 +1,12 @@
 import { pgTable, unique } from "drizzle-orm/pg-core";
-import { StoreRolePermissionId } from "@/schemas/store-role-permission";
 import { baseDbSchema } from "@/server/database/base-schema";
 import { referencesStorePermissionEntity } from "../store-permissions/entity";
 import { referencesStoreRoleEntity } from "../store-roles/entity";
+import { StoreRolePermissionIdTransformer } from "./types";
 
 export const StoreRolePermissionsEntity = pgTable(
 	"store_role_permissions",
-	baseDbSchema(StoreRolePermissionId, {
+	baseDbSchema(StoreRolePermissionIdTransformer.unoPrivate, {
 		roleId: referencesStoreRoleEntity("cascade").notNull(),
 		permissionId: referencesStorePermissionEntity("cascade").notNull(),
 	}),

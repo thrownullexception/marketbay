@@ -4,14 +4,14 @@ import {
 	timestamp,
 	type UpdateDeleteAction,
 } from "drizzle-orm/pg-core";
-import { ConversationId } from "@/schemas/conversation";
 import { baseDbSchema, idField } from "@/server/database/base-schema";
 import { referencesUserEntity } from "../../identity/users/entity";
 import { referencesStoreEntity } from "../../stores/stores/entity";
+import { type ConversationId, ConversationIdTransformer } from "./types";
 
 export const ConversationEntity = pgTable(
 	"conversations",
-	baseDbSchema(ConversationId, {
+	baseDbSchema(ConversationIdTransformer.unoPrivate, {
 		userId: referencesUserEntity("restrict").notNull(),
 		storeId: referencesStoreEntity("restrict").notNull(),
 

@@ -27,15 +27,15 @@ function deriveAlphabet(base: string, brandId: string): string {
 
 export class HashIdTransformer<
 	T extends string,
-	TPrivate = number & v.Brand<T>,
-	TPublic = string & v.Brand<T>,
+	TDbId = number & v.Brand<T>,
+	TPublicHash = string & v.Brand<T>,
 > {
 	private readonly sqids: Sqids;
 
-	private toPrivateCache: Map<string, TPrivate> = new Map();
-	private toPublicCache: Map<TPrivate, TPublic> = new Map();
+	private toDbIdCache: Map<string, TDbId> = new Map();
+	private toPublicHashCache: Map<TDbId, TPublicHash> = new Map();
 
-	public unoPrivate: TPrivate;
+	public unoPrivate: TDbId;
 
 	constructor(
 		readonly brandId: T,
@@ -47,35 +47,35 @@ export class HashIdTransformer<
 			minLength: length,
 			blocklist: new Set([]),
 		});
-		this.unoPrivate = this.toPrivate(this.toPublic(1 as TPrivate) as string);
+		this.unoPrivate = this.toDbId(this.toPublicHash(1 as TDbId) as string);
 	}
 
-	toPrivate(input: string): TPrivate {
-		const cached = this.toPrivateCache.get(input);
+	toDbId(input: string): TDbId {
+		const cached = this.toDbIdCache.get(input);
 
 		if (cached) {
 			return cached;
 		}
 
-		const result = this.sqids.decode(input as string)[0] as TPrivate
+		const result = this.sqids.decode(input as string)[0] as TDbId
 
 		if(!result) {
 			throw new BadRequestError(`Invalid ${this.brandId}`);
 		}
 
-		this.toPrivateCache.set(input, result);
+		this.toDbIdCache.set(input, result);
 		return result;
 	}
 
-	toPublic(input: TPrivate): TPublic {
-		const cached = this.toPublicCache.get(input);
+	toPublicHash(input: TDbId): TPublicHash {
+		const cached = this.toPublicHashCache.get(input);
 
 		if (cached) {
 			return cached;
 		}
 
-		const result = this.sqids.encode([input as number]) as TPublic;
-		this.toPublicCache.set(input, result);
+		const result = this.sqids.encode([input as number]) as TPublicHash;
+		this.toPublicHashCache.set(input, result);
 		return result;
 	}
 }

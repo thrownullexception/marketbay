@@ -1,19 +1,13 @@
 import { BadgeCheckIcon, StarIcon } from "lucide-solid";
+import type { StoreListItemTransformer } from "@/server/modules/stores/stores/types";
 import { StoreCardActions } from "@/ui/store-card/actions";
 
-interface StoreListCardProps {
+interface StoreListCardProps extends StoreListItemTransformer {
 	bannerGradient: string;
 	avatarGradient: string;
 	initials: string;
-	name: string;
-	verified?: boolean;
-	categories: string;
-	description: string;
-	rating: string;
-	ratingCount: string;
-	productCount: string;
-	followers: string;
-	following?: boolean;
+  
+	// slug: string;
 }
 
 export const StoreListCard = (props: StoreListCardProps) => {
