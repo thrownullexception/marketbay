@@ -1,5 +1,5 @@
-import { getRouteApi, Link } from "@tanstack/solid-router";
-import { createEffect } from "solid-js";
+import { Link } from "@tanstack/solid-router";
+import { For } from "solid-js";
 import { SimpleSelect } from "@/ui/input-select";
 
 const categories = [
@@ -14,17 +14,11 @@ const categories = [
 ];
 
 export const StoresToolbar = () => {
-	// const routeApi = getRouteApi("/(app)/stores");
-	// const foo = routeApi.useLoaderData();
-
-	// createEffect(() => {
-	// 	console.log(foo());
-	// });
-
 	return (
 		<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
 			<div class="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-1">
-				{categories.map((cat) => (
+				<For each={categories}>
+					{(cat) => (
 					<Link
 						to="/stores"
 						search={{ category: cat.value }}
@@ -40,7 +34,8 @@ export const StoresToolbar = () => {
 					>
 						{cat.name}
 					</Link>
-				))}
+					)}
+				</For>
 			</div>
 			<SimpleSelect
 				options={[

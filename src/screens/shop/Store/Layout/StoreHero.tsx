@@ -1,4 +1,5 @@
-import { linkOptions } from "@tanstack/solid-router";
+import { createQuery } from "@tanstack/solid-query";
+import { getRouteApi, linkOptions } from "@tanstack/solid-router";
 import {
 	BadgeCheckIcon,
 	CalendarIcon,
@@ -10,10 +11,22 @@ import {
 	UserPlusIcon,
 	UsersIcon,
 } from "lucide-solid";
+import { getShopTreaty } from "@/shared/treaty/shop.treaty";
+import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
 import { AnchorLink, Button, LinkButton } from "@/ui/button";
 import { Container } from "@/ui/container";
 
+export const storeQuery = (storeId: string) => createTreatyQueryOptions(
+	getShopTreaty,
+	(t) => t.stores({ storeId }).get(),
+);
+
 export const StoreHero = () => {
+	const routeApi = getRouteApi("/(app)/store/$storeSlug");
+	const params = routeApi.useParams();
+
+	const storeResult = createQuery(() => storeQuery(params().storeSlug));
+
 	return (
 		<section class="bg-white border-b border-gray-100">
 			<div class="relative h-36 sm:h-44 lg:h-52 bg-linear-to-r from-brand-700 via-brand-800 to-brand-950 overflow-hidden">
@@ -29,16 +42,14 @@ export const StoreHero = () => {
 				<div class="flex flex-col sm:flex-row sm:items-start gap-4 pb-6">
 					<div class="flex-1 min-w-0">
 						<div class="flex flex-wrap items-center gap-2">
-							<h1 class="text-2xl font-extrabold text-gray-900">TechVault</h1>
+							<h1 class="text-2xl font-extrabold text-gray-900">{storeResult.data?.name}</h1>
 							<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-green-50 text-green-700 text-[11px] font-semibold rounded-full border border-blue-100">
 								<BadgeCheckIcon class="w-3 h-3" />
 								Verified Store
 							</span>
 						</div>
 						<p class="text-sm text-gray-500 mt-1.5 max-w-xl">
-							Premium electronics, gadgets & accessories. Curated selection of
-							top-quality tech products with fast shipping and dedicated
-							support.
+							{/* {storeResult.data?.} */}
 						</p>
 						<div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-sm text-gray-500">
 							<div class="flex items-center gap-1">

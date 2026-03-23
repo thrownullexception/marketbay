@@ -10,8 +10,8 @@ import {
 import { authenticatedMiddleware } from "@/server/middlewares/auth";
 import { IdentityModule } from "..";
 
-export const userAdressesShopController = new Elysia({
-	prefix: "/user-adresses",
+export const userAddressesShopController = new Elysia({
+	prefix: "/user-addresses",
 })
 	.use(authenticatedMiddleware)
 	.get("/", async ({ authenticatedUserId }) => {

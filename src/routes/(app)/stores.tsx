@@ -20,7 +20,7 @@ export const Route = createFileRoute("/(app)/stores")({
 
 		// console.log({context})
 
-		await context.queryClient.ensureQueryData(storesQuery);
+		// await context.queryClient.ensureQueryData(storesQuery);
 	},
 	errorComponent: DefaultCatchBoundary,
 	validateSearch: storesSearchSchema,

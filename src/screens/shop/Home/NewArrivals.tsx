@@ -1,4 +1,4 @@
-import { createQuery, useQuery } from "@tanstack/solid-query";
+import { createQuery } from "@tanstack/solid-query";
 import { linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
 import { getShopTreaty } from "@/shared/treaty/shop.treaty";

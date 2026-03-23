@@ -1,4 +1,5 @@
 import { getRouteApi, Link, linkOptions } from "@tanstack/solid-router";
+import { For } from "solid-js";
 import { Container } from "@/ui/container";
 
 const tabs = (storeSlug: string) => [
@@ -40,7 +41,8 @@ export const StoreTabs = () => {
 		<div class="bg-white border-b border-gray-100 sticky top-[57px] z-40">
 			<Container>
 				<div class="flex items-center gap-6 overflow-x-auto scrollbar-hide">
-					{tabs(params().storeSlug).map((tab) => (
+					<For each={tabs(params().storeSlug)}>
+						{(tab) => (
 						<Link
 							to={tab.link.to}
 							params={tab.link.params}
@@ -55,7 +57,8 @@ export const StoreTabs = () => {
 						>
 							{tab.label}
 						</Link>
-					))}
+						)}
+					</For>
 				</div>
 			</Container>
 		</div>

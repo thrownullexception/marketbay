@@ -1,24 +1,25 @@
 import { eq, type InferSelectModel } from "drizzle-orm";
 import * as v from "valibot";
-import { CategoryId, CategoryIdSchema } from "@/schemas/category";
+import { CategoryId } from "@/schemas/category";
 import {
 	type CreateStoreRequestSchema,
-	type StoreId,
 	StoreStatus,
 } from "@/schemas/store";
+import { StoreRole, StoreRoleId } from "@/schemas/store-role";
 import type { UserId } from "@/schemas/user";
-import type { Database } from "@/server/database";
+import { type Database, db } from "@/server/database";
 import { withPagination } from "@/server/database/pagination";
 import { NotFoundRequestError } from "@/server/shared/errors";
-import type { StoreTeamMembersService } from "../store-team-members/service";
+import { type StoreTeamMembersService, storeTeamMembersService } from "../store-team-members/service";
 import { StoreEntity } from "./entity";
+import type { PrivateStoreId } from "./types";
 
 const CACHE_PREFIX = "stores";
 
 const CACHE_TAG = {
-	SHORT_DETAILS: (storeId: StoreId) =>
+	SHORT_DETAILS: (storeId: PrivateStoreId) =>
 		`${CACHE_PREFIX}:short_details:${storeId}`,
-	FULL_DETAILS: (storeId: StoreId) => `${CACHE_PREFIX}:full_details:${storeId}`,
+	FULL_DETAILS: (storeId: PrivateStoreId) => `${CACHE_PREFIX}:full_details:${storeId}`,
 };
 
 export class StoresService {
@@ -81,10 +82,16 @@ export class StoresService {
 				id: StoreEntity.id,
 			});
 
+            await this.storeTeamMembersService.createStoreMember({
+                storeId: store[0].id,
+                userId: userId,
+                roleId: StoreRole.Owner,
+            });
+
 		return store[0].id;
 	}
 
-	async getShortDetails(storeId: StoreId) {
+	async getShortDetails(storeId: PrivateStoreId) {
 		const store = (
 			await this.db
 				.select({
@@ -118,7 +125,7 @@ export class StoresService {
 		return store;
 	}
 
-	async getFullDetails(storeId: StoreId) {
+	async getFullDetails(storeId: PrivateStoreId) {
 		const store = (
 			await this.db
 				.select({
@@ -160,7 +167,7 @@ export class StoresService {
 	}
 
 	async updateStore(input: {
-		storeId: StoreId;
+		storeId: PrivateStoreId;
 		store: Partial<InferSelectModel<typeof StoreEntity>>;
 	}) {
 		await this.db
@@ -176,3 +183,5 @@ export class StoresService {
 		});
 	}
 }
+
+export const storesService = new StoresService(db, storeTeamMembersService);

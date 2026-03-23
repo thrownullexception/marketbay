@@ -120,7 +120,7 @@ CREATE TABLE "product_views" (
 	"guest_id" integer,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "product_view_has_owner" CHECK ((user_id IS NOT NULL OR guest_id IS NOT NULL))
+	CONSTRAINT "product_view_has_owner" CHECK (user_id IS NOT NULL OR guest_id IS NOT NULL)
 );
 --> statement-breakpoint
 CREATE TABLE "products" (
@@ -347,11 +347,11 @@ CREATE TABLE "reviews" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "reviews_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"product_id" integer,
 	"store_id" integer,
-	"status" "review_status" NOT NULL,
+	"status" "review_status" DEFAULT 'published' NOT NULL,
 	"title" text,
 	"body" text,
 	"user_id" integer NOT NULL,
-	"rating" smallint,
+	"rating" smallint NOT NULL,
 	"helpful_votes" integer DEFAULT 0 NOT NULL,
 	"store_reply" text,
 	"store_reply_at" timestamp,
@@ -359,7 +359,8 @@ CREATE TABLE "reviews" (
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "reviews_productId_userId_unique" UNIQUE NULLS NOT DISTINCT("product_id","user_id"),
 	CONSTRAINT "reviews_storeId_userId_unique" UNIQUE NULLS NOT DISTINCT("store_id","user_id"),
-	CONSTRAINT "rating_in_range" CHECK (rating BETWEEN 1 AND 5)
+	CONSTRAINT "rating_in_range" CHECK (rating BETWEEN 1 AND 5),
+	CONSTRAINT "review_has_owner" CHECK (product_id IS NOT NULL OR store_id IS NOT NULL)
 );
 --> statement-breakpoint
 CREATE TABLE "store_followings" (
@@ -433,9 +434,9 @@ CREATE TABLE "stores" (
 	"description" varchar(500),
 	"logo_url" text,
 	"cover_url" text,
-	"status" "store_status" NOT NULL,
-	"primary_category" integer NOT NULL,
-	"secondary_category" integer,
+	"status" "store_status" DEFAULT 'active' NOT NULL,
+	"primary_category_id" integer NOT NULL,
+	"secondary_category_id" integer,
 	"legal_business_name" text NOT NULL,
 	"business_id" text,
 	"street" text NOT NULL,
@@ -448,10 +449,10 @@ CREATE TABLE "stores" (
 	"website" text,
 	"instagram" text,
 	"twitter" text,
-	"avg_rating" numeric(2, 2) DEFAULT '0.0',
-	"review_count" integer DEFAULT 0,
-	"total_sales" integer DEFAULT 0,
-	"is_verified" boolean,
+	"avg_rating" numeric(2, 2) DEFAULT '0.0' NOT NULL,
+	"review_count" integer DEFAULT 0 NOT NULL,
+	"total_sales" integer DEFAULT 0 NOT NULL,
+	"is_verified" boolean DEFAULT false NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "stores_slug_unique" UNIQUE("slug")
@@ -518,8 +519,8 @@ ALTER TABLE "store_roles" ADD CONSTRAINT "store_roles_store_id_stores_id_fk" FOR
 ALTER TABLE "store_team_members" ADD CONSTRAINT "store_team_members_store_id_stores_id_fk" FOREIGN KEY ("store_id") REFERENCES "public"."stores"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "store_team_members" ADD CONSTRAINT "store_team_members_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "store_team_members" ADD CONSTRAINT "store_team_members_role_id_store_roles_id_fk" FOREIGN KEY ("role_id") REFERENCES "public"."store_roles"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "stores" ADD CONSTRAINT "stores_primary_category_categories_id_fk" FOREIGN KEY ("primary_category") REFERENCES "public"."categories"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "stores" ADD CONSTRAINT "stores_secondary_category_categories_id_fk" FOREIGN KEY ("secondary_category") REFERENCES "public"."categories"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "stores" ADD CONSTRAINT "stores_primary_category_id_categories_id_fk" FOREIGN KEY ("primary_category_id") REFERENCES "public"."categories"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "stores" ADD CONSTRAINT "stores_secondary_category_id_categories_id_fk" FOREIGN KEY ("secondary_category_id") REFERENCES "public"."categories"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
 CREATE INDEX "abandoned_carts_user_id_index" ON "abandoned_carts" USING btree ("user_id");--> statement-breakpoint
 CREATE INDEX "categories_parent_id_index" ON "categories" USING btree ("parent_id");--> statement-breakpoint
 CREATE INDEX "product_tags_tag_id_index" ON "product_tags" USING btree ("tag_id");--> statement-breakpoint

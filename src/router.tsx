@@ -19,6 +19,7 @@ export function getRouter() {
 	const router = createRouter({
 		routeTree,
 		defaultPreload: "intent",
+		// defaultPreloadStaleTime: 0,
 		context: { queryClient },
 		defaultErrorComponent: DefaultCatchBoundary,
 		defaultNotFoundComponent: () => <NotFound />,

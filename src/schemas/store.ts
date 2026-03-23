@@ -94,7 +94,7 @@ export class StoreResponseTransformer {
 	isVerified: boolean;
 
 	constructor(
-		readonly store: {
+		 store: {
 			id: PrivateStoreId;
 			name: string;
 			slug: string;
