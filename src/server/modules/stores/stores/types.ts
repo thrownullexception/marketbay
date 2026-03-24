@@ -1,11 +1,26 @@
-import type { StoreStatus } from "@/schemas/store";
+import type { Categories } from "@/schemas/category";
 import { HashIdTransformer } from "@/server/services/hashid";
-import type { CategoryId } from "../../catalog/categories/types";
 
 export const StoreIdTransformer = new HashIdTransformer("StoreId");
 
 export type StoreId = ReturnType<typeof StoreIdTransformer.toDbId>;
 export type StoreIdHash = ReturnType<typeof StoreIdTransformer.toPublicHash>;
+
+interface StoreListItemInput {
+	id: StoreId;
+	name: string;
+	slug: string;
+	logoUrl?: string | null;
+	coverUrl?: string | null;
+	isVerified: boolean;
+	primaryCategoryId: Categories;
+	secondaryCategoryId: Categories | null;
+	tagline: string | null;
+	avgRating: string;
+	productsCount: number;
+	ratingsCount: number;
+	followersCount: number;
+}
 
 export class StoreListItemTransformer {
 	id: StoreIdHash;
@@ -13,41 +28,57 @@ export class StoreListItemTransformer {
 	slug: string;
 	logoUrl?: string | null;
 	coverUrl?: string | null;
-	status: StoreStatus;
-	primaryCategoryId: CategoryId;
-	secondaryCategoryId: CategoryId | null;
-	avgRating: string;
-	reviewCount: number;
-	totalSales: number;
 	isVerified: boolean;
+	primaryCategoryId: Categories;
+	secondaryCategoryId: Categories | null;
+	tagline: string | null;
+	avgRating: string;
+	ratingsCount: number;
+	productsCount: number;
+	followersCount: number;
 
-	constructor(
-		 store: {
-			id: StoreId;
-			name: string;
-			slug: string;
-			logoUrl?: string | null;
-			coverUrl?: string | null;
-			status: StoreStatus;
-			primaryCategoryId: CategoryId;
-			secondaryCategoryId: CategoryId | null;
-			avgRating: string;
-			reviewCount: number;
-			totalSales: number;
-			isVerified: boolean;
-		},
-	) {
-		this.id = StoreIdTransformer.toPublicHash(store.id)
+	constructor(store: StoreListItemInput) {
+		this.id = StoreIdTransformer.toPublicHash(store.id);
 		this.name = store.name;
 		this.slug = store.slug;
 		this.logoUrl = store.logoUrl;
 		this.coverUrl = store.coverUrl;
-		this.status = store.status;
+		this.tagline = store.tagline;
+		this.isVerified = store.isVerified;
 		this.primaryCategoryId = store.primaryCategoryId;
 		this.secondaryCategoryId = store.secondaryCategoryId;
 		this.avgRating = store.avgRating;
-		this.reviewCount = store.reviewCount;
-		this.isVerified = store.isVerified;
-		this.totalSales = store.totalSales;
+		this.ratingsCount = store.ratingsCount;
+		this.productsCount = store.productsCount;
+		this.followersCount = store.followersCount;
+	}
+}
+
+export class StoreDetailsTransformer extends StoreListItemTransformer {
+	email: string | null;
+	phone: string | null;
+	website: string | null;
+	instagram: string | null;
+	twitter: string | null;
+	description: string | null;
+	createdAt: Date;
+
+	constructor(store: StoreListItemInput & {
+		email: string | null;
+		phone: string | null;
+		website: string | null;
+		instagram: string | null;
+		twitter: string | null;
+		description: string | null;
+		createdAt: Date;
+	}) {
+		super(store);
+		this.email = store.email;
+		this.phone = store.phone;
+		this.website = store.website;
+		this.instagram = store.instagram;
+		this.twitter = store.twitter;
+		this.description = store.description;
+		this.createdAt = store.createdAt;
 	}
 }

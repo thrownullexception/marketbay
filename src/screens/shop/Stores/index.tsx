@@ -95,25 +95,14 @@ export const StoresScreen = () => {
 					</p>
 
 					<Grid3>
-						{/* <For each={storesResult.data}>
+						<For each={storesResult.data}>
 							{(store) => (
 								<StoreListCard
-								bannerGradient="from-blue-500 to-indigo-600"
-								avatarGradient="from-blue-500 to-indigo-600"
-								initials="TV"
-								name={store.name}
-								slug={store.slug}
-								verified={store.isVerified}
-								categories={store.categories}
-								description={store.description}
-								rating={store.avgRating}
-								ratingCount={store.reviewCount}
-								productCount={store.productCount}
-								followers={store.followers}
-							/>
+									{...store}
+								/>
 							)}
-						</For> */}
-						<StoreListCard
+						</For>
+						{/* <StoreListCard
 							bannerGradient="from-blue-500 to-indigo-600"
 							avatarGradient="from-blue-500 to-indigo-600"
 							initials="TV"
@@ -226,7 +215,7 @@ export const StoresScreen = () => {
 							ratingCount="860"
 							productCount="145"
 							followers="7.8k"
-						/>
+						/> */}
 					</Grid3>
 					<Pagination />
 				</Container>

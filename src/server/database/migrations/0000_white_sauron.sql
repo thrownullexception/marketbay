@@ -54,26 +54,22 @@ CREATE TABLE "wishlist_items" (
 );
 --> statement-breakpoint
 CREATE TABLE "categories" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "categories_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
-	"parent_id" integer,
-	"name" text NOT NULL,
-	"slug" text NOT NULL,
-	"description" text,
-	"image_url" text,
-	"sort_order" smallint DEFAULT 0 NOT NULL,
-	"is_active" boolean,
-	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "categories_slug_unique" UNIQUE("slug")
+	"id" varchar(2) PRIMARY KEY NOT NULL,
+	"label" varchar(128) NOT NULL,
+	"metadata" jsonb,
+	"order" integer DEFAULT 0 NOT NULL,
+	"active" boolean DEFAULT true NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE "product_tags" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "product_tags_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+CREATE TABLE "product_images" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "product_images_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"product_id" integer NOT NULL,
-	"tag_id" integer NOT NULL,
+	"url" text NOT NULL,
+	"alt_text" text,
+	"sort_order" smallint DEFAULT 0 NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "product_tags_productId_tagId_unique" UNIQUE("product_id","tag_id")
+	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "product_option_groups" (
@@ -92,6 +88,15 @@ CREATE TABLE "product_option_values" (
 	"sort_order" smallint DEFAULT 0 NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "product_tags" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "product_tags_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"product_id" integer NOT NULL,
+	"tag_id" integer NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "product_tags_productId_tagId_unique" UNIQUE("product_id","tag_id")
 );
 --> statement-breakpoint
 CREATE TABLE "product_variant_option" (
@@ -126,9 +131,9 @@ CREATE TABLE "product_views" (
 CREATE TABLE "products" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "products_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"store_id" integer NOT NULL,
-	"category_id" integer NOT NULL,
-	"secondary_category_id" integer NOT NULL,
-	"tertiary_category_id" integer NOT NULL,
+	"category_id" varchar(2) NOT NULL,
+	"secondary_category_id" varchar(2) NOT NULL,
+	"tertiary_category_id" varchar(2) NOT NULL,
 	"status" "product_status" NOT NULL,
 	"condition" "product_condition" NOT NULL,
 	"title" text NOT NULL,
@@ -157,7 +162,7 @@ CREATE TABLE "products" (
 --> statement-breakpoint
 CREATE TABLE "tags" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "tags_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
-	"category_id" integer,
+	"category_id" varchar(2),
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"sort_order" smallint DEFAULT 0 NOT NULL,
@@ -264,6 +269,7 @@ CREATE TABLE "messages" (
 CREATE TABLE "notification_types" (
 	"id" varchar(2) PRIMARY KEY NOT NULL,
 	"label" varchar(128) NOT NULL,
+	"metadata" jsonb,
 	"order" integer DEFAULT 0 NOT NULL,
 	"active" boolean DEFAULT true NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
@@ -390,6 +396,7 @@ CREATE TABLE "store_invitations" (
 CREATE TABLE "store_permissions" (
 	"id" varchar(2) PRIMARY KEY NOT NULL,
 	"label" varchar(128) NOT NULL,
+	"metadata" jsonb,
 	"order" integer DEFAULT 0 NOT NULL,
 	"active" boolean DEFAULT true NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
@@ -435,8 +442,8 @@ CREATE TABLE "stores" (
 	"logo_url" text,
 	"cover_url" text,
 	"status" "store_status" DEFAULT 'active' NOT NULL,
-	"primary_category_id" integer NOT NULL,
-	"secondary_category_id" integer,
+	"primary_category_id" varchar(2) NOT NULL,
+	"secondary_category_id" varchar(2),
 	"legal_business_name" text NOT NULL,
 	"business_id" text,
 	"street" text NOT NULL,
@@ -449,9 +456,10 @@ CREATE TABLE "stores" (
 	"website" text,
 	"instagram" text,
 	"twitter" text,
-	"avg_rating" numeric(2, 2) DEFAULT '0.0' NOT NULL,
-	"review_count" integer DEFAULT 0 NOT NULL,
-	"total_sales" integer DEFAULT 0 NOT NULL,
+	"avg_rating" numeric(3, 2) DEFAULT '0.0' NOT NULL,
+	"ratings_count" integer DEFAULT 0 NOT NULL,
+	"followers_count" integer DEFAULT 0 NOT NULL,
+	"products_count" integer DEFAULT 0 NOT NULL,
 	"is_verified" boolean DEFAULT false NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
@@ -468,11 +476,11 @@ ALTER TABLE "carts" ADD CONSTRAINT "carts_guest_id_guests_id_fk" FOREIGN KEY ("g
 ALTER TABLE "wishlist_items" ADD CONSTRAINT "wishlist_items_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "wishlist_items" ADD CONSTRAINT "wishlist_items_product_id_products_id_fk" FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "wishlist_items" ADD CONSTRAINT "wishlist_items_product_variant_id_product_variants_id_fk" FOREIGN KEY ("product_variant_id") REFERENCES "public"."product_variants"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "categories" ADD CONSTRAINT "categories_parent_id_categories_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."categories"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "product_tags" ADD CONSTRAINT "product_tags_product_id_products_id_fk" FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "product_tags" ADD CONSTRAINT "product_tags_tag_id_tags_id_fk" FOREIGN KEY ("tag_id") REFERENCES "public"."tags"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "product_images" ADD CONSTRAINT "product_images_product_id_products_id_fk" FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "product_option_groups" ADD CONSTRAINT "product_option_groups_product_id_products_id_fk" FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "product_option_values" ADD CONSTRAINT "product_option_values_option_group_id_product_option_groups_id_fk" FOREIGN KEY ("option_group_id") REFERENCES "public"."product_option_groups"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "product_tags" ADD CONSTRAINT "product_tags_product_id_products_id_fk" FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "product_tags" ADD CONSTRAINT "product_tags_tag_id_tags_id_fk" FOREIGN KEY ("tag_id") REFERENCES "public"."tags"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "product_variant_option" ADD CONSTRAINT "product_variant_option_product_variant_id_product_variants_id_fk" FOREIGN KEY ("product_variant_id") REFERENCES "public"."product_variants"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "product_variant_option" ADD CONSTRAINT "product_variant_option_option_value_id_product_option_values_id_fk" FOREIGN KEY ("option_value_id") REFERENCES "public"."product_option_values"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "product_variants" ADD CONSTRAINT "product_variants_product_id_products_id_fk" FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
@@ -522,10 +530,10 @@ ALTER TABLE "store_team_members" ADD CONSTRAINT "store_team_members_role_id_stor
 ALTER TABLE "stores" ADD CONSTRAINT "stores_primary_category_id_categories_id_fk" FOREIGN KEY ("primary_category_id") REFERENCES "public"."categories"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "stores" ADD CONSTRAINT "stores_secondary_category_id_categories_id_fk" FOREIGN KEY ("secondary_category_id") REFERENCES "public"."categories"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
 CREATE INDEX "abandoned_carts_user_id_index" ON "abandoned_carts" USING btree ("user_id");--> statement-breakpoint
-CREATE INDEX "categories_parent_id_index" ON "categories" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "product_tags_tag_id_index" ON "product_tags" USING btree ("tag_id");--> statement-breakpoint
+CREATE INDEX "product_images_product_id_index" ON "product_images" USING btree ("product_id");--> statement-breakpoint
 CREATE INDEX "product_option_groups_product_id_index" ON "product_option_groups" USING btree ("product_id");--> statement-breakpoint
 CREATE INDEX "product_option_values_option_group_id_index" ON "product_option_values" USING btree ("option_group_id");--> statement-breakpoint
+CREATE INDEX "product_tags_tag_id_index" ON "product_tags" USING btree ("tag_id");--> statement-breakpoint
 CREATE INDEX "product_variant_option_product_variant_id_index" ON "product_variant_option" USING btree ("product_variant_id");--> statement-breakpoint
 CREATE INDEX "product_variants_product_id_index" ON "product_variants" USING btree ("product_id");--> statement-breakpoint
 CREATE INDEX "product_views_product_id_index" ON "product_views" USING btree ("product_id");--> statement-breakpoint

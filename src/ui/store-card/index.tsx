@@ -1,6 +1,5 @@
 import "./styles.css";
 import { StarIcon } from "lucide-solid";
-import { StoreCardActions } from "./actions";
 
 export interface StoreCardData {
 	name: string;
@@ -34,6 +33,5 @@ export const StoreCard = (props: { store: StoreCardData }) => (
 				</div>
 			</div>
 		</div>
-		<StoreCardActions following={props.store.following ?? false} slug="todo" />
 	</div>
 );

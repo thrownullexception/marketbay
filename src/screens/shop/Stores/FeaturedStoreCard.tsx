@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/solid-router";
 import { ArrowRightIcon, BadgeCheckIcon, StarIcon } from "lucide-solid";
+import { StoreListItemTransformer } from "@/server/modules/stores/stores/types";
 
 interface FeaturedStoreCardProps {
 	slug: string;
@@ -17,7 +18,10 @@ interface FeaturedStoreCardProps {
 	followersTextColor: string;
 }
 
-export const FeaturedStoreCard = (props: FeaturedStoreCardProps) => {
+export const FeaturedStoreCard = (props: StoreListItemTransformer) => {
+	const bannerGradient = "";
+	const avatarGradient = "";
+	const initials = "";
 	return (
 		<Link
 			to="/store/$storeSlug"

@@ -2,6 +2,7 @@ import { SQL } from "bun";
 import { notInArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/bun-sql";
 import type { PgTable } from "drizzle-orm/pg-core";
+import { CATEGORY_CONFIG } from "@/schemas/category";
 import { NOTIFICATION_TYPES_CONFIG } from "@/schemas/notification-types";
 import { STORE_PERMISSION_CONFIG } from "@/schemas/store-permission";
 import {
@@ -9,7 +10,7 @@ import {
 	typescriptSafeObjectDotKeys,
 } from "@/shared/utils/objects";
 import { buildConflictUpdateColumns } from "./conflicts";
-import { NotificationTypeEntity, StorePermissionEntity } from "./schemas";
+import { CategoryEntity, NotificationTypeEntity, StorePermissionEntity } from "./schemas";
 
 // biome-ignore lint/style/noNonNullAssertion: <foo>
 const client = new SQL(process.env.DATABASE_URL!);
@@ -31,6 +32,10 @@ const CONFIG_DATA: {
 		entity: NotificationTypeEntity,
 		config: NOTIFICATION_TYPES_CONFIG,
 	},
+	{
+		entity: CategoryEntity,
+		config: CATEGORY_CONFIG,
+	},
 ];
 
 const seedConfigData = async () => {
@@ -45,6 +50,7 @@ const seedConfigData = async () => {
 				label,
 				metadata,
 				order,
+				active: true,
 			};
 			await db
 				.insert(entity)

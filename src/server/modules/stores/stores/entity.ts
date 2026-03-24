@@ -61,11 +61,12 @@ export const StoreEntity = pgTable(
 
     // Cached metrics (denormalized for performance)
     avgRating: numeric({
-      precision: 2,
+      precision: 3,
       scale: 2,
     }).notNull().default("0.0"),
-    reviewCount: integer().notNull().default(0),
-    totalSales: integer().notNull().default(0),
+    ratingsCount: integer().notNull().default(0),
+    followersCount: integer().notNull().default(0),
+    productsCount: integer().notNull().default(0),
 
     isVerified: boolean().notNull().default(false),
   }),

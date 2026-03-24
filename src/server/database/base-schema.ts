@@ -1,6 +1,6 @@
 import { sql } from "drizzle-orm";
 import type { PgColumnBuilderBase } from "drizzle-orm/pg-core";
-import { boolean, integer, timestamp, varchar } from "drizzle-orm/pg-core";
+import { boolean, integer, jsonb, timestamp, varchar } from "drizzle-orm/pg-core";
 import type * as v from "valibot";
 
 export const idField = () => integer();
@@ -32,6 +32,7 @@ export const baseDbSchema = <
 export const systemValueDbSchema = <U>(_: U) => ({
 	id: systemIdField().primaryKey().notNull().$type<U>(),
 	label: varchar({ length: 128 }).notNull(),
+	metadata: jsonb(),
 	order: integer().notNull().default(0),
 	active: boolean().notNull().default(true),
 	createdAt: timestamp().defaultNow().notNull(),

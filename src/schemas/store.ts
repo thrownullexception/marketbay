@@ -1,4 +1,5 @@
 import * as v from "valibot";
+import { Categories } from "./category";
 
 export enum StoreStatus {
 	Active = "active",
@@ -25,10 +26,11 @@ export const CreateStoreRequestSchema = v.object({
 	),
 	tagline: v.optional(v.pipe(v.string(), v.maxLength(60))),
 	description: v.optional(v.pipe(v.string(), v.maxLength(500))),
-	primaryCategoryId: v.pipe(v.string(), v.minLength(1)),
-	secondaryCategoryId: v.optional(v.pipe(v.string())),
+	primaryCategoryId: v.pipe(v.enum(Categories)),
+	secondaryCategoryId: v.optional(v.enum(Categories)),
 	state: v.pipe(v.string(), v.minLength(1)),
 	city: v.pipe(v.string()),
+	street: v.pipe(v.string()),
 	zip: v.pipe(v.string(), v.maxLength(7)),
 	country: v.pipe(v.string()),
 	// logo: v.pipe(v.file(), v.maxSize(2 * 1024 * 1024)),

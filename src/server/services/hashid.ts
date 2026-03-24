@@ -41,7 +41,7 @@ export class HashIdTransformer<
 		readonly brandId: T,
 		length: number = 10,
 	) {
-		console.log(`ERRROR, SHOULD NOT BE LOGGED IN THE FRONTEND - ${brandId}`);
+		// console.log(`ERRROR, SHOULD NOT BE LOGGED IN THE FRONTEND - ${brandId}`);
 		this.sqids = new Sqids({
 			alphabet: deriveAlphabet(serverEnv.SQIDS_ALPHABET, brandId),
 			minLength: length,

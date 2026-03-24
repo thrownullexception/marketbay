@@ -13,12 +13,14 @@ import {
 } from "lucide-solid";
 import { getShopTreaty } from "@/shared/treaty/shop.treaty";
 import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
+import { shorten } from "@/shared/utils/numbers";
+import { getInitials } from "@/shared/utils/strings";
 import { AnchorLink, Button, LinkButton } from "@/ui/button";
 import { Container } from "@/ui/container";
 
-export const storeQuery = (storeId: string) => createTreatyQueryOptions(
+export const storeQuery = (storeSlug: string) => createTreatyQueryOptions(
 	getShopTreaty,
-	(t) => t.stores({ storeId }).get(),
+	(t) => t.stores({ storeSlug }).get(),
 );
 
 export const StoreHero = () => {
@@ -36,7 +38,7 @@ export const StoreHero = () => {
 			<Container>
 				<div class="relative -mt-10 sm:-mt-12 mb-4">
 					<div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-2xl sm:text-3xl font-bold border-4 border-white shadow-lg">
-						TV
+						{getInitials(storeResult.data?.name ?? "")}
 					</div>
 				</div>
 				<div class="flex flex-col sm:flex-row sm:items-start gap-4 pb-6">
@@ -49,22 +51,22 @@ export const StoreHero = () => {
 							</span>
 						</div>
 						<p class="text-sm text-gray-500 mt-1.5 max-w-xl">
-							{/* {storeResult.data?.} */}
+							{storeResult.data?.tagline}
 						</p>
 						<div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-sm text-gray-500">
 							<div class="flex items-center gap-1">
 								<StarIcon class="w-4 h-4 text-yellow-500" fill="currentColor" />
-								<span class="font-semibold text-gray-700">4.9</span>
-								<span>(2,147 ratings)</span>
+								<span class="font-semibold text-gray-700">{storeResult.data?.avgRating}</span>
+								<span>({shorten(storeResult.data?.ratingsCount ?? 0)} ratings)</span>
 							</div>
 							<span class="text-gray-300">|</span>
 							<span class="flex gap-1">
 								{" "}
-								<PackageIcon class="w-4 h-4" /> 342 products
+								<PackageIcon class="w-4 h-4" /> {shorten(storeResult.data?.productsCount ?? 0)} products
 							</span>
 							<span class="text-gray-300">|</span>
 							<span class="flex gap-1">
-								<UsersIcon class="w-4 h-4" /> 8.4k followers
+								<UsersIcon class="w-4 h-4" /> {shorten(storeResult.data?.followersCount ?? 0)} followers
 							</span>
 							<span class="text-gray-300 hidden sm:inline">|</span>
 							<span class="flex gap-1">
@@ -74,7 +76,7 @@ export const StoreHero = () => {
 							<span class="text-gray-300 hidden sm:inline">|</span>
 							<span class="hidden sm:flex gap-1">
 								{" "}
-								<CalendarIcon class="w-4 h-4" /> Joined Mar 2023
+								<CalendarIcon class="w-4 h-4" /> Joined {storeResult.data?.createdAt?.toLocaleDateString()}
 							</span>
 						</div>
 					</div>
@@ -92,7 +94,7 @@ export const StoreHero = () => {
 							label="Chat with seller"
 							link={linkOptions({
 								to: "/chat/$storeSlug",
-								params: { storeSlug: "todo" },
+								params: { storeSlug: params().storeSlug },
 							})}
 							variant="default"
 							Icon={MessageSquareMoreIcon}

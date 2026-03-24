@@ -16,6 +16,23 @@ Secure checkout
 Verified sellers
 Easy payments
 
+///
+
+It has two potential values: “true” when the item is “on,” and “false” when the item is “off.”
+
+<button
+  id="favorite"
+  aria-label="Favorite this item"
+  aria-pressed="true"
+>
+  ❤️
+</button>
+Here, a screen reader will announce something like: “Favorite this item, selected, toggle button.”
+
+This tells the user the button is used to favorite an item, it can be toggled on or off, and it’s currently toggled on.
+
+///
+
 https://github.com/gaurishhs/elysia-ip
 https://github.com/johnny-woodtke/elysiajs-cdn-cache
 https://github.com/choiexe1/elysia-wide-event
