@@ -16,12 +16,12 @@ import { Route as MarketplaceGuidelinesRouteImport } from './routes/marketplace-
 import { Route as DeferredRouteImport } from './routes/deferred'
 import { Route as MerchantRouteRouteImport } from './routes/merchant/route'
 import { Route as AccountRouteRouteImport } from './routes/account/route'
-import { Route as formsRouteRouteImport } from './routes/(forms)/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as appRouteRouteImport } from './routes/(app)/route'
 import { Route as MerchantIndexRouteImport } from './routes/merchant/index'
 import { Route as AccountIndexRouteImport } from './routes/account/index'
 import { Route as appIndexRouteImport } from './routes/(app)/index'
+import { Route as MerchantNewRouteImport } from './routes/merchant/new'
 import { Route as AccountWishlistRouteImport } from './routes/account/wishlist'
 import { Route as AccountSettingsRouteImport } from './routes/account/settings'
 import { Route as AccountReviewsRouteImport } from './routes/account/reviews'
@@ -29,7 +29,6 @@ import { Route as AccountPaymentsRouteImport } from './routes/account/payments'
 import { Route as AccountOrdersRouteImport } from './routes/account/orders'
 import { Route as AccountFollowingRouteImport } from './routes/account/following'
 import { Route as AccountAddressesRouteImport } from './routes/account/addresses'
-import { Route as formsCreateStoreRouteImport } from './routes/(forms)/create-store'
 import { Route as authVerifyEmailRouteImport } from './routes/(auth)/verify-email'
 import { Route as authRegisterRouteImport } from './routes/(auth)/register'
 import { Route as authLoginRouteImport } from './routes/(auth)/login'
@@ -96,10 +95,6 @@ const AccountRouteRoute = AccountRouteRouteImport.update({
   path: '/account',
   getParentRoute: () => rootRouteImport,
 } as any)
-const formsRouteRoute = formsRouteRouteImport.update({
-  id: '/(forms)',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const authRouteRoute = authRouteRouteImport.update({
   id: '/(auth)',
   getParentRoute: () => rootRouteImport,
@@ -122,6 +117,11 @@ const appIndexRoute = appIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => appRouteRoute,
+} as any)
+const MerchantNewRoute = MerchantNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => MerchantRouteRoute,
 } as any)
 const AccountWishlistRoute = AccountWishlistRouteImport.update({
   id: '/wishlist',
@@ -157,11 +157,6 @@ const AccountAddressesRoute = AccountAddressesRouteImport.update({
   id: '/addresses',
   path: '/addresses',
   getParentRoute: () => AccountRouteRoute,
-} as any)
-const formsCreateStoreRoute = formsCreateStoreRouteImport.update({
-  id: '/create-store',
-  path: '/create-store',
-  getParentRoute: () => formsRouteRoute,
 } as any)
 const authVerifyEmailRoute = authVerifyEmailRouteImport.update({
   id: '/verify-email',
@@ -333,7 +328,6 @@ export interface FileRoutesByFullPath {
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
   '/verify-email': typeof authVerifyEmailRoute
-  '/create-store': typeof formsCreateStoreRoute
   '/account/addresses': typeof AccountAddressesRoute
   '/account/following': typeof AccountFollowingRoute
   '/account/orders': typeof AccountOrdersRoute
@@ -341,6 +335,7 @@ export interface FileRoutesByFullPath {
   '/account/reviews': typeof AccountReviewsRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
+  '/merchant/new': typeof MerchantNewRoute
   '/': typeof appIndexRoute
   '/account/': typeof AccountIndexRoute
   '/merchant/': typeof MerchantIndexRoute
@@ -380,7 +375,6 @@ export interface FileRoutesByTo {
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
   '/verify-email': typeof authVerifyEmailRoute
-  '/create-store': typeof formsCreateStoreRoute
   '/account/addresses': typeof AccountAddressesRoute
   '/account/following': typeof AccountFollowingRoute
   '/account/orders': typeof AccountOrdersRoute
@@ -388,6 +382,7 @@ export interface FileRoutesByTo {
   '/account/reviews': typeof AccountReviewsRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
+  '/merchant/new': typeof MerchantNewRoute
   '/': typeof appIndexRoute
   '/account': typeof AccountIndexRoute
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
@@ -413,7 +408,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/(app)': typeof appRouteRouteWithChildren
   '/(auth)': typeof authRouteRouteWithChildren
-  '/(forms)': typeof formsRouteRouteWithChildren
   '/account': typeof AccountRouteRouteWithChildren
   '/merchant': typeof MerchantRouteRouteWithChildren
   '/deferred': typeof DeferredRoute
@@ -432,7 +426,6 @@ export interface FileRoutesById {
   '/(auth)/login': typeof authLoginRoute
   '/(auth)/register': typeof authRegisterRoute
   '/(auth)/verify-email': typeof authVerifyEmailRoute
-  '/(forms)/create-store': typeof formsCreateStoreRoute
   '/account/addresses': typeof AccountAddressesRoute
   '/account/following': typeof AccountFollowingRoute
   '/account/orders': typeof AccountOrdersRoute
@@ -440,6 +433,7 @@ export interface FileRoutesById {
   '/account/reviews': typeof AccountReviewsRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
+  '/merchant/new': typeof MerchantNewRoute
   '/(app)/': typeof appIndexRoute
   '/account/': typeof AccountIndexRoute
   '/merchant/': typeof MerchantIndexRoute
@@ -483,7 +477,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/verify-email'
-    | '/create-store'
     | '/account/addresses'
     | '/account/following'
     | '/account/orders'
@@ -491,6 +484,7 @@ export interface FileRouteTypes {
     | '/account/reviews'
     | '/account/settings'
     | '/account/wishlist'
+    | '/merchant/new'
     | '/'
     | '/account/'
     | '/merchant/'
@@ -530,7 +524,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/verify-email'
-    | '/create-store'
     | '/account/addresses'
     | '/account/following'
     | '/account/orders'
@@ -538,6 +531,7 @@ export interface FileRouteTypes {
     | '/account/reviews'
     | '/account/settings'
     | '/account/wishlist'
+    | '/merchant/new'
     | '/'
     | '/account'
     | '/category/$categorySlug'
@@ -562,7 +556,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/(app)'
     | '/(auth)'
-    | '/(forms)'
     | '/account'
     | '/merchant'
     | '/deferred'
@@ -581,7 +574,6 @@ export interface FileRouteTypes {
     | '/(auth)/login'
     | '/(auth)/register'
     | '/(auth)/verify-email'
-    | '/(forms)/create-store'
     | '/account/addresses'
     | '/account/following'
     | '/account/orders'
@@ -589,6 +581,7 @@ export interface FileRouteTypes {
     | '/account/reviews'
     | '/account/settings'
     | '/account/wishlist'
+    | '/merchant/new'
     | '/(app)/'
     | '/account/'
     | '/merchant/'
@@ -616,7 +609,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   appRouteRoute: typeof appRouteRouteWithChildren
   authRouteRoute: typeof authRouteRouteWithChildren
-  formsRouteRoute: typeof formsRouteRouteWithChildren
   AccountRouteRoute: typeof AccountRouteRouteWithChildren
   MerchantRouteRoute: typeof MerchantRouteRouteWithChildren
   DeferredRoute: typeof DeferredRoute
@@ -677,13 +669,6 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof AccountRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(forms)': {
-      id: '/(forms)'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof formsRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/(auth)': {
       id: '/(auth)'
       path: ''
@@ -718,6 +703,13 @@ declare module '@tanstack/solid-router' {
       fullPath: '/'
       preLoaderRoute: typeof appIndexRouteImport
       parentRoute: typeof appRouteRoute
+    }
+    '/merchant/new': {
+      id: '/merchant/new'
+      path: '/new'
+      fullPath: '/merchant/new'
+      preLoaderRoute: typeof MerchantNewRouteImport
+      parentRoute: typeof MerchantRouteRoute
     }
     '/account/wishlist': {
       id: '/account/wishlist'
@@ -767,13 +759,6 @@ declare module '@tanstack/solid-router' {
       fullPath: '/account/addresses'
       preLoaderRoute: typeof AccountAddressesRouteImport
       parentRoute: typeof AccountRouteRoute
-    }
-    '/(forms)/create-store': {
-      id: '/(forms)/create-store'
-      path: '/create-store'
-      fullPath: '/create-store'
-      preLoaderRoute: typeof formsCreateStoreRouteImport
-      parentRoute: typeof formsRouteRoute
     }
     '/(auth)/verify-email': {
       id: '/(auth)/verify-email'
@@ -1070,18 +1055,6 @@ const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
   authRouteRouteChildren,
 )
 
-interface formsRouteRouteChildren {
-  formsCreateStoreRoute: typeof formsCreateStoreRoute
-}
-
-const formsRouteRouteChildren: formsRouteRouteChildren = {
-  formsCreateStoreRoute: formsCreateStoreRoute,
-}
-
-const formsRouteRouteWithChildren = formsRouteRoute._addFileChildren(
-  formsRouteRouteChildren,
-)
-
 interface AccountRouteRouteChildren {
   AccountAddressesRoute: typeof AccountAddressesRoute
   AccountFollowingRoute: typeof AccountFollowingRoute
@@ -1139,11 +1112,13 @@ const MerchantstoreRouteRouteWithChildren =
 
 interface MerchantRouteRouteChildren {
   MerchantstoreRouteRoute: typeof MerchantstoreRouteRouteWithChildren
+  MerchantNewRoute: typeof MerchantNewRoute
   MerchantIndexRoute: typeof MerchantIndexRoute
 }
 
 const MerchantRouteRouteChildren: MerchantRouteRouteChildren = {
   MerchantstoreRouteRoute: MerchantstoreRouteRouteWithChildren,
+  MerchantNewRoute: MerchantNewRoute,
   MerchantIndexRoute: MerchantIndexRoute,
 }
 
@@ -1154,7 +1129,6 @@ const MerchantRouteRouteWithChildren = MerchantRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   appRouteRoute: appRouteRouteWithChildren,
   authRouteRoute: authRouteRouteWithChildren,
-  formsRouteRoute: formsRouteRouteWithChildren,
   AccountRouteRoute: AccountRouteRouteWithChildren,
   MerchantRouteRoute: MerchantRouteRouteWithChildren,
   DeferredRoute: DeferredRoute,

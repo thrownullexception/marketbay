@@ -46,8 +46,8 @@ const MerchantSidebarCard = () => {
 export const MerchantStoreLayout = () => {
 	return (
 		<>
-			<TopBar variant="seller" />
-			<MainNav variant="seller" isAuthenticated={true} />
+			<TopBar variant="merchant" />
+			<MainNav variant="merchant" isAuthenticated={true} />
 			<SidebarLayout
 				sidebar={
 					<>
@@ -64,8 +64,8 @@ export const MerchantStoreLayout = () => {
 export const MerchantGuestLayout = () => {
 	return (
 		<>
-			<TopBar variant="seller" />
-			<MainNav variant="seller" isAuthenticated={true} />
+			<TopBar variant="merchant" />
+			<MainNav variant="merchant" isAuthenticated={true} />
 			<Outlet />
 			<Footer variant="simple" />
 		</>

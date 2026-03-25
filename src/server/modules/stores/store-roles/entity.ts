@@ -1,5 +1,4 @@
 import {
-	boolean,
 	pgTable,
 	text,
 	type UpdateDeleteAction,
@@ -15,7 +14,6 @@ export const StoreRoleEntity = pgTable(
 		storeId: referencesStoreEntity("cascade"),
 		name: text().notNull(),
 		description: text(),
-		isSystem: boolean().notNull().default(false),
 	}),
 	(t) => [unique().on(t.storeId, t.name)],
 );

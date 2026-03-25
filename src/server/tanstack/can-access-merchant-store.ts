@@ -1,5 +1,3 @@
-// import { redirect } from "@tanstack/react-router";
-
 import { redirect } from "@tanstack/solid-router";
 import { createServerFn } from "@tanstack/solid-start";
 import { getCookie } from "@tanstack/solid-start/server";

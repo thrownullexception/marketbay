@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/solid-query";
-import { useRouter } from "@tanstack/solid-router";
+import { useNavigate } from "@tanstack/solid-router";
 import { LockIcon, MailIcon, UserIcon, UserPlusIcon } from "lucide-solid";
 import type * as v from "valibot";
 import { RegisterRequestSchema } from "@/schemas/auth";
@@ -12,12 +12,12 @@ import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../social-auth";
 
 export function RegisterScreen() {
-	const router = useRouter();
+	const navigate = useNavigate();
 	const signUpMutation = useMutation(() => ({
 		mutationFn: (input: v.InferInput<typeof RegisterRequestSchema>) =>
 			getShopTreaty().auth.signup.post(input),
 		onSuccess: () => {
-			router.navigate({
+			navigate({
 				to: "/verify-email",
 			});
 		},

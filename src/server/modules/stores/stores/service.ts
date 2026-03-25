@@ -57,8 +57,8 @@ export class StoresService {
 
 		const storeDetails = await Promise.all(
 			myStores.map(async (store) => {
-				const foo = await this.getFullDetails(store.storeId);
-				return { ...foo, roleId: store.roleId };
+				const storeDetails = await this.getFullDetails(store.storeId);
+				return { ...storeDetails, roleId: store.roleId };
 			}),
 		);
 
@@ -99,11 +99,11 @@ export class StoresService {
 				id: StoreEntity.id,
 			});
 
-		// await this.storeTeamMembersService.createStoreMember({
-		// 	storeId: store[0].id,
-		// 	userId: userId,
-		// 	roleId: StoreRole.Owner,
-		// });
+		await this.storeTeamMembersService.createStoreMember({
+			storeId: store[0].id,
+			userId: userId,
+			systemRole: StoreRole.Owner,
+		});
 
 		return store[0].id;
 	}

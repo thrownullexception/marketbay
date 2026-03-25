@@ -104,8 +104,12 @@ export class AuthService {
 
 		const user = await this.usersService.getFieldsFromUserIdOrFail({
 			userId: userId,
-			fields: ["password", "emailVerified", "id"],
+			fields: ["password", "emailVerified", "id", "banned"],
 		});
+
+		if (user.banned) {
+			throw new BadRequestError("Account has been banned");
+		}
 
 		if (!user.emailVerified) {
 			return "not_verified";
@@ -201,7 +205,9 @@ export class AuthService {
 		});
 	}
 
-	private async validateAuthSessionTokenFromCookie(authCookieToken: string | undefined) {
+	private async validateAuthSessionTokenFromCookie(
+		authCookieToken: string | undefined,
+	) {
 		if (!authCookieToken) {
 			return "not-authorized";
 		}
@@ -236,7 +242,7 @@ export class AuthService {
 				),
 			)
 			.limit(1);
-
+		// TODO: check if user is banned
 		if (authSession.length === 0) {
 			return "not-authorized";
 		}

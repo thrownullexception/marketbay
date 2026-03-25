@@ -37,7 +37,6 @@ export const isAuthenticatedBeforeLoad = async ({
 		});
 	}
 
-	// Pass user to child routes
 	return { user };
 };
 

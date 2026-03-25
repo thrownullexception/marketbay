@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/solid-query";
-import { useRouter } from "@tanstack/solid-router";
+import { useNavigate } from "@tanstack/solid-router";
 import { LockIcon, LogInIcon, MailIcon } from "lucide-solid";
 import type * as v from "valibot";
 import { LoginRequestSchema } from "@/schemas/auth";
@@ -11,13 +11,13 @@ import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../social-auth";
 
 export function LoginScreen() {
-	const router = useRouter();
+	const navigate = useNavigate();
 	const signInMutation = useMutation(() => ({
 		mutationFn: (input: v.InferInput<typeof LoginRequestSchema>) =>
 			getShopTreaty().auth.signin.post(input),
 		onSuccess: () => {
-			router.navigate({
-				to: "/verify-email",
+			navigate({
+				to: "/account",
 			});
 		},
 		// onSuccess: () => queryClient.invalidateQueries(),

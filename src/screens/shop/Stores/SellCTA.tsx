@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/solid-router";
 import { ArrowRightIcon, CircleCheckIcon } from "lucide-solid";
+import { For } from "solid-js";
 import { Container } from "@/ui/container";
 
 export const SellCTA = () => {
@@ -25,16 +26,18 @@ export const SellCTA = () => {
 								powerful tools.
 							</p>
 							<div class="flex flex-wrap items-center gap-4 mt-4 text-sm text-brand-300">
-								{benefits.map((benefit) => (
-									<span class="flex items-center gap-1.5">
-										<CircleCheckIcon class="w-4 h-4 text-emerald-400" />
-										{benefit}
-									</span>
-								))}
+								<For each={benefits}>
+									{(benefit) => (
+										<span class="flex items-center gap-1.5">
+											<CircleCheckIcon class="w-4 h-4 text-emerald-400" />
+											{benefit}
+										</span>
+									)}
+								</For>
 							</div>
 						</div>
 						<Link
-							to="/create-store"
+							to="/merchant/new"
 							class="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-brand-700 font-semibold rounded-xl text-sm hover:bg-brand-50 transition shadow-sm self-start sm:self-center shrink-0"
 						>
 							Open Your Store <ArrowRightIcon class="w-4 h-4" />

@@ -1,4 +1,4 @@
-import { useRouter } from "@tanstack/solid-router";
+import { useNavigate } from "@tanstack/solid-router";
 import {
 	ArrowLeftIcon,
 	ArrowRightIcon,
@@ -17,7 +17,7 @@ import { FormCard, FormHeader, FormRoot } from "@/ui/form/card";
 import { Grid2 } from "@/ui/grid";
 
 export const CreateStoreScreen = () => {
-	const router = useRouter();
+	const navigate = useNavigate();
 	const form = useAppForm(() => ({
 			validators: {
 			onChange: CreateStoreRequestSchema,
@@ -334,7 +334,9 @@ export const CreateStoreScreen = () => {
 								<Button
 									label="Back"
 									type="button"
-									onClick={() => router.history.back()}
+									onClick={() => navigate({
+										to: "/merchant"
+									})}
 									Icon={ArrowLeftIcon}
 									variant="default"
 								/>

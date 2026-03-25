@@ -37,7 +37,7 @@ export const StoresScreen = () => {
 				alternate
 			>
 				<Grid3>
-					<FeaturedStoreCard
+					{/* <FeaturedStoreCard
 						slug="todo"
 						gradient="from-blue-600 to-indigo-800"
 						initials="TV"
@@ -81,7 +81,7 @@ export const StoresScreen = () => {
 						productCount="215"
 						followers="6.2k"
 						followersTextColor="text-emerald-300"
-					/>
+					/> */}
 				</Grid3>
 			</ScreenSectionCard>
 

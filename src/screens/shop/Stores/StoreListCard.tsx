@@ -7,8 +7,8 @@ import { shorten } from "@/shared/utils/numbers";
 import { getInitials } from "@/shared/utils/strings";
 
 export const StoreListCard = (props: StoreListItemTransformer) => {
-	const { banner, avatar } =
-		COLOR_CODES[CATEGORY_CONFIG[props.primaryCategoryId].color];
+	 const { banner, avatar } =
+	 	COLOR_CODES[CATEGORY_CONFIG[props.primaryCategoryId].color];
 	return (
 		<Link
 			to="/store/$storeSlug"
