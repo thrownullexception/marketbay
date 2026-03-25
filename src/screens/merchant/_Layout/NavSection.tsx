@@ -11,8 +11,7 @@ import {
 } from "lucide-solid";
 import { NavItems } from "@/ui/layout/nav-items";
 
-export const NavSection = (props: { storeId: string }) => {
-	const storeId = props.storeId;
+export const NavSection = () => {
 	return (
 		<NavItems
 			items={[
@@ -22,8 +21,7 @@ export const NavSection = (props: { storeId: string }) => {
 						Icon: LayoutGrid,
 						exact: true,
 						link: linkOptions({
-							to: "/merchant/$storeId",
-							params: { storeId },
+							to: "/merchant/dashboard",
 						}),
 					},
 					{
@@ -31,8 +29,7 @@ export const NavSection = (props: { storeId: string }) => {
 						Icon: ShoppingCartIcon,
 						badge: { value: "8" },
 						link: linkOptions({
-							to: "/merchant/$storeId/orders",
-							params: { storeId },
+							to: "/merchant/orders",
 						}),
 					},
 					{
@@ -40,8 +37,7 @@ export const NavSection = (props: { storeId: string }) => {
 						Icon: TagIcon,
 						badge: { value: "342" },
 						link: linkOptions({
-							to: "/merchant/$storeId/products",
-							params: { storeId },
+							to: "/merchant/products",
 						}),
 					},
 					{
@@ -49,32 +45,28 @@ export const NavSection = (props: { storeId: string }) => {
 						Icon: MessageSquareMoreIcon,
 						badge: { value: "6" },
 						link: linkOptions({
-							to: "/merchant/$storeId/messages",
-							params: { storeId },
+							to: "/merchant/messages",
 						}),
 					},
 					{
 						label: "Analytics",
 						Icon: SlidersHorizontalIcon,
 						link: linkOptions({
-							to: "/merchant/$storeId/analytics",
-							params: { storeId },
+							to: "/merchant/analytics",
 						}),
 					},
 					{
 						label: "Promotions",
 						Icon: TagIcon,
 						link: linkOptions({
-							to: "/merchant/$storeId/promotions",
-							params: { storeId },
+							to: "/merchant/promotions",
 						}),
 					},
 					{
 						label: "Reviews",
 						Icon: StarIcon,
 						link: linkOptions({
-							to: "/merchant/$storeId/reviews",
-							params: { storeId },
+							to: "/merchant/reviews",
 						}),
 					},
 				],
@@ -83,16 +75,14 @@ export const NavSection = (props: { storeId: string }) => {
 						label: "Payouts",
 						Icon: BanknoteIcon,
 						link: linkOptions({
-							to: "/merchant/$storeId/payouts",
-							params: { storeId },
+							to: "/merchant/payouts",
 						}),
 					},
 					{
 						label: "Store Settings",
 						Icon: SettingsIcon,
 						link: linkOptions({
-							to: "/merchant/$storeId/settings",
-							params: { storeId },
+							to: "/merchant/settings",
 						}),
 					},
 				],

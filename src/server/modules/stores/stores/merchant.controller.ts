@@ -1,44 +1,37 @@
 import { Elysia } from "elysia";
 import { CreateStoreRequestSchema } from "@/schemas/store";
-import { authenticatedMiddleware } from "@/server/middlewares/auth";
+import {
+	authenticatedStoreMiddleware,
+	authenticatedUserMiddleware,
+} from "@/server/middlewares/auth";
 import { StoresModule } from "..";
-import { StoreIdTransformer, StoreListItemTransformer } from "./types";
+import { StoreDetailsTransformer, StoreListItemTransformer } from "./types";
+
+export const storesGuestMerchantController = new Elysia({
+	prefix: "/guest",
+})
+	.use(authenticatedUserMiddleware)
+	.get("/", async ({ authenticatedUserId }) => {
+		const stores =
+			await StoresModule.services.stores.getUserStores(authenticatedUserId);
+		return stores.map((store) => new StoreListItemTransformer(store));
+	})
+	.post(
+		"/",
+		({ body, authenticatedUserId }) =>
+			StoresModule.services.stores.createStore(body, authenticatedUserId),
+		{
+			body: CreateStoreRequestSchema,
+		},
+	);
 
 export const storesMerchantController = new Elysia({
-  prefix: "/stores",
+	prefix: "/stores",
 })
-  .use(authenticatedMiddleware)
-  .get("/", async ({ authenticatedUserId }) => {
-    const stores =
-      await StoresModule.services.stores.getUserStores(authenticatedUserId);
-    return stores.map((store) => new StoreListItemTransformer(store));
-  })
-  .get("/:storeId", async ({ params: { storeId } }) =>
-    StoresModule.services.stores.getFullDetails(
-      StoreIdTransformer.toDbId(storeId),
-    ),
-  )
-  .post(
-    "/",
-    ({ body, authenticatedUserId }) =>
-      StoresModule.services.stores.createStore(body, authenticatedUserId),
-    {
-      body: CreateStoreRequestSchema,
-    },
-  );
-// .patch(
-// 	"/:userAddressId",
-// 	({ body, params }) =>
-// 		IdentityModule.services.userAddress.updateAddress(
-// 			v.parse(UserAddressIdSchema, params.userAddressId),
-// 			body,
-// 		),
-// 	{
-// 		body: UpdateAddressRequestSchema,
-// 	},
-// )
-// .delete("/:storeId", ({ params }) =>
-// 	IdentityModule.services.userAddress.deleteAddress(
-// 		v.parse(UserAddressIdSchema, params.userAddressId),
-// 	),
-// );
+	.use(authenticatedStoreMiddleware)
+	.get("/details", async ({ authenticatedStoreId }) => {
+		const store =
+			await StoresModule.services.stores.getFullDetails(authenticatedStoreId);
+
+		return { ...new StoreDetailsTransformer(store) };
+	});

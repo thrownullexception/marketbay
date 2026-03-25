@@ -11,7 +11,6 @@ import { Button } from "@/ui/button";
 import { Container } from "@/ui/container";
 import { TextLink } from "@/ui/link";
 import "./styles.css";
-import type * as v from "valibot";
 import { CreateStoreRequestSchema } from "@/schemas/store";
 import { useAppForm } from "@/ui/form";
 import { FormCard, FormHeader, FormRoot } from "@/ui/form/card";
@@ -20,38 +19,7 @@ import { Grid2 } from "@/ui/grid";
 export const CreateStoreScreen = () => {
 	const router = useRouter();
 	const form = useAppForm(() => ({
-		defaultValues: {
-			name: "",
-			slug: "",
-			description: "",
-			primaryCategory: "",
-			state: "",
-			city: "",
-			// logo: "",
-			// coverImage: "",
-			businessEmail: "",
-			phoneNumber: "",
-			websiteURL: "",
-			email: "",
-			phone: "",
-			website: "",
-			instagram: "",
-			twitter: "",
-			instagramURL: "",
-			xURL: "",
-			warranty: "",
-			returnPolicy: "",
-			agreed: false,
-			// marketplaceGuidelines: false,
-			// commission: 0,
-			// minimumOrderAmount: 0,
-			// freeShippingThreshold: 0,
-			// standardShippingDays: 0,
-			// expressShippingDays: 0,
-			// freeShipping: false,
-			// standardShipping: false,
-		} as v.InferInput<typeof CreateStoreRequestSchema>,
-		validators: {
+			validators: {
 			onChange: CreateStoreRequestSchema,
 		},
 		onSubmit: ({ value }) => {
@@ -128,7 +96,7 @@ export const CreateStoreScreen = () => {
 										/>
 									)}
 								</form.AppField>
-								<form.AppField name="handle">
+								<form.AppField name="slug">
 									{(field) => (
 										<field.InputWithPrefix
 											label="Store Handle"
@@ -152,7 +120,7 @@ export const CreateStoreScreen = () => {
 							</FormCard>
 
 							<FormCard title="Category &amp; Location">
-								<form.AppField name="primaryCategory">
+								<form.AppField name="primaryCategoryId">
 									{(field) => (
 										<field.InputSelect
 											label="Primary Category"
@@ -260,7 +228,7 @@ export const CreateStoreScreen = () => {
 								title="Contact &amp; Social"
 								description="Optional — help buyers reach you outside MarketBay."
 							>
-								<form.AppField name="businessEmail">
+								<form.AppField name="email">
 									{(field) => (
 										<field.InputText
 											label="Business Email"
@@ -271,7 +239,7 @@ export const CreateStoreScreen = () => {
 									)}
 								</form.AppField>
 
-								<form.AppField name="phoneNumber">
+								<form.AppField name="phone">
 									{(field) => (
 										<field.InputText
 											label="Phone Number"
@@ -282,7 +250,7 @@ export const CreateStoreScreen = () => {
 									)}
 								</form.AppField>
 
-								<form.AppField name="websiteURL">
+								<form.AppField name="website">
 									{(field) => (
 										<field.InputText
 											label="Website URL"
@@ -292,7 +260,7 @@ export const CreateStoreScreen = () => {
 									)}
 								</form.AppField>
 
-								<form.AppField name="instagramURL">
+								<form.AppField name="instagram">
 									{(field) => (
 										<field.InputWithPrefix
 											label="Instagram URL"
@@ -302,7 +270,7 @@ export const CreateStoreScreen = () => {
 									)}
 								</form.AppField>
 
-								<form.AppField name="xURL">
+								<form.AppField name="twitter">
 									{(field) => (
 										<field.InputWithPrefix
 											label="X (Twitter) URL"
@@ -340,7 +308,7 @@ export const CreateStoreScreen = () => {
 								<form.AppField name="agreed">
 									{(field) => (
 										<field.InputCheckbox
-											id="terms-of-service"
+											simpleLabel="terms-of-service"
 											label={
 												<>
 													I agree to the MarketBay{" "}

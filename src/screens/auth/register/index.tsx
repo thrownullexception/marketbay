@@ -1,6 +1,9 @@
+import { useMutation } from "@tanstack/solid-query";
+import { useRouter } from "@tanstack/solid-router";
 import { LockIcon, MailIcon, UserIcon, UserPlusIcon } from "lucide-solid";
 import type * as v from "valibot";
 import { RegisterRequestSchema } from "@/schemas/auth";
+import { getShopTreaty } from "@/shared/treaty/shop.treaty";
 import { DividerText } from "@/ui/divider";
 import { useAppForm } from "@/ui/form";
 import { FormCard, FormHeader, FormRoot, FormText } from "@/ui/form/card";
@@ -9,6 +12,18 @@ import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../social-auth";
 
 export function RegisterScreen() {
+	const router = useRouter();
+	const signUpMutation = useMutation(() => ({
+		mutationFn: (input: v.InferInput<typeof RegisterRequestSchema>) =>
+			getShopTreaty().auth.signup.post(input),
+		onSuccess: () => {
+			router.navigate({
+				to: "/verify-email",
+			});
+		},
+		// onSuccess: () => queryClient.invalidateQueries(),
+	}));
+
 	const form = useAppForm(() => ({
 		defaultValues: {
 			email: "",
@@ -21,7 +36,7 @@ export function RegisterScreen() {
 			onChange: RegisterRequestSchema,
 		},
 		onSubmit: ({ value }) => {
-			console.log(value);
+			signUpMutation.mutate(value);
 		},
 	}));
 
@@ -89,7 +104,7 @@ export function RegisterScreen() {
 					<form.AppField name="agreed">
 						{(field) => (
 							<field.InputCheckbox
-								id="terms"
+								simpleLabel="terms"
 								label={
 									<>
 										I agree to the{" "}

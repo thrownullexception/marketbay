@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/solid-router";
-import { AccountLayout } from "@/screens/account/_Layout";
+import { MerchantGuestLayout } from "@/screens/merchant/_Layout";
 import { isAuthenticatedBeforeLoad } from "@/server/tanstack/is-authenticated";
 
-export const Route = createFileRoute("/account")({
-	component: AccountLayout,
+export const Route = createFileRoute("/merchant")({
+	component: MerchantGuestLayout,
 	beforeLoad: isAuthenticatedBeforeLoad,
 });

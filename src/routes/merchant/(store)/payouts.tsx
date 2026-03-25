@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/solid-router";
 
-export const Route = createFileRoute("/merchant/$storeId/payouts")({
+export const Route = createFileRoute("/merchant/(store)/payouts")({
 	component: RouteComponent,
 });
 

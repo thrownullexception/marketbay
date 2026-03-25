@@ -1,9 +1,6 @@
 import { Elysia } from "elysia";
 import { StoresModule } from "..";
-import {
-	StoreDetailsTransformer,
-	StoreListItemTransformer,
-} from "./types";
+import { StoreDetailsTransformer, StoreListItemTransformer } from "./types";
 
 export const storesShopController = new Elysia({
 	prefix: "/stores",

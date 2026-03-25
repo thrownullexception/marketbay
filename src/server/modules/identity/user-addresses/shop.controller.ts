@@ -3,7 +3,7 @@ import {
 	CreateAddressRequestSchema,
 	UpdateAddressRequestSchema,
 } from "@/schemas/user-address";
-import { authenticatedMiddleware } from "@/server/middlewares/auth";
+import { authenticatedUserMiddleware } from "@/server/middlewares/auth";
 import { IdentityModule } from "..";
 import type { UserId } from "../users/types";
 import { UserAddressIdTransformer, UserAddressListItemTransformer } from "./types";
@@ -11,7 +11,7 @@ import { UserAddressIdTransformer, UserAddressListItemTransformer } from "./type
 export const userAddressesShopController = new Elysia({
 	prefix: "/user-addresses",
 })
-	.use(authenticatedMiddleware)
+	.use(authenticatedUserMiddleware)
 	.get("/", async ({ authenticatedUserId }) => {
 		const userAddresses =
 			await IdentityModule.services.userAddress.getUserAddresses(

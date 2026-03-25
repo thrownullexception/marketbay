@@ -1,27 +1,13 @@
 import { Link } from "@tanstack/solid-router";
 import { ArrowRightIcon, BadgeCheckIcon, StarIcon } from "lucide-solid";
-import { StoreListItemTransformer } from "@/server/modules/stores/stores/types";
-
-interface FeaturedStoreCardProps {
-	slug: string;
-	gradient: string;
-	initials: string;
-	name: string;
-	subtextColor: string;
-	categories: string;
-	description: string;
-	rating: string;
-	ratingCount: string;
-	ratingTextColor: string;
-	productCount: string;
-	followers: string;
-	followersTextColor: string;
-}
+import { CATEGORY_CONFIG } from "@/schemas/category";
+import { COLOR_CODES } from "@/schemas/colors";
+import type { StoreListItemTransformer } from "@/server/modules/stores/stores/types";
+import { getInitials } from "@/shared/utils/strings";
 
 export const FeaturedStoreCard = (props: StoreListItemTransformer) => {
-	const bannerGradient = "";
-	const avatarGradient = "";
-	const initials = "";
+	const { banner, avatar } =
+		COLOR_CODES[CATEGORY_CONFIG[props.primaryCategoryId].color];
 	return (
 		<Link
 			to="/store/$storeSlug"
@@ -31,7 +17,7 @@ export const FeaturedStoreCard = (props: StoreListItemTransformer) => {
 			<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxLjUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNikiLz48L3N2Zz4=')] opacity-80"></div>
 			<div class="absolute top-5 right-5">
 				<div class="w-14 h-14 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center text-white text-lg font-bold border border-white/20">
-					{props.initials}
+					{getInitials(props.name)}
 				</div>
 			</div>
 			<div class="relative">
@@ -44,21 +30,21 @@ export const FeaturedStoreCard = (props: StoreListItemTransformer) => {
 				</div>
 				<p class={`${props.subtextColor} text-xs`}>{props.categories}</p>
 				<p class="text-white/70 text-xs mt-1.5 line-clamp-2">
-					{props.description}
+					{props.tagline}
 				</p>
 				<div class="flex items-center gap-3 mt-2">
 					<div class="flex items-center gap-1">
 						<StarIcon class="w-3.5 h-3.5 text-yellow-500" fill="currentColor" />
-						<span class="text-white text-sm font-semibold">{props.rating}</span>
+						<span class="text-white text-sm font-semibold">{props.avgRating}</span>
 						<span class={`${props.ratingTextColor} text-xs`}>
-							({props.ratingCount})
+							({props.ratingsCount})
 						</span>
 					</div>
 					<span class={`${props.followersTextColor} text-xs`}>
-						{props.productCount} products
+						{props.productsCount} products
 					</span>
 					<span class={`${props.followersTextColor} text-xs`}>
-						{props.followers} followers
+						{props.followersCount} followers
 					</span>
 				</div>
 			</div>

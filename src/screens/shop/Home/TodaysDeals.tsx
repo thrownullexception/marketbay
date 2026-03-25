@@ -1,8 +1,5 @@
-import { createQuery } from "@tanstack/solid-query";
 import { linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { getShopTreaty } from "@/shared/treaty/shop.treaty";
-import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
 import { Grid4 } from "@/ui/grid";
 import { ProductCard, type ProductCardData } from "@/ui/product/card";
 import { ScreenSectionCard } from "@/ui/screen-section-card";
@@ -47,14 +44,7 @@ const TODAYS_DEALS: ProductCardData[] = [
 	},
 ];
 
-export const todaysDealsQuery = createTreatyQueryOptions(
-	getShopTreaty,
-	(t) => t["user-addresses"]({ userAddressId: "123" }).get(),
-);
-
 export const TodaysDeals = () => {
-	const todaysDealsResult = createQuery(() => todaysDealsQuery);
-
 	return (
 		<ScreenSectionCard
 			title="Today's Deals"
@@ -65,7 +55,6 @@ export const TodaysDeals = () => {
 				search: { deals: true },
 			})}
 		>
-			{JSON.stringify(todaysDealsResult.data)}
 			<Grid4>
 				<For each={TODAYS_DEALS}>
 					{(product) => <ProductCard product={product} />}

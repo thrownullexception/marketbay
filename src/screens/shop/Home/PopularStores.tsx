@@ -53,9 +53,9 @@ export const PopularStores = () => {
 			action={linkOptions({ label: "All Stores", to: "/stores" })}
 		>
 			<Grid4>
-				<For each={POPULAR_STORES}>
+				{/* <For each={POPULAR_STORES}>
 					{(store) => <StoreCard store={store} />}
-				</For>
+				</For> */}
 			</Grid4>
 		</ScreenSectionCard>
 	);

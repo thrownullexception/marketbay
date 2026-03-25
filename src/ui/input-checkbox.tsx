@@ -28,7 +28,7 @@ const Checkbox = (props: {
 	);
 };
 
-export const InputCheckbox = (props: { id: string; label: JSX.Element }) => {
+export const InputCheckbox = (props: { simpleLabel: string; label: JSX.Element }) => {
 	const field = useFieldContext<boolean>();
 	const hasError = useFieldHasError<boolean>();
 	const errors = useStore(field().store, (state) => state.meta.errors);
@@ -36,12 +36,12 @@ export const InputCheckbox = (props: { id: string; label: JSX.Element }) => {
 		<div>
 			<div class="flex items-start gap-2">
 				<Checkbox
-					id={props.id}
+					id={props.simpleLabel}
 					checked={field().state.value}
 					onChange={() => field().handleChange(!field().state.value)}
 					hasError={hasError()}
 				/>
-				<label for={props.id} class="text-sm text-gray-600 cursor-pointer">
+				<label for={props.simpleLabel} class="text-sm text-gray-600 cursor-pointer">
 					{props.label}{" "}
 				</label>
 			</div>

@@ -23,7 +23,7 @@ const passwordInsertSchema = v.pipe(
 
 export const LoginRequestSchema = v.object({
 	email: emailSchema,
-	password: v.pipe(v.string(), v.minLength(32)),
+	password: v.pipe(v.string(), v.maxLength(32)),
 	remember: v.optional(v.boolean()),
 });
 

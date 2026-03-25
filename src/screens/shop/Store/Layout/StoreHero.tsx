@@ -18,10 +18,8 @@ import { getInitials } from "@/shared/utils/strings";
 import { AnchorLink, Button, LinkButton } from "@/ui/button";
 import { Container } from "@/ui/container";
 
-export const storeQuery = (storeSlug: string) => createTreatyQueryOptions(
-	getShopTreaty,
-	(t) => t.stores({ storeSlug }).get(),
-);
+export const storeQuery = (storeSlug: string) =>
+	createTreatyQueryOptions(getShopTreaty, (t) => t.stores({ storeSlug }).get());
 
 export const StoreHero = () => {
 	const routeApi = getRouteApi("/(app)/store/$storeSlug");
@@ -44,11 +42,15 @@ export const StoreHero = () => {
 				<div class="flex flex-col sm:flex-row sm:items-start gap-4 pb-6">
 					<div class="flex-1 min-w-0">
 						<div class="flex flex-wrap items-center gap-2">
-							<h1 class="text-2xl font-extrabold text-gray-900">{storeResult.data?.name}</h1>
-							<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-green-50 text-green-700 text-[11px] font-semibold rounded-full border border-blue-100">
-								<BadgeCheckIcon class="w-3 h-3" />
-								Verified Store
-							</span>
+							<h1 class="text-2xl font-extrabold text-gray-900">
+								{storeResult.data?.name}
+							</h1>
+							{storeResult.data?.isVerified && (
+								<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-green-50 text-green-700 text-[11px] font-semibold rounded-full border border-blue-100">
+									<BadgeCheckIcon class="w-3 h-3" />
+									Verified Store
+								</span>
+							)}
 						</div>
 						<p class="text-sm text-gray-500 mt-1.5 max-w-xl">
 							{storeResult.data?.tagline}
@@ -56,17 +58,23 @@ export const StoreHero = () => {
 						<div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-sm text-gray-500">
 							<div class="flex items-center gap-1">
 								<StarIcon class="w-4 h-4 text-yellow-500" fill="currentColor" />
-								<span class="font-semibold text-gray-700">{storeResult.data?.avgRating}</span>
-								<span>({shorten(storeResult.data?.ratingsCount ?? 0)} ratings)</span>
+								<span class="font-semibold text-gray-700">
+									{storeResult.data?.avgRating}
+								</span>
+								<span>
+									({shorten(storeResult.data?.ratingsCount ?? 0)} ratings)
+								</span>
 							</div>
 							<span class="text-gray-300">|</span>
 							<span class="flex gap-1">
 								{" "}
-								<PackageIcon class="w-4 h-4" /> {shorten(storeResult.data?.productsCount ?? 0)} products
+								<PackageIcon class="w-4 h-4" />{" "}
+								{shorten(storeResult.data?.productsCount ?? 0)} products
 							</span>
 							<span class="text-gray-300">|</span>
 							<span class="flex gap-1">
-								<UsersIcon class="w-4 h-4" /> {shorten(storeResult.data?.followersCount ?? 0)} followers
+								<UsersIcon class="w-4 h-4" />{" "}
+								{shorten(storeResult.data?.followersCount ?? 0)} followers
 							</span>
 							<span class="text-gray-300 hidden sm:inline">|</span>
 							<span class="flex gap-1">
@@ -76,7 +84,8 @@ export const StoreHero = () => {
 							<span class="text-gray-300 hidden sm:inline">|</span>
 							<span class="hidden sm:flex gap-1">
 								{" "}
-								<CalendarIcon class="w-4 h-4" /> Joined {storeResult.data?.createdAt?.toLocaleDateString()}
+								<CalendarIcon class="w-4 h-4" /> Joined{" "}
+								{storeResult.data?.createdAt?.toLocaleDateString()}
 							</span>
 						</div>
 					</div>

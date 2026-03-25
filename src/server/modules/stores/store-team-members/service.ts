@@ -80,6 +80,18 @@ export class StoreTeamMembersService {
 			});
 	}
 
+	async canAccessStore(userId: UserId, storeId: StoreId){
+		const myStores = await this.getMyStores(userId);
+
+		const store = myStores.find(store => store.storeId === storeId);
+
+		if(store){
+			return { roleId: store.roleId }
+		}
+
+		return "can-not-access-store"
+	}
+
 	async getStoreMembers(storeId: StoreId) {
 		return await this.db
 			.select({

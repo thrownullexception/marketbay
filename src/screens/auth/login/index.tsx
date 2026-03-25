@@ -1,6 +1,9 @@
+import { useMutation } from "@tanstack/solid-query";
+import { useRouter } from "@tanstack/solid-router";
 import { LockIcon, LogInIcon, MailIcon } from "lucide-solid";
 import type * as v from "valibot";
 import { LoginRequestSchema } from "@/schemas/auth";
+import { getShopTreaty } from "@/shared/treaty/shop.treaty";
 import { DividerText } from "@/ui/divider";
 import { useAppForm } from "@/ui/form";
 import { FormCard, FormHeader, FormRoot, FormText } from "@/ui/form/card";
@@ -8,6 +11,18 @@ import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../social-auth";
 
 export function LoginScreen() {
+	const router = useRouter();
+	const signInMutation = useMutation(() => ({
+		mutationFn: (input: v.InferInput<typeof LoginRequestSchema>) =>
+			getShopTreaty().auth.signin.post(input),
+		onSuccess: () => {
+			router.navigate({
+				to: "/verify-email",
+			});
+		},
+		// onSuccess: () => queryClient.invalidateQueries(),
+	}));
+
 	const form = useAppForm(() => ({
 		defaultValues: {
 			email: "",
@@ -17,7 +32,7 @@ export function LoginScreen() {
 			onChange: LoginRequestSchema,
 		},
 		onSubmit: ({ value }) => {
-			console.log(value);
+			signInMutation.mutate(value);
 		},
 	}));
 
@@ -61,7 +76,7 @@ export function LoginScreen() {
 
 					<form.AppField name="remember">
 						{(field) => (
-							<field.InputCheckbox id="remember" label="Remember me" />
+							<field.InputCheckbox simpleLabel="remember" label="Remember me" />
 						)}
 					</form.AppField>
 

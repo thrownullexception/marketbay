@@ -6,6 +6,7 @@ import ms, { type StringValue } from "ms";
 import type * as v from "valibot";
 import normalizeEmail from "validator/es/lib/normalizeEmail";
 import {
+	type ChangePasswordRequestSchema,
 	type LoginRequestSchema,
 	OTP_LENGTH,
 	type RegisterRequestSchema,
@@ -17,12 +18,12 @@ import { type CacheService, cacheService } from "@/server/services/cache";
 import { type MailService, mailService } from "@/server/services/mail";
 import { type RandomService, randomService } from "@/server/services/random";
 import { BadRequestError } from "@/server/shared/errors";
-import type { UserId } from "../../../../schemas/user";
 import { AuthSessionEntity } from "../auth-session/entity";
 import { OtpVerificationEntity } from "../otp-verifications/entity";
 import { OtpScopes } from "../otp-verifications/types";
 import { type UsersService, usersService } from "../users/service";
-import { AUTH_COOKIE_NAME, OTP_EXPIRATION_TIME } from "./constants";
+import type { UserId } from "../users/types";
+import { OTP_EXPIRATION_TIME } from "./constants";
 import {
 	constantTimeEqual,
 	hashPassword,
@@ -69,7 +70,7 @@ export class AuthService {
 			throw new BadRequestError("Email already exists");
 		}
 
-		 await this.usersService.createUser({
+		await this.usersService.createUser({
 			email: input.email.toLowerCase(),
 			normalizedEmail,
 			firstName: input.firstName,
@@ -84,11 +85,11 @@ export class AuthService {
 
 		console.log("otp", otp);
 
-		await this.mailService.send({
-			to: input.email,
-			params: { otp: otp, firstName: input.firstName },
-			type: "verification",
-		});
+		// await this.mailService.send({
+		// 	to: input.email,
+		// 	params: { otp: otp, firstName: input.firstName },
+		// 	type: "verification",
+		// });
 	}
 
 	async signin(input: v.InferOutput<typeof LoginRequestSchema>) {
@@ -152,16 +153,14 @@ export class AuthService {
 		};
 	}
 
-	async validateAuthSessionToken(input: {
-		headers: Headers | undefined;
-	}): Promise<
+	async validateAuthSessionToken(authCookie: string | undefined): Promise<
 		| {
 				userId: UserId;
 		  }
 		| "not-authorized"
 	> {
 		const validationResult =
-			await this.validateAuthSessionTokenFromCookie(input);
+			await this.validateAuthSessionTokenFromCookie(authCookie);
 
 		if (validationResult === "not-authorized") {
 			return "not-authorized";
@@ -202,20 +201,12 @@ export class AuthService {
 		});
 	}
 
-	private async validateAuthSessionTokenFromCookie(input: {
-		headers: Headers | undefined;
-	}) {
-		if (!input.headers) {
+	private async validateAuthSessionTokenFromCookie(authCookieToken: string | undefined) {
+		if (!authCookieToken) {
 			return "not-authorized";
 		}
 
-		const cookieToken = input.headers.get(AUTH_COOKIE_NAME);
-
-		if (!cookieToken) {
-			return "not-authorized";
-		}
-
-		const tokenParts = cookieToken.split(".");
+		const tokenParts = authCookieToken.split(".");
 
 		if (tokenParts.length !== 2) {
 			return "not-authorized";
@@ -312,7 +303,11 @@ export class AuthService {
 		});
 	}
 
-	async verifyOtp(input: { otp: string; email: string; scope: OtpScopes }) {
+	private async verifyOtp(input: {
+		otp: string;
+		email: string;
+		scope: OtpScopes;
+	}) {
 		const otpResult = await this.db
 			.select({
 				id: OtpVerificationEntity.id,
@@ -351,7 +346,7 @@ export class AuthService {
 			.where(eq(OtpVerificationEntity.id, otp.id));
 	}
 
-	async createOtp(input: { email: string; scope: OtpScopes }) {
+	private async createOtp(input: { email: string; scope: OtpScopes }) {
 		const otp = this.randomService.generateSecureRandomString({
 			length: OTP_LENGTH,
 			input: "numeric",
@@ -384,10 +379,10 @@ export class AuthService {
 		});
 	}
 
-	async signOut(input: { userId: UserId; headers: Headers | undefined }) {
-		const validationResult = await this.validateAuthSessionTokenFromCookie({
-			headers: input.headers,
-		});
+	async signOut(input: { userId: UserId; authCookie: string }) {
+		const validationResult = await this.validateAuthSessionTokenFromCookie(
+			input.authCookie,
+		);
 
 		if (validationResult === "not-authorized") {
 			return "not-authorized";
@@ -403,7 +398,7 @@ export class AuthService {
 		await this.deleteAuthSession({ userId: input.userId });
 	}
 
-	async deleteAuthSession(input: { userId: UserId }) {
+	private async deleteAuthSession(input: { userId: UserId }) {
 		return await this.db
 			.update(AuthSessionEntity)
 			.set({ deletedAt: new Date() })
@@ -415,13 +410,12 @@ export class AuthService {
 			);
 	}
 
-	async changePassword(input: {
-		userId: UserId;
-		currentPassword: string;
-		newPassword: string;
-	}) {
+	async changePassword(
+		userId: UserId,
+		input: v.InferOutput<typeof ChangePasswordRequestSchema>,
+	) {
 		const user = await this.usersService.getFieldsFromUserIdOrFail({
-			userId: input.userId,
+			userId: userId,
 			fields: ["password"],
 		});
 
@@ -437,7 +431,7 @@ export class AuthService {
 		const newPasswordHash = await hashPassword(input.newPassword);
 
 		await this.usersService.updateUser({
-			userId: input.userId,
+			userId: userId,
 			user: { password: newPasswordHash },
 		});
 	}
@@ -454,8 +448,8 @@ export class AuthService {
 
 		const user = await this.usersService.getFieldsFromUserIdOrFail({
 			userId,
-			fields: ['firstName']
-		})
+			fields: ["firstName"],
+		});
 
 		const otp = await this.createOtp({
 			email: input.email,
@@ -481,7 +475,7 @@ export class AuthService {
 
 		const user = await this.usersService.getFieldsFromUserIdOrFail({
 			userId,
-			fields: ['firstName']
+			fields: ["firstName"],
 		});
 
 		const otp = await this.createOtp({
@@ -588,7 +582,6 @@ export class AuthService {
 		return userId;
 	}
 }
-
 
 export const authService = new AuthService(
 	db,

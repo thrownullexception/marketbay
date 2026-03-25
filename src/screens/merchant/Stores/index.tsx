@@ -1,3 +1,4 @@
+import { createQuery } from "@tanstack/solid-query";
 import { Link } from "@tanstack/solid-router";
 import {
 	ArrowRightIcon,
@@ -8,26 +9,17 @@ import {
 	TagIcon,
 } from "lucide-solid";
 import { For } from "solid-js";
+import { CATEGORY_CONFIG } from "@/schemas/category";
+import { COLOR_CODES } from "@/schemas/colors";
+import type { StoreListItemTransformer } from "@/server/modules/stores/stores/types";
+import { getMerchantTreaty } from "@/shared/treaty/merchant.treaty";
+import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
+import { shorten } from "@/shared/utils/numbers";
+import { getInitials } from "@/shared/utils/strings";
 import { Container } from "@/ui/container";
-import { Footer, MainNav, TopBar } from "@/ui/layout";
 
 type StoreRole = "Owner" | "Admin" | "Member";
 type StoreStatus = "Active" | "Draft";
-
-interface MerchantStore {
-	id: string;
-	name: string;
-	handle: string;
-	categories: string;
-	bannerGradient: string;
-	avatarGradient: string;
-	initials: string;
-	role: StoreRole;
-	status: StoreStatus;
-	verified: boolean;
-	productCount: number;
-	orderCount: number;
-}
 
 const RoleBadge = (props: { role: StoreRole }) => {
 	const config = {
@@ -61,16 +53,19 @@ const StatusBadge = (props: { status: StoreStatus }) => {
 	);
 };
 
-const MerchantStoreCard = (props: { store: MerchantStore }) => {
+const MerchantStoreCard = (props: { store: StoreListItemTransformer }) => {
 	const s = props.store;
+	const { banner, avatar } =
+		COLOR_CODES[CATEGORY_CONFIG[props.store.primaryCategoryId].color];
+
 	return (
 		<div class="bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-gray-100">
-			<div class={`h-16 bg-linear-to-r ${s.bannerGradient} relative`}>
+			<div class={`h-16 bg-linear-to-r ${banner} relative`}>
 				<div class="absolute -bottom-5 left-5">
 					<div
-						class={`w-12 h-12 rounded-xl bg-linear-to-br ${s.avatarGradient} flex items-center justify-center text-white text-sm font-bold border-2 border-white shadow-md`}
+						class={`w-12 h-12 rounded-xl bg-linear-to-br ${avatar} flex items-center justify-center text-white text-sm font-bold border-2 border-white shadow-md`}
 					>
-						{s.initials}
+						{getInitials(props.store.name)}
 					</div>
 				</div>
 			</div>
@@ -79,31 +74,35 @@ const MerchantStoreCard = (props: { store: MerchantStore }) => {
 					<div class="min-w-0">
 						<div class="flex items-center gap-2 flex-wrap">
 							<h3 class="font-bold text-gray-900 truncate">{s.name}</h3>
-							{s.verified && (
+							{props.store.isVerified && (
 								<BadgeCheckIcon class="w-4 h-4 text-green-500 shrink-0" />
 							)}
 						</div>
-						<p class="text-xs text-gray-400 mt-0.5">@{s.handle}</p>
+						<p class="text-xs text-gray-400 mt-0.5">@{s.slug}</p>
 					</div>
 					<div class="flex flex-col items-end gap-1 shrink-0">
-						<RoleBadge role={s.role} />
-						<StatusBadge status={s.status} />
+						{/* <RoleBadge role={s.role} />
+						<StatusBadge status={s.status} /> */}
 					</div>
 				</div>
-				<p class="text-xs text-gray-500 mt-2">{s.categories}</p>
+				<p class="text-xs text-gray-500 mt-2">
+					{CATEGORY_CONFIG[props.store.primaryCategoryId].label}{" "}
+					{props.store.secondaryCategoryId
+						? `• ${CATEGORY_CONFIG[props.store.secondaryCategoryId].label}`
+						: ""}
+				</p>
 				<div class="flex items-center gap-4 mt-3 text-xs text-gray-500">
 					<span class="flex items-center gap-1">
 						<TagIcon class="w-3.5 h-3.5 text-gray-400" />
-						{s.productCount} products
+						{shorten(props.store.productsCount)} products
 					</span>
 					<span class="flex items-center gap-1">
 						<ShoppingCartIcon class="w-3.5 h-3.5 text-gray-400" />
-						{s.orderCount} orders
+						{shorten(props.store.followersCount)} followers
 					</span>
 				</div>
 				<Link
-					to="/merchant/$storeId"
-					params={{ storeId: s.id }}
+					to="/merchant/dashboard"
 					class="mt-4 flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl transition"
 				>
 					Manage Store
@@ -135,57 +134,13 @@ const CreateStoreCard = () => {
 	);
 };
 
-const placeholderStores: MerchantStore[] = [
-	{
-		id: "store-1",
-		name: "TechVault",
-		handle: "techvault",
-		categories: "Electronics · Gadgets · Accessories",
-		bannerGradient: "from-blue-500 to-indigo-600",
-		avatarGradient: "from-blue-500 to-indigo-600",
-		initials: "TV",
-		role: "Owner",
-		status: "Active",
-		verified: true,
-		productCount: 342,
-		orderCount: 1240,
-	},
-	{
-		id: "store-2",
-		name: "StyleHouse",
-		handle: "stylehouse",
-		categories: "Fashion · Shoes · Accessories",
-		bannerGradient: "from-rose-400 to-pink-600",
-		avatarGradient: "from-rose-500 to-pink-600",
-		initials: "SH",
-		role: "Admin",
-		status: "Active",
-		verified: true,
-		productCount: 518,
-		orderCount: 876,
-	},
-	{
-		id: "store-3",
-		name: "GreenNest",
-		handle: "greennest",
-		categories: "Beauty · Skincare · Wellness",
-		bannerGradient: "from-emerald-400 to-teal-600",
-		avatarGradient: "from-emerald-500 to-teal-600",
-		initials: "GN",
-		role: "Member",
-		status: "Draft",
-		verified: false,
-		productCount: 48,
-		orderCount: 0,
-	},
-];
-
 export const MerchantStoresScreen = () => {
+	const storesResult = createQuery(() =>
+		createTreatyQueryOptions(getMerchantTreaty, (t) => t.guest.get()),
+	);
+
 	return (
 		<>
-			<TopBar variant="seller" />
-			<MainNav variant="seller" isAuthenticated={true} />
-
 			<section class="bg-linear-to-br from-brand-50 via-white to-accent-50 border-b border-gray-100">
 				<Container class="py-8 lg:py-10">
 					<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
@@ -202,7 +157,7 @@ export const MerchantStoresScreen = () => {
 							<BoxIcon class="w-4 h-4 text-gray-400" />
 							<span class="text-gray-500">
 								<span class="font-semibold text-gray-700">
-									{placeholderStores.length}
+									{storesResult.data?.length}
 								</span>{" "}
 								stores
 							</span>
@@ -214,15 +169,13 @@ export const MerchantStoresScreen = () => {
 			<main class="py-8 lg:py-10 bg-gray-50 flex-1">
 				<Container>
 					<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-						<For each={placeholderStores}>
+						<For each={storesResult.data}>
 							{(store) => <MerchantStoreCard store={store} />}
 						</For>
 						<CreateStoreCard />
 					</div>
 				</Container>
 			</main>
-
-			<Footer variant="simple" />
 		</>
 	);
 };
