@@ -6,7 +6,7 @@ import { Footer, MainNav, SidebarLayout, TopBar } from "@/ui/layout";
 import { NavSection } from "./NavSection";
 
 const MerchantSidebarCard = () => {
-	const storeResult = createMerchantQuery(t => t.stores.details.get())
+	const storeResult = createMerchantQuery((t) => t.stores.details.get());
 
 	return (
 		<div class="p-5 border-b border-gray-100 text-center">

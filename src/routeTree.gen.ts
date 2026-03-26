@@ -14,14 +14,11 @@ import { Route as StoreTermsOfServiceRouteImport } from './routes/store-terms-of
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as MarketplaceGuidelinesRouteImport } from './routes/marketplace-guidelines'
 import { Route as DeferredRouteImport } from './routes/deferred'
-import { Route as MerchantRouteRouteImport } from './routes/merchant/route'
 import { Route as AccountRouteRouteImport } from './routes/account/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as appRouteRouteImport } from './routes/(app)/route'
-import { Route as MerchantIndexRouteImport } from './routes/merchant/index'
 import { Route as AccountIndexRouteImport } from './routes/account/index'
 import { Route as appIndexRouteImport } from './routes/(app)/index'
-import { Route as MerchantNewRouteImport } from './routes/merchant/new'
 import { Route as AccountWishlistRouteImport } from './routes/account/wishlist'
 import { Route as AccountSettingsRouteImport } from './routes/account/settings'
 import { Route as AccountReviewsRouteImport } from './routes/account/reviews'
@@ -39,7 +36,9 @@ import { Route as appHelpRouteImport } from './routes/(app)/help'
 import { Route as appCategoriesRouteImport } from './routes/(app)/categories'
 import { Route as appCartRouteImport } from './routes/(app)/cart'
 import { Route as MerchantstoreRouteRouteImport } from './routes/merchant/(store)/route'
+import { Route as MerchantguestRouteRouteImport } from './routes/merchant/(guest)/route'
 import { Route as appChatRouteRouteImport } from './routes/(app)/chat/route'
+import { Route as MerchantguestIndexRouteImport } from './routes/merchant/(guest)/index'
 import { Route as appChatIndexRouteImport } from './routes/(app)/chat/index'
 import { Route as MerchantstoreSettingsRouteImport } from './routes/merchant/(store)/settings'
 import { Route as MerchantstoreReviewsRouteImport } from './routes/merchant/(store)/reviews'
@@ -51,6 +50,7 @@ import { Route as MerchantstoreOrdersRouteImport } from './routes/merchant/(stor
 import { Route as MerchantstoreMessagesRouteImport } from './routes/merchant/(store)/messages'
 import { Route as MerchantstoreDashboardRouteImport } from './routes/merchant/(store)/dashboard'
 import { Route as MerchantstoreAnalyticsRouteImport } from './routes/merchant/(store)/analytics'
+import { Route as MerchantguestNewRouteImport } from './routes/merchant/(guest)/new'
 import { Route as appProductProductSlugRouteImport } from './routes/(app)/product.$productSlug'
 import { Route as appChatStoreSlugRouteImport } from './routes/(app)/chat/$storeSlug'
 import { Route as appCategoryCategorySlugRouteImport } from './routes/(app)/category.$categorySlug'
@@ -85,11 +85,6 @@ const DeferredRoute = DeferredRouteImport.update({
   path: '/deferred',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MerchantRouteRoute = MerchantRouteRouteImport.update({
-  id: '/merchant',
-  path: '/merchant',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AccountRouteRoute = AccountRouteRouteImport.update({
   id: '/account',
   path: '/account',
@@ -103,11 +98,6 @@ const appRouteRoute = appRouteRouteImport.update({
   id: '/(app)',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MerchantIndexRoute = MerchantIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => MerchantRouteRoute,
-} as any)
 const AccountIndexRoute = AccountIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -117,11 +107,6 @@ const appIndexRoute = appIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => appRouteRoute,
-} as any)
-const MerchantNewRoute = MerchantNewRouteImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => MerchantRouteRoute,
 } as any)
 const AccountWishlistRoute = AccountWishlistRouteImport.update({
   id: '/wishlist',
@@ -204,13 +189,24 @@ const appCartRoute = appCartRouteImport.update({
   getParentRoute: () => appRouteRoute,
 } as any)
 const MerchantstoreRouteRoute = MerchantstoreRouteRouteImport.update({
-  id: '/(store)',
-  getParentRoute: () => MerchantRouteRoute,
+  id: '/merchant/(store)',
+  path: '/merchant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MerchantguestRouteRoute = MerchantguestRouteRouteImport.update({
+  id: '/merchant/(guest)',
+  path: '/merchant',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const appChatRouteRoute = appChatRouteRouteImport.update({
   id: '/chat',
   path: '/chat',
   getParentRoute: () => appRouteRoute,
+} as any)
+const MerchantguestIndexRoute = MerchantguestIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MerchantguestRouteRoute,
 } as any)
 const appChatIndexRoute = appChatIndexRouteImport.update({
   id: '/',
@@ -267,6 +263,11 @@ const MerchantstoreAnalyticsRoute = MerchantstoreAnalyticsRouteImport.update({
   path: '/analytics',
   getParentRoute: () => MerchantstoreRouteRoute,
 } as any)
+const MerchantguestNewRoute = MerchantguestNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => MerchantguestRouteRoute,
+} as any)
 const appProductProductSlugRoute = appProductProductSlugRouteImport.update({
   id: '/product/$productSlug',
   path: '/product/$productSlug',
@@ -312,13 +313,13 @@ const appStoreStoreSlugAboutRoute = appStoreStoreSlugAboutRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/account': typeof AccountRouteRouteWithChildren
-  '/merchant': typeof MerchantstoreRouteRouteWithChildren
   '/deferred': typeof DeferredRoute
   '/marketplace-guidelines': typeof MarketplaceGuidelinesRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/store-terms-of-service': typeof StoreTermsOfServiceRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/chat': typeof appChatRouteRouteWithChildren
+  '/merchant': typeof MerchantstoreRouteRouteWithChildren
   '/cart': typeof appCartRoute
   '/categories': typeof appCategoriesRoute
   '/help': typeof appHelpRoute
@@ -335,14 +336,13 @@ export interface FileRoutesByFullPath {
   '/account/reviews': typeof AccountReviewsRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
-  '/merchant/new': typeof MerchantNewRoute
   '/': typeof appIndexRoute
   '/account/': typeof AccountIndexRoute
-  '/merchant/': typeof MerchantIndexRoute
   '/store/$storeSlug': typeof appStoreStoreSlugRouteRouteWithChildren
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/product/$productSlug': typeof appProductProductSlugRoute
+  '/merchant/new': typeof MerchantguestNewRoute
   '/merchant/analytics': typeof MerchantstoreAnalyticsRoute
   '/merchant/dashboard': typeof MerchantstoreDashboardRoute
   '/merchant/messages': typeof MerchantstoreMessagesRoute
@@ -354,6 +354,7 @@ export interface FileRoutesByFullPath {
   '/merchant/reviews': typeof MerchantstoreReviewsRoute
   '/merchant/settings': typeof MerchantstoreSettingsRoute
   '/chat/': typeof appChatIndexRoute
+  '/merchant/': typeof MerchantguestIndexRoute
   '/store/$storeSlug/about': typeof appStoreStoreSlugAboutRoute
   '/store/$storeSlug/policies': typeof appStoreStoreSlugPoliciesRoute
   '/store/$storeSlug/reviews': typeof appStoreStoreSlugReviewsRoute
@@ -365,7 +366,7 @@ export interface FileRoutesByTo {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/store-terms-of-service': typeof StoreTermsOfServiceRoute
   '/terms-of-service': typeof TermsOfServiceRoute
-  '/merchant': typeof MerchantIndexRoute
+  '/merchant': typeof MerchantguestIndexRoute
   '/cart': typeof appCartRoute
   '/categories': typeof appCategoriesRoute
   '/help': typeof appHelpRoute
@@ -382,12 +383,12 @@ export interface FileRoutesByTo {
   '/account/reviews': typeof AccountReviewsRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
-  '/merchant/new': typeof MerchantNewRoute
   '/': typeof appIndexRoute
   '/account': typeof AccountIndexRoute
   '/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/product/$productSlug': typeof appProductProductSlugRoute
+  '/merchant/new': typeof MerchantguestNewRoute
   '/merchant/analytics': typeof MerchantstoreAnalyticsRoute
   '/merchant/dashboard': typeof MerchantstoreDashboardRoute
   '/merchant/messages': typeof MerchantstoreMessagesRoute
@@ -409,13 +410,13 @@ export interface FileRoutesById {
   '/(app)': typeof appRouteRouteWithChildren
   '/(auth)': typeof authRouteRouteWithChildren
   '/account': typeof AccountRouteRouteWithChildren
-  '/merchant': typeof MerchantRouteRouteWithChildren
   '/deferred': typeof DeferredRoute
   '/marketplace-guidelines': typeof MarketplaceGuidelinesRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/store-terms-of-service': typeof StoreTermsOfServiceRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/(app)/chat': typeof appChatRouteRouteWithChildren
+  '/merchant/(guest)': typeof MerchantguestRouteRouteWithChildren
   '/merchant/(store)': typeof MerchantstoreRouteRouteWithChildren
   '/(app)/cart': typeof appCartRoute
   '/(app)/categories': typeof appCategoriesRoute
@@ -433,14 +434,13 @@ export interface FileRoutesById {
   '/account/reviews': typeof AccountReviewsRoute
   '/account/settings': typeof AccountSettingsRoute
   '/account/wishlist': typeof AccountWishlistRoute
-  '/merchant/new': typeof MerchantNewRoute
   '/(app)/': typeof appIndexRoute
   '/account/': typeof AccountIndexRoute
-  '/merchant/': typeof MerchantIndexRoute
   '/(app)/store/$storeSlug': typeof appStoreStoreSlugRouteRouteWithChildren
   '/(app)/category/$categorySlug': typeof appCategoryCategorySlugRoute
   '/(app)/chat/$storeSlug': typeof appChatStoreSlugRoute
   '/(app)/product/$productSlug': typeof appProductProductSlugRoute
+  '/merchant/(guest)/new': typeof MerchantguestNewRoute
   '/merchant/(store)/analytics': typeof MerchantstoreAnalyticsRoute
   '/merchant/(store)/dashboard': typeof MerchantstoreDashboardRoute
   '/merchant/(store)/messages': typeof MerchantstoreMessagesRoute
@@ -452,6 +452,7 @@ export interface FileRoutesById {
   '/merchant/(store)/reviews': typeof MerchantstoreReviewsRoute
   '/merchant/(store)/settings': typeof MerchantstoreSettingsRoute
   '/(app)/chat/': typeof appChatIndexRoute
+  '/merchant/(guest)/': typeof MerchantguestIndexRoute
   '/(app)/store/$storeSlug/about': typeof appStoreStoreSlugAboutRoute
   '/(app)/store/$storeSlug/policies': typeof appStoreStoreSlugPoliciesRoute
   '/(app)/store/$storeSlug/reviews': typeof appStoreStoreSlugReviewsRoute
@@ -461,13 +462,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/account'
-    | '/merchant'
     | '/deferred'
     | '/marketplace-guidelines'
     | '/privacy-policy'
     | '/store-terms-of-service'
     | '/terms-of-service'
     | '/chat'
+    | '/merchant'
     | '/cart'
     | '/categories'
     | '/help'
@@ -484,14 +485,13 @@ export interface FileRouteTypes {
     | '/account/reviews'
     | '/account/settings'
     | '/account/wishlist'
-    | '/merchant/new'
     | '/'
     | '/account/'
-    | '/merchant/'
     | '/store/$storeSlug'
     | '/category/$categorySlug'
     | '/chat/$storeSlug'
     | '/product/$productSlug'
+    | '/merchant/new'
     | '/merchant/analytics'
     | '/merchant/dashboard'
     | '/merchant/messages'
@@ -503,6 +503,7 @@ export interface FileRouteTypes {
     | '/merchant/reviews'
     | '/merchant/settings'
     | '/chat/'
+    | '/merchant/'
     | '/store/$storeSlug/about'
     | '/store/$storeSlug/policies'
     | '/store/$storeSlug/reviews'
@@ -531,12 +532,12 @@ export interface FileRouteTypes {
     | '/account/reviews'
     | '/account/settings'
     | '/account/wishlist'
-    | '/merchant/new'
     | '/'
     | '/account'
     | '/category/$categorySlug'
     | '/chat/$storeSlug'
     | '/product/$productSlug'
+    | '/merchant/new'
     | '/merchant/analytics'
     | '/merchant/dashboard'
     | '/merchant/messages'
@@ -557,13 +558,13 @@ export interface FileRouteTypes {
     | '/(app)'
     | '/(auth)'
     | '/account'
-    | '/merchant'
     | '/deferred'
     | '/marketplace-guidelines'
     | '/privacy-policy'
     | '/store-terms-of-service'
     | '/terms-of-service'
     | '/(app)/chat'
+    | '/merchant/(guest)'
     | '/merchant/(store)'
     | '/(app)/cart'
     | '/(app)/categories'
@@ -581,14 +582,13 @@ export interface FileRouteTypes {
     | '/account/reviews'
     | '/account/settings'
     | '/account/wishlist'
-    | '/merchant/new'
     | '/(app)/'
     | '/account/'
-    | '/merchant/'
     | '/(app)/store/$storeSlug'
     | '/(app)/category/$categorySlug'
     | '/(app)/chat/$storeSlug'
     | '/(app)/product/$productSlug'
+    | '/merchant/(guest)/new'
     | '/merchant/(store)/analytics'
     | '/merchant/(store)/dashboard'
     | '/merchant/(store)/messages'
@@ -600,6 +600,7 @@ export interface FileRouteTypes {
     | '/merchant/(store)/reviews'
     | '/merchant/(store)/settings'
     | '/(app)/chat/'
+    | '/merchant/(guest)/'
     | '/(app)/store/$storeSlug/about'
     | '/(app)/store/$storeSlug/policies'
     | '/(app)/store/$storeSlug/reviews'
@@ -610,12 +611,13 @@ export interface RootRouteChildren {
   appRouteRoute: typeof appRouteRouteWithChildren
   authRouteRoute: typeof authRouteRouteWithChildren
   AccountRouteRoute: typeof AccountRouteRouteWithChildren
-  MerchantRouteRoute: typeof MerchantRouteRouteWithChildren
   DeferredRoute: typeof DeferredRoute
   MarketplaceGuidelinesRoute: typeof MarketplaceGuidelinesRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   StoreTermsOfServiceRoute: typeof StoreTermsOfServiceRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
+  MerchantguestRouteRoute: typeof MerchantguestRouteRouteWithChildren
+  MerchantstoreRouteRoute: typeof MerchantstoreRouteRouteWithChildren
 }
 
 declare module '@tanstack/solid-router' {
@@ -655,13 +657,6 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof DeferredRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/merchant': {
-      id: '/merchant'
-      path: '/merchant'
-      fullPath: '/merchant'
-      preLoaderRoute: typeof MerchantRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/account': {
       id: '/account'
       path: '/account'
@@ -683,13 +678,6 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof appRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/merchant/': {
-      id: '/merchant/'
-      path: '/'
-      fullPath: '/merchant/'
-      preLoaderRoute: typeof MerchantIndexRouteImport
-      parentRoute: typeof MerchantRouteRoute
-    }
     '/account/': {
       id: '/account/'
       path: '/'
@@ -703,13 +691,6 @@ declare module '@tanstack/solid-router' {
       fullPath: '/'
       preLoaderRoute: typeof appIndexRouteImport
       parentRoute: typeof appRouteRoute
-    }
-    '/merchant/new': {
-      id: '/merchant/new'
-      path: '/new'
-      fullPath: '/merchant/new'
-      preLoaderRoute: typeof MerchantNewRouteImport
-      parentRoute: typeof MerchantRouteRoute
     }
     '/account/wishlist': {
       id: '/account/wishlist'
@@ -825,10 +806,17 @@ declare module '@tanstack/solid-router' {
     }
     '/merchant/(store)': {
       id: '/merchant/(store)'
-      path: ''
+      path: '/merchant'
       fullPath: '/merchant'
       preLoaderRoute: typeof MerchantstoreRouteRouteImport
-      parentRoute: typeof MerchantRouteRoute
+      parentRoute: typeof rootRouteImport
+    }
+    '/merchant/(guest)': {
+      id: '/merchant/(guest)'
+      path: '/merchant'
+      fullPath: '/merchant'
+      preLoaderRoute: typeof MerchantguestRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/(app)/chat': {
       id: '/(app)/chat'
@@ -836,6 +824,13 @@ declare module '@tanstack/solid-router' {
       fullPath: '/chat'
       preLoaderRoute: typeof appChatRouteRouteImport
       parentRoute: typeof appRouteRoute
+    }
+    '/merchant/(guest)/': {
+      id: '/merchant/(guest)/'
+      path: '/'
+      fullPath: '/merchant/'
+      preLoaderRoute: typeof MerchantguestIndexRouteImport
+      parentRoute: typeof MerchantguestRouteRoute
     }
     '/(app)/chat/': {
       id: '/(app)/chat/'
@@ -913,6 +908,13 @@ declare module '@tanstack/solid-router' {
       fullPath: '/merchant/analytics'
       preLoaderRoute: typeof MerchantstoreAnalyticsRouteImport
       parentRoute: typeof MerchantstoreRouteRoute
+    }
+    '/merchant/(guest)/new': {
+      id: '/merchant/(guest)/new'
+      path: '/new'
+      fullPath: '/merchant/new'
+      preLoaderRoute: typeof MerchantguestNewRouteImport
+      parentRoute: typeof MerchantguestRouteRoute
     }
     '/(app)/product/$productSlug': {
       id: '/(app)/product/$productSlug'
@@ -1081,6 +1083,19 @@ const AccountRouteRouteWithChildren = AccountRouteRoute._addFileChildren(
   AccountRouteRouteChildren,
 )
 
+interface MerchantguestRouteRouteChildren {
+  MerchantguestNewRoute: typeof MerchantguestNewRoute
+  MerchantguestIndexRoute: typeof MerchantguestIndexRoute
+}
+
+const MerchantguestRouteRouteChildren: MerchantguestRouteRouteChildren = {
+  MerchantguestNewRoute: MerchantguestNewRoute,
+  MerchantguestIndexRoute: MerchantguestIndexRoute,
+}
+
+const MerchantguestRouteRouteWithChildren =
+  MerchantguestRouteRoute._addFileChildren(MerchantguestRouteRouteChildren)
+
 interface MerchantstoreRouteRouteChildren {
   MerchantstoreAnalyticsRoute: typeof MerchantstoreAnalyticsRoute
   MerchantstoreDashboardRoute: typeof MerchantstoreDashboardRoute
@@ -1110,32 +1125,17 @@ const MerchantstoreRouteRouteChildren: MerchantstoreRouteRouteChildren = {
 const MerchantstoreRouteRouteWithChildren =
   MerchantstoreRouteRoute._addFileChildren(MerchantstoreRouteRouteChildren)
 
-interface MerchantRouteRouteChildren {
-  MerchantstoreRouteRoute: typeof MerchantstoreRouteRouteWithChildren
-  MerchantNewRoute: typeof MerchantNewRoute
-  MerchantIndexRoute: typeof MerchantIndexRoute
-}
-
-const MerchantRouteRouteChildren: MerchantRouteRouteChildren = {
-  MerchantstoreRouteRoute: MerchantstoreRouteRouteWithChildren,
-  MerchantNewRoute: MerchantNewRoute,
-  MerchantIndexRoute: MerchantIndexRoute,
-}
-
-const MerchantRouteRouteWithChildren = MerchantRouteRoute._addFileChildren(
-  MerchantRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   appRouteRoute: appRouteRouteWithChildren,
   authRouteRoute: authRouteRouteWithChildren,
   AccountRouteRoute: AccountRouteRouteWithChildren,
-  MerchantRouteRoute: MerchantRouteRouteWithChildren,
   DeferredRoute: DeferredRoute,
   MarketplaceGuidelinesRoute: MarketplaceGuidelinesRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   StoreTermsOfServiceRoute: StoreTermsOfServiceRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
+  MerchantguestRouteRoute: MerchantguestRouteRouteWithChildren,
+  MerchantstoreRouteRoute: MerchantstoreRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

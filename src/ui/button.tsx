@@ -1,6 +1,6 @@
 import { Link, type LinkOptions } from "@tanstack/solid-router";
 import { clsx } from "clsx";
-import type { LucideIcon } from "lucide-solid";
+import { Loader, type LucideIcon } from "lucide-solid";
 
 const VariantsConfig = {
 	primary: "bg-brand-600 hover:bg-brand-700 text-white shadow-sm",
@@ -21,6 +21,7 @@ const SizesConfig = {
 type SharedButtonProps = {
 	label: string;
 	Icon?: LucideIcon;
+	iconIsSpinning?: boolean;
 	svgIcon?: string;
 	iconOnly?: boolean;
 	variant: keyof typeof VariantsConfig;
@@ -32,25 +33,36 @@ type SharedButtonProps = {
 
 function buttonClass(props: SharedButtonProps) {
 	return clsx(
-		"cursor-pointer flex-1 sm:flex-initial font-semibold rounded-xl transition flex items-center justify-center",
+		"flex-1 sm:flex-initial font-semibold rounded-xl transition flex items-center justify-center",
 		{
 			[VariantsConfig[props.variant || "default"]]: true,
 			[SizesConfig[props.size || "md"]]: true,
 			"w-full": props.fullWidth,
+			"opacity-80 cursor-not-allowed": props.disabled,
+			"cursor-pointer": !props.disabled,
 		},
 	);
 }
 
-function IconSlot(props: { Icon?: LucideIcon; svgIcon?: string }) {
-	if (props.Icon) return <props.Icon class="w-4 h-4" />;
-	if (props.svgIcon)
-		return (
-			<span
-				class="w-4 h-4 [&>svg]:w-full [&>svg]:h-full"
-				innerHTML={props.svgIcon}
-			/>
-		);
-	return null;
+function IconSlot(props: {
+	Icon?: LucideIcon;
+	svgIcon?: string;
+	iconIsSpinning?: boolean;
+}) {
+	return (
+		<>
+			{props.iconIsSpinning ? (
+				<Loader class="w-4 h-4 animate-spin" />
+			) : props.Icon ? (
+				<props.Icon class="w-4 h-4" />
+			) : props.svgIcon ? (
+				<span
+					class="w-4 h-4 [&>svg]:w-full [&>svg]:h-full"
+					innerHTML={props.svgIcon}
+				/>
+			) : null}
+		</>
+	);
 }
 
 function ButtonContent(props: SharedButtonProps) {
@@ -59,11 +71,19 @@ function ButtonContent(props: SharedButtonProps) {
 	return (
 		<>
 			{hasIcon() && iconPosition === "left" && (
-				<IconSlot Icon={props.Icon} svgIcon={props.svgIcon} />
+				<IconSlot
+					Icon={props.Icon}
+					svgIcon={props.svgIcon}
+					iconIsSpinning={props.iconIsSpinning}
+				/>
 			)}
 			{props.iconOnly ? undefined : props.label}
 			{hasIcon() && iconPosition === "right" && (
-				<IconSlot Icon={props.Icon} svgIcon={props.svgIcon} />
+				<IconSlot
+					Icon={props.Icon}
+					svgIcon={props.svgIcon}
+					iconIsSpinning={props.iconIsSpinning}
+				/>
 			)}
 		</>
 	);
@@ -74,6 +94,7 @@ function getSharedButtonProps(props: SharedButtonProps) {
 		"aria-label": props.iconOnly ? props.label : undefined,
 		class: buttonClass(props),
 		disabled: props.disabled,
+		iconIsSpinning: props.iconIsSpinning,
 	};
 }
 

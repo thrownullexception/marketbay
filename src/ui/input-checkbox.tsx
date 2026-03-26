@@ -46,9 +46,9 @@ export const InputCheckbox = (props: { simpleLabel: string; label: JSX.Element }
 				</label>
 			</div>
 			{errors().length > 0 && hasError() && (
-				<p class="mt-1 text-xs text-red-400">
+				<em role="alert" class="mt-1 text-xs text-red-400">
 					{formatErrors(errors()[0]).message}
-				</p>
+				</em>
 			)}
 		</div>
 	);

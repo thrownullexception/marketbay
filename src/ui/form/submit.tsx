@@ -13,18 +13,18 @@ export function SubmitButton({
 	return (
 		<form.Subscribe
 			selector={(state) => ({
-				canSubmit: state.canSubmit,
 				isSubmitting: state.isSubmitting,
 			})}
 		>
 			{(state) => (
 				<Button
-					label={state().isSubmitting ? "..." : label}
+					label={state().isSubmitting ? "Just a sec..." : label}
 					type="submit"
+					iconIsSpinning={state().isSubmitting}
 					Icon={Icon}
 					variant="primary"
 					fullWidth
-					disabled={!state().canSubmit}
+					disabled={state().isSubmitting}
 				/>
 			)}
 		</form.Subscribe>

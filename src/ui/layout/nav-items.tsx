@@ -1,7 +1,11 @@
-import { useMutation } from "@tanstack/solid-query";
-import { Link, type LinkOptions, useNavigate } from "@tanstack/solid-router";
+import {
+	Link,
+	type LinkOptions,
+	linkOptions,
+} from "@tanstack/solid-router";
 import { LogOutIcon, type LucideIcon } from "lucide-solid";
 import { For } from "solid-js";
+import { useTreatyMutation } from "@/shared/treaty/mutation";
 import { getShopTreaty } from "@/shared/treaty/shop.treaty";
 
 export type NavLinkItemProps = {
@@ -35,23 +39,14 @@ const NavLinkItem = (props: NavLinkItemProps) => {
 	);
 };
 
-export function useSignOutMutation() {
-	const navigate = useNavigate();
-	// const queryClient = useQueryClient();
-
-	return useMutation(() => ({
-		mutationFn: () => getShopTreaty().auth.signout.post(),
-		onSuccess: () => {
-			navigate({
-				to: "/",
-			});
-			// queryClient.setQueryData(orpc.auth.me.key(), null);
-		},
-	}));
-}
-
 export const NavItems = (props: { items: NavLinkItemProps[][] }) => {
-	const signOutMutation = useSignOutMutation();
+	const signOutMutation = useTreatyMutation(() => ({
+		mutationFn: getShopTreaty().auth.signout.post,
+		redirect: linkOptions({
+			to: "/",
+		}),
+		endpoints: [],
+	}));
 
 	return (
 		<nav class="py-2">
@@ -65,7 +60,7 @@ export const NavItems = (props: { items: NavLinkItemProps[][] }) => {
 			</For>
 			<button
 				type="button"
-				onClick={() => signOutMutation.mutate()}
+				onClick={() => signOutMutation.mutate({})}
 				class="flex w-full  cursor-pointer items-center gap-3 px-5 py-2.5 text-sm font-medium text-red-500 transition hover:bg-red-50"
 			>
 				<LogOutIcon class="w-4 h-4 shrink-0" />

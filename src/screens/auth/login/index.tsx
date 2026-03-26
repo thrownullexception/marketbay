@@ -25,8 +25,11 @@ export function LoginScreen() {
 		validators: {
 			onChange: LoginRequestSchema,
 		},
-		onSubmit: ({ value }) => {
-			signInMutation.mutate(value);
+		onSubmit: async ({ value }) => {
+			await signInMutation.mutateAsync(value);
+			// if (result.status === 422) {
+			// 	navigate({to: "/verify-email"});
+			// }
 		},
 	}));
 

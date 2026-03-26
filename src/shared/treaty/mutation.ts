@@ -4,7 +4,7 @@ import {
 	useMutation,
 	useQueryClient,
 } from "@tanstack/solid-query";
-import { useNavigate } from "@tanstack/solid-router";
+import { type LinkOptions, useNavigate } from "@tanstack/solid-router";
 import { toast } from "solid-sonner";
 
 type TreatyError = {
@@ -19,10 +19,7 @@ type TreatyError = {
 type MutationOptions<TRequestResponse, E extends TreatyError, Variables, S> = {
 	endpoints: QueryKey[];
 	mutationFn: (variables: Variables) => Promise<TRequestResponse>;
-	redirect?: {
-		to: string;
-		params?: Record<string, string>;
-	};
+	redirect?: LinkOptions;
 	optimistic?: {
 		queryKey: QueryKey;
 		onMutate: (oldData: S | undefined, variables: Variables) => S;
@@ -58,71 +55,6 @@ function useApiMutate<T>(queryKey?: QueryKey) {
 		},
 	};
 }
-
-// export function useMutationOptions<
-// 	TRequestResponse,
-// 	TError extends Error,
-// 	TVariables,
-// 	TMutationData,
-// >(
-// 	options: MutationOptions<TRequestResponse, TError, TVariables, TMutationData>,
-// ): UseMutationResult<TRequestResponse, TError, TVariables, TMutationData> {
-// 	const navigate = useNavigate();
-// 	const queryClient = useQueryClient();
-
-// 	// toastNetworkError: true,
-
-// 	const apiMutate = useApiMutate<TMutationData>(options.optimistic?.queryKey);
-
-// 	return ({
-
-// 		// ...options,
-// 		// mutationFn: options.call,
-// 		// onSuccess: (
-// 		// 	requestResponse: TRequestResponse,
-// 		// 	formVariables: TVariables,
-// 		// ) => {
-// 		// 	options.endpoints.forEach((queryKey) => {
-// 		// 		void queryClient.invalidateQueries({
-// 		// 			queryKey,
-// 		// 		});
-// 		// 	});
-
-// 		// 	if (options.onSuccessMessage) {
-// 		// 		toast.success(options.onSuccessMessage(requestResponse, formVariables));
-// 		// 	}
-
-// 		// 	if (options.onSuccessAction) {
-// 		// 		options.onSuccessAction(requestResponse, formVariables);
-// 		// 	}
-
-// 		// 	if (options.redirect) {
-// 		// 		navigate(options.redirect);
-// 		// 	}
-// 		// },
-// 		// onMutate: async (formData: TVariables): Promise<TMutationData> => {
-// 		// 	const { optimistic } = options;
-// 		// 	if (optimistic && apiMutate) {
-// 		// 		return apiMutate.set((oldData) =>
-// 		// 			optimistic.onMutate(oldData, formData),
-// 		// 		) as TMutationData;
-// 		// 	}
-// 		// 	return undefined as TMutationData;
-// 		// },
-// 		// onSettled: () => {
-// 		// 	apiMutate?.invalidate();
-// 		// },
-// 		// onError: (
-// 		// 	error: TError,
-// 		// 	formVariables: TVariables,
-// 		// 	oldData: TMutationData | undefined,
-// 		// ) => {
-// 		// 	apiMutate?.reset(oldData);
-// 		// 	options.onErrorAction?.(error, formVariables);
-// 		// 	handleError(error, options.toastErrorStrategy);
-// 		// },
-// 	});
-// }
 
 const handleError = (
 	error: TreatyError,
@@ -162,24 +94,24 @@ type ToastErrorStrategy =
 	  };
 
 export function useTreatyMutation<
-	A extends Treaty.TreatyResponse<Record<number, unknown>>,
-	E extends TreatyError,
-	Variables,
-	S,
->(options: () => MutationOptions<A, E, Variables, S>) {
+	TRequestResponse extends Treaty.TreatyResponse<Record<number, unknown>>,
+	TError extends TreatyError,
+	TVariables,
+	TMutationData,
+>(options: () => MutationOptions<TRequestResponse, TError, TVariables, TMutationData>) {
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 
 	const { optimistic, toastErrorStrategy } = options();
 
-	const apiMutate = useApiMutate<S>(optimistic?.queryKey);
+	const apiMutate = useApiMutate<TMutationData>(optimistic?.queryKey);
 
-	return useMutation<A, E, Variables, S>(() => {
+	return useMutation<TRequestResponse, TError, TVariables, TMutationData>(() => {
 		const opts = options();
 		return {
 			...opts,
-			mutationFn: (v: Variables) => opts.mutationFn(v),
-			onSuccess: (requestResponse: A, formVariables: Variables) => {
+			mutationFn: (v: TVariables) => opts.mutationFn(v),
+			onSuccess: (requestResponse: TRequestResponse, formVariables: TVariables) => {
 				opts.endpoints.forEach((queryKey) => {
 					void queryClient.invalidateQueries({
 						queryKey,
@@ -200,7 +132,7 @@ export function useTreatyMutation<
 			},
 			onMutate:
 				optimistic && apiMutate
-					? (formData: Variables) => {
+					? (formData: TVariables) => {
 							return apiMutate.set((oldData) =>
 								optimistic.onMutate(oldData, formData),
 							);
@@ -209,7 +141,7 @@ export function useTreatyMutation<
 			onSettled: () => {
 				apiMutate?.invalidate();
 			},
-			onError: (error: E, formVariables, oldData: S | undefined) => {
+			onError: (error: TError, formVariables, oldData: TMutationData | undefined) => {
 				apiMutate?.reset(oldData);
 				opts.onErrorAction?.(error, formVariables);
 				const errorMessage = handleError(error, toastErrorStrategy);

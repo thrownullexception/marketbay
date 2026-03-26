@@ -1,5 +1,5 @@
-import { createQuery, useMutation } from "@tanstack/solid-query";
-import { Link, useNavigate } from "@tanstack/solid-router";
+import { createQuery } from "@tanstack/solid-query";
+import { Link, linkOptions } from "@tanstack/solid-router";
 import {
 	ArrowRightIcon,
 	BadgeCheckIcon,
@@ -14,6 +14,7 @@ import { COLOR_CODES } from "@/schemas/colors";
 import type { StoreRole } from "@/schemas/store-role";
 import type { StoreListItemTransformer } from "@/server/modules/stores/stores/types";
 import { getMerchantTreaty } from "@/shared/treaty/merchant.treaty";
+import { useTreatyMutation } from "@/shared/treaty/mutation";
 import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
 import { shorten } from "@/shared/utils/numbers";
 import { getInitials } from "@/shared/utils/strings";
@@ -53,15 +54,13 @@ const MerchantStoreCard = (props: { store: StoreListItemTransformer }) => {
 	const { banner, avatar } =
 		COLOR_CODES[CATEGORY_CONFIG[props.store.primaryCategoryId].color];
 
-	const navigate = useNavigate();
-
-	const switchStore = useMutation(() => ({
-		mutationFn: (storeId: string) =>
-			getMerchantTreaty().auth.switch({ storeId }).post(),
+	const switchStore = useTreatyMutation(() => ({
+		mutationFn: getMerchantTreaty().auth.switch({ storeId: props.store.id }).post,
+		endpoints: [],
+		redirect: linkOptions({
+			to: "/merchant/dashboard",
+		}),
 		onSuccess: () => {
-			navigate({
-				to: "/merchant/dashboard",
-			});
 			window.location.reload();
 		},
 	}));
@@ -118,7 +117,7 @@ const MerchantStoreCard = (props: { store: StoreListItemTransformer }) => {
 					fullWidth
 					iconPosition="right"
 					onClick={() => {
-						switchStore.mutate(props.store.id);
+						switchStore.mutate(props.store);
 					}}
 				/>
 			</div>
