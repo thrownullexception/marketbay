@@ -1,8 +1,5 @@
-import { createQuery } from "@tanstack/solid-query";
 import { linkOptions } from "@tanstack/solid-router";
 import { For } from "solid-js";
-import { getShopTreaty } from "@/shared/treaty/shop.treaty";
-import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
 import { Grid5 } from "@/ui/grid";
 import { ProductCard, type ProductCardData } from "@/ui/product/card";
 import { ScreenSectionCard } from "@/ui/screen-section-card";
@@ -45,13 +42,8 @@ const newArrivals: ProductCardData[] = [
 	},
 ];
 
-export const newArrivalsQuery = createTreatyQueryOptions(
-	getShopTreaty,
-	(t) => t["user-addresses"].get(),
-);
 
 export const NewArrivals = () => {
-	const newArrivalsResult = createQuery(() => newArrivalsQuery);
 
 	return (
 		<ScreenSectionCard
@@ -63,7 +55,6 @@ export const NewArrivals = () => {
 				search: { newArrivals: true },
 			})}
 		>
-			{JSON.stringify(newArrivalsResult.data)}
 			<Grid5>
 				<For each={newArrivals}>
 					{(product) => <ProductCard product={product} />}

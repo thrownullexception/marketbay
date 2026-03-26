@@ -1,8 +1,10 @@
-import { useMutation } from "@tanstack/solid-query";
-import { useNavigate } from "@tanstack/solid-router";
+import { linkOptions } from "@tanstack/solid-router";
 import { LockIcon, MailIcon, UserIcon, UserPlusIcon } from "lucide-solid";
 import type * as v from "valibot";
 import { RegisterRequestSchema } from "@/schemas/auth";
+import {
+	useTreatyMutation,
+} from "@/shared/treaty/mutation";
 import { getShopTreaty } from "@/shared/treaty/shop.treaty";
 import { DividerText } from "@/ui/divider";
 import { useAppForm } from "@/ui/form";
@@ -12,16 +14,10 @@ import { TextLink } from "@/ui/link";
 import { SocialAuth } from "../social-auth";
 
 export function RegisterScreen() {
-	const navigate = useNavigate();
-	const signUpMutation = useMutation(() => ({
-		mutationFn: (input: v.InferInput<typeof RegisterRequestSchema>) =>
-			getShopTreaty().auth.signup.post(input),
-		onSuccess: () => {
-			navigate({
-				to: "/verify-email",
-			});
-		},
-		// onSuccess: () => queryClient.invalidateQueries(),
+	const signUpMutation = useTreatyMutation(() => ({
+		redirect: linkOptions({ to: "/verify-email"}),
+		mutationFn: getShopTreaty().auth.signup.post,
+		endpoints: [],
 	}));
 
 	const form = useAppForm(() => ({

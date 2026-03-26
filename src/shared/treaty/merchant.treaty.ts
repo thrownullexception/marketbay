@@ -12,5 +12,7 @@ export const getMerchantTreaty = createIsomorphicFn()
 	)
 	.client(
 		() =>
-			treaty<typeof merchantServerApp>("http://localhost:3000").api.merchant,
+			treaty<typeof merchantServerApp>("http://localhost:3000", {
+				throwHttpError: true,
+			}).api.merchant,
 	);

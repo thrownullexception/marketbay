@@ -10,4 +10,9 @@ export const getShopTreaty = createIsomorphicFn()
 				headers: getRequestHeaders(),
 			}).api.shop,
 	)
-	.client(() => treaty<typeof shopServerApp>("http://localhost:3000").api.shop);
+	.client(
+		() =>
+			treaty<typeof shopServerApp>("http://localhost:3000", {
+				throwHttpError: true,
+			}).api.shop,
+	);

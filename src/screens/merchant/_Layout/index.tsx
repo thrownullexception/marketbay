@@ -1,16 +1,12 @@
-import { createQuery } from "@tanstack/solid-query";
 import { Link, Outlet } from "@tanstack/solid-router";
 import { BadgeCheckIcon, ExternalLink } from "lucide-solid";
-import { getMerchantTreaty } from "@/shared/treaty/merchant.treaty";
-import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
+import { createMerchantQuery } from "@/shared/treaty";
 import { getInitials } from "@/shared/utils/strings";
 import { Footer, MainNav, SidebarLayout, TopBar } from "@/ui/layout";
 import { NavSection } from "./NavSection";
 
 const MerchantSidebarCard = () => {
-	const storeResult = createQuery(() =>
-		createTreatyQueryOptions(getMerchantTreaty, (t) => t.stores.details.get()),
-	);
+	const storeResult = createMerchantQuery(t => t.stores.details.get())
 
 	return (
 		<div class="p-5 border-b border-gray-100 text-center">

@@ -11,5 +11,7 @@ export const getAdminTreaty = createIsomorphicFn()
 			}).api.admin,
 	)
 	.client(
-		() => treaty<typeof adminServerApp>("http://localhost:3000").api.admin,
+		() => treaty<typeof adminServerApp>("http://localhost:3000", {
+			throwHttpError: true,
+		}).api.admin,
 	);

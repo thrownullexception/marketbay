@@ -57,6 +57,7 @@
     "react-email": "^5.2.10",
     "resend": "^6.9.2",
     "solid-js": "^1.9.10",
+    "solid-sonner": "^0.3.1",
     "sqids": "^0.3.0",
     "typebox": "^1.1.6",
     "valibot": "^1.2.0",

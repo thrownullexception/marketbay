@@ -98,7 +98,7 @@ function createQueryKeyTerminal(segments: QueryKeySegment[]): unknown {
 	return terminal;
 }
 
-type EdenResponse<TData> = Promise<{ data: TData | null; error: unknown }>;
+export type EdenResponse<TData> = Promise<{ data: TData | null; error: unknown }>;
 
 type WithoutKeyAndFn<T> = Omit<T, "queryKey" | "queryFn">;
 
