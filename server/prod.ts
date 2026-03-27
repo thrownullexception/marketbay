@@ -7,12 +7,14 @@ import { csrfMiddleware } from "@/server/middlewares/csrf";
 import { healthcheckMiddleware } from "@/server/middlewares/health";
 // import { helmetMiddleware } from "@/server/middlewares/helmet";
 import { loggerMiddleware } from "@/server/middlewares/logger";
+import { errorMiddleware } from "@/server/middlewares/error";
 
 const app = new Elysia()
 	.use(csrfMiddleware)
 	// .use(helmetMiddleware)
 	.use(healthcheckMiddleware)
 	.use(loggerMiddleware)
+	.use(errorMiddleware)
 .use(merchantServerApp)
 .use(adminServerApp)
 .use(shopServerApp);

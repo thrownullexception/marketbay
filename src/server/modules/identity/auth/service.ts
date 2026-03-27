@@ -83,8 +83,6 @@ export class AuthService {
 			scope: OtpScopes.EMAIL_VERIFICATION,
 		});
 
-		console.log("otp", otp);
-
 		return {
 			userId,
 		};
@@ -380,6 +378,8 @@ export class AuthService {
 			hash: otpHash,
 			scope: input.scope,
 		});
+
+		console.log("otp", otp);
 
 		return otp;
 	}
