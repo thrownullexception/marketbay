@@ -510,7 +510,7 @@ export class AuthService {
 	// 		input.provider
 	// 	].fn(input.accessToken);
 
-	// 	const existingUserId = await this.usersService.getUserIdFromFieldOrNull({
+	// 	const existingUserId = await this.usersService.getUserIdFromField({
 	// 		field: "email",
 	// 		value: socialUser.email,
 	// 	});

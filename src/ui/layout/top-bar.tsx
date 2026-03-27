@@ -1,8 +1,7 @@
 import { Link } from "@tanstack/solid-router";
+import type { LayoutVariant } from "./types";
 
-type TopBarVariant = "merchant" | "buyer";
-
-export const TopBar = (props: { variant: TopBarVariant }) => {
+export const TopBar = (props: { variant: LayoutVariant }) => {
 	return (
 		<div class="bg-brand-950 text-brand-200 text-xs py-1.5">
 			<div class="max-w-7xl mx-auto px-4 flex items-center justify-between">

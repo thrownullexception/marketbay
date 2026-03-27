@@ -27,7 +27,7 @@ export const FormInputOtp = (props: FormInputOtpProps) => {
 					value={field().state.value}
 					onValueChange={(value) => field().handleChange(value)}
 					onComplete={() => field().handleBlur()}
-					class="flex items-center gap-2"
+					class="flex w-full items-center gap-2"
 				>
 					<OtpField.Input aria-label={props.label} />
 					<For each={Array.from({ length: props.maxLength })}>
@@ -49,7 +49,7 @@ const OtpSlot = (props: { index: number; hasError: boolean }) => {
 	return (
 		<div
 			class={clsx(
-				"relative flex h-12 w-10 items-center justify-center rounded-xl border text-sm font-medium transition select-none",
+				"relative flex h-12 flex-1 items-center justify-center rounded-xl border text-sm font-medium transition select-none",
 				props.hasError
 					? "border-red-400"
 					: isActive()

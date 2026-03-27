@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/solid-router";
+import type { LayoutVariant } from "./types";
 
 const LogoIcon = (props: { class?: string }) => (
   <svg
@@ -19,7 +20,7 @@ const LogoIcon = (props: { class?: string }) => (
 
 export const LogoHeader = (props: {
   class?: string;
-  from: "merchant" | "buyer";
+  from: LayoutVariant;
 }) => (
   <Link
     to={props.from === "merchant" ? "/merchant" : "/"}
@@ -36,7 +37,7 @@ export const LogoHeader = (props: {
 
 export const LogoFooter = (props: {
   class?: string;
-  from: "merchant" | "buyer";
+  from: LayoutVariant;
 }) => (
   <Link
     to={props.from === "merchant" ? "/merchant" : "/"}

@@ -7,7 +7,7 @@ export const ShopLayout = () => {
 			<TopBar variant="buyer" />
 			<MainNav variant="buyer" />
 			<Outlet />
-			<Footer variant="full" />
+			<Footer variant="buyer" />
 		</>
 	);
 };

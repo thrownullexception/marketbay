@@ -7,7 +7,7 @@ export const AccountLayout = () => {
 			<TopBar variant="buyer" />
 			<MainNav variant="buyer" />
 			<SidebarLayout sidebar={<NavSection />} />
-			<Footer variant="full" />
+			<Footer variant="buyer" />
 		</>
 	);
 };

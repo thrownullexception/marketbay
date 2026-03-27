@@ -3,11 +3,10 @@ import { APP_CONSTANTS } from "@/shared/app.constants";
 import { Container } from "@/ui/container";
 import { Grid5 } from "@/ui/grid";
 import { LogoFooter } from "./logo";
+import type { LayoutVariant } from "./types";
 
-type FooterVariant = "simple" | "full";
-
-export const Footer = (props: { variant: FooterVariant }) => {
-  if (props.variant === "simple") {
+export const Footer = (props: { variant: LayoutVariant }) => {
+  if (props.variant === "merchant") {
     return (
       <footer class="bg-brand-950 text-brand-200">
         <Container class="py-10">

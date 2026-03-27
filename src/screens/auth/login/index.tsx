@@ -2,6 +2,7 @@ import { useNavigate } from "@tanstack/solid-router";
 import { LockIcon, LogInIcon, MailIcon } from "lucide-solid";
 import type * as v from "valibot";
 import { LoginRequestSchema } from "@/schemas/auth";
+import { getShopTreatyQueryKey } from "@/shared/treaty";
 import { useTreatyMutation } from "@/shared/treaty/mutation";
 import { getShopTreaty } from "@/shared/treaty/shop.treaty";
 import { DividerText } from "@/ui/divider";
@@ -22,7 +23,9 @@ export function LoginScreen() {
 				navigate({to: "/account"});
 			}
 		},
-		endpoints: [],
+		endpoints: [
+			getShopTreatyQueryKey((t) => t.auth.me.get()),
+		],
 	}));
 
 	const form = useAppForm(() => ({
@@ -34,8 +37,7 @@ export function LoginScreen() {
 			onChange: LoginRequestSchema,
 		},
 		onSubmit: async ({ value }) => {
-			const foo = await signInMutation.mutateAsync(value);
-			console.log({foo});
+			await signInMutation.mutateAsync(value);
 		},
 	}));
 

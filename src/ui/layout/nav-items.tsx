@@ -5,6 +5,7 @@ import {
 } from "@tanstack/solid-router";
 import { LogOutIcon, type LucideIcon } from "lucide-solid";
 import { For } from "solid-js";
+import { getShopTreatyQueryKey } from "@/shared/treaty";
 import { useTreatyMutation } from "@/shared/treaty/mutation";
 import { getShopTreaty } from "@/shared/treaty/shop.treaty";
 
@@ -45,7 +46,9 @@ export const NavItems = (props: { items: NavLinkItemProps[][] }) => {
 		redirect: linkOptions({
 			to: "/",
 		}),
-		endpoints: [],
+		endpoints: [
+			getShopTreatyQueryKey((t) => t.auth.me.get()),
+		],
 	}));
 
 	return (
