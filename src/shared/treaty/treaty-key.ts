@@ -103,6 +103,17 @@ export type EdenResponse<TData> = Promise<{ data: TData | null; error: unknown }
 type WithoutKeyAndFn<T> = Omit<T, "queryKey" | "queryFn">;
 
 /**
+ * Replaces the strict `NonFunctionGuard<TData>` constraint on `placeholderData`
+ * with plain `TData`, so callers with an unconstrained generic don't need a cast.
+ */
+type WithPermissivePlaceholder<TData> = Omit<
+	WithoutKeyAndFn<ReturnType<UndefinedInitialDataOptions<TData>>>,
+	"placeholderData"
+> & {
+	placeholderData?: TData | ((prev: TData | undefined) => TData | undefined);
+};
+
+/**
  * Creates a `queryOptions` object where the `queryKey` is automatically
  * derived from the treaty call chain in `selector`, and `queryFn` calls
  * that same chain against the real treaty client.
@@ -133,12 +144,21 @@ type TreatyQueryResult<TData> =
 	  });
 
 export function createTreatyQueryOptions<TTreaty, TData>(
+	prefix: string,
 	getTreaty: () => TTreaty,
 	selector: (treaty: TTreaty) => EdenResponse<TData>,
 	options: WithoutKeyAndFn<ReturnType<DefinedInitialDataOptions<TData>>>,
 ): ReturnType<DefinedInitialDataOptions<TData>> & { queryKey: TreatyQueryKey };
 
 export function createTreatyQueryOptions<TTreaty, TData>(
+	prefix: string,
+	getTreaty: () => TTreaty,
+	selector: (treaty: TTreaty) => EdenResponse<TData>,
+	options: WithPermissivePlaceholder<TData>,
+): ReturnType<UndefinedInitialDataOptions<TData>> & { queryKey: TreatyQueryKey };
+
+export function createTreatyQueryOptions<TTreaty, TData>(
+	prefix: string,
 	getTreaty: () => TTreaty,
 	selector: (treaty: TTreaty) => EdenResponse<TData>,
 	options?: WithoutKeyAndFn<ReturnType<UndefinedInitialDataOptions<TData>>>,
@@ -147,6 +167,7 @@ export function createTreatyQueryOptions<TTreaty, TData>(
 };
 
 export function createTreatyQueryOptions<TTreaty, TData>(
+	prefix: string,
 	getTreaty: () => TTreaty,
 	selector: (treaty: TTreaty) => EdenResponse<TData>,
 	// biome-ignore lint/suspicious/noExplicitAny: implementation covers both overloads
@@ -159,7 +180,7 @@ export function createTreatyQueryOptions<TTreaty, TData>(
 
 	return queryOptions({
 		...(options as object),
-		queryKey: keyResult.queryKey,
+		queryKey: [prefix, ...keyResult.queryKey],
 		queryFn: () => selector(getTreaty()).then((res) => res.data as TData),
 	}) as TreatyQueryResult<TData>;
 }

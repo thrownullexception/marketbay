@@ -2,6 +2,7 @@ import { treaty } from "@elysiajs/eden";
 import { createIsomorphicFn } from "@tanstack/solid-start";
 import { getRequestHeaders } from "@tanstack/solid-start/server";
 import { merchantServerApp } from "@/server/apps/merchant";
+import { clientEnv } from "../env";
 
 export const getMerchantTreaty = createIsomorphicFn()
 	.server(
@@ -12,7 +13,7 @@ export const getMerchantTreaty = createIsomorphicFn()
 	)
 	.client(
 		() =>
-			treaty<typeof merchantServerApp>("http://localhost:3000", {
+			treaty<typeof merchantServerApp>(clientEnv.PUBLIC_API_URL, {
 				throwHttpError: true,
 			}).api.merchant,
 	);

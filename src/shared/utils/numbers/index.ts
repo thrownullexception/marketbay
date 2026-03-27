@@ -9,4 +9,3 @@ export const shorten = (num: number, digits = 1): string => {
     }
     return String(num);
   };
-  

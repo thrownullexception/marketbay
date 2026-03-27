@@ -1,4 +1,3 @@
-import { createQuery } from "@tanstack/solid-query";
 import { Link, linkOptions } from "@tanstack/solid-router";
 import {
 	ArrowRightIcon,
@@ -13,9 +12,9 @@ import { CATEGORY_CONFIG } from "@/schemas/category";
 import { COLOR_CODES } from "@/schemas/colors";
 import type { StoreRole } from "@/schemas/store-role";
 import type { StoreListItemTransformer } from "@/server/modules/stores/stores/types";
+import { createMerchantQuery } from "@/shared/treaty";
 import { getMerchantTreaty } from "@/shared/treaty/merchant.treaty";
 import { useTreatyMutation } from "@/shared/treaty/mutation";
-import { createTreatyQueryOptions } from "@/shared/treaty/treaty-key";
 import { shorten } from "@/shared/utils/numbers";
 import { getInitials } from "@/shared/utils/strings";
 import { Button } from "@/ui/button";
@@ -147,9 +146,7 @@ const CreateStoreCard = () => {
 };
 
 export const MerchantStoresScreen = () => {
-	const storesResult = createQuery(() =>
-		createTreatyQueryOptions(getMerchantTreaty, (t) => t.guest.get()),
-	);
+	const storesResult = createMerchantQuery((t) => t.guest.get(), []);
 
 	return (
 		<>

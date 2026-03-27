@@ -1,7 +1,6 @@
 import { linkOptions } from "@tanstack/solid-router";
 import { MailIcon, RefreshCwIcon, ShieldCheckIcon } from "lucide-solid";
 import type * as v from "valibot";
-import { Route } from "@/routes/(auth)/verify-email";
 import { OTP_LENGTH, VerifyEmailRequestSchema } from "@/schemas/auth";
 import { useTreatyMutation } from "@/shared/treaty/mutation";
 import { getShopTreaty } from "@/shared/treaty/shop.treaty";
@@ -11,8 +10,9 @@ import { useAppForm } from "@/ui/form";
 import { FormCard, FormHeader, FormRoot, FormText } from "@/ui/form/card";
 import { TextLink } from "@/ui/link";
 
+// if no local storage email, redirect to login
+
 export function VerifyEmailScreen() {
-	const search = Route.useSearch();
 
 	const resendMutation = useTreatyMutation(() => ({
 		mutationFn: getShopTreaty().auth["resend-verification-email"].post,

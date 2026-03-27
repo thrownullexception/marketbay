@@ -56,13 +56,11 @@ export const ChangePasswordRequestSchema = v.object({
 });
 
 export const ResetPasswordRequestSchema = v.object({
-	email: emailSchema,
 	otp: otpSchema,
 	password: passwordInsertSchema,
 });
 
 export const VerifyEmailRequestSchema = v.object({
-	email: emailSchema,
 	otp: otpSchema,
 });
 

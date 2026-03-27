@@ -70,7 +70,7 @@ export class AuthService {
 			throw new BadRequestError("Email already exists");
 		}
 
-		await this.usersService.createUser({
+		const userId = await this.usersService.createUser({
 			email: input.email.toLowerCase(),
 			normalizedEmail,
 			firstName: input.firstName,
@@ -79,11 +79,15 @@ export class AuthService {
 		});
 
 		const otp = await this.createOtp({
-			email: input.email,
+			userId,
 			scope: OtpScopes.EMAIL_VERIFICATION,
 		});
 
 		console.log("otp", otp);
+
+		return {
+			userId,
+		};
 
 		// await this.mailService.send({
 		// 	to: input.email,
@@ -92,7 +96,12 @@ export class AuthService {
 		// });
 	}
 
-	async signin(input: v.InferOutput<typeof LoginRequestSchema>) {
+	async signin(
+		input: v.InferOutput<typeof LoginRequestSchema>,
+	): Promise<
+		| { type: "not_verified"; userId: UserId }
+		| { type: "authenticated"; token: string }
+	> {
 		const userId = await this.usersService.getUserIdFromField({
 			field: "email",
 			value: input.email.toLowerCase(),
@@ -112,7 +121,7 @@ export class AuthService {
 		}
 
 		if (!user.emailVerified) {
-			return "not_verified";
+			return { type: "not_verified", userId: user.id };
 		}
 
 		const isValidPassword = await verifyPassword({
@@ -124,20 +133,23 @@ export class AuthService {
 			throw new BadRequestError("Invalid login credentials");
 		}
 
-		return await this.createAuthSession({
+		const authToken = await this.createAuthSession({
 			userId: user.id,
 		});
+
+		return {
+			type: "authenticated",
+			token: authToken.token,
+		};
 	}
 
 	async createAuthSession(input: { userId: UserId }) {
 		const sessionId = this.randomService.generateSecureRandomString({
 			length: 24,
-			input: "alphanumeric",
 		});
 
 		const secret = this.randomService.generateSecureRandomString({
 			length: 24,
-			input: "alphanumeric",
 		});
 		const secretHash = await hashSecret(secret);
 
@@ -266,20 +278,17 @@ export class AuthService {
 		};
 	}
 
-	async resetPassword(input: v.InferOutput<typeof ResetPasswordRequestSchema>) {
+	async resetPassword(
+		userId: UserId,
+		input: v.InferOutput<typeof ResetPasswordRequestSchema>,
+	) {
 		await this.verifyOtp({
 			otp: input.otp,
-			email: input.email,
+			userId,
 			scope: OtpScopes.RESET_PASSWORD,
 		});
 
-		const [userId, passwordHash] = await Promise.all([
-			this.usersService.getUserIdFromFieldOrFail({
-				field: "email",
-				value: input.email,
-			}),
-			hashPassword(input.password),
-		]);
+		const passwordHash = await hashPassword(input.password);
 
 		await this.usersService.updateUser({
 			userId,
@@ -287,16 +296,14 @@ export class AuthService {
 		});
 	}
 
-	async verifyEmail(input: v.InferOutput<typeof VerifyEmailRequestSchema>) {
+	async verifyEmail(
+		userId: UserId,
+		input: v.InferOutput<typeof VerifyEmailRequestSchema>,
+	) {
 		await this.verifyOtp({
 			otp: input.otp,
-			email: input.email,
+			userId,
 			scope: OtpScopes.EMAIL_VERIFICATION,
-		});
-
-		const userId = await this.usersService.getUserIdFromFieldOrFail({
-			field: "email",
-			value: input.email,
 		});
 
 		await this.usersService.updateUser({
@@ -311,7 +318,7 @@ export class AuthService {
 
 	private async verifyOtp(input: {
 		otp: string;
-		email: string;
+		userId: UserId;
 		scope: OtpScopes;
 	}) {
 		const otpResult = await this.db
@@ -323,7 +330,7 @@ export class AuthService {
 			.from(OtpVerificationEntity)
 			.where(
 				and(
-					eq(OtpVerificationEntity.email, input.email),
+					eq(OtpVerificationEntity.userId, input.userId),
 					eq(OtpVerificationEntity.scope, input.scope),
 				),
 			)
@@ -352,25 +359,24 @@ export class AuthService {
 			.where(eq(OtpVerificationEntity.id, otp.id));
 	}
 
-	private async createOtp(input: { email: string; scope: OtpScopes }) {
-		const otp = this.randomService.generateSecureRandomString({
+	private async createOtp(input: { userId: UserId; scope: OtpScopes }) {
+		const otp = this.randomService.generateSecureRandomNumber({
 			length: OTP_LENGTH,
-			input: "numeric",
 		});
 
 		await this.db
 			.delete(OtpVerificationEntity)
 			.where(
 				and(
-					eq(OtpVerificationEntity.email, input.email),
+					eq(OtpVerificationEntity.userId, input.userId),
 					eq(OtpVerificationEntity.scope, input.scope),
 				),
 			);
 
-		const otpHash = await hashSecret(otp);
+		const otpHash = await hashSecret(String(otp));
 
 		await this.db.insert(OtpVerificationEntity).values({
-			email: input.email,
+			userId: input.userId,
 			hash: otpHash,
 			scope: input.scope,
 		});
@@ -449,7 +455,11 @@ export class AuthService {
 		});
 
 		if (userId === "null") {
-			return;
+			return {
+				userId: randomService.generateSecureRandomNumber({
+					length: 6,
+				}) as UserId,
+			};
 		}
 
 		const user = await this.usersService.getFieldsFromUserIdOrFail({
@@ -458,7 +468,7 @@ export class AuthService {
 		});
 
 		const otp = await this.createOtp({
-			email: input.email,
+			userId,
 			scope: OtpScopes.EMAIL_VERIFICATION,
 		});
 
@@ -467,6 +477,10 @@ export class AuthService {
 			params: { otp: otp, firstName: user.firstName },
 			type: "verification",
 		});
+
+		return {
+			userId,
+		};
 	}
 
 	async sendPasswordResetEmail(input: { email: string }) {
@@ -476,7 +490,11 @@ export class AuthService {
 		});
 
 		if (userId === "null") {
-			return;
+			return {
+				userId: randomService.generateSecureRandomNumber({
+					length: 6,
+				}) as UserId,
+			};
 		}
 
 		const user = await this.usersService.getFieldsFromUserIdOrFail({
@@ -485,7 +503,7 @@ export class AuthService {
 		});
 
 		const otp = await this.createOtp({
-			email: input.email,
+			userId,
 			scope: OtpScopes.RESET_PASSWORD,
 		});
 
@@ -494,6 +512,10 @@ export class AuthService {
 			params: { otp: otp, firstName: user.firstName },
 			type: "passwordReset",
 		});
+
+		return {
+			userId,
+		};
 	}
 
 	// async socialSignIn(input: z4.infer<typeof SocialLoginRequestSchema>) {

@@ -13,7 +13,7 @@ import { StoresHeader } from "./StoresHeader";
 import { StoresToolbar } from "./StoresToolbar";
 
 export const StoresScreen = () => {
-	const storesResult = createShopQuery((t) => t.stores.get());
+	const storesResult = createShopQuery((t) => t.stores.get(), []);
 
 	return (
 		<>

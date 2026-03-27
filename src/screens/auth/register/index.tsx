@@ -1,4 +1,4 @@
-import { linkOptions, useNavigate } from "@tanstack/solid-router";
+import { linkOptions } from "@tanstack/solid-router";
 import { LockIcon, MailIcon, UserIcon, UserPlusIcon } from "lucide-solid";
 import type * as v from "valibot";
 import { RegisterRequestSchema } from "@/schemas/auth";
@@ -32,8 +32,7 @@ export function RegisterScreen() {
 			onChange: RegisterRequestSchema,
 		},
 		onSubmit: async ({ value }) => {
-			await signUpMutation.mutateAsync(value);
-            localStorage.setItem("email", value.email);
+			 await signUpMutation.mutateAsync(value);
 		},
 	}));
 

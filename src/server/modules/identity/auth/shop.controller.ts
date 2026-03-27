@@ -11,63 +11,112 @@ import {
 import { authenticatedUserMiddleware } from "@/server/middlewares/auth";
 import { BadRequestError } from "@/server/shared/errors";
 import { IdentityModule } from "..";
-import { AUTH_COOKIE_NAME } from "./constants";
+import { UserIdTransformer } from "../users/types";
+import {
+	AUTH_COOKIE_NAME,
+	COOKIE_OPTIONS,
+	OTP_EXPIRATION_TIME,
+	UN_AUTHENTICATED_USER_COOKIE_NAME,
+} from "./constants";
 
 export const authShopController = new Elysia({
 	prefix: "/auth",
 })
 	.post(
-		"/signin",
-		async ({ body, cookie: { [AUTH_COOKIE_NAME]: authCookie } }) => {
-			const token = await IdentityModule.services.auth.signin(body);
-			if (token === "not_verified") {
-				throw new BadRequestError("Account not verified");
-			}
-
-			authCookie.set({
-				value: token.token,
-				httpOnly: true,
-				// domain:
-			});
-
-			return token;
-		},
-		{
-			body: LoginRequestSchema,
-		},
-	)
-	.post(
 		"/signup",
-		async ({ body }) => {
-			await IdentityModule.services.auth.signup(body);
+		async ({
+			body,
+			cookie: { [UN_AUTHENTICATED_USER_COOKIE_NAME]: userHashCookie },
+		}) => {
+			const user = await IdentityModule.services.auth.signup(body);
+
+			const userHash = UserIdTransformer.toPublicHash(user.userId);
+
+			userHashCookie.set(
+				COOKIE_OPTIONS({ value: userHash, maxAge: OTP_EXPIRATION_TIME }),
+			);
+
+			return {
+				userHash,
+			};
 		},
 		{
 			body: RegisterRequestSchema,
 		},
 	)
 	.post(
+		"/signin",
+		async ({
+			body,
+			cookie: {
+				[AUTH_COOKIE_NAME]: authCookie,
+				[UN_AUTHENTICATED_USER_COOKIE_NAME]: userHashCookie,
+			},
+		}) => {
+			const response = await IdentityModule.services.auth.signin(body);
+			if (response.type === "not_verified") {
+				const userHash = UserIdTransformer.toPublicHash(response.userId);
+				userHashCookie.set(
+					COOKIE_OPTIONS({ value: userHash, maxAge: OTP_EXPIRATION_TIME }),
+				);
+				return {
+					type: "not_verified",
+					userHash,
+				} as const;
+			}
+
+			authCookie.set(COOKIE_OPTIONS({ value: response.token }));
+
+			return {
+				type: "authenticated",
+				token: response.token,
+			} as const;
+		},
+		{
+			body: LoginRequestSchema,
+		},
+	)
+	.post(
 		"/verify-email",
-		async ({ body, cookie: { [AUTH_COOKIE_NAME]: authCookie } }) => {
-			const token = await IdentityModule.services.auth.verifyEmail(body);
+		async ({
+			body,
+			cookie: {
+				[AUTH_COOKIE_NAME]: authCookie,
+				[UN_AUTHENTICATED_USER_COOKIE_NAME]: userHashCookie,
+			},
+		}) => {
+			if (!userHashCookie.value) {
+				throw new BadRequestError(
+					"User not provided, Please signin and try again",
+				);
+			}
+			const userId = UserIdTransformer.toDbId(String(userHashCookie.value));
+			const token = await IdentityModule.services.auth.verifyEmail(
+				userId,
+				body,
+			);
 
-			authCookie.set({
-				value: token.token,
-				httpOnly: true,
-				// domain:
-			});
+			authCookie.set(COOKIE_OPTIONS({ value: token.token }));
 
-			// cookie
 			return token;
 		},
 		{
 			body: VerifyEmailRequestSchema,
 		},
 	)
-
 	.post(
 		"/reset-password",
-		async ({ body }) => {
-			await IdentityModule.services.auth.resetPassword(body);
+		async ({
+			body,
+			cookie: { [UN_AUTHENTICATED_USER_COOKIE_NAME]: userHashCookie },
+		}) => {
+			if (!userHashCookie.value) {
+				throw new BadRequestError(
+					"User not provided, Please reset your password and try again",
+				);
+			}
+			const userId = UserIdTransformer.toDbId(String(userHashCookie.value));
+			await IdentityModule.services.auth.resetPassword(userId, body);
 		},
 		{
 			body: ResetPasswordRequestSchema,
@@ -75,8 +124,22 @@ export const authShopController = new Elysia({
 	)
 	.post(
 		"/send-reset-password",
-		async ({ body }) => {
-			await IdentityModule.services.auth.sendPasswordResetEmail(body);
+		async ({
+			body,
+			cookie: { [UN_AUTHENTICATED_USER_COOKIE_NAME]: userHashCookie },
+		}) => {
+			const user =
+				await IdentityModule.services.auth.sendPasswordResetEmail(body);
+
+			const userHash = UserIdTransformer.toPublicHash(user.userId);
+
+			userHashCookie.set(
+				COOKIE_OPTIONS({ value: userHash, maxAge: OTP_EXPIRATION_TIME }),
+			);
+
+			return {
+				userHash,
+			};
 		},
 		{
 			body: SendPasswordResetEmailRequestSchema,
@@ -84,8 +147,22 @@ export const authShopController = new Elysia({
 	)
 	.post(
 		"/resend-verification-email",
-		async ({ body }) => {
-			await IdentityModule.services.auth.resendVerificationEmail(body);
+		async ({
+			body,
+			cookie: { [UN_AUTHENTICATED_USER_COOKIE_NAME]: userHashCookie },
+		}) => {
+			const user =
+				await IdentityModule.services.auth.resendVerificationEmail(body);
+
+			const userHash = UserIdTransformer.toPublicHash(user.userId);
+
+			userHashCookie.set(
+				COOKIE_OPTIONS({ value: userHash, maxAge: OTP_EXPIRATION_TIME }),
+			);
+
+			return {
+				userHash,
+			};
 		},
 		{
 			body: ResendVerificationEmailRequestSchema,

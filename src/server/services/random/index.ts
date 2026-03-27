@@ -8,7 +8,7 @@ export class RandomServiceTest {
 }
 
 export class RandomService {
-	generateSecureRandomString(input: {
+	private generateSecureRandom(input: {
 		length: number;
 		input: "alphanumeric" | "numeric";
 	}): string {
@@ -36,6 +36,18 @@ export class RandomService {
 			id += alphabet[safeIndex];
 		}
 		return id;
+	}
+
+	generateSecureRandomString(input: {
+		length: number;
+	}): string {
+		return this.generateSecureRandom({ length: input.length, input: "alphanumeric" });
+	}
+
+	generateSecureRandomNumber(input: {
+		length: number;
+	}): number {
+		return Number(this.generateSecureRandom({ length: input.length, input: "numeric" }));
 	}
 }
 
