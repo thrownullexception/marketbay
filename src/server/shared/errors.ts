@@ -1,4 +1,9 @@
-// :eyes
+export interface ErrorResponse {
+	message: string;
+	code: number;
+	data?: Record<string, unknown>;
+}
+
 export class BadRequestError extends Error {
 	status = 400;
 
@@ -9,9 +14,9 @@ export class BadRequestError extends Error {
 	toResponse() {
 		return Response.json(
 			{
-				error: this.message,
+				message: this.message,
 				code: this.status,
-			},
+			} satisfies ErrorResponse,
 			{
 				status: this.status,
 			},
@@ -32,10 +37,10 @@ export class NotFoundRequestError extends Error {
 	toResponse() {
 		return Response.json(
 			{
-				error: this.message,
+				message: this.message,
 				code: this.status,
 				data: this.data,
-			},
+			} satisfies ErrorResponse,
 			{
 				status: this.status,
 			},
@@ -56,10 +61,10 @@ export class UnAuthorizedRequestError extends Error {
 	toResponse() {
 		return Response.json(
 			{
-				error: this.message,
+				message: this.message,
 				code: this.status,
 				data: this.data,
-			},
+			} satisfies ErrorResponse,
 			{
 				status: this.status,
 			},

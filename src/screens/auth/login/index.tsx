@@ -1,4 +1,4 @@
-import { linkOptions, useNavigate } from "@tanstack/solid-router";
+import { useNavigate } from "@tanstack/solid-router";
 import { LockIcon, LogInIcon, MailIcon } from "lucide-solid";
 import type * as v from "valibot";
 import { LoginRequestSchema } from "@/schemas/auth";
@@ -16,12 +16,11 @@ export function LoginScreen() {
 	const signInMutation = useTreatyMutation(() => ({
 		mutationFn: getShopTreaty().auth.signin.post,
 		onSuccessAction: (data) => {
-			console.log({data});
-			// if (data.type === "not_verified") {
-			// 	navigate({to: "/verify-email"});
-			// } else if (data.type === "authenticated") {
-			// 	navigate({to: "/account"});
-			// }
+			if (data.data?.type === "not_verified") {
+				navigate({to: "/verify-email"});
+			} else if (data.data?.type === "authenticated") {
+				navigate({to: "/account"});
+			}
 		},
 		endpoints: [],
 	}));

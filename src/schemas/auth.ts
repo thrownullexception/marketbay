@@ -42,10 +42,6 @@ export const RegisterRequestSchema = v.object({
 	),
 });
 
-export const ResendVerificationEmailRequestSchema = v.object({
-	email: emailSchema,
-});
-
 export const SendPasswordResetEmailRequestSchema = v.object({
 	email: emailSchema,
 });

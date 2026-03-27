@@ -6,14 +6,11 @@ import {
 } from "@tanstack/solid-query";
 import { type LinkOptions, useNavigate } from "@tanstack/solid-router";
 import { toast } from "solid-sonner";
+import type { ErrorResponse } from "@/server/shared/errors";
 
 type TreatyError = {
 	status: number;
-	value: {
-		error: string;
-		code: number;
-		data?: Record<string, unknown>;
-	};
+	value: ErrorResponse;
 };
 
 type MutationOptions<TRequestResponse, E extends TreatyError, Variables, S> = {
@@ -67,8 +64,7 @@ const handleError = (
 	}
 
 	if (strategy === ToastErrorStrategyType.ExtractMessage) {
-		console.error(JSON.stringify(error, null, 2));
-		return error.value.error;
+		return error.value.message;
 	}
 
 	if (strategy === ToastErrorStrategyType.DefaultMessage) {

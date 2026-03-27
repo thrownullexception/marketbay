@@ -1,6 +1,7 @@
 import { createFormHook } from "@tanstack/solid-form";
 import { InputCheckbox } from "@/ui/input-checkbox";
 import { InputFile } from "@/ui/input-file";
+import { FormInputOtp } from "@/ui/input-otp";
 import { FormInputSelect } from "@/ui/input-select";
 import {
 	FormInputPassword,
@@ -20,6 +21,7 @@ export const { useAppForm } = createFormHook({
 		InputCheckbox,
 		InputWithPrefix: FormInputWithPrefix,
 		InputFile,
+		InputOtp: FormInputOtp,
 	},
 	formComponents: {
 		SubmitButton,

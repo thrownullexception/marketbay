@@ -6,12 +6,37 @@ import { createTreatyQueryOptions, type EdenResponse } from "./treaty-key";
 
 export const createMerchantQuery = <TData>(
 	selector: (t: ReturnType<typeof getMerchantTreaty>) => EdenResponse<TData>,
-) => createQuery(() => createTreatyQueryOptions(getMerchantTreaty, selector));
+	placeholderData: TData,
+) =>
+	{
+		const foo = createQuery(() =>
+			createTreatyQueryOptions("merchant", getMerchantTreaty, selector),
+		);
+		return {
+			...foo,
+			data: foo.data ?? placeholderData,
+		};
+	};
 
 export const createShopQuery = <TData>(
 	selector: (t: ReturnType<typeof getShopTreaty>) => EdenResponse<TData>,
-) => createQuery(() => createTreatyQueryOptions(getShopTreaty, selector));
+	placeholderData: TData,
+) => {
+const foo = createQuery(() =>
+		createTreatyQueryOptions("shop", getShopTreaty, selector),
+	);
+	return {
+		...foo,
+		data: foo.data ?? placeholderData,
+	};
+};
 
 export const createAdminQuery = <TData>(
 	selector: (t: ReturnType<typeof getAdminTreaty>) => EdenResponse<TData>,
-) => createQuery(() => createTreatyQueryOptions(getAdminTreaty, selector));
+	placeholderData: TData,
+) =>
+	createQuery(() =>
+		createTreatyQueryOptions("admin", getAdminTreaty, selector, {
+			placeholderData,
+		}),
+	);

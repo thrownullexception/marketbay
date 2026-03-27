@@ -3,7 +3,6 @@ import {
 	ChangePasswordRequestSchema,
 	LoginRequestSchema,
 	RegisterRequestSchema,
-	ResendVerificationEmailRequestSchema,
 	ResetPasswordRequestSchema,
 	SendPasswordResetEmailRequestSchema,
 	VerifyEmailRequestSchema,
@@ -148,11 +147,16 @@ export const authShopController = new Elysia({
 	.post(
 		"/resend-verification-email",
 		async ({
-			body,
 			cookie: { [UN_AUTHENTICATED_USER_COOKIE_NAME]: userHashCookie },
 		}) => {
-			const user =
-				await IdentityModule.services.auth.resendVerificationEmail(body);
+			if (!userHashCookie.value) {
+				throw new BadRequestError(
+					"User not provided, Please signin and try again",
+				);
+			}
+			const user = await IdentityModule.services.auth.resendVerificationEmail(
+				UserIdTransformer.toDbId(userHashCookie.value as string),
+			);
 
 			const userHash = UserIdTransformer.toPublicHash(user.userId);
 
@@ -163,9 +167,6 @@ export const authShopController = new Elysia({
 			return {
 				userHash,
 			};
-		},
-		{
-			body: ResendVerificationEmailRequestSchema,
 		},
 	)
 	.use(authenticatedUserMiddleware)

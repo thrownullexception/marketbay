@@ -448,23 +448,10 @@ export class AuthService {
 		});
 	}
 
-	async resendVerificationEmail(input: { email: string }) {
-		const userId = await this.usersService.getUserIdFromField({
-			field: "email",
-			value: input.email,
-		});
-
-		if (userId === "null") {
-			return {
-				userId: randomService.generateSecureRandomNumber({
-					length: 6,
-				}) as UserId,
-			};
-		}
-
+	async resendVerificationEmail(userId: UserId) {
 		const user = await this.usersService.getFieldsFromUserIdOrFail({
 			userId,
-			fields: ["firstName"],
+			fields: ["firstName", "email"],
 		});
 
 		const otp = await this.createOtp({
@@ -473,7 +460,7 @@ export class AuthService {
 		});
 
 		await this.mailService.send({
-			to: input.email,
+			to: user.email,
 			params: { otp: otp, firstName: user.firstName },
 			type: "verification",
 		});

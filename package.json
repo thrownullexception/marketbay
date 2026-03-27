@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.1.10",
+    "@corvu/otp-field": "^0.1.4",
     "@elysiajs/eden": "^1.4.8",
     "@elysiajs/openapi": "^1.4.14",
     "@kobalte/core": "^0.13.11",
