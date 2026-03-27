@@ -40,3 +40,13 @@ export const isAuthenticatedBeforeLoad = async ({
 	return { user };
 };
 
+export const isGuestBeforeLoad = async () => {
+	const user = await getCurrentUserFn();
+
+	if (user) {
+		throw redirect({
+			to: "/account",
+		});
+	}
+};
+

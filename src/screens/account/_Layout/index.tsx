@@ -5,7 +5,7 @@ export const AccountLayout = () => {
 	return (
 		<>
 			<TopBar variant="buyer" />
-			<MainNav variant="buyer" isAuthenticated={true} />
+			<MainNav variant="buyer" />
 			<SidebarLayout sidebar={<NavSection />} />
 			<Footer variant="full" />
 		</>

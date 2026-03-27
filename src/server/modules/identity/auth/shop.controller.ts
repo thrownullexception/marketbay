@@ -170,6 +170,14 @@ export const authShopController = new Elysia({
 		},
 	)
 	.use(authenticatedUserMiddleware)
+	.get("/me", async ({ authenticatedUserId }) => {
+		const user =
+			await IdentityModule.services.users.getFieldsFromUserIdOrFail({
+				userId: authenticatedUserId,
+				fields: ["firstName", "lastName"],
+			});
+		return user;
+	})
 	.post(
 		"/change-password",
 		async ({ authenticatedUserId, body }) => {
