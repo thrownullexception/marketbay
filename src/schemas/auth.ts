@@ -9,8 +9,6 @@ const otpSchema = v.pipe(
 	v.check((value) => /[0-9]/.test(value), `Valid OTPs contain only numbers`),
 );
 
-export const AuthenticatedUserResponseSchema = v.object({});
-
 const passwordInsertSchema = v.pipe(
 	v.string(),
 	v.minLength(8),
@@ -41,6 +39,8 @@ export const RegisterRequestSchema = v.object({
 		v.check((value) => value, "You must agree to the terms and privacy policy"),
 	),
 });
+
+export const ResendVerificationEmailRequestSchema = v.object({});
 
 export const SendPasswordResetEmailRequestSchema = v.object({
 	email: emailSchema,

@@ -6,7 +6,7 @@ export const FormCard = (props: {
 	children: JSX.Element;
 }) => {
 	return (
-		<div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+		<div class="bg-white rounded-2xl border border-gray-100">
 			{props.title && (
 				<div class="px-6 py-4 border-b border-gray-100">
 					<h2 class="text-base font-bold text-gray-900">{props.title}</h2>

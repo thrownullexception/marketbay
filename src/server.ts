@@ -20,11 +20,19 @@ export default createServerEntry({
 
 		const response = await handler.fetch(request);
 
+		const isServerFn = url.pathname.startsWith("/_serverFn");
+
+		const path = isServerFn ? '/_serverFn' : url.pathname;
+
 		const duration = Math.round(performance.now() - start);
 		logger.info(
-			{ path: url.pathname, duration },
-			`SSR: ${url.pathname} ${duration}ms`,
+			{ path, duration },
+			`SSR: ${path} ${duration}ms`,
 		);
+
+		if (isServerFn) {
+            return response;
+        }
 
 		const acceptEncoding = request.headers.get("accept-encoding") ?? "";
 		if (!acceptEncoding.includes("gzip") || !response.body) {

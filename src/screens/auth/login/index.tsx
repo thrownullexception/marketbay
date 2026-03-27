@@ -20,7 +20,7 @@ export function LoginScreen() {
 			if (data.data?.type === "not_verified") {
 				navigate({to: "/verify-email"});
 			} else if (data.data?.type === "authenticated") {
-				navigate({to: "/account"});
+				navigate({to: "/account", reloadDocument: true});
 			}
 		},
 		endpoints: [
@@ -73,7 +73,7 @@ export function LoginScreen() {
 								Icon={LockIcon}
 								labelLink={{
 									label: "Forgot password?",
-									to: "/forgotpassword",
+									to: "/forgot-password",
 								}}
 							/>
 						)}

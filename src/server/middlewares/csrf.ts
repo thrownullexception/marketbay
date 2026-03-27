@@ -1,13 +1,14 @@
 import type { Elysia } from "elysia";
+import { ForbiddenRequestError } from "../shared/errors";
 
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 const ALLOWED_SITES = new Set(["same-origin", "same-site"]);
 
-const trustedOrigins = ["https://market-bay.com", "https://www.market-bay.com"];
+const trustedOrigins = ["https://market-bay.com", "https://www.market-bay.com"]; // TODO:
 
 export const csrfMiddleware = (app: Elysia) => {
 	return app
-		.onBeforeHandle(({ request, status }) => {
+		.onBeforeHandle(({ request }) => {
 			if (SAFE_METHODS.has(request.method)) return;
 
 			const secFetchSite = request.headers.get("Sec-Fetch-Site");
@@ -28,7 +29,7 @@ export const csrfMiddleware = (app: Elysia) => {
 			}
 
 			// Case 3: Header is missing, 'none', or 'cross-site' (untrusted) -> FAIL
-			return status(403, "Forbidden: Cross-Site Request Blocked");
+			throw new ForbiddenRequestError("Cross-Site Request Blocked");
 		})
 		.onAfterHandle(({ set }) => {
 			// This ensures caches treat requests from different origins differently

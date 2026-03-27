@@ -29,7 +29,7 @@ import { Route as AccountAddressesRouteImport } from './routes/account/addresses
 import { Route as authVerifyEmailRouteImport } from './routes/(auth)/verify-email'
 import { Route as authRegisterRouteImport } from './routes/(auth)/register'
 import { Route as authLoginRouteImport } from './routes/(auth)/login'
-import { Route as authForgotpasswordRouteImport } from './routes/(auth)/forgotpassword'
+import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-password'
 import { Route as appStoresRouteImport } from './routes/(app)/stores'
 import { Route as appSearchRouteImport } from './routes/(app)/search'
 import { Route as appHelpRouteImport } from './routes/(app)/help'
@@ -158,9 +158,9 @@ const authLoginRoute = authLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => authRouteRoute,
 } as any)
-const authForgotpasswordRoute = authForgotpasswordRouteImport.update({
-  id: '/forgotpassword',
-  path: '/forgotpassword',
+const authForgotPasswordRoute = authForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => authRouteRoute,
 } as any)
 const appStoresRoute = appStoresRouteImport.update({
@@ -325,7 +325,7 @@ export interface FileRoutesByFullPath {
   '/help': typeof appHelpRoute
   '/search': typeof appSearchRoute
   '/stores': typeof appStoresRoute
-  '/forgotpassword': typeof authForgotpasswordRoute
+  '/forgot-password': typeof authForgotPasswordRoute
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
   '/verify-email': typeof authVerifyEmailRoute
@@ -372,7 +372,7 @@ export interface FileRoutesByTo {
   '/help': typeof appHelpRoute
   '/search': typeof appSearchRoute
   '/stores': typeof appStoresRoute
-  '/forgotpassword': typeof authForgotpasswordRoute
+  '/forgot-password': typeof authForgotPasswordRoute
   '/login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
   '/verify-email': typeof authVerifyEmailRoute
@@ -423,7 +423,7 @@ export interface FileRoutesById {
   '/(app)/help': typeof appHelpRoute
   '/(app)/search': typeof appSearchRoute
   '/(app)/stores': typeof appStoresRoute
-  '/(auth)/forgotpassword': typeof authForgotpasswordRoute
+  '/(auth)/forgot-password': typeof authForgotPasswordRoute
   '/(auth)/login': typeof authLoginRoute
   '/(auth)/register': typeof authRegisterRoute
   '/(auth)/verify-email': typeof authVerifyEmailRoute
@@ -474,7 +474,7 @@ export interface FileRouteTypes {
     | '/help'
     | '/search'
     | '/stores'
-    | '/forgotpassword'
+    | '/forgot-password'
     | '/login'
     | '/register'
     | '/verify-email'
@@ -521,7 +521,7 @@ export interface FileRouteTypes {
     | '/help'
     | '/search'
     | '/stores'
-    | '/forgotpassword'
+    | '/forgot-password'
     | '/login'
     | '/register'
     | '/verify-email'
@@ -571,7 +571,7 @@ export interface FileRouteTypes {
     | '/(app)/help'
     | '/(app)/search'
     | '/(app)/stores'
-    | '/(auth)/forgotpassword'
+    | '/(auth)/forgot-password'
     | '/(auth)/login'
     | '/(auth)/register'
     | '/(auth)/verify-email'
@@ -762,11 +762,11 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof authLoginRouteImport
       parentRoute: typeof authRouteRoute
     }
-    '/(auth)/forgotpassword': {
-      id: '/(auth)/forgotpassword'
-      path: '/forgotpassword'
-      fullPath: '/forgotpassword'
-      preLoaderRoute: typeof authForgotpasswordRouteImport
+    '/(auth)/forgot-password': {
+      id: '/(auth)/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof authForgotPasswordRouteImport
       parentRoute: typeof authRouteRoute
     }
     '/(app)/stores': {
@@ -1040,14 +1040,14 @@ const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
 )
 
 interface authRouteRouteChildren {
-  authForgotpasswordRoute: typeof authForgotpasswordRoute
+  authForgotPasswordRoute: typeof authForgotPasswordRoute
   authLoginRoute: typeof authLoginRoute
   authRegisterRoute: typeof authRegisterRoute
   authVerifyEmailRoute: typeof authVerifyEmailRoute
 }
 
 const authRouteRouteChildren: authRouteRouteChildren = {
-  authForgotpasswordRoute: authForgotpasswordRoute,
+  authForgotPasswordRoute: authForgotPasswordRoute,
   authLoginRoute: authLoginRoute,
   authRegisterRoute: authRegisterRoute,
   authVerifyEmailRoute: authVerifyEmailRoute,

@@ -3,6 +3,7 @@ import {
 	ChangePasswordRequestSchema,
 	LoginRequestSchema,
 	RegisterRequestSchema,
+	ResendVerificationEmailRequestSchema,
 	ResetPasswordRequestSchema,
 	SendPasswordResetEmailRequestSchema,
 	VerifyEmailRequestSchema,
@@ -17,6 +18,7 @@ import {
 	OTP_EXPIRATION_TIME,
 	UN_AUTHENTICATED_USER_COOKIE_NAME,
 } from "./constants";
+import { AuthenticatedUserTransformer } from "./types";
 
 export const authShopController = new Elysia({
 	prefix: "/auth",
@@ -168,6 +170,9 @@ export const authShopController = new Elysia({
 				userHash,
 			};
 		},
+		{
+			body: ResendVerificationEmailRequestSchema,
+		}
 	)
 	.use(authenticatedUserMiddleware)
 	.get("/me", async ({ authenticatedUserId }) => {
@@ -176,7 +181,11 @@ export const authShopController = new Elysia({
 				userId: authenticatedUserId,
 				fields: ["firstName", "lastName"],
 			});
-		return user;
+		return {...new AuthenticatedUserTransformer({
+			id: authenticatedUserId,
+			firstName: user.firstName,
+			lastName: user.lastName,
+		})};
 	})
 	.post(
 		"/change-password",

@@ -45,6 +45,7 @@ export const NavItems = (props: { items: NavLinkItemProps[][] }) => {
 		mutationFn: getShopTreaty().auth.signout.post,
 		redirect: linkOptions({
 			to: "/",
+			reloadDocument: true,
 		}),
 		endpoints: [
 			getShopTreatyQueryKey((t) => t.auth.me.get()),

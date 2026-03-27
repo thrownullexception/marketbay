@@ -10,11 +10,10 @@ import { useAppForm } from "@/ui/form";
 import { FormCard, FormHeader, FormRoot, FormText } from "@/ui/form/card";
 import { TextLink } from "@/ui/link";
 
-// if no local storage email, redirect to login
-
 export function VerifyEmailScreen() {
 	const resendMutation = useTreatyMutation(() => ({
-		mutationFn: getShopTreaty().auth["resend-verification-email"].post,
+		mutationFn: () =>
+			getShopTreaty().auth["resend-verification-email"].post({}),
 		endpoints: [],
 		onSuccessMessage: () => "Verification code resent — check your inbox.",
 	}));
@@ -30,7 +29,7 @@ export function VerifyEmailScreen() {
 			otp: "",
 		} as v.InferInput<typeof VerifyEmailRequestSchema>,
 		validators: {
-			onChange: VerifyEmailRequestSchema,
+			onSubmit: VerifyEmailRequestSchema,
 		},
 		onSubmit: async ({ value }) => {
 			await verifyMutation.mutateAsync(value);
@@ -58,14 +57,14 @@ export function VerifyEmailScreen() {
 						variant="info"
 						description="Check your inbox (and spam folder) for an email from MarketBay with your verification code."
 					/>
-				<form.AppField name="otp">
-					{(field) => (
-						<field.InputOtp
-							label="Verification code"
-							maxLength={OTP_LENGTH}
-						/>
-					)}
-				</form.AppField>
+					<form.AppField name="otp">
+						{(field) => (
+							<field.InputOtp
+								label="Verification code"
+								maxLength={OTP_LENGTH}
+							/>
+						)}
+					</form.AppField>
 
 					<form.AppForm>
 						<form.SubmitButton label="Verify Email" Icon={ShieldCheckIcon} />

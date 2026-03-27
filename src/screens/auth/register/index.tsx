@@ -91,7 +91,7 @@ export function RegisterScreen() {
 								Icon={LockIcon}
 								labelLink={{
 									label: "Forgot password?",
-									to: "/forgotpassword",
+									to: "/forgot-password",
 								}}
 							/>
 						)}

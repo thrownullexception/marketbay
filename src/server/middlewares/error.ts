@@ -2,6 +2,7 @@ import type Elysia from "elysia";
 import { status } from "elysia";
 import {
 	BadRequestError,
+	ForbiddenRequestError,
 	NotFoundRequestError,
 	UnAuthorizedRequestError,
 } from "../shared/errors";
@@ -12,6 +13,7 @@ export const errorMiddleware = (app: Elysia) => {
 			BAD_REQUEST: BadRequestError,
 			NOT_FOUND: NotFoundRequestError,
 			UNAUTHORIZED: UnAuthorizedRequestError,
+			FORBIDDEN: ForbiddenRequestError,
 		})
 		.onError(({ error, code }) => {
 			console.error("❌", { code, error });

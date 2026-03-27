@@ -71,3 +71,23 @@ export class UnAuthorizedRequestError extends Error {
 		);
 	}
 }
+
+export class ForbiddenRequestError extends Error {
+	status = 403;
+
+	constructor(public message = "Forbidden") {
+		super(message);
+	}
+	
+	toResponse() {
+		return Response.json(
+			{
+				message: this.message,
+				code: this.status,
+			} satisfies ErrorResponse,
+			{
+				status: this.status,
+			},
+		);
+	}
+}
